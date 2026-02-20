@@ -1,8 +1,11 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f7f9fc;
+  --foreground: #0f243a;
+  --accent-color: #c9f7e5;
+  --primary-color: #0f243a;
+  --accent-font: var(--font-sans);
 }
 
 @theme inline {
@@ -22,5 +25,124 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--accent-font), Arial, Helvetica, sans-serif;
+  line-height: 1.6;
+}
+
+.section-shell {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  color: #ffffff;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background-position: center;
+  background-size: cover;
+  filter: saturate(0.9);
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(10, 28, 47, 0.7) 0%,
+    rgba(10, 28, 47, 0.82) 55%,
+    rgba(10, 28, 47, 0.92) 100%
+  );
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+}
+
+.ticker {
+  background: var(--accent-color);
+  color: var(--primary-color);
+  border-top: 1px solid rgba(15, 36, 58, 0.12);
+  border-bottom: 1px solid rgba(15, 36, 58, 0.12);
+  overflow: hidden;
+}
+
+.ticker-track {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  padding: 12px 0;
+  animation: ticker 32s linear infinite;
+  width: max-content;
+}
+
+.ticker-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+  letter-spacing: 0.02em;
+}
+
+.ticker-star {
+  width: 8px;
+  height: 8px;
+  background: var(--primary-color);
+  opacity: 0.8;
+  transform: rotate(45deg);
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ticker-track {
+    animation: none;
+  }
+}
+
+@keyframes ticker {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.btn-default {
+  position: relative;
+  display: inline-block;
+  background: var(--accent-color);
+  border-radius: 10px;
+  font-family: var(--accent-font);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1em;
+  text-transform: capitalize;
+  color: var(--primary-color);
+  border: none;
+  padding: 17px 50px 17px 20px;
+  overflow: hidden;
+  transition: all 0.4s ease-in-out;
+  z-index: 0;
+  cursor: pointer;
+}
+
+.btn-default.btn-sm {
+  padding: 12px 38px 12px 18px;
+  font-size: 12px;
+  border-radius: 8px;
+}
+
+.btn-default.btn-outline {
+  background: transparent;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.4);
 }
