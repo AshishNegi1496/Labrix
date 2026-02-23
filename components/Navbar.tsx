@@ -1,56 +1,45 @@
-import Link from 'next/link';
-import LogoMark from '@/components/LogoMark';
+import Link from "next/link";
+import LogoMark from "@/components/LogoMark";
 
 const navItems = [
-  { href: '/', label: 'Home' },
-  { href: '/about', label: 'About Us' },
-  { href: '/services', label: 'Services' },
-  { href: '/blog', label: 'Blog' },
+  { href: "/", label: "Home" },
+  { href: "/about", label: "About" },
+  { href: "/services", label: "Services" },
+  { href: "/blog", label: "Blog" },
 ];
 
 export default function Navbar() {
   return (
-    <header className='absolute left-0 top-0 z-50 w-full'>
-      <div className='section-shell flex items-center justify-between py-6 text-white'>
-        <Link href='/' className='flex items-center gap-3'>
+    <header className="absolute inset-x-0 top-0 z-50">
+      <div className="mx-auto grid max-w-7xl grid-cols-[auto_1fr_auto] items-center px-6 py-6 text-white">
+        {/* Logo — Left */}
+        <Link href="/" className="flex items-center gap-2 justify-self-start">
           <LogoMark />
-          <span className='text-xs font-semibold uppercase tracking-[0.35em]'>
-            labrix
+          <span className="type-h6 font-semibold uppercase tracking-[0.3em]">
+            Labrix
           </span>
         </Link>
 
-        <nav className='hidden items-center gap-6 text-sm text-white/80 lg:flex'>
+        {/* Navigation — Center */}
+        <nav className="hidden justify-self-center items-center gap-8 type-h6 text-white/80 lg:flex">
           {navItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className='transition hover:text-white'
+              className="transition hover:text-white"
             >
               {item.label}
             </Link>
           ))}
-          <span className='inline-flex items-center gap-1 text-white/80'>
-            Pages
-            <svg
-              viewBox='0 0 16 16'
-              className='h-3 w-3'
-              fill='none'
-              stroke='currentColor'
-              strokeWidth='1.5'
-            >
-              <path d='M4 6l4 4 4-4' />
-            </svg>
-          </span>
-          <Link href='/contact' className='transition hover:text-white'>
-            Contact Us
-          </Link>
         </nav>
 
-        <div className='flex items-center gap-3'>
-          <Link href='/contact' className='btn-default btn-sm'>
-            Contact Us
-          </Link>
-        </div>
+        {/* CTA — Right */}
+        <Link
+          href="/contact"
+          className="hidden justify-self-end rounded-full border border-white/30 px-4 py-2 text-sm text-white transition hover:bg-white hover:text-black lg:inline-flex"
+        >
+          Contact
+        </Link>
       </div>
     </header>
   );
