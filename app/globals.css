@@ -184,7 +184,7 @@ a {
   display: flex;
   align-items: center;
   gap: 28px;
-  padding: 12px 0;
+  padding: 20px 0;
   animation: ticker 32s linear infinite;
   width: max-content;
 }
@@ -225,58 +225,61 @@ a {
 .btn-default {
   position: relative;
   display: inline-block;
-  background: var(--color-accent);
-  border-radius: var(--radius-sm);
+  background: var(--color-primary);  /* Base color that appears after vanish */
+  border-radius: var(--radius-xl);
   font-family: var(--font-body);
   font-size: 14px;
   font-weight: 700;
   line-height: 1em;
   text-transform: capitalize;
-  color: var(--color-primary);
-  border: none;
+  color: var(--text-description);  /* Better contrast against primary color */
+  /* border: none; */
   padding: 17px 50px 17px 20px;
   overflow: hidden;
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast),
-    background var(--transition-fast);
+  transition: transform var(--transition-fast), 
+              box-shadow var(--transition-fast),
+              background-color var(--transition-fast);
   z-index: 0;
   cursor: pointer;
+  isolation: isolate;  /* Creates a new stacking context */
 }
 
+/* The vanishing accent layer */
+.btn-default::before {
+  content: '';
+  position: absolute;
+  inset: 0;  /* Modern shorthand for top:0; right:0; bottom:0; left:0 */
+  background: var(--color-accent);
+  border-radius: var(--radius-sm);
+  transform-origin: top left;
+  transform: scale(1);
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);  /* Smooth easing */
+  z-index: -1;
+}
+
+/* Diagonal vanish effect on hover */
+.btn-default:hover::before {
+  transform: scale(0);
+}
+
+/* Ensure text remains readable */
 .btn-default:hover {
-  background: var(--color-accent-hover);
-  transform: translateY(-1px);
-  box-shadow: 0 14px 28px rgba(15, 36, 58, 0.18);
-}
-
-.btn-default:active {
-  background: var(--color-accent-active);
-  transform: translateY(0);
-}
-
-.btn-default:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(124, 207, 187, 0.4);
-}
-
-.btn-default:disabled {
-  background: #e9f4f0;
-  color: #9fb3b0;
-  cursor: not-allowed;
-  box-shadow: none;
-}
-
-.btn-default.btn-sm {
-  padding: 12px 38px 12px 18px;
-  font-size: 12px;
-  border-radius: 8px;
-}
-
-.btn-default.btn-outline {
-  background: transparent;
   color: var(--text-invert);
-  border: 1px solid rgba(255, 255, 255, 0.4);
 }
 
+/* Optional: Add a subtle scale effect for extra polish */
+.btn-default:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card);
+   color: var(--text-invert);
+}
+
+/* Active state for click feedback */
+.btn-default:active {
+  transform: translateY(0);
+  box-shadow: none;
+  transition: transform var(--transition-fast);
+}
 .btn-secondary {
   background: var(--color-primary);
   color: var(--text-invert);
@@ -292,7 +295,7 @@ a {
 
 .btn-outline {
   background: transparent;
-  color: var(--text-heading);
+  color: var(--text-description);
   border: 1px solid var(--border-divider);
 }
 

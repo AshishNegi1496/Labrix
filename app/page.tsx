@@ -296,7 +296,7 @@ export default function Home() {
   return (
     <PageTransition>
       {/* first section with video in bg */}
-      <section className="relative overflow-hidden">
+      <section className="relative overflow-hidden ">
         <video
           className="absolute inset-0 h-full w-full object-cover"
           src="/videos/homePageVideo.mp4"
@@ -326,7 +326,7 @@ export default function Home() {
               <Link href="/services" className="btn-default">
                 Get Started
               </Link>
-              <Link href="/contact" className="btn-default btn-outline">
+              <Link href="/contact" className="btn-default ">
                 Explore
               </Link>
             </div>
@@ -352,14 +352,6 @@ export default function Home() {
             rel="noopener noreferrer"
             className="group relative mx-auto w-full max-w-md"
           >
-            {/* <Image
-              src="/images/video-preview.jpg"
-              width={500}
-              height={500}
-              alt=""
-            /> */}
-
-            {/* Play button */}
             <span className="absolute inset-0 flex items-center justify-center">
               <span className="flex h-20 w-20 items-center justify-center rounded-full bg-white/20 backdrop-blur transition group-hover:scale-110">
                 <svg
@@ -391,14 +383,15 @@ export default function Home() {
 
           <div className="grid gap-6 sm:grid-cols-2">
             {featureCards.map(({ title, text, image }) => (
-              <div key={title} className="rounded-2xl border p-4">
-                <div
-                  className="h-36 rounded-xl bg-cover"
-                  style={{ backgroundImage: `url(${image})` }}
-                />
-                <h3 className="mt-4 font-semibold">{title}</h3>
-                <p className="mt-2 text-xs text-(--muted-color)">{text}</p>
-              </div>
+              <GlassCard
+                key={title}
+                title={title}
+                description={text}
+                image={image}
+                height="h-64"
+                glowColor="bg-emerald-400/20"
+                hoverEffect="both"
+              />
             ))}
           </div>
         </div>
@@ -430,6 +423,7 @@ export default function Home() {
           </div>
         </section>
       </SectionWrapper>
+
       <SectionWrapper>
         <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] items-center">
           <Image

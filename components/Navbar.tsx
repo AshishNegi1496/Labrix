@@ -36,7 +36,7 @@ export default function Navbar() {
         {/* CTA — Right */}
         <Link
           href="/contact"
-          className="hidden justify-self-end rounded-full border border-white/30 px-4 py-2 text-sm text-white transition hover:bg-white hover:text-black lg:inline-flex"
+          className="hidden justify-self-end btn-default lg:inline-flex"
         >
           Contact
         </Link>
