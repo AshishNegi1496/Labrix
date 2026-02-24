@@ -1,35 +1,55 @@
-import type { ReactNode } from "react";
+import Image from "next/image";
+import { cn } from "@/lib/cn";
 
 type GlassCardProps = {
   title: string;
   description?: string;
+  image: string;
   tag?: string;
-  children?: ReactNode;
+  className?: string;
 };
 
 export default function GlassCard({
   title,
   description,
+  image,
   tag,
-  children,
+  className,
 }: GlassCardProps) {
-  const copy =
-    description ??
-    "Modular product support designed for fast-moving teams.";
-
   return (
-    <article className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-6 shadow-[0_20px_80px_-60px_rgba(15,23,42,0.9)] backdrop-blur">
-      <div className="absolute inset-0 opacity-0 transition duration-300 group-hover:opacity-100">
-        <div className="absolute -top-20 right-0 h-40 w-40 rounded-full bg-emerald-400/20 blur-3xl" />
+    <article
+      className={cn(
+        "group relative h-72 overflow-hidden rounded-2xl",
+        "border border-white/10 backdrop-blur",
+        className,
+      )}
+    >
+      {/* Background Image */}
+      <Image
+        src={image}
+        alt={title}
+        fill
+        className="object-cover transition duration-500 group-hover:scale-105"
+      />
+
+      {/* Dark overlay */}
+      <div className="absolute inset-0 bg-black/45 transition group-hover:bg-black/25" />
+
+      {/* Glow */}
+      <div className="absolute -top-24 right-0 h-40 w-40 bg-emerald-400/20 blur-3xl opacity-0 group-hover:opacity-100 transition" />
+
+      {/* Content */}
+      <div className="relative z-10 flex h-full flex-col justify-end p-6 text-white">
+        {tag && (
+          <span className="mb-2 text-xs uppercase tracking-[0.3em] text-emerald-300">
+            {tag}
+          </span>
+        )}
+        <h3 className="text-lg font-semibold">{title}</h3>
+        {description && (
+          <p className="mt-1 text-sm text-white/80">{description}</p>
+        )}
       </div>
-      {tag ? (
-        <span className="text-xs uppercase tracking-[0.3em] text-emerald-200/80">
-          {tag}
-        </span>
-      ) : null}
-      <h3 className="mt-3 text-xl font-semibold">{title}</h3>
-      <p className="mt-3 text-sm text-white/70">{copy}</p>
-      {children ? <div className="mt-6">{children}</div> : null}
     </article>
   );
 }

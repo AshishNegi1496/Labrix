@@ -1,8 +1,9 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import type { ReactNode } from 'react';
-import { pageTransition } from '@/lib/motion';
+import { motion } from "framer-motion";
+import type { ReactNode } from "react";
+import { pageTransition } from "@/lib/motion";
+import { cn } from "@/lib/cn";
 
 type PageTransitionProps = {
   children: ReactNode;
@@ -15,10 +16,10 @@ export default function PageTransition({
 }: PageTransitionProps) {
   return (
     <motion.main
-      initial='initial'
-      animate='animate'
+      initial="initial"
+      animate="animate"
       variants={pageTransition}
-      className={['min-h-screen', className].filter(Boolean).join(' ')}
+      className={cn("min-h-screen", className)}
     >
       {children}
     </motion.main>

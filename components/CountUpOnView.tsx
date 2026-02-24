@@ -1,5 +1,14 @@
 "use client";
+
 import { useEffect, useRef, useState } from "react";
+
+type CountUpOnViewProps = {
+  from?: number;
+  to: number;
+  duration?: number;
+  suffix?: string;
+  className?: string;
+};
 
 export default function CountUpOnView({
   from = 0,
@@ -7,8 +16,8 @@ export default function CountUpOnView({
   duration = 2000,
   suffix = "",
   className = "",
-}) {
-  const ref = useRef(null);
+}: CountUpOnViewProps) {
+  const ref = useRef<HTMLSpanElement | null>(null);
   const [count, setCount] = useState(from);
   const [started, setStarted] = useState(false);
 
@@ -32,10 +41,10 @@ export default function CountUpOnView({
   useEffect(() => {
     if (!started) return;
 
-    let startTime = null;
+    let startTime: number | null = null;
 
-    const animate = (time) => {
-      if (!startTime) startTime = time;
+    const animate = (time: number) => {
+      if (startTime === null) startTime = time;
       const progress = Math.min((time - startTime) / duration, 1);
 
       const value = Math.floor(progress * (to - from) + from);

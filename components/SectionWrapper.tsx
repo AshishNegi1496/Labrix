@@ -1,10 +1,12 @@
-import type { ReactNode } from 'react';
+import type { ReactNode } from "react";
+import { cn } from "@/lib/cn";
 
 type SectionWrapperProps = {
   children: ReactNode;
   className?: string;
   innerClassName?: string;
   id?: string;
+  fullBleed?: boolean;
 };
 
 export default function SectionWrapper({
@@ -12,14 +14,16 @@ export default function SectionWrapper({
   className,
   innerClassName,
   id,
+  fullBleed,
 }: SectionWrapperProps) {
   return (
-    <section
-      id={id}
-      className={['py-14 md:py-20', className].filter(Boolean).join(' ')}
-    >
+    <section id={id} className={cn("py-14 md:py-20", className)}>
       <div
-        className={['section-shell', innerClassName].filter(Boolean).join(' ')}
+        className={cn(
+          "section-shell",
+          fullBleed && "[--container-max:100%] px-0",
+          innerClassName,
+        )}
       >
         {children}
       </div>

@@ -19,6 +19,7 @@
   --text-body: #1e3248;
   --text-muted: #6c7e93;
   --text-invert: #ffffff;
+  --text-description:#1d1d1f; 
 
   --border-light: #e2e8f1;
   --border-divider: #d7dfea;
@@ -59,6 +60,9 @@
   --primary-color: var(--color-primary);
   --muted-color: var(--text-muted);
   --accent-font: var(--font-body);
+
+
+   --container-max: 1440px;
 }
 
 @theme inline {

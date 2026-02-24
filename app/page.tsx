@@ -1,10 +1,21 @@
+"use client";
+
 import Link from "next/link";
+import type { ReactNode } from "react";
 import PageTransition from "@/components/PageTransition";
 import SectionWrapper from "@/components/SectionWrapper";
 import Ticker from "@/components/Ticker";
 import CountUpOnView from "@/components/CountUpOnView";
+import GlassCard from "@/components/GlassCard";
 import Image from "next/image";
+import { motion } from "framer-motion";
+import { TeamCard } from "../components/ui/TeamCard";
+// import { teamMembers } from "./team.data";
+import { containerVariants } from "../components/team.motion";
 
+import { FiActivity, FiClipboard, FiBarChart2, FiUsers } from "react-icons/fi";
+import { FaqItem } from "@/components/FaqItem";
+import { TestimonialCard } from "@/components/TestimonialCard";
 const images = {
   hero: "https://picsum.photos/seed/labrix-hero/1600/900",
   feature1: "https://picsum.photos/seed/labrix-feature-1/640/480",
@@ -82,21 +93,6 @@ const faqItems = [
   "What does onboarding look like?",
 ];
 
-const testimonials = [
-  {
-    quote:
-      "Labrix helped us shorten our validation cycle by weeks while improving data quality.",
-    name: "Ariana Blake",
-    role: "VP Research, Helix Labs",
-  },
-  {
-    quote:
-      "Their team moved seamlessly from discovery to delivery with clear communication.",
-    name: "Jonas Kent",
-    role: "Director of Innovation, GreenCore",
-  },
-];
-
 const blogPosts = [
   {
     title: "What it takes to ship safer diagnostics",
@@ -115,11 +111,192 @@ const blogPosts = [
   },
 ];
 
+const researchFields = [
+  {
+    title: "Biomedical Research",
+    description: "Applying biological systems and organisms",
+    image: "/images/service-1.jpg",
+    icon: "/images/icon-service-1.svg",
+  },
+  {
+    title: "Materials Science",
+    description: "Investigating advanced material properties",
+    image: "/images/service-1.jpg",
+    icon: "/images/icon-service-2.svg",
+  },
+  {
+    title: "Chemical Safety",
+    description: "Assessing substance impact and compliance",
+    image: "/images/service-1.jpg",
+    icon: "/images/icon-service-3.svg",
+  },
+  {
+    title: "Diagnostic Sciences",
+    description: "Scientific methods for diagnostics",
+    image: "/images/service-1.jpg",
+    icon: "/images/icon-service-4.svg",
+  },
+];
+const whatWeDoData = {
+  label: "What We Do",
+
+  title: (
+    <>
+      Transforming scientific questions <br />
+      into real-world results
+    </>
+  ),
+
+  description:
+    "At our core, we are dedicated to advancing scientific understanding through purposeful research tailored to address today’s most pressing challenges.",
+
+  cta: {
+    label: "Contact us",
+    href: "/contact",
+  },
+
+  counter: {
+    value: 98,
+    suffix: "%",
+    title: "Environmental Science",
+    text: "Our lab delivers data-driven insights that help protect natural.",
+  },
+
+  items: [
+    {
+      icon: FiActivity,
+      title: "Comprehensive Laboratory Testing",
+      text: "Advanced testing across scientific disciplines with validated results.",
+    },
+    {
+      icon: FiClipboard,
+      title: "Research Design & Methodology",
+      text: "Tailored strategies aligned with scientific best practices.",
+    },
+    {
+      icon: FiBarChart2,
+      title: "Data Analysis & Interpretation",
+      text: "Turning complex datasets into clear, actionable insights.",
+    },
+    {
+      icon: FiUsers,
+      title: "Collaborative Partnerships",
+      text: "Working with institutions, industry, and government agencies.",
+    },
+  ],
+};
+
+// caseStudies.data.ts
+export const caseStudies = [
+  {
+    title: "Genomic Research Unlocks Drought-Resistant Crop Varieties",
+    image: "/images/case-study-1.jpg",
+    href: "/case-studies/genomic-research",
+  },
+  {
+    title: "Detecting Water Contaminants Using Advanced Spectroscopy",
+    image: "/images/case-study-2.jpg",
+    href: "/case-studies/water-contaminants",
+  },
+  {
+    title: "Accelerating Vaccine Development with Rapid Antigen Testing",
+    image: "/images/case-study-3.jpg",
+    href: "/case-studies/vaccine-development",
+  },
+];
+
+// faqs.data.ts
+export const faqs = [
+  {
+    q: "What types of research services do you offer?",
+    a: "We specialize in laboratory testing, analytical research, custom experiments, and scientific data interpretation.",
+  },
+  {
+    q: "Can I request a custom research project?",
+    a: "Yes, we design tailored research projects aligned with your specific goals and requirements.",
+  },
+  {
+    q: "How long does a typical research project take?",
+    a: "Project timelines vary based on scope and complexity, but we always provide clear estimates upfront.",
+  },
+  {
+    q: "Are your labs certified or accredited?",
+    a: "Yes, our laboratories follow certified procedures and comply with industry accreditation standards.",
+  },
+  {
+    q: "How do I submit a sample or start a project?",
+    a: "You can contact us directly or submit a request through our website to begin the process.",
+  },
+];
+
+// testimonials.data.ts
+export const testimonials = [
+  {
+    name: "Jenny Wilson",
+    role: "Research Analyst",
+    image: "/images/author-1.jpg",
+    quote:
+      "You'll meet with our scientific advisors to define your research goals, scope, and budget with complete transparency.",
+    video: "https://www.youtube.com/watch?v=Y-x0efG1seA",
+  },
+  {
+    name: "Grace Martin",
+    role: "Lab Supervisor",
+    image: "/images/author-2.jpg",
+    quote:
+      "Their analytical depth and scientific rigor helped us accelerate results without compromising accuracy.",
+    video: "https://www.youtube.com/watch?v=Y-x0efG1seA",
+  },
+  {
+    name: "Emma Davis",
+    role: "Project Coordinator",
+    image: "/images/author-3.jpg",
+    quote:
+      "From planning to execution, the entire experience felt structured, professional, and results-driven.",
+    video: "https://www.youtube.com/watch?v=Y-x0efG1seA",
+  },
+];
+
+export const teamMembers = [
+  {
+    name: "Darlene Robertson",
+    role: "Molecular Biologist",
+    image: "/images/team-1.jpg",
+  },
+  {
+    name: "Dr. Olivia Hughes",
+    role: "Research Chemist",
+    image: "/images/team-2.jpg",
+  },
+  {
+    name: "Cameron Williamson",
+    role: "Project Lead",
+    image: "/images/team-3.jpg",
+  },
+  {
+    name: "Leslie Alexander",
+    role: "Lab Manager",
+    image: "/images/team-4.jpg",
+  },
+];
+const Ping = () => (
+  <span className="relative h-2.5 w-2.5">
+    <span className="absolute inset-0 rounded-full bg-green-300 animate-ping" />
+    <span className="absolute inset-0.5 rounded-full bg-green-300" />
+  </span>
+);
+
+const Badge = ({ children }: { children: ReactNode }) => (
+  <p className="inline-flex items-center gap-2 rounded-full border border-black/50 px-4 py-1.5 text-sm">
+    <Ping />
+    {children}
+  </p>
+);
 export default function Home() {
   return (
     <PageTransition>
+      {/* first section with video in bg */}
       <section className="relative overflow-hidden">
-        {/* Background video */}
         <video
           className="absolute inset-0 h-full w-full object-cover"
           src="/videos/homePageVideo.mp4"
@@ -130,26 +307,19 @@ export default function Home() {
         />
         <div className="absolute inset-0 bg-black/60" />
 
-        {/* Content */}
-        <div className="relative z-10 mx-auto grid max-w-7xl grid-cols-1 items-center gap-16 px-6 py-28 text-white md:grid-cols-2">
-          {/* LEFT — Text */}
+        <div className="relative z-10 mx-auto grid max-w-7xl gap-16 px-6 py-28 text-white md:grid-cols-2">
           <div>
             <p className="flex items-center gap-3 text-sm text-white/80">
-              <span className="relative h-3 w-3">
-                <span className="absolute inset-0 rounded-full bg-green-300 animate-ping" />
-                <span className="absolute inset-1 rounded-full bg-green-300" />
-              </span>
+              <Ping />
               The Science Behind Smarter Solutions
             </p>
 
-            <p className="mt-4 max-w-xl text-4xl md:text-6xl font-semibold leading-tight">
+            <p className="mt-4 max-w-xl text-4xl md:text-6xl font-semibold leading-tight text-background">
               Trusted Scientific Solutions for a Smarter, Safer World
             </p>
 
-            <p className="mt-6 max-w-lg text-base md:text-lg text-white/80">
-              With decades of experience and a future-focused mindset, we
-              support clients with accurate testing, custom research, and expert
-              consultation.
+            <p className="mt-6 max-w-lg text-white/80">
+              Accurate testing, custom research, and expert consultation.
             </p>
 
             <div className="mt-8 flex gap-4">
@@ -157,26 +327,25 @@ export default function Home() {
                 Get Started
               </Link>
               <Link href="/contact" className="btn-default btn-outline">
-                Explore Our Services
+                Explore
               </Link>
             </div>
 
-            <div className="mt-8 flex items-center gap-3 text-sm text-white/70">
+            <div className="mt-8 flex gap-3  text-white">
               <CountUpOnView
                 to={16}
                 suffix="+"
                 className="type-h2 font-semibold text-white"
               />
-              <span>years ·</span>
+              years ·
               <CountUpOnView
                 to={1200}
                 suffix="+"
                 className="type-h2 font-semibold text-white"
               />
-              <span>clients</span>
+              clients
             </div>
           </div>
-
           <a
             href="https://www.youtube.com/watch?v=YOUR_VIDEO_ID"
             target="_blank"
@@ -206,440 +375,284 @@ export default function Home() {
       </section>
 
       <Ticker />
-
-      <SectionWrapper>
-        <div className="grid gap-10 lg:grid-cols-[1.1fr_1fr] items-start">
+      <SectionWrapper fullBleed>
+        <div className="grid gap-10 lg:grid-cols-[1.1fr_1fr]">
           <div>
-            <p className="text-xs uppercase tracking-[0.4em] text-[var(--muted-color)]">
-              Pioneering
-            </p>
+            <Badge>About our Laboratory</Badge>
+
             <h2 className="mt-4 text-3xl md:text-4xl font-semibold">
-              Pioneering scientific research to transform knowledge into
-              real-world solutions
+              Pioneering scientific research into real-world solutions
             </h2>
-            <p className="mt-4 text-sm md:text-base text-[var(--muted-color)]">
-              Our multidisciplinary teams translate complex science into
-              practical outcomes for healthcare, biotech, and environmental
-              partners.
+
+            <p className="mt-4 text-(--muted-color)">
+              Translating complex science into practical outcomes.
             </p>
-            <div className="mt-6 flex items-center gap-3">
-              <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[var(--primary-color)] text-white text-xs font-semibold">
-                5k+
-              </span>
-              <div>
-                <p className="text-sm font-semibold">Industry collaborators</p>
-                <p className="text-xs text-[var(--muted-color)]">
-                  Across 18 global research hubs
-                </p>
-              </div>
-            </div>
           </div>
+
           <div className="grid gap-6 sm:grid-cols-2">
-            {featureCards.map((card) => (
-              <div
-                key={card.title}
-                className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm"
-              >
+            {featureCards.map(({ title, text, image }) => (
+              <div key={title} className="rounded-2xl border p-4">
                 <div
-                  className="h-36 rounded-xl bg-slate-200 bg-cover"
-                  style={{ backgroundImage: `url(${card.image})` }}
+                  className="h-36 rounded-xl bg-cover"
+                  style={{ backgroundImage: `url(${image})` }}
                 />
-                <h3 className="mt-4 text-base font-semibold">{card.title}</h3>
-                <p className="mt-2 text-xs text-[var(--muted-color)]">
-                  {card.text}
-                </p>
+                <h3 className="mt-4 font-semibold">{title}</h3>
+                <p className="mt-2 text-xs text-(--muted-color)">{text}</p>
               </div>
             ))}
           </div>
         </div>
-
-        <div className="mt-10 grid gap-6 md:grid-cols-3">
-          {researchCards.map((card) => (
-            <div
-              key={card.title}
-              className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm"
-            >
-              <div
-                className="h-40 rounded-2xl bg-slate-200 bg-cover"
-                style={{ backgroundImage: `url(${card.image})` }}
-              />
-              <h3 className="mt-4 text-lg font-semibold">{card.title}</h3>
-              <p className="mt-2 text-sm text-[var(--muted-color)]">
-                {card.text}
-              </p>
-            </div>
-          ))}
-        </div>
       </SectionWrapper>
-
-      <SectionWrapper>
-        <div className="rounded-3xl bg-[var(--accent-color)] p-8 md:p-12">
-          <div className="grid gap-10 lg:grid-cols-[1.1fr_1fr] items-start">
-            <div>
-              <p className="text-xs uppercase tracking-[0.4em] text-[var(--primary-color)]">
-                Innovation
-              </p>
-              <h2 className="mt-4 text-3xl md:text-4xl font-semibold text-[var(--primary-color)]">
-                Leading innovation across critical fields of research
-              </h2>
-              <p className="mt-4 text-sm md:text-base text-[var(--primary-color)] opacity-80">
-                We focus on the highest-impact programs, delivering clarity,
-                precision, and speed without compromising rigor.
-              </p>
-              <div className="mt-6 flex items-center gap-3 text-sm text-[var(--primary-color)]">
-                <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/80 text-xs font-semibold">
-                  42
-                </span>
-                Active research programs
+      <SectionWrapper fullBleed>
+        <section className="bg-(--color-accent) rounded-2xl py-24">
+          <div className="mx-auto max-w-[92%] px-6">
+            <div className="mb-16 grid gap-8 md:grid-cols-2">
+              <div>
+                <Badge>Key Research Fields</Badge>
+                <h2 className="mt-4 text-3xl md:text-5xl font-semibold">
+                  Leading innovation across <br /> critical research fields
+                </h2>
               </div>
+
+              <p className="text-(--text-muted)">
+                Each research field is supported by expert teams and
+                cutting-edge technologies, ensuring precision, innovation, and
+                real-world relevance. our work is rooted in curiosity, driven by
+                data, and designed to deliver meaningful impact.
+              </p>
             </div>
-            <div className="grid gap-4 sm:grid-cols-2">
-              {innovationCards.map((card) => (
-                <div
-                  key={card.title}
-                  className="rounded-2xl bg-white/90 p-5 shadow-sm"
-                >
-                  <h3 className="text-sm font-semibold text-[var(--primary-color)]">
-                    {card.title}
-                  </h3>
-                  <p className="mt-2 text-xs text-[var(--muted-color)]">
-                    {card.text}
-                  </p>
-                </div>
+
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {researchFields.map((f) => (
+                <GlassCard key={f.title} {...f} tag="Research" />
               ))}
             </div>
           </div>
-        </div>
+        </section>
       </SectionWrapper>
-
       <SectionWrapper>
-        <div className="grid gap-10 lg:grid-cols-[1.1fr_1fr] items-center">
-          <div className="relative overflow-hidden rounded-3xl bg-slate-100">
-            <div
-              className="h-72 bg-cover"
-              style={{ backgroundImage: `url(${images.lab})` }}
-            />
-            <div className="absolute bottom-4 left-4 rounded-2xl bg-white/85 px-4 py-2 text-xs font-semibold text-[var(--primary-color)]">
-              Powered by technology driven scientific curiosity
-            </div>
-          </div>
-          <div>
-            <p className="text-xs uppercase tracking-[0.4em] text-[var(--muted-color)]">
-              Technology
-            </p>
-            <h2 className="mt-4 text-3xl md:text-4xl font-semibold">
-              Intelligent tooling that keeps experiments repeatable
-            </h2>
-            <p className="mt-4 text-sm md:text-base text-[var(--muted-color)]">
-              Our labs blend automation and expert review to deliver reliable
-              results. Every workflow is calibrated for accuracy and speed.
-            </p>
-            <div className="mt-6 grid gap-3 text-sm text-[var(--muted-color)]">
-              <div className="flex items-start gap-3">
-                <span className="mt-2 h-2 w-2 rounded-full bg-[var(--primary-color)]" />
-                Automated validation of multi-sample runs
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="mt-2 h-2 w-2 rounded-full bg-[var(--primary-color)]" />
-                Dedicated quality leads embedded in every project
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="mt-2 h-2 w-2 rounded-full bg-[var(--primary-color)]" />
-                Cross-functional reporting in clear, shared dashboards
-              </div>
-            </div>
-          </div>
-        </div>
-      </SectionWrapper>
-
-      <SectionWrapper>
-        <div className="rounded-3xl bg-[var(--primary-color)] p-8 md:p-12 text-white">
-          <div className="grid gap-10 lg:grid-cols-[1.2fr_1fr] items-center">
-            <div>
-              <p className="text-xs uppercase tracking-[0.4em] text-white/60">
-                Transforming
-              </p>
-              <h2 className="mt-4 text-3xl md:text-4xl font-semibold">
-                Transforming scientific questions into real-world results
-              </h2>
-              <p className="mt-4 text-sm md:text-base text-white/70">
-                We align stakeholders, set measurable milestones, and keep teams
-                moving with clear documentation and weekly reviews.
-              </p>
-              <div className="mt-6 flex flex-wrap items-center gap-6 text-sm text-white/70">
-                <div>
-                  <p className="text-2xl font-semibold text-white">24%</p>
-                  Faster approvals
-                </div>
-                <div>
-                  <p className="text-2xl font-semibold text-white">3.1x</p>
-                  Data throughput
-                </div>
-              </div>
-              <div className="mt-6">
-                <Link href="/contact" className="btn-default btn-sm">
-                  Start a project
-                </Link>
-              </div>
-            </div>
-            <div className="grid gap-4">
-              {solutionCards.map((card) => (
-                <div
-                  key={card.title}
-                  className="rounded-2xl border border-white/15 bg-white/5 p-4"
-                >
-                  <h3 className="text-sm font-semibold">{card.title}</h3>
-                  <p className="mt-2 text-xs text-white/70">{card.text}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </SectionWrapper>
-
-      <SectionWrapper>
-        <div className="flex flex-wrap items-center justify-between gap-6">
-          <div>
-            <p className="text-xs uppercase tracking-[0.4em] text-[var(--muted-color)]">
-              Innovative solution
-            </p>
-            <h2 className="mt-4 text-3xl md:text-4xl font-semibold">
-              Backed by scientific rigor
-            </h2>
-          </div>
-          <Link href="/services" className="btn-default btn-sm">
-            View services
-          </Link>
-        </div>
-        <div className="mt-8 grid gap-6 md:grid-cols-3">
-          {solutionCards.map((card) => (
-            <div
-              key={card.title}
-              className="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm"
-            >
-              <div
-                className="h-40 rounded-2xl bg-slate-200 bg-cover"
-                style={{ backgroundImage: `url(${card.image})` }}
-              />
-              <p className="mt-3 text-xs uppercase tracking-[0.3em] text-[var(--muted-color)]">
-                Research
-              </p>
-              <h3 className="mt-2 text-lg font-semibold">{card.title}</h3>
-              <p className="mt-2 text-xs text-[var(--muted-color)]">
-                {card.text}
-              </p>
-            </div>
-          ))}
-        </div>
-      </SectionWrapper>
-
-      <section className="py-10">
-        <div className="section-shell">
-          <div
-            className="h-72 rounded-3xl bg-slate-200 bg-cover"
-            style={{ backgroundImage: `url(${images.wide})` }}
+        <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] items-center">
+          <Image
+            src="/images/why-choose-body-image.jpg"
+            alt=""
+            width={600}
+            height={700}
+            className="rounded-3xl object-cover"
           />
-        </div>
-      </section>
 
-      <SectionWrapper>
-        <div className="grid gap-10 lg:grid-cols-[1.1fr_1fr] items-center">
-          <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
-            <div
-              className="h-56 rounded-2xl bg-slate-200 bg-cover"
-              style={{ backgroundImage: `url(${images.sample})` }}
-            />
-            <div className="mt-4 flex items-center gap-3 text-sm text-[var(--muted-color)]">
-              <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-[var(--primary-color)] text-xs font-semibold text-white">
-                12+
-              </span>
-              Years of validated protocols
-            </div>
-          </div>
           <div>
-            <p className="text-xs uppercase tracking-[0.4em] text-[var(--muted-color)]">
-              From sample to solution
-            </p>
-            <h2 className="mt-4 text-3xl md:text-4xl font-semibold">
-              A trusted scientific partner from intake to delivery
+            <Badge>Why choose us</Badge>
+
+            <h2 className="mt-4 text-3xl md:text-5xl font-semibold">
+              Powered by technology, driven by curiosity
             </h2>
-            <p className="mt-4 text-sm md:text-base text-[var(--muted-color)]">
-              We keep the process transparent with shared dashboards, milestone
-              check-ins, and clear next steps.
+
+            <p className="mt-4 text-(--muted-color)">
+              Accurate, innovative, future-ready research solutions.
             </p>
-            <div className="mt-6 grid gap-4 text-sm text-[var(--muted-color)]">
-              <div className="flex items-start gap-3">
-                <span className="mt-2 h-2 w-2 rounded-full bg-[var(--primary-color)]" />
-                Intake and study design in under one week
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="mt-2 h-2 w-2 rounded-full bg-[var(--primary-color)]" />
-                Dedicated project manager for each engagement
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="mt-2 h-2 w-2 rounded-full bg-[var(--primary-color)]" />
-                Final report with recommendations and follow up
-              </div>
+
+            <div className="mt-6 grid gap-5">
+              {[
+                ["Proven Track Record", "Successful studies & outcomes"],
+                ["Collaborative Approach", "Clients at every step"],
+              ].map(([title, text]) => (
+                <div key={title} className="flex gap-4">
+                  <span className="h-10 w-10 rounded-full bg-(--primary-color)/10" />
+                  <div>
+                    <h3 className="font-semibold">{title}</h3>
+                    <p className="text-sm text-(--muted-color)">{text}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </SectionWrapper>
 
-      <SectionWrapper>
-        <div className="rounded-3xl bg-[var(--accent-color)] p-8 md:p-12">
-          <div className="grid gap-10 lg:grid-cols-[1.1fr_1fr] items-start">
+      <SectionWrapper fullBleed>
+        <section className="bg-(--color-secondary) text-background  rounded-2xl py-24">
+          <div className="container mx-auto grid gap-24 lg:grid-cols-2 items-center">
+            {/* LEFT */}
             <div>
-              <p className="text-xs uppercase tracking-[0.4em] text-[var(--primary-color)]">
-                Choose a plan
+              <Badge>{whatWeDoData.label}</Badge>
+
+              <p className="mt-4 text-3xl md:text-5xl font-semibold leading-tight text-(--text-invert)">
+                {whatWeDoData.title}
               </p>
-              <h2 className="mt-4 text-3xl md:text-4xl font-semibold text-[var(--primary-color)]">
-                Pick a plan that fits your project scope
-              </h2>
-              <p className="mt-4 text-sm md:text-base text-[var(--primary-color)] opacity-80">
-                Transparent pricing with clearly scoped deliverables. Upgrade or
-                expand as your needs evolve.
+
+              <p className="mt-4 max-w-xl text-(--text-invert)">
+                {whatWeDoData.description}
               </p>
-              <div className="mt-6">
-                <Link href="/contact" className="btn-default btn-sm">
-                  Compare plans
+
+              <a
+                href={whatWeDoData.cta.href}
+                className="mt-8 inline-block rounded-full bg-(--primary-color) px-6 py-3 text-sm font-semibold text-white"
+              >
+                {whatWeDoData.cta.label}
+              </a>
+
+              {/* Counter */}
+              <div className="mt-10 max-w-sm rounded-2xl bg-white/5 p-6 text-(--text-invert)">
+                <CountUpOnView
+                  to={whatWeDoData.counter.value}
+                  suffix={whatWeDoData.counter.suffix}
+                  className="type-h1 font-serif "
+                />
+
+                <p className="mt-2 type-h5 border-t-2">
+                  {whatWeDoData.counter.title}
+                </p>
+
+                <p className="mt-1 type-h6 text-(--text-invert)">
+                  {whatWeDoData.counter.text}
+                </p>
+              </div>
+            </div>
+
+            {/* RIGHT */}
+            <div className="grid gap-6">
+              {whatWeDoData.items.map(({ icon: Icon, title, text }) => (
+                <div
+                  key={title}
+                  className="group flex gap-4 rounded-2xl bg-white/5 p-5 transition hover:bg-white/10 text-(--text-invert)"
+                >
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-(--color-accent)/10 text-(--text-invert) transition group-hover:scale-110">
+                    <Icon size={28} />
+                  </div>
+
+                  <div>
+                    <p className="type-h5 text-(--text-invert) font-semibold">
+                      {title}
+                    </p>
+                    <p className="mt-1 text-sm text-(--text-invert)">{text}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      </SectionWrapper>
+      <SectionWrapper>
+        <section className="py-24">
+          <div className="mx-auto max-w-7xl px-6">
+            {/* Header */}
+            <div className="mb-16 grid gap-8 md:grid-cols-2 items-center">
+              <div>
+                <Badge>Our Case Studies</Badge>
+
+                <h2 className="mt-4 text-3xl md:text-5xl font-semibold leading-tight">
+                  Innovative solutions <br />
+                  backed by scientific rigor
+                </h2>
+              </div>
+
+              <div className="md:text-right">
+                <Link href="/case-studies" className="btn-default">
+                  Explore All Studies
                 </Link>
               </div>
             </div>
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div className="rounded-2xl bg-white/90 p-6 shadow-sm">
-                <p className="text-xs uppercase tracking-[0.3em] text-[var(--muted-color)]">
-                  Starter
+
+            {/* Cards */}
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {caseStudies.map((study) => (
+                <GlassCard key={study?.title} {...study} />
+              ))}
+            </div>
+          </div>
+        </section>
+      </SectionWrapper>
+
+      <SectionWrapper fullBleed>
+        <section className="py-24  rounded-2xl">
+          <div className="mx-auto max-w-7xl px-6">
+            <div className="grid gap-16 lg:grid-cols-[1fr_1.4fr]">
+              {/* Left content */}
+              <div>
+                <Badge>Frequently Asked Questions</Badge>
+
+                <h2 className="mt-4 text-3xl md:text-5xl font-semibold leading-tight">
+                  Browse our most <br />
+                  asked questions
+                </h2>
+
+                <p className="mt-4 text-(--text-description)">
+                  We’ve compiled answers to the most common questions about our
+                  lab services, research process, and capabilities.
                 </p>
-                <p className="mt-2 text-3xl font-semibold text-[var(--primary-color)]">
-                  $12,500
-                </p>
-                <p className="mt-2 text-xs text-[var(--muted-color)]">
-                  Best for quick validation
-                </p>
-                <ul className="mt-4 space-y-2 text-xs text-[var(--muted-color)]">
-                  <li>Single lab pathway</li>
-                  <li>Weekly reports</li>
-                  <li>Dedicated analyst</li>
-                </ul>
+
+                <Link href="/faqs" className="btn-default mt-8 inline-block">
+                  View All FAQs
+                </Link>
               </div>
-              <div className="rounded-2xl bg-white/90 p-6 shadow-sm">
-                <p className="text-xs uppercase tracking-[0.3em] text-[var(--muted-color)]">
-                  Growth
-                </p>
-                <p className="mt-2 text-3xl font-semibold text-[var(--primary-color)]">
-                  $29,500
-                </p>
-                <p className="mt-2 text-xs text-[var(--muted-color)]">
-                  Multi-phase engagements
-                </p>
-                <ul className="mt-4 space-y-2 text-xs text-[var(--muted-color)]">
-                  <li>Multi lab workflows</li>
-                  <li>Dedicated project lead</li>
-                  <li>Executive reporting</li>
-                </ul>
+
+              {/* Accordion */}
+              <div className="space-y-4 bg-(--color-accent) p-16 rounded-3xl">
+                {faqs.map((item) => (
+                  <FaqItem key={item.q} {...item} />
+                ))}
               </div>
             </div>
           </div>
-        </div>
+        </section>
       </SectionWrapper>
 
-      <SectionWrapper>
-        <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] items-start">
-          <div>
-            <p className="text-xs uppercase tracking-[0.4em] text-[var(--muted-color)]">
-              FAQs
-            </p>
-            <h2 className="mt-4 text-3xl md:text-4xl font-semibold">
-              Browse our most asked questions
-            </h2>
-            <p className="mt-4 text-sm md:text-base text-[var(--muted-color)]">
-              We keep engagements transparent. If you need something more
-              specific, reach out and we will tailor it.
-            </p>
-            <div className="mt-6">
-              <Link href="/contact" className="btn-default btn-sm">
-                Ask a question
-              </Link>
+      <SectionWrapper fullBleed>
+        <section className="py-28 text-(--text-invert)  bg-(--color-secondary) rounded-3xl">
+          <div className="mx-auto max-w-7xl px-6">
+            {/* Header */}
+            <div className="text-center max-w-2xl mx-auto">
+              <Badge>Our Testimonials</Badge>
+
+              <p className="mt-4 text-3xl md:text-5xl font-semibold text-(--text-invert)">
+                What our clients say <br /> about their experience with us
+              </p>
+            </div>
+
+            {/* Slider */}
+            <div className="mt-16 overflow-x-auto">
+              <div className="flex gap-6 snap-x snap-mandatory pb-6">
+                {testimonials.map((t) => (
+                  <TestimonialCard key={t.name} {...t} />
+                ))}
+              </div>
             </div>
           </div>
-          <div className="space-y-3">
-            {faqItems.map((item) => (
-              <div
-                key={item}
-                className="flex items-center justify-between rounded-2xl border border-slate-200 bg-white px-5 py-4 text-sm"
-              >
-                <span>{item}</span>
-                <span className="text-lg text-[var(--muted-color)]">+</span>
-              </div>
-            ))}
-          </div>
-        </div>
+        </section>
       </SectionWrapper>
 
       <SectionWrapper>
-        <div className="rounded-3xl bg-[var(--primary-color)] p-8 md:p-12 text-white">
-          <div className="text-center">
-            <p className="text-xs uppercase tracking-[0.4em] text-white/60">
-              Testimonials
-            </p>
-            <h2 className="mt-4 text-3xl md:text-4xl font-semibold">
-              What our clients say about their experience with us
-            </h2>
-          </div>
-          <div className="mt-10 grid gap-6 md:grid-cols-2">
-            {testimonials.map((testimonial) => (
-              <div
-                key={testimonial.name}
-                className="rounded-3xl bg-white p-6 text-[var(--primary-color)]"
-              >
-                <p className="text-sm">{testimonial.quote}</p>
-                <div className="mt-4 text-xs font-semibold uppercase tracking-[0.3em] text-[var(--muted-color)]">
-                  {testimonial.name}
-                </div>
-                <div className="text-xs text-[var(--muted-color)]">
-                  {testimonial.role}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </SectionWrapper>
+        <section className="py-24">
+          <div className="container mx-auto px-4">
+            {/* Section title */}
+            <div className="text-center max-w-2xl mx-auto mb-16">
+              <Badge>Our Team</Badge>
 
-      <SectionWrapper>
-        <div className="flex flex-wrap items-center justify-between gap-6">
-          <div>
-            <p className="text-xs uppercase tracking-[0.4em] text-[var(--muted-color)]">
-              News
-            </p>
-            <h2 className="mt-4 text-3xl md:text-4xl font-semibold">
-              Stay updated with the latest in science and innovation
-            </h2>
-          </div>
-          <Link href="/blog" className="btn-default btn-sm">
-            Read the blog
-          </Link>
-        </div>
-        <div className="mt-8 grid gap-6 md:grid-cols-3">
-          {blogPosts.map((post) => (
-            <div
-              key={post.title}
-              className="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm"
+              <motion.h2
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="mt-3 text-3xl md:text-4xl font-bold"
+              >
+                The brilliant minds powering our research team
+              </motion.h2>
+            </div>
+
+            {/* Grid */}
+            <motion.div
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
             >
-              <div
-                className="h-40 rounded-2xl bg-slate-200 bg-cover"
-                style={{ backgroundImage: `url(${post.image})` }}
-              />
-              <p className="mt-3 text-xs uppercase tracking-[0.3em] text-[var(--muted-color)]">
-                {post.date}
-              </p>
-              <h3 className="mt-2 text-lg font-semibold">{post.title}</h3>
-              <p className="mt-2 text-xs text-[var(--muted-color)]">
-                Insights on lab operations, new research models, and partner
-                workflows.
-              </p>
-            </div>
-          ))}
-        </div>
+              {teamMembers.map((member) => (
+                <TeamCard key={member.name} {...member} />
+              ))}
+            </motion.div>
+          </div>
+        </section>
       </SectionWrapper>
     </PageTransition>
   );
