@@ -4,7 +4,7 @@ import { FiPlay } from "react-icons/fi";
 type Props = {
   name: string;
   role: string;
-  image: string;
+  image?: string;
   quote: string;
   video?: string;
   active?: boolean;
@@ -13,7 +13,7 @@ type Props = {
 export const TestimonialCard = ({
   name,
   role,
-  image,
+  image = "/images/default-avatar.jpg",
   quote,
   video,
   active,

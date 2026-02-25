@@ -5,6 +5,8 @@ import { Plus_Jakarta_Sans, Source_Serif_4 } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { CursorEffects } from "@/components/cursor-effects";
+import { siteMeta } from "@/data";
+import { appConfig } from "@/config/app-config";
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -21,8 +23,8 @@ const sourceSerif = Source_Serif_4({
 });
 
 export const metadata: Metadata = {
-  title: "Labrix",
-  description: "Trusted scientific solutions for a smarter, safer world.",
+  title: siteMeta.name,
+  description: siteMeta.description,
 };
 
 export default function RootLayout({
@@ -37,7 +39,7 @@ export default function RootLayout({
     >
       <body className="min-h-screen bg-background text-foreground">
         <Navbar />
-        <CursorEffects enabled={true} />
+        <CursorEffects enabled={appConfig.enableCursorEffects} />
         {children}
         <Footer />
       </body>

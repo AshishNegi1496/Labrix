@@ -17,7 +17,7 @@ export default function SectionWrapper({
   fullBleed,
 }: SectionWrapperProps) {
   return (
-    <section id={id} className={cn("py-14 md:py-20", className)}>
+    <section id={id} className={cn("py-12 sm:py-14 md:py-20", className)}>
       <div
         className={cn(
           "section-shell",

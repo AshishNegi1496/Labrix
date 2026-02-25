@@ -1,213 +1,159 @@
-import Link from "next/link";
 import PageTransition from "@/components/PageTransition";
 import SectionWrapper from "@/components/SectionWrapper";
 import Ticker from "@/components/Ticker";
 import HeroBanner from "@/components/HeroBanner";
 import { Panel } from "@/components/ui/Panel";
+import Button from "@/components/ui/Button";
+import {
+  aboutHero,
+  aboutHighlight,
+  aboutImages,
+  aboutIntro,
+  aboutMission,
+  aboutStat,
+  aboutStoryCards,
+  aboutTestimonialsBlock,
+  aboutTestimonials,
+} from "@/data";
+import GlassCard from "@/components/GlassCard";
+import CountUpOnView from "@/components/CountUpOnView";
 
-const images = {
-  hero: "https://picsum.photos/seed/labrix-about-hero/1600/900",
-  card1: "https://picsum.photos/seed/labrix-about-1/640/480",
-  card2: "https://picsum.photos/seed/labrix-about-2/640/480",
-  card3: "https://picsum.photos/seed/labrix-about-3/640/480",
-  wide: "https://picsum.photos/seed/labrix-about-wide/1400/700",
-};
-
-const storyCards = [
-  {
-    title: "How does it work",
-    text: "Structured discovery and lab validation.",
-    image: images.card1,
-  },
-  {
-    title: "Research partners",
-    text: "Cross-disciplinary collaborations worldwide.",
-    image: images.card2,
-  },
-  {
-    title: "Inside the lab",
-    text: "Modern facilities with transparent workflows.",
-    image: images.card3,
-  },
-];
-
-const testimonials = [
-  {
-    quote: "Labrix delivered clarity and momentum to our research program.",
-    name: "Elena Ford",
-    role: "Chief Scientist, Novalab",
-  },
-  {
-    quote: "Their team kept every stakeholder aligned from week one.",
-    name: "Tariq Wells",
-    role: "Operations Lead, BioPulse",
-  },
-];
+const Ping = () => (
+  <span className="relative h-2.5 w-2.5">
+    <span className="absolute inset-0 rounded-full bg-green-300 animate-ping" />
+    <span className="absolute inset-0.5 rounded-full bg-green-300" />
+  </span>
+);
+const Badge = ({ children }: { children: React.ReactNode }) => (
+  <p className="inline-flex items-center gap-2 rounded-full border border-black/50 px-4 py-1.5 text-sm">
+    <Ping />
+    {children}
+  </p>
+);
 
 export default function About() {
   return (
     <PageTransition>
       <HeroBanner
-        title="About us"
-        breadcrumb="Home / About Us"
-        image={images.hero}
+        title={aboutHero.title}
+        breadcrumb={aboutHero.breadcrumb}
+        image={aboutHero.image}
       />
       <Ticker />
 
       <SectionWrapper>
         <div className="grid gap-10 lg:grid-cols-[1.1fr_1fr] items-start">
           <div>
-            <p className="text-xs uppercase tracking-[0.4em] text-[var(--muted-color)]">
-              About Labrix
+            <Badge>{aboutIntro.label}</Badge>
+            <p className="mt-4 type-h2 md:text-4xl font-semibold">
+              {aboutIntro.title}
             </p>
-            <h2 className="mt-4 text-3xl md:text-4xl font-semibold">
-              Pioneering scientific research to transform knowledge into
-              real-world solutions
-            </h2>
-            <p className="mt-4 text-sm md:text-base text-[var(--muted-color)]">
-              We are a multidisciplinary lab and research partner committed to
-              reliable results, repeatable processes, and shared outcomes.
+            <p className="mt-4 type-h6 md:text-base text-(--muted-color)">
+              {aboutIntro.description}
             </p>
             <div className="mt-6">
-              <Link href="/contact" className="btn-default btn-sm">
-                Work with us
-              </Link>
+              <Button
+                href={aboutIntro.cta.href}
+                label={aboutIntro.cta.label}
+                size="sm"
+              />
             </div>
-            <div className="mt-8 flex items-center gap-3 text-sm text-[var(--muted-color)]">
-              <div className="flex -space-x-2">
-                <span className="h-8 w-8 rounded-full border border-white/40 bg-slate-200" />
-                <span className="h-8 w-8 rounded-full border border-white/40 bg-slate-300" />
-                <span className="h-8 w-8 rounded-full border border-white/40 bg-slate-100" />
-              </div>
-              Proven track record across global research partners
+            <div className="mt-8 flex items-center gap-3 text-sm text-(--muted-description)">
+              {aboutIntro.proof}
             </div>
           </div>
           <div className="grid gap-6 sm:grid-cols-2">
-            {storyCards.map((card) => (
-              <div
-                key={card.title}
-                className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm"
-              >
-                <div
-                  className="h-36 rounded-xl bg-slate-200 bg-cover"
-                  style={{ backgroundImage: `url(${card.image})` }}
-                />
-                <h3 className="mt-4 text-base font-semibold">{card.title}</h3>
-                <p className="mt-2 text-xs text-[var(--muted-color)]">
-                  {card.text}
-                </p>
-              </div>
+            {aboutStoryCards.map(({ image, title, text }, i) => (
+              <GlassCard
+                key={i}
+                image={image}
+                title={title}
+                description={text}
+                height="h-72"
+                overlayOpacity="bg-black/20"
+                contentPadding="p-4"
+                hoverEffect="scale"
+                className="border-none"
+                titleClassName="type-h4 font-semibold text-white"
+                descriptionClassName="type-h6 text-white/80"
+              />
             ))}
           </div>
         </div>
       </SectionWrapper>
 
-      <SectionWrapper>
-        <Panel className="bg-[var(--accent-color)]">
+      <SectionWrapper fullBleed>
+        <Panel className="bg-(--accent-color)">
           <div className="grid gap-8 lg:grid-cols-[1.1fr_1fr] items-center">
             <div>
-              <p className="text-xs uppercase tracking-[0.4em] text-[var(--primary-color)]">
-                Our mission
+              <Badge>{aboutMission.label}</Badge>
+              <p className="mt-4 type-h3 font-semibold text-(--primary-color)">
+                {aboutMission.title}
               </p>
-              <h3 className="mt-4 text-3xl font-semibold text-[var(--primary-color)]">
-                Advancing research with disciplined scientific rigor
-              </h3>
-              <p className="mt-4 text-sm md:text-base text-[var(--primary-color)] opacity-80">
-                We invest in modern facilities, expert teams, and clear
-                protocols to shorten the distance between questions and
-                answers.
+              <p className="mt-4 type-h6 md:text-base text-(--primary-color) opacity-80">
+                {aboutMission.description}
               </p>
               <div className="mt-6">
-                <Link href="/services" className="btn-default btn-sm">
-                  Our services
-                </Link>
+                <Button
+                  href={aboutMission.cta.href}
+                  label={aboutMission.cta.label}
+                  size="sm"
+                />
               </div>
             </div>
-            <div className="h-56 rounded-3xl bg-white/90 shadow-sm" />
+            <GlassCard
+              image="/images/about-lab.png"
+              height="h-96"
+              overlayOpacity="bg-black/20"
+              className="rounded-3xl border-none shadow-lg"
+              hoverEffect="scale"
+              imageClassName="object-cover"
+            />
           </div>
         </Panel>
       </SectionWrapper>
 
       <SectionWrapper>
-        <div className="grid gap-8 lg:grid-cols-[1fr_1fr] items-center">
-          <div
-            className="h-64 rounded-3xl bg-slate-200 bg-cover"
-            style={{ backgroundImage: `url(${images.card2})` }}
-          />
-          <div>
-            <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-              <p className="text-3xl font-semibold text-[var(--primary-color)]">
-                12+
-              </p>
-              <p className="mt-2 text-xs text-[var(--muted-color)]">
-                Years of continuous research programs
-              </p>
-            </div>
-            <p className="mt-4 text-sm text-[var(--muted-color)]">
-              Our teams stay embedded in client challenges, providing
-              consistent guidance and scalable research workflows.
-            </p>
-          </div>
-        </div>
-      </SectionWrapper>
-
-      <SectionWrapper>
-        <Panel className="bg-[var(--primary-color)] text-white">
-          <div className="flex flex-wrap items-end justify-between gap-6">
-            <div>
-              <p className="text-5xl font-semibold">98%</p>
-              <p className="mt-2 text-sm text-white/70">
-                Environmental science accuracy
-              </p>
-            </div>
-            <div className="max-w-sm text-sm text-white/70">
-              Our lab delivers data-driven insights that protect ecosystems and
-              guide strategic decisions.
-            </div>
-          </div>
-        </Panel>
-      </SectionWrapper>
-
-      <section className="py-10">
-        <div className="section-shell">
-          <div
-            className="h-72 rounded-3xl bg-slate-200 bg-cover"
-            style={{ backgroundImage: `url(${images.wide})` }}
-          />
-        </div>
-      </section>
-
-      <SectionWrapper>
-        <Panel className="bg-[var(--primary-color)] text-white">
-          <div className="text-center">
-            <p className="text-xs uppercase tracking-[0.4em] text-white/60">
-              Testimonials
-            </p>
-            <h2 className="mt-4 text-3xl md:text-4xl font-semibold">
-              Trusted by research leaders across disciplines
-            </h2>
-          </div>
-          <div className="mt-10 grid gap-6 md:grid-cols-2">
-            {testimonials.map((testimonial) => (
-              <div
-                key={testimonial.name}
-                className="rounded-3xl bg-white p-6 text-[var(--primary-color)]"
-              >
-                <p className="text-sm">{testimonial.quote}</p>
-                <div className="mt-4 text-xs font-semibold uppercase tracking-[0.3em] text-[var(--muted-color)]">
-                  {testimonial.name}
-                </div>
-                <div className="text-xs text-[var(--muted-color)]">
-                  {testimonial.role}
+        <div className="space-y-8">
+          <Badge>Performance Metrics</Badge>
+          <div className="grid gap-8 lg:grid-cols-2 items-center">
+            <GlassCard
+              image={aboutStat.image}
+              height="h-96"
+              overlayOpacity="bg-gradient-to-t from-black/60 via-transparent to-transparent"
+              className="rounded-3xl border-none"
+            >
+              <div className="absolute bottom-6 left-6 right-6">
+                <div className="p-4 bg-white/10 backdrop-blur-md rounded-xl">
+                  <CountUpOnView
+                    to={parseFloat(aboutStat.value)}
+                    className="text-3xl sm:text-4xl md:text-5xl font-bold text-white"
+                  />
+                  <p className="text-sm text-white/80">{aboutStat.label}</p>
                 </div>
               </div>
-            ))}
+            </GlassCard>
+            <div className="space-y-6">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold">
+                {aboutStat.description}
+              </h2>
+              <Panel className="bg-(--primary-color) text-white p-6 rounded-xl">
+                <div className="flex flex-wrap justify-between gap-4">
+                  <div>
+                    <CountUpOnView
+                      to={parseFloat(aboutHighlight.value)}
+                      className="text-3xl sm:text-4xl md:text-5xl font-bold text-white"
+                    />
+                    <p className="text-white/70">{aboutHighlight.label}</p>
+                  </div>
+                  <p className="max-w-sm text-white/80 text-sm">
+                    {aboutHighlight.description}
+                  </p>
+                </div>
+              </Panel>
+            </div>
           </div>
-        </Panel>
-      </SectionWrapper>
-
-      <SectionWrapper>
-        <div className="mx-auto h-48 w-64 rounded-3xl bg-[var(--accent-color)]" />
+        </div>
       </SectionWrapper>
     </PageTransition>
   );

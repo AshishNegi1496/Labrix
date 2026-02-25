@@ -20,6 +20,7 @@ export function CursorEffects({ enabled = true }: CursorEffectsProps) {
 
   useEffect(() => {
     if (!enabled) return;
+    if (window.matchMedia("(max-width: 1024px)").matches) return;
 
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });

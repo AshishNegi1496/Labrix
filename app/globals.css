@@ -47,12 +47,13 @@
   --container-max: 1200px;
   --transition-fast: 200ms ease;
   --transition-base: 300ms ease;
-  --h1-size: 3rem;
-  --h2-size: 2.5rem;
-  --h3-size: 2rem;
-  --h4-size: 1.5rem;
-  --h5-size: 1.25rem;
-  --h6-size: 1rem;
+  --h1-size: clamp(2.2rem, 3vw + 1.6rem, 3rem);
+  --h2-size: clamp(1.9rem, 2.4vw + 1.3rem, 2.5rem);
+  --h3-size: clamp(1.6rem, 1.9vw + 1.1rem, 2rem);
+  --h4-size: clamp(1.25rem, 1.4vw + 0.9rem, 1.5rem);
+  --h5-size: clamp(1.05rem, 1vw + 0.8rem, 1.25rem);
+  --h6-size: clamp(0.95rem, 0.6vw + 0.7rem, 1rem);
+  --section-padding-x: clamp(16px, 3vw, 24px);
 
   --background: var(--bg-page);
   --foreground: var(--text-body);
@@ -70,6 +71,10 @@
   --color-foreground: var(--text-body);
   --font-sans: var(--font-body);
   --font-serif: var(--font-heading);
+}
+
+html {
+  font-size: clamp(14px, 0.4vw + 12px, 16px);
 }
 
 body {
@@ -124,6 +129,13 @@ a {
   text-decoration: none;
 }
 
+img,
+video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
 .link {
   color: var(--color-primary);
   transition: color var(--transition-fast);
@@ -139,7 +151,7 @@ a {
   width: 100%;
   max-width: var(--container-max);
   margin: 0 auto;
-  padding: 0 var(--space-6);
+  padding: 0 var(--section-padding-x);
 }
 
 .hero {
@@ -222,101 +234,109 @@ a {
   }
 }
 
-.btn-default {
+.btn {
   position: relative;
-  display: inline-block;
-  background: var(--color-primary);  /* Base color that appears after vanish */
-  border-radius: var(--radius-xl);
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  background: #183153;
   font-family: var(--font-body);
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 1em;
-  text-transform: capitalize;
-  color: var(--text-description);  /* Better contrast against primary color */
-  /* border: none; */
-  padding: 17px 50px 17px 20px;
+  box-shadow: 0 6px 24px 0 rgba(0, 0, 0, 0.2);
   overflow: hidden;
-  transition: transform var(--transition-fast), 
-              box-shadow var(--transition-fast),
-              background-color var(--transition-fast);
-  z-index: 0;
   cursor: pointer;
-  isolation: isolate;  /* Creates a new stacking context */
-}
-
-/* The vanishing accent layer */
-.btn-default::before {
-  content: '';
-  position: absolute;
-  inset: 0;  /* Modern shorthand for top:0; right:0; bottom:0; left:0 */
-  background: var(--color-accent);
-  border-radius: var(--radius-sm);
-  transform-origin: top left;
-  transform: scale(1);
-  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);  /* Smooth easing */
-  z-index: -1;
-}
-
-/* Diagonal vanish effect on hover */
-.btn-default:hover::before {
-  transform: scale(0);
-}
-
-/* Ensure text remains readable */
-.btn-default:hover {
-  color: var(--text-invert);
-}
-
-/* Optional: Add a subtle scale effect for extra polish */
-.btn-default:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-card);
-   color: var(--text-invert);
-}
-
-/* Active state for click feedback */
-.btn-default:active {
-  transform: translateY(0);
-  box-shadow: none;
-  transition: transform var(--transition-fast);
-}
-.btn-secondary {
-  background: var(--color-primary);
-  color: var(--text-invert);
-}
-
-.btn-secondary:hover {
-  background: var(--color-primary-hover);
-}
-
-.btn-secondary:active {
-  background: var(--color-primary-active);
-}
-
-.btn-outline {
-  background: transparent;
-  color: var(--text-description);
-  border: 1px solid var(--border-divider);
-}
-
-.btn-outline:hover {
-  background: #eff7f4;
-  border-color: var(--color-accent-hover);
-}
-
-.btn-text {
-  background: transparent;
   border: none;
-  padding: 0;
-  color: var(--color-primary);
-  font-weight: 600;
-  cursor: pointer;
+  text-decoration: none;
+  color: #fff;
+  isolation: isolate;
 }
 
-.btn-text:hover {
-  color: var(--color-secondary);
-  text-decoration: underline;
-  text-underline-offset: 3px;
+.btn::after {
+  content: "";
+  width: 0%;
+  height: 100%;
+  background: #c9f7e5;
+  position: absolute;
+  transition: all 0.4s ease-in-out;
+  right: 0;
+  z-index: 1;
+}
+
+.btn:hover::after {
+  right: auto;
+  left: 0;
+  width: 100%;
+}
+
+.btn-content {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(8px, 2vw, 12px);
+  width: 100%;
+  padding: clamp(12px, 2vw, 18px) clamp(16px, 3vw, 25px);
+  text-align: center;
+  z-index: 2;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-label {
+  color: #fff;
+  font-size: clamp(0.85rem, 0.6vw + 0.75rem, 1.05rem);
+  font-weight: 700;
+  letter-spacing: clamp(0.12em, 0.4vw, 0.3em);
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-icon {
+  color: #fff;
+  font-size: clamp(0.95rem, 0.6vw + 0.85rem, 1.1rem);
+  transition: all 0.3s ease-in-out;
+}
+
+.btn:hover .btn-label,
+.btn:hover .btn-icon {
+  color: #183153;
+  animation: scaleUp 0.3s ease-in-out;
+}
+
+.btn:focus-visible {
+  outline: 2px solid #ffd401;
+  outline-offset: 3px;
+}
+
+.btn[data-size="sm"] .btn-content {
+  padding: 12px 18px;
+}
+
+.btn[data-size="sm"] .btn-label {
+  font-size: 0.85em;
+  letter-spacing: 0.25em;
+}
+
+.btn[data-size="lg"] .btn-content {
+  padding: 20px 32px;
+}
+
+.btn[data-size="lg"] .btn-label {
+  font-size: 1.15em;
+}
+
+.btn[data-kind="link"] {
+  box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.18);
+}
+
+@keyframes scaleUp {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 .card {
