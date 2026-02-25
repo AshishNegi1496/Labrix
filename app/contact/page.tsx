@@ -15,18 +15,10 @@ import {
   contactImages,
 } from "@/data";
 import { FiMail, FiMapPin, FiPhone } from "react-icons/fi";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import "leaflet/dist/leaflet.css";
-import L from "leaflet";
 
-delete (L.Icon.Default.prototype as any)._getIconUrl;
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl:
-    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png",
-  iconUrl:
-    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png",
-  shadowUrl:
-    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
+import dynamic from "next/dynamic";
+const ContactMap = dynamic(() => import("@/components/ContactMap"), {
+  ssr: false,
 });
 
 const Ping = () => (
@@ -128,24 +120,7 @@ export default function Contact() {
             </div>
           </div>
           <div className="h-80 rounded-3xl overflow-hidden">
-            <MapContainer
-              center={[42.3601, -71.0589]} // Boston coordinates - replace with your location
-              zoom={13}
-              scrollWheelZoom={false}
-              className="h-full w-full"
-            >
-              <TileLayer
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              />
-              <Marker position={[42.3601, -71.0589]}>
-                <Popup>
-                  {contactDetails.location}
-                  <br />
-                  {contactDetails.email}
-                </Popup>
-              </Marker>
-            </MapContainer>
+            <ContactMap />
           </div>
         </div>
       </SectionWrapper>
