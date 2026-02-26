@@ -190,27 +190,6 @@ export const faqTitles = deepFreeze([
   "What does onboarding look like?",
 ]);
 
-/** Blog post teasers (currently unused in UI). */
-export const homeBlogPosts: ReadonlyArray<BlogPost> = validateBlogPosts(
-  deepFreeze([
-    {
-      title: "What it takes to ship safer diagnostics",
-      date: "Feb 12, 2026",
-      image: homeImages.feature2,
-    },
-    {
-      title: "Building data pipelines you can trust",
-      date: "Jan 26, 2026",
-      image: homeImages.feature3,
-    },
-    {
-      title: "Why lab partnerships need clarity early",
-      date: "Jan 08, 2026",
-      image: homeImages.feature4,
-    },
-  ]),
-);
-
 /** Research fields shown in the innovation section. */
 export const researchFields: ReadonlyArray<ResearchField> =
   validateResearchFields(
