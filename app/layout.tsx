@@ -27,11 +27,7 @@ export const metadata: Metadata = {
   description: siteMeta.description,
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: ReactNode;
-}) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang="en"
@@ -39,7 +35,7 @@ export default function RootLayout({
     >
       <body className="min-h-screen bg-background text-foreground">
         <Navbar />
-        <CursorEffects enabled={appConfig.enableCursorEffects} />
+        <CursorEffects />
         {children}
         <Footer />
       </body>
