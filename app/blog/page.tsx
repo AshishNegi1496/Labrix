@@ -1,355 +1,196 @@
-"use client";
-
-import Image from "next/image";
-import { useState } from "react";
-import { FiMapPin, FiClock, FiBriefcase, FiChevronRight } from "react-icons/fi";
+import Link from "next/link";
+import { FiClock, FiUser, FiArrowRight } from "react-icons/fi";
 import PageTransition from "@/components/PageTransition";
 import SectionWrapper from "@/components/SectionWrapper";
-import Ticker from "@/components/Ticker";
 import HeroBanner from "@/components/HeroBanner";
 import GlassCard from "@/components/GlassCard";
-import { Panel } from "@/components/ui/Panel";
 import Button from "@/components/ui/Button";
+import { blogHero, blogPosts, blogCategories, type BlogPost } from "@/data";
+import { ReactNode } from "react";
 
-// Types
-type Job = {
-  id: string;
-  title: string;
-  department: string;
-  location: string;
-  type: "Full-time" | "Part-time" | "Contract" | "Remote";
-  experience: string;
-  description: string;
-};
+export default function Blog() {
+  const featured = blogPosts[0];
+  const recent = blogPosts.slice(1, 4);
+  const rest = blogPosts.slice(4);
+  const Ping = () => (
+    <span className="relative h-2.5 w-2.5">
+      <span className="absolute inset-0 rounded-full bg-green-300 animate-ping" />
+      <span className="absolute inset-0.5 rounded-full bg-green-300" />
+    </span>
+  );
 
-type Benefit = {
-  icon: string;
-  title: string;
-  description: string;
-};
-
-// Data
-const careerHero = {
-  title: "Join Our Team",
-  breadcrumb: "Home / Careers",
-  image: "/images/careers-hero.jpg",
-};
-
-const departments = [
-  "All",
-  "Research",
-  "Engineering",
-  "Operations",
-  "Sales",
-  "Marketing",
-];
-
-const jobs: Job[] = [
-  {
-    id: "1",
-    title: "Senior Research Scientist",
-    department: "Research",
-    location: "Boston, MA",
-    type: "Full-time",
-    experience: "5+ years",
-    description:
-      "Lead groundbreaking research in molecular diagnostics and assay development.",
-  },
-  {
-    id: "2",
-    title: "Lab Operations Manager",
-    department: "Operations",
-    location: "Cambridge, MA",
-    type: "Full-time",
-    experience: "7+ years",
-    description:
-      "Oversee daily lab operations, ensure compliance, and optimize workflows.",
-  },
-  {
-    id: "3",
-    title: "Frontend Engineer",
-    department: "Engineering",
-    location: "Remote",
-    type: "Remote",
-    experience: "3+ years",
-    description:
-      "Build beautiful, responsive interfaces for our laboratory management platform.",
-  },
-  {
-    id: "4",
-    title: "Sales Director",
-    department: "Sales",
-    location: "New York, NY",
-    type: "Full-time",
-    experience: "8+ years",
-    description:
-      "Drive revenue growth and build strategic partnerships with research institutions.",
-  },
-  {
-    id: "5",
-    title: "Marketing Specialist",
-    department: "Marketing",
-    location: "Remote",
-    type: "Full-time",
-    experience: "2+ years",
-    description:
-      "Create compelling content and campaigns for the scientific community.",
-  },
-  {
-    id: "6",
-    title: "Research Associate",
-    department: "Research",
-    location: "Boston, MA",
-    type: "Full-time",
-    experience: "1-2 years",
-    description:
-      "Support senior scientists in experimental design and data analysis.",
-  },
-];
-
-const benefits: Benefit[] = [
-  {
-    icon: "🧬",
-    title: "Cutting-edge Research",
-    description: "Work with the latest technology and publish in top journals.",
-  },
-  {
-    icon: "🌎",
-    title: "Remote-first Culture",
-    description: "Flexible work arrangements across multiple time zones.",
-  },
-  {
-    icon: "📚",
-    title: "Learning Budget",
-    description: "$5,000 annual budget for conferences, courses, and books.",
-  },
-  {
-    icon: "🏥",
-    title: "Comprehensive Benefits",
-    description: "Health, dental, vision, and 401k with 6% matching.",
-  },
-  {
-    icon: "⚖️",
-    title: "Work-life Balance",
-    description: "Unlimited PTO and flexible hours that work for you.",
-  },
-  {
-    icon: "🚀",
-    title: "Career Growth",
-    description: "Clear progression paths and mentorship programs.",
-  },
-];
-
-const cultureImages = [
-  "/images/culture-1.jpg",
-  "/images/culture-2.jpg",
-  "/images/culture-3.jpg",
-  "/images/culture-4.jpg",
-];
-
-export default function Careers() {
-  const [department, setDepartment] = useState("All");
-  const [selectedJob, setSelectedJob] = useState<Job | null>(null);
-
-  const filteredJobs =
-    department === "All"
-      ? jobs
-      : jobs.filter((j) => j.department === department);
-
+  const Badge = ({ children }: { children: ReactNode }) => (
+    <p className="inline-flex items-center gap-2 rounded-full border border-black/50 px-4 py-1.5 text-sm">
+      <Ping />
+      {children}
+    </p>
+  );
   return (
     <PageTransition>
       <HeroBanner
-        title={careerHero.title}
-        breadcrumb={careerHero.breadcrumb}
-        image={careerHero.image}
+        title={blogHero.title}
+        breadcrumb={blogHero.breadcrumb}
+        image={blogHero.image}
       />
-      <Ticker />
 
-      {/* Why Join Us */}
+      {/* Featured Post */}
       <SectionWrapper>
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <p className="text-sm uppercase tracking-[0.3em] text-(--primary-color)">
-            Join Us
-          </p>
-          <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-semibold">
-            Shape the Future of Science
-          </h2>
-          <p className="mt-6 text-white/70">
-            We&apos;re building a team of passionate scientists, engineers, and
-            problem-solvers dedicated to advancing research and improving lives.
-          </p>
-        </div>
+        <Link href={`/blog/${featured.slug}`} className="group block">
+          <GlassCard
+            className="p-0 overflow-hidden border-white/10 hover:border-(--primary-color) transition"
+            height="h-auto"
+            hoverEffect="scale"
+            overlayOpacity="bg-black/20"
+            contentPadding="p-0"
+          >
+            <div className="grid gap-0 lg:grid-cols-2 min-h-[500px]">
+              {/* Image Side */}
+              <div className="relative h-64 lg:h-full overflow-hidden">
+                <img
+                  src={featured.image}
+                  alt={featured.title}
+                  className="absolute inset-0 w-full h-full object-cover transition duration-700 group-hover:scale-105"
+                />
+              </div>
 
-        {/* Stats */}
-        <div className="grid gap-6 sm:grid-cols-3 mb-20">
-          {[
-            { value: "50+", label: "Team Members" },
-            { value: "8", label: "Countries" },
-            { value: "92%", label: "Employee Satisfaction" },
-          ].map((stat, i) => (
-            <div
-              key={i}
-              className="text-center p-6 rounded-2xl bg-white/5 border border-white/10"
-            >
-              <p className="text-3xl sm:text-4xl font-bold text-(--primary-color)">
-                {stat.value}
-              </p>
-              <p className="mt-2 text-white/60 text-sm">{stat.label}</p>
-            </div>
-          ))}
-        </div>
+              {/* Content Side */}
+              <div className="p-8 lg:p-10 flex flex-col justify-center bg-gradient-to-br from-black/40 to-black/60 backdrop-blur-sm">
+                <div className="flex flex-wrap items-center gap-3 text-sm mb-4">
+                  <span className="px-3 py-1 rounded-full bg-(--primary-color)/20 ) font-medium">
+                    {featured.category}
+                  </span>
+                  <span className="flex items-center gap-1 text-white/70">
+                    <FiClock size={14} /> {featured.readTime}
+                  </span>
+                </div>
 
-        {/* Culture Grid */}
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-20">
-          {cultureImages.map((img, i) => (
-            <div key={i} className="relative h-48 rounded-2xl overflow-hidden">
-              <Image
-                src={img}
-                alt={`Culture ${i + 1}`}
-                fill
-                className="object-cover hover:scale-105 transition duration-500"
-              />
-            </div>
-          ))}
-        </div>
+                <p className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-4 group-hover:text-(--color-accent) transition">
+                  {featured.title}
+                </p>
 
-        {/* Benefits */}
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {benefits.map((b, i) => (
-            <GlassCard key={i} className="p-6 border-white/10">
-              <div className="text-3xl sm:text-4xl mb-4">{b.icon}</div>
-              <h3 className="text-xl font-semibold mb-2">{b.title}</h3>
-              <p className="text-white/60 text-sm">{b.description}</p>
-            </GlassCard>
-          ))}
-        </div>
-      </SectionWrapper>
+                <p className="text-white/80 mb-6 line-clamp-3">
+                  {featured.excerpt}
+                </p>
 
-      {/* Open Positions */}
-      <SectionWrapper fullBleed>
-        <Panel className="bg-(--primary-color)">
-          <div className="text-center mb-12">
-            <p className="text-sm uppercase tracking-[0.3em] text-white/60">
-              Open Positions
-            </p>
-            <h2 className="mt-2 text-2xl sm:text-3xl md:text-4xl font-semibold text-white">
-              Join Our Team
-            </h2>
-          </div>
-
-          {/* Department Filter */}
-          <div className="flex flex-wrap gap-2 justify-center mb-12">
-            {departments.map((d) => (
-              <button
-                key={d}
-                onClick={() => setDepartment(d)}
-                className={`px-5 py-2 rounded-full text-xs tracking-wide transition-all ${department === d ? "bg-white text-(--primary-color)" : "bg-white/10 text-white hover:bg-white/20"}`}
-              >
-                {d}
-              </button>
-            ))}
-          </div>
-
-          {/* Jobs List */}
-          <div className="max-w-4xl mx-auto space-y-4">
-            {filteredJobs.map((job) => (
-              <div
-                key={job.id}
-                className="group bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl p-6 transition cursor-pointer"
-                onClick={() => setSelectedJob(job)}
-              >
-                <div className="flex flex-wrap items-start justify-between gap-4">
-                  <div>
-                    <h3 className="text-xl font-semibold text-white group-hover:text-(--primary-color) transition">
-                      {job.title}
-                    </h3>
-                    <div className="flex flex-wrap gap-4 mt-3 text-sm text-white/60">
-                      <span className="flex items-center gap-1">
-                        <FiBriefcase /> {job.department}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <FiMapPin /> {job.location}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <FiClock /> {job.type} · {job.experience}
-                      </span>
-                    </div>
-                  </div>
-                  <FiChevronRight className="text-white/40 group-hover:text-(--primary-color) text-xl transition" />
+                <div className="flex items-center gap-3 text-sm text-white/80 border-t border-white/10 pt-4 group-hover:text-(--color-accent)">
+                  <span className="flex items-center gap-1">
+                    <FiUser size={14} /> {featured.author}
+                  </span>
+                  <span>•</span>
+                  <span>{featured.date}</span>
                 </div>
               </div>
+            </div>
+          </GlassCard>
+        </Link>
+      </SectionWrapper>
+
+      {/* Recent Posts */}
+      <SectionWrapper fullBleed>
+        <section className="bg-(--color-primary) rounded-2xl py-24 px-6">
+          <div className="text-center mb-12">
+            <p className="text-sm uppercase tracking-[0.3em] text-white/60">
+              Recent
+            </p>
+            <p className="mt-2 text-3xl md:text-4xl font-bold text-white">
+              Latest Articles
+            </p>
+          </div>
+          <div className="grid gap-6 md:grid-cols-3">
+            {recent.map((post, i) => (
+              <BlogCard key={i} post={post} featured={false} />
             ))}
           </div>
-
-          {/* No Results */}
-          {filteredJobs.length === 0 && (
-            <p className="text-center text-white/60 py-12">
-              No open positions in this department
-            </p>
-          )}
-        </Panel>
+        </section>
       </SectionWrapper>
 
-      {/* CTA */}
+      {/* All Posts */}
       <SectionWrapper>
-        <div className="text-center max-w-2xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-semibold">
-            Don&apos;t See Your Role?
-          </h2>
-          <p className="mt-4 text-white/70">
-            We&apos;re always looking for talented individuals. Send us your
-            resume and we&apos;ll keep you in mind for future opportunities.
-          </p>
-          <div className="mt-8">
-            <Button href="/contact" label="Get in Touch" size="lg" />
-          </div>
+        <div className="flex flex-wrap gap-3 justify-center mb-12">
+          {blogCategories.map((cat, i) => (
+            <button
+              key={i}
+              className="px-5 py-2 rounded-full text-sm border border-white/20 hover:bg-(--primary-color) hover:text-white hover:border-(--primary-color) transition-all"
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {rest.map((post, i) => (
+            <BlogCard key={i} post={post} featured={false} />
+          ))}
+        </div>
+
+        <div className="flex justify-center mt-12">
+          <Button label="Load More" icon={FiArrowRight} className="group" />
         </div>
       </SectionWrapper>
+    </PageTransition>
+  );
+}
 
-      {/* Job Detail Modal */}
-      {selectedJob && (
-        <div
-          className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4 backdrop-blur-sm"
-          onClick={() => setSelectedJob(null)}
-        >
-          <div
-            className="relative max-w-2xl w-full bg-(--primary-color) rounded-3xl p-8"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              onClick={() => setSelectedJob(null)}
-              className="absolute -top-12 right-0 text-white/50 hover:text-white"
-            >
-              ✕
-            </button>
-            <h3 className="text-2xl font-bold text-white">
-              {selectedJob.title}
-            </h3>
-            <div className="flex flex-wrap gap-4 mt-4 text-sm text-white/70">
-              <span>{selectedJob.department}</span>
-              <span>•</span>
-              <span>{selectedJob.location}</span>
-              <span>•</span>
-              <span>{selectedJob.type}</span>
-              <span>•</span>
-              <span>{selectedJob.experience}</span>
+function BlogCard({
+  post,
+  featured = false,
+}: {
+  post: BlogPost;
+  featured?: boolean;
+}) {
+  return (
+    <Link href={`/blog/${post.slug}`} className="group block h-full">
+      <GlassCard
+        className="p-0 overflow-hidden border-white/10 hover:border-(--primary-color)/30 transition-all h-full"
+        height="h-full"
+        hoverEffect="both"
+        overlayOpacity="bg-black/40"
+        glowColor="bg-(--primary-color)/20"
+        contentPadding="p-0"
+      >
+        {/* Image Container with Overlay Text */}
+        <div className="relative h-72 w-full overflow-hidden">
+          <img
+            src={post.image}
+            alt={post.title}
+            className="absolute inset-0 w-full h-full object-cover transition duration-500 group-hover:scale-110"
+          />
+
+          {/* Dark gradient overlay for better text readability */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
+
+          {/* Category Badge - top left */}
+          <span className="absolute top-3 left-3 px-3 py-1 rounded-full bg-black/50 backdrop-blur-sm text-white text-xs font-medium border border-white/20 z-10">
+            {post.category}
+          </span>
+
+          {/* Text Content Over Image - Bottom */}
+          <div className="absolute bottom-0 left-0 right-0 p-5 text-white z-10">
+            {/* Meta Info */}
+            <div className="flex items-center justify-between text-xs text-white/80 mb-2">
+              <span className="flex items-center gap-1">
+                <FiUser size={12} /> {post.author}
+              </span>
+              <span className="flex items-center gap-1">
+                <FiClock size={12} /> {post.readTime}
+              </span>
             </div>
-            <p className="mt-6 text-white/80">{selectedJob.description}</p>
-            <p className="mt-6 text-white/60 text-sm">
-              Interested? Send your resume and cover letter to
-              careers@labrix.com
+
+            {/* Title */}
+            <p className="text-lg font-semibold text-white group-hover:text-(--color-accent) transition line-clamp-2 mb-1">
+              {post.title}
             </p>
-            <div className="mt-8">
-              <Button
-                href="/contact"
-                label="Apply Now"
-                size="sm"
-                className="w-full"
-              />
-            </div>
+
+            {/* Excerpt */}
+            <p className="text-sm text-white/80 line-clamp-2 mb-2">
+              {post.excerpt}
+            </p>
+
+            {/* Date */}
+            <div className="text-xs text-white/60">{post.date}</div>
           </div>
         </div>
-      )}
-    </PageTransition>
+      </GlassCard>
+    </Link>
   );
 }

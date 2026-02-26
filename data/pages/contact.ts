@@ -42,9 +42,9 @@ export const contactHours = deepFreeze([
 /** Contact details block. */
 export const contactDetails: ContactDetails = validateContactDetails(
   deepFreeze({
-    email: "hello@labrix.studio",
-    location: "San Diego + Remote",
-    phone: "+1 (555) 902-4480",
+    email: "labrix.studio@gmail.com",
+    location: "Pune + Remote",
+    phone: "+91 98760-89889",
   }),
 );
 

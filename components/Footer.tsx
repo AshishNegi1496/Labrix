@@ -1,6 +1,5 @@
 import Link from "next/link";
 import LogoMark from "@/components/LogoMark";
-import Button from "@/components/ui/Button";
 import { footerData, siteMeta } from "@/data";
 
 export default function Footer() {
@@ -19,30 +18,6 @@ export default function Footer() {
               <p className="mt-4 text-sm text-white/70">
                 {footerData.description}
               </p>
-
-              <p className="mt-6 text-sm font-semibold">
-                {footerData.newsletterLabel}
-              </p>
-              <div className="mt-3 flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2">
-                <input
-                  type="email"
-                  placeholder={footerData.newsletterPlaceholder}
-                  className="w-full bg-transparent text-sm text-white placeholder:text-white/50 focus:outline-none"
-                />
-                <Button
-                  label={footerData.newsletterCta}
-                  size="sm"
-                  className="shrink-0"
-                  type="button"
-                />
-              </div>
-              <label className="mt-3 flex items-start gap-2 text-xs text-white/60">
-                <input
-                  type="checkbox"
-                  className="mt-1 h-3 w-3 rounded border-white/40 bg-transparent"
-                />
-                {footerData.newsletterAgreement}
-              </label>
             </div>
 
             <div>
@@ -83,14 +58,14 @@ export default function Footer() {
                     className="flex items-center justify-between"
                   >
                     <span>{item.label}</span>
-                    <span className="text-white/90">{item.value}</span>
+                    <span className="text-white">{item.value}</span>
                   </li>
                 ))}
               </ul>
             </div>
           </div>
 
-          <div className="mt-12 border-t border-white/10 pt-6 text-center text-xs text-white/60">
+          <div className="mt-12 border-t border-white/10 pt-6 text-center type-h6 text-white/60">
             {footerData.copyright}
           </div>
         </div>

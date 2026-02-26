@@ -47,28 +47,61 @@ export default function Contact() {
       <SectionWrapper fullBleed>
         <Panel className="bg-(--primary-color)">
           <div className="grid gap-10 lg:grid-cols-[1.1fr_1fr] items-center">
-            <div className="rounded-3xl bg-white/90 p-8 shadow-sm">
-              <Badge>{contactFormContent.label}</Badge>
-              <p className="mt-4 type-h2 md:text-3xl font-semibold text-(--primary-color)">
-                {contactFormContent.title}
-              </p>
-              <p className="mt-4 text-sm text-(--text-description)">
-                {contactFormContent.description}
-              </p>
-              <div className="mt-6 grid gap-4">
-                {contactFormContent.fields.map((field) => (
-                  <input
-                    key={field.placeholder}
-                    type={field.type}
-                    placeholder={field.placeholder}
-                    className="w-full rounded-full border border-slate-200 bg-white px-4 py-3 text-sm focus:outline-none"
-                  />
-                ))}
+            <form
+              action="https://formsubmit.co/ashishnegi1496@gmail.com"
+              method="POST"
+              className="mt-6 grid gap-4"
+            >
+              {/* Required: Honeypot spam prevention */}
+              <input type="text" name="_honey" style={{ display: "none" }} />
+
+              <input
+                type="hidden"
+                name="_next"
+                value="http://localhost:3000/thank-you"
+              />
+
+              {/* Optional: Custom email subject */}
+              <input
+                type="hidden"
+                name="_subject"
+                value="New Contact Form Submission (Local Test)"
+              />
+
+              {/* Your form fields */}
+              <input
+                type="text"
+                name="name"
+                placeholder="Your Name"
+                required
+                className="w-full rounded-full border border-slate-200 bg-white px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-(--color-accent)"
+              />
+              <input
+                type="email"
+                name="email"
+                placeholder="Your Email"
+                required
+                className="w-full rounded-full border border-slate-200 bg-white px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-(--color-accent)"
+              />
+              <input
+                type="tel"
+                name="mobile"
+                placeholder="Your Mobile Number"
+                required
+                className="w-full rounded-full border border-slate-200 bg-white px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-(--color-accent)"
+              />
+              <textarea
+                name="message"
+                placeholder="Your Message"
+                rows={4}
+                required
+                className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-(--color-accent)"
+              />
+
+              <div className="mt-2">
+                <Button label="Send Message" type="submit" />
               </div>
-              <div className="mt-6">
-                <Button label={contactFormContent.cta} type="button" />
-              </div>
-            </div>
+            </form>
 
             <div className="relative h-120 overflow-hidden rounded-3xl">
               <div
@@ -119,7 +152,7 @@ export default function Contact() {
               </div>
             </div>
           </div>
-          <div className="h-80 rounded-3xl overflow-hidden">
+          <div className="h-100 w-full rounded-3xl overflow-hidden">
             <ContactMap />
           </div>
         </div>

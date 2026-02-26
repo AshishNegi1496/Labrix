@@ -44,10 +44,21 @@ export type StatItem = Readonly<{
 
 /** Blog post summary. */
 export type BlogPost = Readonly<{
+  slug: string;
   title: string;
-  date: string;
+  excerpt: string;
   image: string;
+  category: string;
+  author: string;
+  date: string;
+  readTime: string;
 }>;
+
+/** Blog category type */
+export type BlogCategory = "All" | "Research" | "Lab Life" | "Technology" | "News" | "Interviews";
+
+
+
 
 /** Research field card. */
 export type ResearchField = Readonly<{

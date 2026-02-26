@@ -10,7 +10,18 @@ import HeroBanner from "@/components/HeroBanner";
 import GlassCard from "@/components/GlassCard";
 import { Panel } from "@/components/ui/Panel";
 import Button from "@/components/ui/Button";
-
+const Ping = () => (
+  <span className="relative h-2.5 w-2.5">
+    <span className="absolute inset-0 rounded-full bg-green-300 animate-ping" />
+    <span className="absolute inset-0.5 rounded-full bg-green-300" />
+  </span>
+);
+const Badge = ({ children }: { children: React.ReactNode }) => (
+  <p className="inline-flex items-center gap-2 rounded-full border border-black/50 px-4 py-1.5 text-sm">
+    <Ping />
+    {children}
+  </p>
+);
 // Types
 type Job = {
   id: string;
@@ -167,61 +178,15 @@ export default function Careers() {
 
       {/* Why Join Us */}
       <SectionWrapper>
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <p className="text-sm uppercase tracking-[0.3em] text-(--primary-color)">
-            Join Us
-          </p>
+        <div className="text-center max-w-3xl mx-auto">
+          <Badge>Join Us</Badge>
           <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-semibold">
             Shape the Future of Science
           </h2>
-          <p className="mt-6 text-white/70">
+          <p className="mt-6 ">
             We&apos;re building a team of passionate scientists, engineers, and
             problem-solvers dedicated to advancing research and improving lives.
           </p>
-        </div>
-
-        {/* Stats */}
-        <div className="grid gap-6 sm:grid-cols-3 mb-20">
-          {[
-            { value: "50+", label: "Team Members" },
-            { value: "8", label: "Countries" },
-            { value: "92%", label: "Employee Satisfaction" },
-          ].map((stat, i) => (
-            <div
-              key={i}
-              className="text-center p-6 rounded-2xl bg-white/5 border border-white/10"
-            >
-              <p className="text-3xl sm:text-4xl font-bold text-(--primary-color)">
-                {stat.value}
-              </p>
-              <p className="mt-2 text-white/60 text-sm">{stat.label}</p>
-            </div>
-          ))}
-        </div>
-
-        {/* Culture Grid */}
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-20">
-          {cultureImages.map((img, i) => (
-            <div key={i} className="relative h-48 rounded-2xl overflow-hidden">
-              <Image
-                src={img}
-                alt={`Culture ${i + 1}`}
-                fill
-                className="object-cover hover:scale-105 transition duration-500"
-              />
-            </div>
-          ))}
-        </div>
-
-        {/* Benefits */}
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {benefits.map((b, i) => (
-            <GlassCard key={i} className="p-6 border-white/10">
-              <div className="text-3xl sm:text-4xl mb-4">{b.icon}</div>
-              <h3 className="text-xl font-semibold mb-2">{b.title}</h3>
-              <p className="text-white/60 text-sm">{b.description}</p>
-            </GlassCard>
-          ))}
         </div>
       </SectionWrapper>
 
@@ -229,12 +194,12 @@ export default function Careers() {
       <SectionWrapper fullBleed>
         <Panel className="bg-(--primary-color)">
           <div className="text-center mb-12">
-            <p className="text-sm uppercase tracking-[0.3em] text-white/60">
+            <p className="type-h5 uppercase tracking-[0.3em] text-white/60">
               Open Positions
             </p>
-            <h2 className="mt-2 text-2xl sm:text-3xl md:text-4xl font-semibold text-white">
+            <p className="mt-2 type-h3 sm:text-3xl md:text-4xl font-semibold text-white">
               Join Our Team
-            </h2>
+            </p>
           </div>
 
           {/* Department Filter */}
@@ -251,7 +216,7 @@ export default function Careers() {
           </div>
 
           {/* Jobs List */}
-          <div className="max-w-4xl mx-auto space-y-4">
+          <div className="max-w-4xl mx-auto space-y-4 ">
             {filteredJobs.map((job) => (
               <div
                 key={job.id}
@@ -260,10 +225,10 @@ export default function Careers() {
               >
                 <div className="flex flex-wrap items-start justify-between gap-4">
                   <div>
-                    <h3 className="text-xl font-semibold text-white group-hover:text-(--primary-color) transition">
+                    <p className="type-h5 font-semibold text-white group-hover:text-(--color-accent)  transition">
                       {job.title}
-                    </h3>
-                    <div className="flex flex-wrap gap-4 mt-3 text-sm text-white/60">
+                    </p>
+                    <div className="flex flex-wrap gap-4 mt-3 type-h6 text-white/60">
                       <span className="flex items-center gap-1">
                         <FiBriefcase /> {job.department}
                       </span>
@@ -275,7 +240,7 @@ export default function Careers() {
                       </span>
                     </div>
                   </div>
-                  <FiChevronRight className="text-white/40 group-hover:text-(--primary-color) text-xl transition" />
+                  <FiChevronRight className="text-white/40 group-hover:text-(--color-accent) text-2xl transition" />
                 </div>
               </div>
             ))}
