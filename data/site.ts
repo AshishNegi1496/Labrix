@@ -4,7 +4,7 @@ import type { SiteMeta } from "./types";
 
 /** Core site metadata used in layout and SEO. */
 export const siteMeta: SiteMeta = deepFreeze({
-  name: "Labrix",
-  description: "Trusted scientific solutions for a smarter, safer world.",
+  name: "ClinRT",
+  description: "Connected clinical research technology for faster execution.",
   url: appConfig.siteUrl,
 });

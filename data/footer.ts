@@ -6,7 +6,7 @@ import { validateFooter } from "./validators";
 export const footerData: FooterData = validateFooter(
   deepFreeze({
     description:
-      "Our website serves as a comprehensive hub for researchers, institutions, and partners.",
+      "ClinRT supports sponsors, CROs, and clinical teams with connected, compliance-aware trial operations.",
     newsletterLabel: "Subscribe to our newsletter",
     newsletterPlaceholder: "Enter your email address",
     newsletterCta: "Join",
@@ -16,21 +16,22 @@ export const footerData: FooterData = validateFooter(
     hoursLabel: "Working Hours",
     quickLinks: [
       { href: "/", label: "Home" },
-      { href: "/about", label: "About Us" },
-      { href: "/services", label: "Services" },
+      { href: "/who-we-are", label: "Who We Are" },
+      { href: "/what-we-build", label: "What We Build" },
+      { href: "/whats-new", label: "What's New" },
       { href: "/contact", label: "Contact Us" },
     ],
     services: [
-      "Analytical Testing",
-      "Biomedical Testing",
-      "Toxicology Analysis",
-      "Pharmaceutical Testing",
+      "iClinRT",
+      "EDC (Coming Soon)",
+      "CTMS (Coming Soon)",
+      "eCOA (Coming Soon)",
     ],
     hours: [
       { label: "Mon - Fri", value: "10:00AM - 07:00PM" },
       { label: "Saturday", value: "12:00AM - 05:00PM" },
       { label: "Sunday", value: "Closed" },
     ],
-    copyright: "Copyright 2025 All Rights Reserved.",
+    copyright: "Copyright 2026 ClinRT. All Rights Reserved.",
   }),
 );

@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
+import { useIntersectionReveal } from "@/hooks/useIntersectionReveal";
 
 type CountUpOnViewProps = {
   from?: number;
@@ -17,29 +18,14 @@ export default function CountUpOnView({
   suffix = "",
   className = "",
 }: CountUpOnViewProps) {
-  const ref = useRef<HTMLSpanElement | null>(null);
+  const { ref, isVisible } = useIntersectionReveal<HTMLSpanElement>({
+    threshold: 0.6,
+    once: true,
+  });
   const [count, setCount] = useState(from);
-  const [started, setStarted] = useState(false);
 
   useEffect(() => {
-    const node = ref.current;
-    if (!node) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !started) {
-          setStarted(true);
-        }
-      },
-      { threshold: 0.6 },
-    );
-
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, [started]);
-
-  useEffect(() => {
-    if (!started) return;
+    if (!isVisible) return;
 
     let startTime: number | null = null;
 
@@ -54,7 +40,7 @@ export default function CountUpOnView({
     };
 
     requestAnimationFrame(animate);
-  }, [started, from, to, duration]);
+  }, [isVisible, from, to, duration]);
 
   return (
     <span ref={ref} className={className}>
