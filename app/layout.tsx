@@ -26,8 +26,6 @@ const sourceSerif = Source_Serif_4({
 export const metadata: Metadata = {
   title: siteMeta.name,
   description: siteMeta.description,
-  publisher: "Labrix App",
-  creator: "Ashish Negi Team",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

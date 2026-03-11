@@ -6,6 +6,7 @@ import Button from "@/components/ui/Button";
 import CountUpOnView from "@/components/CountUpOnView";
 import { FaqItem } from "@/components/FaqItem";
 import { TestimonialCard } from "@/components/TestimonialCard";
+import Image from "next/image";
 
 const solutions = [
   {
@@ -111,7 +112,7 @@ const Badge = ({ children }: { children: React.ReactNode }) => (
 export default function HomePage() {
   return (
     <PageTransition>
-      <section className="relative overflow-hidden min-h-[88vh]">
+      <section className="relative overflow-hidden min-h-[110vh] flex items-center">
         <video
           className="absolute inset-0 h-full w-full object-cover"
           src="/videos/homePageVideo.mp4"
@@ -120,55 +121,112 @@ export default function HomePage() {
           loop
           playsInline
         />
-        <div className="absolute inset-0 bg-linear-to-b from-black/45 via-black/65 to-black/85" />
-        <div className="relative z-10 section-shell py-28 md:py-40 text-white">
-          <ScrollReveal className="max-w-4xl">
-            <p className="text-xs uppercase tracking-[0.45em] text-white/75">
-              Introduction Animation Video
-            </p>
-            <p className="mt-6 type-h1 font-semibold text-white">
-              ClinRT for modern clinical research operations
-            </p>
-            <p className="mt-6 max-w-2xl text-white/85">
-              We help research teams move faster with connected workflows,
-              transparent operations, and real-time execution intelligence.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-4">
-              <Button href="/what-we-build" label="Explore What We Build" />
-              <Button href="/contact" label="Talk to Our Team" />
-            </div>
-          </ScrollReveal>
 
-          <ScrollReveal
-            delay={120}
-            className="mt-12 grid max-w-xl grid-cols-2 gap-4 rounded-2xl border border-white/20 bg-white/10 p-6 backdrop-blur-md"
-          >
-            <div>
-              <CountUpOnView
-                to={40}
-                suffix="+"
-                className="text-3xl font-semibold text-white"
-              />
-              <p className="text-sm text-white/70">Active trial programs</p>
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-linear-to-b from-black/40 via-black/70 to-black/90" />
+
+        <div className="relative z-10 section-shell py-28 md:py-40 text-white">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            {/* LEFT CONTENT */}
+            <ScrollReveal className="max-w-3xl">
+              <p className="text-sm uppercase tracking-[0.35em] text-white/70">
+                Introduction Animation Video
+              </p>
+
+              <p className="mt-6 text-4xl md:text-6xl leading-tight font-semibold">
+                ClinRT for modern <br />
+                clinical research <br />
+                operations
+              </p>
+
+              <p className="mt-6 max-w-2xl text-white/80 text-lg">
+                ClinRT Global Services is a technology-driven provider of
+                Interactive Response Technology (IRT) solutions. We help
+                sponsors efficiently manage clinical trials across all phases
+                and geographies. Headquartered in Pune, India, we are trusted by
+                global pharmaceutical and biotech companies
+              </p>
+
+              {/* Buttons */}
+              <div className="mt-8 flex flex-wrap gap-4">
+                <Button href="/what-we-build" label="Get Started" />
+                <Button href="/contact" label="What we Build" />
+              </div>
+
+              {/* Hero Bottom Stats */}
+              <div className="mt-12 flex items-center gap-10 border-t">
+                <div>
+                  <CountUpOnView
+                    to={40}
+                    suffix="+"
+                    className="text-3xl font-semibold text-white"
+                  />
+                  <p className="text-sm text-white/70">Years of Experience</p>
+                </div>
+
+                {/* Client avatars */}
+                <div className="flex items-center gap-3 ml-6">
+                  <div className="flex -space-x-3">
+                    <Image
+                      src="/images/author-1.jpg"
+                      alt="client"
+                      width={32}
+                      height={32}
+                      className="rounded-full border border-white"
+                    />
+                    <Image
+                      src="/images/author-2.jpg"
+                      alt="client"
+                      width={32}
+                      height={32}
+                      className="rounded-full border border-white"
+                    />
+                    <Image
+                      src="/images/author-3.jpg"
+                      alt="client"
+                      width={32}
+                      height={32}
+                      className="rounded-full border border-white"
+                    />
+                    <Image
+                      src="/images/author-2.jpg"
+                      alt="client"
+                      width={32}
+                      height={32}
+                      className="rounded-full border border-white"
+                    />
+                  </div>
+
+                  <div>
+                    <p className="text-xs text-white/70">Trusted By</p>
+                    <p className="text-sm font-semibold">5k+ Clients</p>
+                  </div>
+                </div>
+              </div>
+            </ScrollReveal>
+
+            {/* RIGHT VIDEO CIRCLE */}
+            <div className="hidden lg:flex justify-center">
+              <a
+                href="https://www.youtube.com/watch?v=Y-x0efG1seA"
+                className="relative flex items-center justify-center h-40 w-40 rounded-full border border-white/50 backdrop-blur-md hover:scale-105 transition"
+              >
+                <div className="absolute inset-0 rounded-full border border-white/20 animate-ping"></div>
+                <span className="text-white text-sm tracking-wider">
+                  ▶ Play
+                </span>
+              </a>
             </div>
-            <div>
-              <CountUpOnView
-                to={120}
-                suffix="+"
-                className="text-3xl font-semibold text-white"
-              />
-              <p className="text-sm text-white/70">Delivery specialists</p>
-            </div>
-          </ScrollReveal>
+          </div>
         </div>
       </section>
 
-      <SectionWrapper fullBleed className="py-0">
+      {/* <SectionWrapper fullBleed className="py-0">
         <div className="bg-(--primary-color) px-6 py-4 text-center text-sm font-medium text-white md:text-base">
           Introducing ClinRT: built for compliant, scalable, and insight-led
           clinical execution.
         </div>
-      </SectionWrapper>
+      </SectionWrapper> */}
 
       <SectionWrapper>
         <ScrollReveal className="grid gap-8 lg:grid-cols-[1.2fr_1fr]">
@@ -176,7 +234,7 @@ export default function HomePage() {
             {/* <p className="text-xs uppercase tracking-[0.35em] text-(--muted-color)"> */}
             <Badge>About ClinRT</Badge>
             {/* </p> */}
-            <p className="mt-4 type-h2 font-semibold">
+            <p className="mt-4 type-h1 font-semibold">
               A connected platform for clinical operations teams
             </p>
             <p className="mt-4 text-(--muted-color)">

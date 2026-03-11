@@ -257,21 +257,29 @@ video {
   isolation: isolate;
 }
 
+/* DIAGONAL SLICE LAYER */
 .btn::after {
   content: "";
-  width: 0%;
-  height: 100%;
-  background: var(--btn-accent);
   position: absolute;
-  transition: all 0.4s ease-in-out;
-  right: 0;
+
+  top: 50%;
+  left: 50%;
+
+  width: 0%;
+  height: 250%;
+
+  background: var(--btn-accent);
+
+  transform: translate(-50%, -50%) rotate(15deg);
+
+  transition: width 0.45s cubic-bezier(.10,0,.24,1);
+
   z-index: 1;
 }
 
+/* expand diagonally from center */
 .btn:hover::after {
-  right: auto;
-  left: 0;
-  width: 100%;
+  width: 140%;
 }
 
 .btn-content {
@@ -301,12 +309,16 @@ video {
   transition: all 0.3s ease-in-out;
 }
 
+/* text + icon hover effect */
 .btn:hover .btn-label,
 .btn:hover .btn-icon {
   color: var(--btn-bg);
   animation: scaleUp 0.3s ease-in-out;
 }
 
+.btn:hover .btn-icon {
+  transform: translateX(6px);
+}
 .btn:focus-visible {
   outline: 2px solid #ffd401;
   outline-offset: 3px;

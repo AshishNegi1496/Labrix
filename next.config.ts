@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+   output: "standalone",
+
   images: {
     domains: ['picsum.photos'], // Add your image hostname here
     // Or for more flexibility, use remotePatterns (Next.js 12.3+)

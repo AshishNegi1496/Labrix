@@ -48,21 +48,6 @@ export default function Footer() {
                 ))}
               </ul>
             </div>
-
-            <div>
-              <p className="text-sm font-semibold">{footerData.hoursLabel}</p>
-              <ul className="mt-4 space-y-2 text-sm text-white/70">
-                {footerData.hours.map((item) => (
-                  <li
-                    key={item.label}
-                    className="flex items-center justify-between"
-                  >
-                    <span>{item.label}</span>
-                    <span className="text-white">{item.value}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
           </div>
 
           <div className="mt-12 border-t border-white/10 pt-6 text-center type-h6 text-white/60">
