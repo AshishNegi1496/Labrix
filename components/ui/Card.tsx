@@ -1,15 +1,24 @@
 import type { HTMLAttributes } from "react";
 import { cn } from "@/lib/cn";
 
-type CardProps = HTMLAttributes<HTMLDivElement>;
+type CardVariant = "solid" | "glass";
 
-export function Card({ className, ...props }: CardProps) {
+type CardProps = HTMLAttributes<HTMLDivElement> & {
+  variant?: CardVariant;
+  hoverable?: boolean;
+};
+
+export function Card({
+  className,
+  variant = "solid",
+  hoverable = true,
+  ...props
+}: CardProps) {
   return (
     <div
-      className={cn(
-        "rounded-3xl border border-slate-200 bg-white shadow-sm",
-        className,
-      )}
+      data-variant={variant}
+      data-hover={hoverable}
+      className={cn("card", className)}
       {...props}
     />
   );

@@ -85,9 +85,8 @@ export default function GlassCard({
   return (
     <article
       className={cn(
-        "group relative overflow-hidden rounded-2xl",
+        "glass-panel group relative overflow-hidden rounded-2xl",
         borderColor,
-        "backdrop-blur",
         height,
         className,
       )}

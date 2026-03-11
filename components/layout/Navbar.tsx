@@ -24,7 +24,10 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden items-center gap-8 type-h6 lg:flex">
+        <nav
+          className="hidden items-center gap-8 type-h6 lg:flex"
+          aria-label="Primary"
+        >
           {navigation.items.map((item) => {
             const isActive = pathname === item.href;
 
@@ -32,6 +35,7 @@ export default function Navbar() {
               <Link
                 key={item.href}
                 href={item.href}
+                aria-current={isActive ? "page" : undefined}
                 className={`transition ${
                   isActive
                     ? "text-white border-b-2 border-white pb-1"
@@ -56,18 +60,21 @@ export default function Navbar() {
           className="z-50 p-2 lg:hidden"
           onClick={() => setIsOpen(!isOpen)}
           aria-label={uiLabels.toggleMenu}
+          aria-expanded={isOpen}
+          aria-controls="mobile-menu"
         >
           {isOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
 
         {/* Mobile Menu */}
         <div
+          id="mobile-menu"
           className={`
           fixed inset-0 z-40 flex flex-col bg-black/95 p-8 pt-32 transition-transform duration-300 lg:hidden
           ${isOpen ? "translate-x-0" : "translate-x-full"}
         `}
         >
-          <nav className="flex flex-col gap-8 text-2xl font-semibold">
+          <nav className="flex flex-col gap-8 text-2xl font-semibold" aria-label="Mobile">
             {navigation.items.map((item) => {
               const isActive = pathname === item.href;
 
@@ -75,6 +82,7 @@ export default function Navbar() {
                 <Link
                   key={item.href}
                   href={item.href}
+                  aria-current={isActive ? "page" : undefined}
                   onClick={() => setIsOpen(false)}
                   className={`transition ${
                     isActive

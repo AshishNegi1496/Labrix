@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes } from "react";
 import type { IconType } from "react-icons";
 import { FiArrowUpRight } from "react-icons/fi";
+import { cn } from "@/lib/cn";
 
 type ButtonSize = "sm" | "md" | "lg";
 
@@ -24,9 +25,6 @@ type ButtonAsButton = CommonProps &
 
 export type ButtonProps = ButtonAsLink | ButtonAsButton;
 
-const joinClasses = (...classes: Array<string | undefined>) =>
-  classes.filter(Boolean).join(" ");
-
 export default function Button(props: ButtonProps) {
   const {
     label,
@@ -37,7 +35,7 @@ export default function Button(props: ButtonProps) {
   } = props;
 
   const sharedProps = {
-    className: joinClasses("btn", className),
+    className: cn("btn", className),
     "data-size": size,
   } as const;
 

@@ -1,15 +1,14 @@
 "use client";
 
-import PageTransition from "@/components/PageTransition";
-import SectionWrapper from "@/components/SectionWrapper";
+import PageTransition from "@/components/animations/PageTransition";
+import SectionWrapper from "@/components/layout/SectionWrapper";
 import Ticker from "@/components/Ticker";
-import HeroBanner from "@/components/HeroBanner";
+import HeroBanner from "@/components/layout/HeroBanner";
 import { Panel } from "@/components/ui/Panel";
 import Button from "@/components/ui/Button";
 import {
   contactDetails,
   contactDetailsContent,
-  contactFormContent,
   contactHero,
   contactHours,
   contactImages,

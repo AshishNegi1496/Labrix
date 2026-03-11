@@ -2,7 +2,7 @@
 
 import type { CSSProperties, HTMLAttributes, ReactNode } from "react";
 import { cn } from "@/lib/cn";
-import { useIntersectionReveal } from "@/hooks/useIntersectionReveal";
+import { useIntersectionAnimation } from "@/hooks/useIntersectionAnimation";
 
 type RevealVariant = "up" | "left" | "right" | "zoom";
 
@@ -12,7 +12,7 @@ type ScrollRevealProps = HTMLAttributes<HTMLDivElement> & {
   delay?: number;
   duration?: number;
   once?: boolean;
-  threshold?: number;
+  threshold?: number | number[];
   rootMargin?: string;
 };
 
@@ -33,7 +33,7 @@ export default function ScrollReveal({
   style,
   ...props
 }: ScrollRevealProps) {
-  const { ref, isVisible } = useIntersectionReveal<HTMLDivElement>({
+  const { ref, isVisible } = useIntersectionAnimation<HTMLDivElement>({
     threshold,
     rootMargin,
     once,

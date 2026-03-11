@@ -1,7 +1,7 @@
 import Link from "next/link";
-import PageTransition from "@/components/PageTransition";
-import SectionWrapper from "@/components/SectionWrapper";
-import ScrollReveal from "@/components/ScrollReveal";
+import PageTransition from "@/components/animations/PageTransition";
+import SectionWrapper from "@/components/layout/SectionWrapper";
+import ScrollReveal from "@/components/animations/ScrollReveal";
 import Button from "@/components/ui/Button";
 
 const iclinrtCapabilities = [
@@ -29,15 +29,25 @@ const upcomingProducts = [
   },
 ] as const;
 
+const Ping = () => (
+  <span className="relative h-2.5 w-2.5">
+    <span className="absolute inset-0 rounded-full bg-green-300 animate-ping" />
+    <span className="absolute inset-0.5 rounded-full bg-green-300" />
+  </span>
+);
+const Badge = ({ children }: { children: React.ReactNode }) => (
+  <p className="inline-flex items-center gap-2 rounded-full border border-black/50 px-4 py-1.5 text-sm">
+    <Ping />
+    {children}
+  </p>
+);
 export default function WhatWeBuildPage() {
   return (
     <PageTransition>
       <SectionWrapper className="pt-28 md:pt-36">
         <div className="grid gap-10 rounded-3xl bg-(--primary-color) px-6 py-16 text-white md:px-10 lg:grid-cols-[1.1fr_1fr]">
           <ScrollReveal>
-            <p className="text-xs uppercase tracking-[0.4em] text-white/60">
-              What We Build
-            </p>
+            <Badge>What We Build</Badge>
             <h1 className="mt-4 type-h1 font-semibold text-white">
               Clinical technology built for real-world execution
             </h1>
@@ -47,7 +57,10 @@ export default function WhatWeBuildPage() {
             </p>
           </ScrollReveal>
 
-          <ScrollReveal delay={140} className="relative min-h-72 overflow-hidden rounded-2xl border border-white/20 bg-white/5">
+          <ScrollReveal
+            delay={140}
+            className="relative min-h-72 overflow-hidden rounded-2xl border border-white/20 bg-white/5"
+          >
             <div className="absolute inset-0 grid place-items-center">
               <div className="relative h-56 w-56">
                 <span className="absolute inset-0 rounded-full border border-(--color-accent)/70 animate-ping" />
@@ -66,9 +79,7 @@ export default function WhatWeBuildPage() {
       <SectionWrapper id="iclinrt">
         <div className="grid gap-8 lg:grid-cols-[1.1fr_1fr]">
           <ScrollReveal>
-            <p className="text-xs uppercase tracking-[0.35em] text-(--muted-color)">
-              iClinRT
-            </p>
+            <Badge>iClinRT</Badge>
             <h2 className="mt-3 type-h2 font-semibold">
               The core platform for connected trial operations
             </h2>
@@ -96,9 +107,7 @@ export default function WhatWeBuildPage() {
       <SectionWrapper fullBleed>
         <div className="mx-auto max-w-7xl rounded-3xl bg-white px-6 py-14 md:px-10">
           <ScrollReveal>
-            <p className="text-xs uppercase tracking-[0.35em] text-(--muted-color)">
-              Expanding Platform
-            </p>
+            <Badge>Expanding Platform</Badge>
             <h2 className="mt-3 type-h2 font-semibold">
               EDC, CTMS, and eCOA are launching soon
             </h2>

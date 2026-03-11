@@ -1,6 +1,7 @@
 // FaqItem.tsx
 "use client";
 
+import { useId } from "react";
 import { FiPlus } from "react-icons/fi";
 import { useToggle } from "@/hooks/useToggle";
 
@@ -11,11 +12,14 @@ type Props = {
 
 export const FaqItem = ({ q, a }: Props) => {
   const { value: open, toggle } = useToggle(false);
+  const contentId = useId();
 
   return (
     <div className="rounded-xl border overflow-hidden transition-colors">
       <button
         onClick={toggle}
+        aria-expanded={open}
+        aria-controls={contentId}
         className="flex w-full items-center justify-between gap-4 p-5 text-left type-h5"
       >
         <span>{q}</span>
@@ -30,6 +34,7 @@ export const FaqItem = ({ q, a }: Props) => {
 
       {/* Animated content */}
       <div
+        id={contentId}
         className={`grid transition-[grid-template-rows,opacity] duration-300 ease-in-out ${
           open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
         }`}

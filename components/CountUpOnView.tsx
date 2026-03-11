@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useIntersectionReveal } from "@/hooks/useIntersectionReveal";
+import { useIntersectionAnimation } from "@/hooks/useIntersectionAnimation";
 
 type CountUpOnViewProps = {
   from?: number;
@@ -18,7 +18,7 @@ export default function CountUpOnView({
   suffix = "",
   className = "",
 }: CountUpOnViewProps) {
-  const { ref, isVisible } = useIntersectionReveal<HTMLSpanElement>({
+  const { ref, isVisible } = useIntersectionAnimation<HTMLSpanElement>({
     threshold: 0.6,
     once: true,
   });

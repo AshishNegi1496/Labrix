@@ -6,8 +6,10 @@ import L from "leaflet";
 import "@/app/globals.css";
 import type { LatLngTuple } from "leaflet";
 // Fix Next.js marker issue
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-delete (L.Icon.Default.prototype as any)._getIconUrl;
+const defaultIconPrototype = L.Icon.Default.prototype as {
+  _getIconUrl?: () => string;
+};
+delete defaultIconPrototype._getIconUrl;
 
 const createIcon = (color: "red" | "blue" | "green") =>
   new L.Icon({

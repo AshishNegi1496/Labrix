@@ -26,6 +26,8 @@
   --focus-ring: #7ccfbb;
 
   --shadow-card: 0 16px 40px rgba(15, 36, 58, 0.08);
+  --shadow-soft: 0 10px 30px rgba(15, 36, 58, 0.1);
+  --shadow-lift: 0 20px 44px rgba(15, 36, 58, 0.12);
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;
@@ -44,7 +46,6 @@
   --space-20: 80px;
   --space-24: 96px;
 
-  --container-max: 1200px;
   --transition-fast: 200ms ease;
   --transition-base: 300ms ease;
   --h1-size: clamp(2.2rem, 3vw + 1.6rem, 3rem);
@@ -62,8 +63,13 @@
   --muted-color: var(--text-muted);
   --accent-font: var(--font-body);
 
-
-   --container-max: 1440px;
+  --container-max: 1440px;
+  --glass-bg: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.18);
+  --btn-bg: #183153;
+  --btn-accent: #c9f7e5;
+  --btn-shadow: 0 6px 24px 0 rgba(0, 0, 0, 0.2);
+  --btn-shadow-soft: 0 4px 18px 0 rgba(0, 0, 0, 0.18);
 }
 
 @theme inline {
@@ -240,9 +246,9 @@ video {
   justify-content: center;
   align-items: center;
   border-radius: 30px;
-  background: #183153;
+  background: var(--btn-bg);
   font-family: var(--font-body);
-  box-shadow: 0 6px 24px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: var(--btn-shadow);
   overflow: hidden;
   cursor: pointer;
   border: none;
@@ -255,7 +261,7 @@ video {
   content: "";
   width: 0%;
   height: 100%;
-  background: #c9f7e5;
+  background: var(--btn-accent);
   position: absolute;
   transition: all 0.4s ease-in-out;
   right: 0;
@@ -297,7 +303,7 @@ video {
 
 .btn:hover .btn-label,
 .btn:hover .btn-icon {
-  color: #183153;
+  color: var(--btn-bg);
   animation: scaleUp 0.3s ease-in-out;
 }
 
@@ -324,7 +330,7 @@ video {
 }
 
 .btn[data-kind="link"] {
-  box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.18);
+  box-shadow: var(--btn-shadow-soft);
 }
 
 @keyframes scaleUp {
@@ -344,12 +350,29 @@ video {
   border: 1px solid var(--border-light);
   background: var(--bg-card);
   box-shadow: var(--shadow-card);
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  transition:
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast),
+    background var(--transition-fast),
+    border-color var(--transition-fast);
 }
 
-.card:hover {
+.card[data-variant="glass"] {
+  background: var(--glass-bg);
+  border-color: var(--glass-border);
+  backdrop-filter: blur(14px);
+}
+
+.card[data-hover="true"]:hover {
   transform: translateY(-2px);
-  box-shadow: 0 20px 44px rgba(15, 36, 58, 0.12);
+  box-shadow: var(--shadow-lift);
+}
+
+.glass-panel {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(14px);
+  box-shadow: var(--shadow-soft);
 }
 
 .input {

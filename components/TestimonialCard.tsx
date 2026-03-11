@@ -40,6 +40,8 @@ export const TestimonialCard = ({
             <a
               href={video}
               target="_blank"
+              rel="noreferrer"
+              aria-label={`Play testimonial video for ${name}`}
               className="absolute inset-0 grid place-items-center rounded-xl bg-gray/40 opacity-0 hover:opacity-100 transition"
             >
               <FiPlay className="text-white text-xl" />

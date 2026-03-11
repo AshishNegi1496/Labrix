@@ -4,9 +4,9 @@ import Image from "next/image";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { FiLoader, FiPlay, FiX } from "react-icons/fi";
 import GlassCard from "@/components/GlassCard";
-import HeroBanner from "@/components/HeroBanner";
-import PageTransition from "@/components/PageTransition";
-import SectionWrapper from "@/components/SectionWrapper";
+import HeroBanner from "@/components/layout/HeroBanner";
+import PageTransition from "@/components/animations/PageTransition";
+import SectionWrapper from "@/components/layout/SectionWrapper";
 import {
   galleryCategories,
   galleryConfig,

@@ -2,11 +2,10 @@ import "./globals.css";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { Plus_Jakarta_Sans, Source_Serif_4 } from "next/font/google";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
 import { CursorEffects } from "@/components/cursor-effects";
 import { siteMeta } from "@/data";
-import { appConfig } from "@/config/app-config";
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -22,9 +21,13 @@ const sourceSerif = Source_Serif_4({
   weight: ["400", "500", "600", "700"],
 });
 
+//define metadata for website
+
 export const metadata: Metadata = {
   title: siteMeta.name,
   description: siteMeta.description,
+  publisher: "Labrix App",
+  creator: "Ashish Negi Team",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

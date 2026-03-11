@@ -1,3 +1,5 @@
+import Container from "@/components/ui/Container";
+
 type HeroBannerProps = {
   title: string;
   breadcrumb: string;
@@ -20,8 +22,8 @@ export default function HeroBanner({
     <section className="hero">
       <div className="hero-bg" style={{ backgroundImage: `url(${image})` }} />
       <div className="hero-overlay" />
-      <div
-        className={`section-shell hero-content flex flex-col ${alignment} py-20 sm:py-24 md:py-32`}
+      <Container
+        className={`hero-content flex flex-col ${alignment} py-20 sm:py-24 md:py-32`}
       >
         <p className="text-xs uppercase tracking-[0.45em] text-black/70">
           {breadcrumb}
@@ -34,7 +36,7 @@ export default function HeroBanner({
             {subtitle}
           </p>
         ) : null}
-      </div>
+      </Container>
     </section>
   );
 }

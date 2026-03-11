@@ -1,6 +1,6 @@
-import PageTransition from "@/components/PageTransition";
-import SectionWrapper from "@/components/SectionWrapper";
-import ScrollReveal from "@/components/ScrollReveal";
+import PageTransition from "@/components/animations/PageTransition";
+import SectionWrapper from "@/components/layout/SectionWrapper";
+import ScrollReveal from "@/components/animations/ScrollReveal";
 import Button from "@/components/ui/Button";
 
 export default function ComingSoonPage() {

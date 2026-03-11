@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { cn } from "@/lib/cn";
+import Container from "@/components/ui/Container";
 
 type SectionWrapperProps = {
   children: ReactNode;
@@ -18,15 +19,9 @@ export default function SectionWrapper({
 }: SectionWrapperProps) {
   return (
     <section id={id} className={cn("py-12 sm:py-14 md:py-20", className)}>
-      <div
-        className={cn(
-          "section-shell",
-          fullBleed && "[--container-max:100%] px-0",
-          innerClassName,
-        )}
-      >
+      <Container fullBleed={fullBleed} className={innerClassName}>
         {children}
-      </div>
+      </Container>
     </section>
   );
 }

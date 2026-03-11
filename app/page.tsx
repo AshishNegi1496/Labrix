@@ -1,7 +1,7 @@
 import Link from "next/link";
-import PageTransition from "@/components/PageTransition";
-import SectionWrapper from "@/components/SectionWrapper";
-import ScrollReveal from "@/components/ScrollReveal";
+import PageTransition from "@/components/animations/PageTransition";
+import SectionWrapper from "@/components/layout/SectionWrapper";
+import ScrollReveal from "@/components/animations/ScrollReveal";
 import Button from "@/components/ui/Button";
 import CountUpOnView from "@/components/CountUpOnView";
 import { FaqItem } from "@/components/FaqItem";
@@ -96,6 +96,18 @@ const faqs = [
   },
 ] as const;
 
+const Ping = () => (
+  <span className="relative h-2.5 w-2.5">
+    <span className="absolute inset-0 rounded-full bg-green-300 animate-ping" />
+    <span className="absolute inset-0.5 rounded-full bg-green-300" />
+  </span>
+);
+const Badge = ({ children }: { children: React.ReactNode }) => (
+  <p className="inline-flex items-center gap-2 rounded-full border border-black/50 px-4 py-1.5 text-sm">
+    <Ping />
+    {children}
+  </p>
+);
 export default function HomePage() {
   return (
     <PageTransition>
@@ -114,9 +126,9 @@ export default function HomePage() {
             <p className="text-xs uppercase tracking-[0.45em] text-white/75">
               Introduction Animation Video
             </p>
-            <h1 className="mt-6 type-h1 font-semibold text-white">
+            <p className="mt-6 type-h1 font-semibold text-white">
               ClinRT for modern clinical research operations
-            </h1>
+            </p>
             <p className="mt-6 max-w-2xl text-white/85">
               We help research teams move faster with connected workflows,
               transparent operations, and real-time execution intelligence.
@@ -161,12 +173,12 @@ export default function HomePage() {
       <SectionWrapper>
         <ScrollReveal className="grid gap-8 lg:grid-cols-[1.2fr_1fr]">
           <div>
-            <p className="text-xs uppercase tracking-[0.35em] text-(--muted-color)">
-              About ClinRT
-            </p>
-            <h2 className="mt-4 type-h2 font-semibold">
+            {/* <p className="text-xs uppercase tracking-[0.35em] text-(--muted-color)"> */}
+            <Badge>About ClinRT</Badge>
+            {/* </p> */}
+            <p className="mt-4 type-h2 font-semibold">
               A connected platform for clinical operations teams
-            </h2>
+            </p>
             <p className="mt-4 text-(--muted-color)">
               ClinRT unifies trial planning, site activities, data capture
               signals, and operational tracking into one coordinated layer. It
@@ -193,9 +205,8 @@ export default function HomePage() {
           <ScrollReveal>
             <div className="flex flex-wrap items-end justify-between gap-6">
               <div>
-                <p className="text-xs uppercase tracking-[0.4em] text-white/60">
-                  Key Solutions
-                </p>
+                <Badge>Key Solutions</Badge>
+
                 <p className="mt-3 type-h2 font-semibold text-white">
                   Built to support the full trial lifecycle
                 </p>
@@ -229,9 +240,8 @@ export default function HomePage() {
         <ScrollReveal>
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
-              <p className="text-xs uppercase tracking-[0.35em] text-(--muted-color)">
-                Featured Works
-              </p>
+              <Badge>Featured Works</Badge>
+
               <h2 className="mt-3 type-h2 font-semibold">
                 Real delivery outcomes for clinical teams
               </h2>
@@ -254,9 +264,8 @@ export default function HomePage() {
       <SectionWrapper fullBleed>
         <div className="mx-auto max-w-7xl rounded-3xl bg-white px-6 py-14 md:px-10">
           <ScrollReveal>
-            <p className="text-xs uppercase tracking-[0.35em] text-(--muted-color)">
-              Clients
-            </p>
+            <Badge>Clients</Badge>
+
             <h2 className="mt-3 type-h3 font-semibold">
               Trusted by sponsors, CROs, and research partners
             </h2>
@@ -274,11 +283,10 @@ export default function HomePage() {
       </SectionWrapper>
 
       <SectionWrapper fullBleed>
-        <div className="mx-auto max-w-7xl rounded-3xl bg-(--primary-color) px-6 py-16 md:px-10">
+        <div className="mx-auto max-w-7xl rounded-3xl bg-(--primary-color) text-white px-6 py-16 md:px-10">
           <ScrollReveal>
-            <p className="text-xs uppercase tracking-[0.35em] text-white/60">
-              Testimonials
-            </p>
+            <Badge>Testimonials</Badge>
+
             <h2 className="mt-3 type-h2 font-semibold text-white">
               What trial leaders say about working with ClinRT
             </h2>
@@ -295,9 +303,7 @@ export default function HomePage() {
 
       <SectionWrapper>
         <ScrollReveal className="rounded-3xl bg-(--color-accent) p-8 md:p-12">
-          <p className="text-xs uppercase tracking-[0.35em] text-(--primary-color)">
-            Explore What&apos;s Possible
-          </p>
+          <Badge>Explore What&apos;s Possible</Badge>
           <h2 className="mt-3 type-h2 font-semibold text-(--primary-color)">
             Let&apos;s design a better clinical delivery model together
           </h2>
@@ -315,9 +321,7 @@ export default function HomePage() {
       <SectionWrapper>
         <div className="grid gap-10 lg:grid-cols-[1fr_1.3fr]">
           <ScrollReveal>
-            <p className="text-xs uppercase tracking-[0.35em] text-(--muted-color)">
-              FAQs
-            </p>
+            <Badge>FAQs</Badge>
             <h2 className="mt-3 type-h2 font-semibold">
               Answers for common delivery and implementation questions
             </h2>

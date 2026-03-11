@@ -18,6 +18,7 @@ export default function LogoMark({ className }: LogoMarkProps) {
         fill="none"
         stroke="currentColor"
         strokeWidth="1.6"
+        aria-hidden="true"
       >
         <circle cx="16" cy="16" r="3.5" />
         <path

@@ -2,9 +2,9 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import Image from "next/image";
-import PageTransition from "@/components/PageTransition";
-import SectionWrapper from "@/components/SectionWrapper";
-import ScrollReveal from "@/components/ScrollReveal";
+import PageTransition from "@/components/animations/PageTransition";
+import SectionWrapper from "@/components/layout/SectionWrapper";
+import ScrollReveal from "@/components/animations/ScrollReveal";
 import CountUpOnView from "@/components/CountUpOnView";
 
 const leadership = [
@@ -206,9 +206,9 @@ export default function WhoWeArePage() {
             <p className="text-xs uppercase tracking-[0.35em] text-white/60">
               Our Culture
             </p>
-            <h2 className="mt-3 type-h2 font-semibold text-white">
+            <p className="mt-3 type-h2 font-semibold text-white">
               Values that guide every decision and delivery cycle
-            </h2>
+            </p>
           </ScrollReveal>
           <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {culture.map((item, index) => (

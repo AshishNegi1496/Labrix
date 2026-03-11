@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import type { ReactNode } from "react";
 import { pageTransition } from "@/lib/motion";
 import { cn } from "@/lib/cn";
@@ -14,11 +14,16 @@ export default function PageTransition({
   children,
   className,
 }: PageTransitionProps) {
+  const reduceMotion = useReducedMotion();
+  const variants = reduceMotion
+    ? { initial: { opacity: 1 }, animate: { opacity: 1 } }
+    : pageTransition;
+
   return (
     <motion.main
       initial="initial"
       animate="animate"
-      variants={pageTransition}
+      variants={variants}
       className={cn("min-h-screen", className)}
     >
       {children}
