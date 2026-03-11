@@ -50,6 +50,19 @@ const moments = [
   { src: "/images/service-1.jpg", label: "Clinical operations summit" },
 ] as const;
 
+const Ping = () => (
+  <span className="relative h-2.5 w-2.5">
+    <span className="absolute inset-0 rounded-full bg-green-300 animate-ping" />
+    <span className="absolute inset-0.5 rounded-full bg-green-300" />
+  </span>
+);
+const Badge = ({ children }: { children: React.ReactNode }) => (
+  <p className="inline-flex items-center gap-2 rounded-full border border-black/50 px-4 py-1.5 text-sm">
+    <Ping />
+    {children}
+  </p>
+);
+
 export default function WhatsNewPage() {
   return (
     <PageTransition>
@@ -67,9 +80,9 @@ export default function WhatsNewPage() {
             <p className="text-xs uppercase tracking-[0.4em] text-white/70">
               What&apos;s New
             </p>
-            <h1 className="mt-4 type-h1 font-semibold text-white">
+            <p className="mt-4 type-h1 font-semibold text-white">
               Latest updates from ClinRT
-            </h1>
+            </p>
             <p className="mt-4 text-white/85">
               Discover fresh resources, practical insights, and real delivery
               stories from our teams and partners.
@@ -79,14 +92,12 @@ export default function WhatsNewPage() {
       </section>
 
       <SectionWrapper>
-        <div className="grid gap-5 md:grid-cols-2">
+        <div className="grid gap-18 md:grid-cols-2">
           <ScrollReveal className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-            <p className="text-xs uppercase tracking-[0.35em] text-(--muted-color)">
-              Brochures
-            </p>
+            <Badge>Brochures</Badge>
             <ul className="mt-4 space-y-3 text-sm">
               {brochures.map((item) => (
-                <li key={item} className="rounded-xl bg-(--bg-page) p-3">
+                <li key={item} className="rounded-xl bg-background p-3">
                   {item}
                 </li>
               ))}
@@ -100,9 +111,7 @@ export default function WhatsNewPage() {
             delay={120}
             className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
           >
-            <p className="text-xs uppercase tracking-[0.35em] text-(--muted-color)">
-              Blogs
-            </p>
+            <Badge>Blogs</Badge>
             <ul className="mt-4 space-y-3 text-sm">
               {blogs.map((item) => (
                 <li key={item.title} className="rounded-xl bg-(--bg-page) p-3">
@@ -118,11 +127,9 @@ export default function WhatsNewPage() {
       </SectionWrapper>
 
       <SectionWrapper id="case-studies" fullBleed>
-        <div className="mx-auto max-w-7xl rounded-3xl bg-(--color-secondary) px-6 py-14 text-white md:px-10">
+        <div className="mx-auto  rounded-3xl bg-(--color-secondary) px-6 py-14 text-white md:px-10">
           <ScrollReveal>
-            <p className="text-xs uppercase tracking-[0.35em] text-white/60">
-              Case Studies
-            </p>
+            <Badge>Case Studies</Badge>
             <p className="mt-3 type-h2 font-semibold text-white">
               Delivery stories from active clinical programs
             </p>
@@ -142,9 +149,7 @@ export default function WhatsNewPage() {
       <SectionWrapper>
         <div className="grid gap-5 md:grid-cols-2">
           <ScrollReveal className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-            <p className="text-xs uppercase tracking-[0.35em] text-(--muted-color)">
-              Webinars
-            </p>
+            <Badge>Webinars</Badge>
             <ul className="mt-4 space-y-3 text-sm">
               {webinars.map((item) => (
                 <li key={item} className="rounded-xl bg-(--bg-page) p-3">
@@ -180,9 +185,7 @@ export default function WhatsNewPage() {
 
       <SectionWrapper>
         <ScrollReveal>
-          <p className="text-xs uppercase tracking-[0.35em] text-(--muted-color)">
-            Moments
-          </p>
+          <Badge>Moments</Badge>
           <h2 className="mt-3 type-h2 font-semibold">Photos and videos</h2>
         </ScrollReveal>
         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">

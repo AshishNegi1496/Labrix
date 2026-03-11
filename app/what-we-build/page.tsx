@@ -44,13 +44,13 @@ const Badge = ({ children }: { children: React.ReactNode }) => (
 export default function WhatWeBuildPage() {
   return (
     <PageTransition>
-      <SectionWrapper className="pt-28 md:pt-36">
+      <SectionWrapper className="pt-28 md:pt-36" fullBleed>
         <div className="grid gap-10 rounded-3xl bg-(--primary-color) px-6 py-16 text-white md:px-10 lg:grid-cols-[1.1fr_1fr]">
           <ScrollReveal>
             <Badge>What We Build</Badge>
-            <h1 className="mt-4 type-h1 font-semibold text-white">
+            <p className="mt-4 type-h1 font-semibold text-white">
               Clinical technology built for real-world execution
-            </h1>
+            </p>
             <p className="mt-5 max-w-xl text-white/80">
               We create focused software products that help research teams run
               studies with clarity, speed, and operational control.
@@ -105,7 +105,7 @@ export default function WhatWeBuildPage() {
       </SectionWrapper>
 
       <SectionWrapper fullBleed>
-        <div className="mx-auto max-w-7xl rounded-3xl bg-white px-6 py-14 md:px-10">
+        <div className="mx-auto  rounded-3xl bg-white px-6 py-14 md:px-10">
           <ScrollReveal>
             <Badge>Expanding Platform</Badge>
             <h2 className="mt-3 type-h2 font-semibold">

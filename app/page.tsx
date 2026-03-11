@@ -201,7 +201,7 @@ export default function HomePage() {
       </SectionWrapper>
 
       <SectionWrapper fullBleed>
-        <div className="mx-auto max-w-7xl rounded-3xl bg-(--color-secondary) px-6 py-16 text-white md:px-10">
+        <div className="mx-auto  rounded-3xl bg-(--color-secondary) px-6 py-16 text-white md:px-10">
           <ScrollReveal>
             <div className="flex flex-wrap items-end justify-between gap-6">
               <div>
@@ -262,7 +262,7 @@ export default function HomePage() {
       </SectionWrapper>
 
       <SectionWrapper fullBleed>
-        <div className="mx-auto max-w-7xl rounded-3xl bg-white px-6 py-14 md:px-10">
+        <div className="mx-auto rounded-3xl bg-white px-6 py-14 md:px-10">
           <ScrollReveal>
             <Badge>Clients</Badge>
 
@@ -283,7 +283,7 @@ export default function HomePage() {
       </SectionWrapper>
 
       <SectionWrapper fullBleed>
-        <div className="mx-auto max-w-7xl rounded-3xl bg-(--primary-color) text-white px-6 py-16 md:px-10">
+        <div className="mx-auto  rounded-3xl bg-(--primary-color) text-white px-6 py-16 md:px-10">
           <ScrollReveal>
             <Badge>Testimonials</Badge>
 
@@ -301,7 +301,7 @@ export default function HomePage() {
         </div>
       </SectionWrapper>
 
-      <SectionWrapper>
+      <SectionWrapper fullBleed>
         <ScrollReveal className="rounded-3xl bg-(--color-accent) p-8 md:p-12">
           <Badge>Explore What&apos;s Possible</Badge>
           <h2 className="mt-3 type-h2 font-semibold text-(--primary-color)">

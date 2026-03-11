@@ -94,6 +94,19 @@ function Word({ word, progress, range }: WordProps) {
   );
 }
 
+const Ping = () => (
+  <span className="relative h-2.5 w-2.5">
+    <span className="absolute inset-0 rounded-full bg-green-300 animate-ping" />
+    <span className="absolute inset-0.5 rounded-full bg-green-300" />
+  </span>
+);
+const Badge = ({ children }: { children: React.ReactNode }) => (
+  <p className="inline-flex items-center gap-2 rounded-full border border-black/50 px-4 py-1.5 text-sm">
+    <Ping />
+    {children}
+  </p>
+);
+
 export default function WhoWeArePage() {
   const containerRef = useRef(null);
 
@@ -105,11 +118,9 @@ export default function WhoWeArePage() {
   const words = overviewText.split(" ");
   return (
     <PageTransition>
-      <SectionWrapper className="pt-28 md:pt-36">
+      <SectionWrapper className="pt-28 md:pt-36" fullBleed>
         <div className="rounded-3xl bg-(--primary-color) px-6 py-16 text-white md:px-10 md:py-20">
-          <p className="text-xs uppercase tracking-[0.35em] text-white/65">
-            Who We Are
-          </p>
+          <Badge>Who We Are</Badge>
           <div className="mt-5 flex flex-wrap gap-3 md:gap-5">
             {headlineWords.map((word, index) => (
               <ScrollReveal key={word} variant="zoom" delay={index * 120}>
@@ -145,14 +156,12 @@ export default function WhoWeArePage() {
       <SectionWrapper fullBleed>
         <div className="mx-auto max-w-7xl rounded-3xl bg-white px-6 py-14 md:px-10">
           <ScrollReveal>
-            <p className="text-xs uppercase tracking-[0.35em] text-(--muted-color)">
-              Our Leadership
-            </p>
+            <Badge>Our Leadership</Badge>
           </ScrollReveal>
           <div className="mt-6 grid gap-5 md:grid-cols-3">
             {leadership.map((member, index) => (
               <ScrollReveal key={member.name} delay={index * 90}>
-                <article className="h-full rounded-2xl border border-slate-200 bg-(--bg-page) p-6">
+                <article className="h-full rounded-2xl border border-slate-200 bg-background p-6">
                   <p className="type-h5 font-semibold">{member.name}</p>
                   <p className="mt-1 text-sm font-medium text-(--primary-color)">
                     {member.role}
@@ -170,9 +179,7 @@ export default function WhoWeArePage() {
       <SectionWrapper>
         <div className="grid gap-5 md:grid-cols-2">
           <ScrollReveal className="rounded-2xl border border-slate-200 bg-white p-7 shadow-sm">
-            <p className="text-xs uppercase tracking-[0.35em] text-(--muted-color)">
-              Our Vision
-            </p>
+            <Badge>Our Vision</Badge>
             <p className="mt-3 type-h4 font-semibold">
               Make clinical execution smarter, more connected, and more human.
             </p>
@@ -185,9 +192,7 @@ export default function WhoWeArePage() {
             delay={120}
             className="rounded-2xl border border-slate-200 bg-white p-7 shadow-sm"
           >
-            <p className="text-xs uppercase tracking-[0.35em] text-(--muted-color)">
-              Our Mission
-            </p>
+            <Badge>Our Mission</Badge>
             <p className="mt-3 type-h4 font-semibold">
               Build dependable digital systems that help trials run with
               clarity, speed, and confidence.
@@ -201,11 +206,9 @@ export default function WhoWeArePage() {
       </SectionWrapper>
 
       <SectionWrapper fullBleed>
-        <div className="mx-auto max-w-7xl rounded-3xl bg-(--color-secondary) px-6 py-16 text-white md:px-10">
+        <div className="mx-auto rounded-3xl bg-(--color-secondary) px-6 py-16 text-white md:px-10">
           <ScrollReveal>
-            <p className="text-xs uppercase tracking-[0.35em] text-white/60">
-              Our Culture
-            </p>
+            <Badge>Our Culture</Badge>
             <p className="mt-3 type-h2 font-semibold text-white">
               Values that guide every decision and delivery cycle
             </p>
@@ -227,9 +230,7 @@ export default function WhoWeArePage() {
 
       <SectionWrapper>
         <ScrollReveal>
-          <p className="text-xs uppercase tracking-[0.35em] text-(--muted-color)">
-            Our Team
-          </p>
+          <Badge>Our Team</Badge>
           <h2 className="mt-3 type-h2 font-semibold">
             Specialists across product, clinical operations, and delivery
           </h2>
@@ -256,11 +257,9 @@ export default function WhoWeArePage() {
         </div>
       </SectionWrapper>
 
-      <SectionWrapper>
+      <SectionWrapper fullBleed>
         <ScrollReveal className="rounded-3xl bg-(--color-accent) p-8 md:p-12">
-          <p className="text-xs uppercase tracking-[0.35em] text-(--primary-color)">
-            Experience Numbers
-          </p>
+          <Badge>Experience Numbers</Badge>
           <div className="mt-6 grid gap-6 md:grid-cols-2">
             <div className="rounded-2xl bg-white/60 p-6">
               <CountUpOnView
