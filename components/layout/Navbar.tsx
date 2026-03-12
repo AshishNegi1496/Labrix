@@ -4,7 +4,6 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
-import LogoMark from "@/components/LogoMark";
 import Button from "@/components/ui/Button";
 import { navigation, uiLabels } from "@/data";
 import Image from "next/image";
@@ -14,7 +13,7 @@ export default function Navbar() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 backdrop-blur-md bg-black/30 border-b border-white/10">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 text-white">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5  ">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 z-50">
           {/* <LogoMark />
@@ -32,7 +31,7 @@ export default function Navbar() {
 
         {/* Desktop Navigation */}
         <nav
-          className="hidden items-center gap-8 type-h6 lg:flex"
+          className="hidden items-center gap-8 type-h6 lg:flex text-white"
           aria-label="Primary"
         >
           {navigation.items.map((item) => {
@@ -45,8 +44,8 @@ export default function Navbar() {
                 aria-current={isActive ? "page" : undefined}
                 className={`transition ${
                   isActive
-                    ? "text-white border-b-2 border-white pb-1"
-                    : "text-white/70 hover:text-white"
+                    ? "text-white border-b-2 border-(--color-orange) pb-1 "
+                    : "text-white/70  "
                 }`}
               >
                 {item.label}

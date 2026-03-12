@@ -1,14 +1,18 @@
-import Link from "next/link";
+"use client";
+import { useState } from "react";
 import PageTransition from "@/components/animations/PageTransition";
 import SectionWrapper from "@/components/layout/SectionWrapper";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import Button from "@/components/ui/Button";
 import CountUpOnView from "@/components/CountUpOnView";
 import { FaqItem } from "@/components/FaqItem";
-import { TestimonialCard } from "@/components/TestimonialCard";
 import Clients from "@/components/ui/Clients";
 import GlassCard from "@/components/GlassCard";
+
 import Image from "next/image";
+import { AnimatePresence } from "framer-motion";
+import { FaqModal } from "@/components/FaqModal";
+import { FiArrowRight } from "react-icons/fi";
 
 const whyChoosePoints = [
   {
@@ -138,20 +142,64 @@ const testimonials = [
 
 const faqs = [
   {
-    q: "What does ClinRT solve first?",
-    a: "ClinRT first centralizes trial operations into one live view so teams can spot delays, risks, and data issues earlier.",
+    q: "What is iClinRT?",
+    a: "iClinRT is our configurable Interactive Response Technology platform that supports clinical trials with subject management, randomization, drug supply oversight, real-time dashboards, automated alerts, and end-to-end kit tracking. It’s built to handle complex study designs and streamline day-to-day trial execution.",
   },
   {
-    q: "Can we start with one module and expand later?",
-    a: "Yes. Teams typically start with iClinRT and then add EDC, CTMS, or eCOA based on study timelines.",
+    q: "How long does it take to set up an IRT system for a new study?",
+    a: "Our standard build-to-go-live timeline is approximately 4 weeks, even for complex randomization and supply requirements. This includes configuration, validation, training, and study readiness.",
   },
   {
-    q: "Is the platform suitable for global studies?",
-    a: "Yes. The architecture is built for multi-site, cross-functional trial programs with strict compliance requirements.",
+    q: "Does iClinRT support complex randomization designs?",
+    a: "Yes. iClinRT is built to support stratified, cohort-based, site-based, block, and multi-arm randomization approaches. It can adapt to protocol amendments and can manage subject subgroups and complex visit schedules.",
   },
   {
-    q: "How fast can implementation begin?",
-    a: "Implementation kickoff can start immediately after discovery and scope alignment.",
+    q: "Can iClinRT manage drug supplies and auto-shipments?",
+    a: "Absolutely. The system tracks kits from origin to destruction, handles expiry updates, supports cold-chain and temperature excursion assessment, and automates shipments based on predefined triggers and predictive logic. It also manages site-to-site transfers and retention samples.",
+  },
+  {
+    q: "Is emergency unblinding supported?",
+    a: "Yes. iClinRT provides a secure, audit-ready emergency unblinding process for use during medical emergencies or safety concerns. Access is controlled and fully traceable.",
+  },
+  {
+    q: "What kind of reports and dashboards does iClinRT provide?",
+    a: "The platform offers real-time dashboards and configurable reports covering enrollment, randomization, subject visits, supply status, compliance, site performance, and more. Reports can be filtered by country, site, depot, or user role.",
+  },
+  {
+    q: "How does iClinRT maintain data integrity and compliance?",
+    a: "iClinRT complies with 21 CFR Part 11, GCP requirements, and global data privacy standards like GDPR and HIPAA. It maintains full audit trails, access controls, encryption, and complete validation documentation.",
+  },
+  {
+    q: " Can iClinRT integrate with EDC, CTMS, or other systems?",
+    a: "Yes. iClinRT can integrate with external clinical systems such as EDC and CTMS to support seamless data flow and reduce operational duplication.",
+  },
+  {
+    q: "What kind of support does ClinRT offer?",
+    a: "We offer 24×7 helpdesk support, backed by domain experts in IRT and clinical trial supply management. Our team assists with technical troubleshooting, protocol queries, site support, and ongoing study monitoring.",
+  },
+  {
+    q: "Can the system handle protocol amendments?",
+    a: "Yes. iClinRT is built to accommodate changes such as visit schedule updates, randomization modifications, and supply logic adjustments without disrupting ongoing study activities.",
+  },
+  {
+    q: "Does iClinRT support global, multi-site trials?",
+    a: "Yes. The platform is designed for global scalability across programs, phases, and regions. It handles multi-country supply logic, depot structures, time-zone alignment, and role-based access for global teams.",
+  },
+  {
+    q: "What distinguishes ClinRT from other IRT providers?",
+    a: "We combine a highly configurable platform with deep domain expertise—over 50 years of leadership experience, support for 1000+ trials, and 500+ global clients. Our strength lies in fast deployment, strong supply chain capabilities, and 24×7 expert support.",
+  },
+  {
+    q: " How secure is my study data?",
+    a: "All study data is encrypted, access-controlled, and fully audit-tracked. We follow secure architecture practices and jurisdiction specific data protection requirements to ensure privacy and compliance.",
+  },
+  {
+    q: "Do you offer demos or consultations?",
+    a: "Yes. You can request a live demo through our enquiry form, and our team will walk you through the platform, discuss your protocol needs, and address any questions.",
+  },
+  {
+    q: "How do I get started?",
+    a: "Simply submit an enquiry or request a demo. Our team will gather your study details, propose a configuration plan, and guide you through the build, validation, training, and go-live process.",
   },
 ] as const;
 
@@ -168,6 +216,9 @@ const Badge = ({ children }: { children: React.ReactNode }) => (
   </p>
 );
 export default function HomePage() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const PREVIEW_COUNT = 5;
+  const previewFaqs = faqs.slice(0, PREVIEW_COUNT);
   return (
     <PageTransition>
       <section className="relative overflow-hidden min-h-[110vh] flex items-center">
@@ -244,12 +295,10 @@ export default function HomePage() {
             <div className="hidden lg:flex justify-center">
               <a
                 href="https://www.youtube.com/watch?v=Y-x0efG1seA"
-                className="relative flex items-center justify-center h-40 w-40 rounded-full border border-white/50 backdrop-blur-md hover:scale-105 transition"
+                className="relative flex items-center justify-center h-40 w-40 rounded-full border border-white/80 backdrop-blur-md hover:scale-110 transition"
               >
-                <div className="absolute inset-0 rounded-full border border-white/20 animate-ping"></div>
-                <span className="text-white text-sm tracking-wider">
-                  ▶ Play
-                </span>
+                <div className="absolute inset-0 rounded-full border border-white/80 animate-ping"></div>
+                <span className=" type-h6 tracking-wider">▶ Play</span>
               </a>
             </div>
           </div>
@@ -594,15 +643,48 @@ export default function HomePage() {
             <p className="mt-3 type-h2 font-semibold">
               Clear Answers. Confident Decisions.
             </p>
+
+            {/* Using your custom Button component */}
+            <div className="mt-6">
+              <Button
+                label={`Read More`}
+                onClick={() => setIsModalOpen(true)}
+                size="md"
+                icon={FiArrowRight} // Swapping default icon if you want a horizontal arrow
+                className="bg-transparent text-[#0f243a] border border-[#0f243a]/20 hover:bg-[#0f243a] hover:text-white transition-all duration-300"
+              />
+            </div>
           </ScrollReveal>
+
           <div className="space-y-4">
-            {faqs.map((item, index) => (
+            {previewFaqs.map((item, index) => (
               <ScrollReveal key={item.q} delay={index * 70}>
                 <FaqItem q={item.q} a={item.a} />
               </ScrollReveal>
             ))}
+
+            {faqs.length > PREVIEW_COUNT && (
+              <div className="pt-4 text-center">
+                <button
+                  onClick={() => setIsModalOpen(true)}
+                  className="text-sm font-medium text-[#0f243a]/60 hover:text-[#0f243a] transition-colors"
+                >
+                  + Show {faqs.length - PREVIEW_COUNT} more
+                </button>
+              </div>
+            )}
           </div>
         </div>
+
+        <AnimatePresence>
+          {isModalOpen && (
+            <FaqModal
+              isOpen={isModalOpen}
+              onClose={() => setIsModalOpen(false)}
+              allFaqs={faqs}
+            />
+          )}
+        </AnimatePresence>
       </SectionWrapper>
     </PageTransition>
   );
