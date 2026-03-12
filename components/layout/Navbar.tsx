@@ -7,7 +7,7 @@ import { Menu, X } from "lucide-react";
 import LogoMark from "@/components/LogoMark";
 import Button from "@/components/ui/Button";
 import { navigation, uiLabels } from "@/data";
-
+import Image from "next/image";
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
@@ -17,10 +17,17 @@ export default function Navbar() {
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 text-white">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 z-50">
-          <LogoMark />
+          {/* <LogoMark />
           <span className="type-h6 font-semibold uppercase tracking-[0.3em]">
             {navigation.brandLabel}
-          </span>
+          </span> */}
+          <Image
+            src="/clinrt-logo-white.png"
+            alt="ClinRT Logo"
+            width={160}
+            height={20}
+            priority
+          />
         </Link>
 
         {/* Desktop Navigation */}
@@ -74,7 +81,10 @@ export default function Navbar() {
           ${isOpen ? "translate-x-0" : "translate-x-full"}
         `}
         >
-          <nav className="flex flex-col gap-8 text-2xl font-semibold" aria-label="Mobile">
+          <nav
+            className="flex flex-col gap-8 text-2xl font-semibold"
+            aria-label="Mobile"
+          >
             {navigation.items.map((item) => {
               const isActive = pathname === item.href;
 

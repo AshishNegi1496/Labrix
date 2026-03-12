@@ -8,6 +8,7 @@
   --color-secondary-hover: #17324c;
   --color-secondary-active: #12273c;
   --color-accent: #c9f7e5;
+  --color-orange:#d1752a;
   --color-accent-hover: #b6f1dc;
   --color-accent-active: #a1e9d0;
 
@@ -67,7 +68,7 @@
   --glass-bg: rgba(255, 255, 255, 0.08);
   --glass-border: rgba(255, 255, 255, 0.18);
   --btn-bg: #183153;
-  --btn-accent: #c9f7e5;
+  --btn-accent: #d1752a;
   --btn-shadow: 0 6px 24px 0 rgba(0, 0, 0, 0.2);
   --btn-shadow-soft: 0 4px 18px 0 rgba(0, 0, 0, 0.18);
 }
