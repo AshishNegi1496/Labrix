@@ -6,6 +6,8 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { CursorEffects } from "@/components/cursor-effects";
 import { siteMeta } from "@/data";
+import Watermark from "@/components/Watermark";
+import WatermarkRight from "@/components/WatermarkRight";
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -37,6 +39,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body className="min-h-screen bg-background text-foreground">
         <Navbar />
         <CursorEffects />
+        <Watermark />
+        <WatermarkRight />
         {children}
         <Footer />
       </body>

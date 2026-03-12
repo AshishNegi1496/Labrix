@@ -34,7 +34,7 @@ export function CursorEffects() {
       <div
         className="w-3 h-3 rounded-full transition-transform duration-150 "
         style={{
-          backgroundColor: "var(--color-accent)",
+          backgroundColor: "var(--color-orange)",
           mixBlendMode: "difference",
         }}
       />

@@ -1,48 +1,60 @@
-// FaqItem.tsx
 "use client";
 
 import { useId } from "react";
-import { FiPlus } from "react-icons/fi";
+import { motion, AnimatePresence } from "framer-motion";
+import { FiPlus, FiMinus } from "react-icons/fi";
 import { useToggle } from "@/hooks/useToggle";
 
-type Props = {
-  q: string;
-  a: string;
-};
+type Props = { q: string; a: string };
 
 export const FaqItem = ({ q, a }: Props) => {
   const { value: open, toggle } = useToggle(false);
-  const contentId = useId();
+  const id = useId();
 
   return (
-    <div className="rounded-xl border overflow-hidden transition-colors">
+    <motion.div
+      layout
+      className={`relative rounded-2xl border overflow-hidden backdrop-blur transition
+      ${open ? "border-[#0f243a]/60 bg-[#0f243a]/5 shadow-lg" : "border-white/10"}
+      hover:border-[#0f243a]/40`}
+    >
       <button
         onClick={toggle}
         aria-expanded={open}
-        aria-controls={contentId}
-        className="flex w-full items-center justify-between gap-4 p-5 text-left type-h5"
+        aria-controls={id}
+        className="flex w-full items-center justify-between p-6 text-left"
       >
-        <span>{q}</span>
-
-        {/* Icon */}
-        <FiPlus
-          className={`shrink-0 transition-transform duration-300 ${
-            open ? "rotate-45" : "rotate-0"
-          }`}
-        />
+        <span className="type-h5 font-medium">{q}</span>
+        <motion.div
+          animate={{ rotate: open ? 180 : 0 }}
+          transition={{ duration: 0.3 }}
+          className={`flex h-9 w-9 items-center justify-center rounded-full border
+  ${open ? "bg-[#0f243a] border-[#0f243a] text-white" : "border-white/20"}`}
+        >
+          {open ? <FiMinus size={20} /> : <FiPlus size={20} />}
+        </motion.div>
       </button>
 
-      {/* Animated content */}
-      <div
-        id={contentId}
-        className={`grid transition-[grid-template-rows,opacity] duration-300 ease-in-out ${
-          open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
-        }`}
-      >
-        <div className="overflow-hidden">
-          <div className="px-5 pb-5 text-sm text-(--text-description)">{a}</div>
-        </div>
-      </div>
-    </div>
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            key={id}
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="overflow-hidden"
+          >
+            <p className="px-6 pb-6 text-sm text-(--text-description)">{a}</p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <motion.div
+        animate={{ opacity: open ? 1 : 0 }}
+        className="absolute inset-0 rounded-2xl pointer-events-none
+        bg-[radial-gradient(circle_at_top,rgba(15,36,58,0.25),transparent_70%)]"
+      />
+    </motion.div>
   );
 };
