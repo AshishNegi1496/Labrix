@@ -96,7 +96,7 @@ export default function WhatWeBuildPage() {
             {iclinrtCapabilities.map((capability, index) => (
               <ScrollReveal key={capability} delay={index * 80}>
                 <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-                  <p className="text-sm text-(--text-body)">{capability}</p>
+                  <p className="text-sm text-foreground">{capability}</p>
                 </div>
               </ScrollReveal>
             ))}
@@ -108,16 +108,16 @@ export default function WhatWeBuildPage() {
         <div className="mx-auto  rounded-3xl bg-white px-6 py-14 md:px-10">
           <ScrollReveal>
             <Badge>Expanding Platform</Badge>
-            <h2 className="mt-3 type-h2 font-semibold">
+            <p className="mt-3 type-h2 font-semibold">
               EDC, CTMS, and eCOA are launching soon
-            </h2>
+            </p>
           </ScrollReveal>
           <div className="mt-8 grid gap-5 md:grid-cols-3">
             {upcomingProducts.map((product, index) => (
               <ScrollReveal key={product.title} delay={index * 90}>
                 <Link
                   href={product.href}
-                  className="group block h-full rounded-2xl border border-slate-200 bg-(--bg-page) p-6 transition hover:-translate-y-1 hover:border-(--primary-color)/30"
+                  className="group block h-full rounded-2xl border border-slate-200 bg-background p-6 transition hover:-translate-y-1 hover:border-(--primary-color)/30"
                 >
                   <p className="type-h4 font-semibold">{product.title}</p>
                   <p className="mt-3 text-sm text-(--muted-color)">

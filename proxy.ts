@@ -17,7 +17,6 @@ const csp = `
   .replace(/\s{2,}/g, " ")
   .trim();
 
-// ✅ Renamed from middleware to proxy
 export function proxy(_: NextRequest) {
   const response = NextResponse.next();
 

@@ -10,6 +10,7 @@ import Clients from "@/components/ui/Clients";
 import GlassCard from "@/components/GlassCard";
 
 import Image from "next/image";
+import Link from "next/link";
 import { AnimatePresence } from "framer-motion";
 import { FaqModal } from "@/components/FaqModal";
 import { FiArrowRight } from "react-icons/fi";
@@ -147,6 +148,73 @@ const testimonials = [
   },
 ] as const;
 
+const movingWords = [
+  "Interactive Response Technology",
+  "Randomization & Trial Supply Management",
+  "Subject Management",
+  "Drug Supply Management",
+  "Auto Shipments",
+  "Kit Management",
+  "Drug Accountability",
+  "Subject Unblinding",
+  "Visit Schedule Management",
+  "Inventory Tracking",
+  "Dynamic Dashboards",
+  "Real-Time Reporting",
+  "Notifications & Alerts",
+  "Supply Prediction Engine",
+  "Buffer Stock Strategy",
+  "Retention Sample Management",
+  "Kit Expiry Tracking",
+  "Cohort & Strata-Based Randomization",
+  "Adaptive Trial Support",
+  "Regulatory-Compliant Workflows",
+] as const;
+
+const movingTrack = [...movingWords, ...movingWords];
+
+const posterItems = [
+  {
+    title: "Protocol-Ready IRT Stack",
+    tag: "Launch",
+    image: "/images/case-study-1.jpg",
+    href: "/what-we-build",
+  },
+  {
+    title: "Supply Forecasting Console",
+    tag: "Update",
+    image: "/images/case-study-2.jpg",
+    href: "/whats-new",
+  },
+  {
+    title: "Live Trial Dashboards",
+    tag: "Insight",
+    image: "/images/case-study-3.jpg",
+    href: "/whats-new",
+  },
+  {
+    title: "Demo at Home",
+    tag: "Insight",
+    image: "/images/case-study-3.jpg",
+    href: "/whats-new",
+  },
+] as const;
+
+const newsItems = [
+  {
+    title: "Adaptive randomization workflows now supported across cohorts.",
+    date: "Mar 2026",
+  },
+  {
+    title: "Auto-shipments and buffer stock logic expanded to global depots.",
+    date: "Feb 2026",
+  },
+  {
+    title: "Real-time alerts refreshed for site-specific thresholds.",
+    date: "Jan 2026",
+  },
+] as const;
+
 const faqs = [
   {
     q: "What is iClinRT?",
@@ -244,22 +312,20 @@ export default function HomePage() {
         <div className="relative z-10 section-shell py-28 md:py-40 text-white">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             {/* LEFT CONTENT */}
-            <ScrollReveal variant="left" className="max-w-3xl">
-              <p className="mt-6 type-h2 md:text-6xl leading-tight font-semibold">
+            <ScrollReveal variant="left" className="max-w-3xl mb-4">
+              <p className="mt-12 type-h2 md:text-4xl leading-tight font-semibold">
                 Smarter Clinical Technology <br />
                 for a More Connected <br />
                 Research World
               </p>
 
               <p className="mt-6 max-w-2xl type-h6 text-white/80">
-                A unified digital ecosystem bringing precision, automation, and
-                intelligence to every stage of the clinical journey. Built on
-                disciplined engineering and deep domain insight, our platform
-                unifies critical clinical processes into a seamless digital
-                continuum—clarifying data, orchestrating operations, and
+                Built on rigorous engineering and deep domain expertise, our
+                platform integrates critical processes into a seamless digital
+                continuum—streamlining data, orchestrating operations, and
                 sustaining performance at scale. From startup to closeout, we
-                bring order to complexity, strengthen oversight, and empower
-                teams to advance studies with precision, pace, and confidence.
+                simplify complexity and enhance oversight, empowering teams to
+                advance studies with confidence and pace.
               </p>
 
               {/* Buttons */}
@@ -270,15 +336,13 @@ export default function HomePage() {
 
               {/* Hero Bottom Stats */}
               <div className="mt-12 flex items-center gap-10 ">
-                <div>
-                  <p className="type-h4 text-white/70">Years of Experience</p>
-
+                <div className="flex-row">
                   <CountUpOnView
                     to={40}
                     suffix="+"
-                    className="type-h4 font-semibold text-white"
+                    className="type-h3 font-semibold text-white"
                   />
-                  <p className="type-h4 text-white/70">
+                  <p className="type-h6 text-white/70">
                     Years of Collective Experience
                   </p>
                 </div>
@@ -292,7 +356,7 @@ export default function HomePage() {
                     { src: "/images/author-2.jpg" },
                   ]}
                   label="Trusted By"
-                  title="5k+ Clients Worldwide"
+                  title="5000+ Clients Worldwide"
                   className="ml-6"
                 />
               </div>
@@ -311,6 +375,108 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Moving words */}
+      <SectionWrapper fullBleed className="py-0">
+        <div className="bg-(--primary-color) text-white rounded-2xl">
+          <div className="section-shell py-2 md:py-8">
+            <div className="flex flex-col gap-4 md:flex-row md:items-center">
+              <div className="relative flex-1 overflow-hidden">
+                <div className="ticker-track text-white/80">
+                  {movingTrack.map((item, index) => (
+                    <span
+                      key={`${item}-${index}`}
+                      className="inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.500 em]"
+                    >
+                      <span className="h-2 w-2 rounded-full bg-white/50" />
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </SectionWrapper>
+
+      {/* Posters + News */}
+      <SectionWrapper fullBleed className="py-12">
+        <div className="section-shell px-6 md:px-10">
+          <div className="grid gap-6 lg:grid-cols-[2fr_1fr]">
+            <div className="relative rounded-3xl border border-slate-100 bg-slate-50/50 p-8 shadow-sm">
+              {/* Header Section */}
+              <div className="mb-8 flex items-center justify-between">
+                <div className="space-y-1">
+                  <Badge>At a Glance</Badge>
+                </div>
+
+                <button
+                  type="button"
+                  className="group flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-900 transition-all hover:border-(--color-orange) hover:bg-(--color-orange) hover:text-white"
+                >
+                  <FiArrowRight className="transition-transform group-hover:translate-x-0.5" />
+                </button>
+              </div>
+
+              {/* Grid Section */}
+              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {posterItems.map((poster, index) => (
+                  <ScrollReveal key={poster.title} delay={index * 80}>
+                    <Link
+                      href={poster.href}
+                      className="group relative block overflow-hidden rounded-2xl bg-white transition-all hover:shadow-xl hover:shadow-slate-200/50"
+                    >
+                      {/* Image Container */}
+                      <div className="relative aspect-4/5 w-full overflow-hidden">
+                        <Image
+                          src={poster.image}
+                          alt={poster.title}
+                          fill
+                          className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                        />
+                        {/* Soft Overlay */}
+                        <div className="absolute inset-0 bg-linear-to-t from-slate-950/80 via-transparent to-transparent opacity-60 transition-opacity group-hover:opacity-80" />
+
+                        {/* Floating Content (Bottom-aligned) */}
+                        <div className="absolute bottom-0 left-0 w-full p-5">
+                          <span className="inline-block rounded-md bg-white/10 px-2 py-1 text-[10px] font-bold uppercase tracking-widest text-white backdrop-blur-md">
+                            {poster.tag}
+                          </span>
+                          <p className="mt-3 type-h4 font-medium leading-snug text-white">
+                            {poster.title}
+                          </p>
+                        </div>
+                      </div>
+                    </Link>
+                  </ScrollReveal>
+                ))}
+              </div>
+            </div>
+
+            <aside className="rounded-3xl border border-slate-200 bg-(--primary-color) p-6 text-white shadow-sm">
+              <Badge>News & Updates</Badge>
+              <p className="mt-4 text-sm text-white/80">
+                Small updates and launches from the ClinRT product studio.
+              </p>
+              <div className="mt-6 space-y-4">
+                {newsItems.map((item) => (
+                  <div
+                    key={item.title}
+                    className="rounded-2xl border border-white/15 bg-white/5 p-4"
+                  >
+                    <p className="text-sm font-semibold text-white">
+                      {item.title}
+                    </p>
+                    <p className="mt-2 text-xs uppercase tracking-[0.2em] text-white/60">
+                      {item.date}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </aside>
+          </div>
+        </div>
+      </SectionWrapper>
 
       {/* About clinRT */}
       <SectionWrapper>
@@ -395,7 +561,7 @@ export default function HomePage() {
           {/* Section Header */}
           <ScrollReveal className="">
             <Badge>Key Features</Badge>
-            <div className="mt-6 flex flex-col gap-24 lg:flex-row lg:items-start lg:justify-between">
+            <div className="mt-6 flex flex-col gap-56 lg:flex-row lg:items-start lg:justify-between">
               <p className="mt-4 type-h2 font-semibold ">
                 Leading innovation across critical fields
               </p>
