@@ -9,6 +9,7 @@ export default function GlobalError({
   error: Error;
   reset: () => void;
 }) {
+  void error;
   return (
     <html>
       <body>

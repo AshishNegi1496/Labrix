@@ -4,7 +4,7 @@ import { MapContainer, TileLayer, CircleMarker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import type { LatLngTuple } from "leaflet";
 
-const LOCATION: LatLngTuple = [18.5204, 73.8567];
+const LOCATION: LatLngTuple = [18.625874, 73.802571];
 
 export default function ContactMap() {
   return (
@@ -27,12 +27,12 @@ export default function ContactMap() {
         pathOptions={{
           color: "#f3f6f4",
           fillColor: "#d1752a",
-          fillOpacity: 1,
+          fillOpacity: 10,
         }}
-        className="animate-pulse"
+        // className="animate-bounce"
       >
         <Popup>
-          <div className="text-sm">
+          <div className="type-h6">
             <strong>ClinRT Global Services Pvt. Ltd.</strong>
             <br />
             905, Tower 3, Kohinoor World Towers

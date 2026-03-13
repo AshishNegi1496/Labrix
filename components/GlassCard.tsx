@@ -145,19 +145,19 @@ export default function GlassCard({
           // Otherwise render the default structure
           <>
             {tag && (
-              <span className="mb-2 text-xs uppercase tracking-[0.3em] text-emerald-300">
+              <span className="mb-2 type-h6 uppercase tracking-[0.3em] aa">
                 {tag}
               </span>
             )}
             {title && (
-              <p className={cn("text-lg font-semibold", titleClassName)}>
+              <p className={cn("type-h4 font-semibold", titleClassName)}>
                 {title}
               </p>
             )}
             {description && (
               <p
                 className={cn(
-                  "mt-1 text-sm text-white/80",
+                  "mt-1 type-h6 text-white/80",
                   descriptionClassName,
                 )}
               >

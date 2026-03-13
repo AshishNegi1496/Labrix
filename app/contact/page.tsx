@@ -7,25 +7,24 @@ import Button from "@/components/ui/Button";
 import { FiMail, FiMapPin, FiPhone } from "react-icons/fi";
 import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
+import type { InputHTMLAttributes, TextareaHTMLAttributes } from "react";
+import { cn } from "@/lib/cn";
 
 const ContactMap = dynamic(() => import("@/components/ContactMap"), {
   ssr: false,
 });
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const Input = (props: any) => (
-  <input
-    {...props}
-    className="w-full rounded-xl border border-black/40 bg-white/5 px-4 py-3 text-sm backdrop-blur focus:outline-none focus:border-[#0f243a]"
-  />
+const fieldClass =
+  "w-full rounded-xl border border-black/40 bg-white/5 px-4 py-3 text-sm backdrop-blur focus:outline-none focus:border-[#0f243a]";
+
+type InputProps = InputHTMLAttributes<HTMLInputElement>;
+const Input = ({ className, ...props }: InputProps) => (
+  <input {...props} className={cn(fieldClass, className)} />
 );
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const TextArea = (props: any) => (
-  <textarea
-    {...props}
-    className="w-full rounded-xl border border-black/40 bg-white/5 px-4 py-3 text-sm backdrop-blur focus:outline-none focus:border-[#0f243a]"
-  />
+type TextAreaProps = TextareaHTMLAttributes<HTMLTextAreaElement>;
+const TextArea = ({ className, ...props }: TextAreaProps) => (
+  <textarea {...props} className={cn(fieldClass, className)} />
 );
 
 export default function Contact() {
@@ -55,7 +54,7 @@ export default function Contact() {
               method="POST"
               className="grid gap-4 mt-6"
             >
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid gap-4 sm:grid-cols-2">
                 <Input name="firstName" placeholder="First Name*" required />
                 <Input name="lastName" placeholder="Last Name*" required />
               </div>
@@ -75,7 +74,7 @@ export default function Contact() {
 
               <select
                 name="enquiryType"
-                className="rounded-xl border border-white/20 bg-white/5 px-4 py-3 text-sm "
+                className="rounded-xl border border-white/20 bg-white/5 px-4 py-3 text-sm"
               >
                 <option>Request a Demo</option>
                 <option>Product Enquiry</option>
@@ -119,7 +118,7 @@ export default function Contact() {
               method="POST"
               className="grid gap-4 mt-6"
             >
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid gap-4 sm:grid-cols-2">
                 <Input name="firstName" placeholder="First Name*" required />
                 <Input name="lastName" placeholder="Last Name*" required />
               </div>
@@ -193,7 +192,7 @@ export default function Contact() {
             </div>
           </div>
 
-          <div className="h-100 w-full rounded-3xl overflow-hidden">
+          <div className="h-80 w-full overflow-hidden rounded-3xl sm:h-96 lg:h-100">
             <ContactMap />
           </div>
         </div>

@@ -1,5 +1,5 @@
 "use client";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, type MotionValue } from "framer-motion";
 import { useRef } from "react";
 import Image from "next/image";
 import PageTransition from "@/components/animations/PageTransition";
@@ -76,8 +76,7 @@ const headlineWords = ["We", "Create", "Impact."] as const;
 
 type WordProps = {
   word: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  progress: any;
+  progress: MotionValue<number>;
   range: [number, number];
 };
 
@@ -108,7 +107,7 @@ const Badge = ({ children }: { children: React.ReactNode }) => (
 );
 
 export default function WhoWeArePage() {
-  const containerRef = useRef(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -133,7 +132,7 @@ export default function WhoWeArePage() {
         </div>
       </SectionWrapper>
       <SectionWrapper fullBleed className="bg-(--primary-color)">
-        <section ref={containerRef} className="relative h-[220vh] ">
+        <section ref={containerRef} className="relative h-[220vh]">
           <div className="sticky top-0 flex h-screen items-center justify-center px-6">
             <p className="type-h2 gap-2 space-x-2 text-gray-400">
               {words.map((word, i) => {

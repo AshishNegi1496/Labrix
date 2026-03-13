@@ -21,11 +21,11 @@ export const TestimonialCard = ({
   return (
     <div
       className={`
-        shrink-0 w-155 transition-all duration-700 ease-out
+        shrink-0 w-[min(90vw,38.75rem)] transition-all duration-700 ease-out
         ${active ? "scale-100 opacity-100" : "scale-90 opacity-50"}
       `}
     >
-      <div className="rounded-2xl bg-white/5 border p-6 flex gap-6">
+      <div className="flex gap-6 rounded-2xl border bg-white/5 p-6">
         {/* Author image */}
         <div className="relative shrink-0">
           <Image
@@ -33,7 +33,7 @@ export const TestimonialCard = ({
             alt={name}
             width={90}
             height={90}
-            className="rounded-xl  h-60 object-cover"
+            className="h-60 rounded-xl object-cover"
           />
 
           {video && (

@@ -14,7 +14,7 @@ export const TeamCard = ({ name, role, image }: Props) => {
   return (
     <motion.div
       variants={itemVariants}
-      className="group rounded-2xl overflow-hidden "
+      className="group overflow-hidden rounded-2xl"
     >
       {/* Image */}
       <div className="relative overflow-hidden">
@@ -23,7 +23,7 @@ export const TeamCard = ({ name, role, image }: Props) => {
           alt={name}
           width={400}
           height={500}
-          className="w-full h-100 object-cover transition-transform duration-500 group-hover:scale-105"
+          className="h-100 w-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
       </div>
 

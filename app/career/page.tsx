@@ -1,13 +1,11 @@
 "use client";
 
-import Image from "next/image";
 import { useState } from "react";
 import { FiMapPin, FiClock, FiBriefcase, FiChevronRight } from "react-icons/fi";
 import PageTransition from "@/components/animations/PageTransition";
 import SectionWrapper from "@/components/layout/SectionWrapper";
 import Ticker from "@/components/Ticker";
 import HeroBanner from "@/components/layout/HeroBanner";
-import GlassCard from "@/components/GlassCard";
 import { Panel } from "@/components/ui/Panel";
 import Button from "@/components/ui/Button";
 const Ping = () => (
@@ -30,12 +28,6 @@ type Job = {
   location: string;
   type: "Full-time" | "Part-time" | "Contract" | "Remote";
   experience: string;
-  description: string;
-};
-
-type Benefit = {
-  icon: string;
-  title: string;
   description: string;
 };
 
@@ -118,46 +110,6 @@ const jobs: Job[] = [
   },
 ];
 
-const benefits: Benefit[] = [
-  {
-    icon: "🧬",
-    title: "Cutting-edge Research",
-    description: "Work with the latest technology and publish in top journals.",
-  },
-  {
-    icon: "🌎",
-    title: "Remote-first Culture",
-    description: "Flexible work arrangements across multiple time zones.",
-  },
-  {
-    icon: "📚",
-    title: "Learning Budget",
-    description: "$5,000 annual budget for conferences, courses, and books.",
-  },
-  {
-    icon: "🏥",
-    title: "Comprehensive Benefits",
-    description: "Health, dental, vision, and 401k with 6% matching.",
-  },
-  {
-    icon: "⚖️",
-    title: "Work-life Balance",
-    description: "Unlimited PTO and flexible hours that work for you.",
-  },
-  {
-    icon: "🚀",
-    title: "Career Growth",
-    description: "Clear progression paths and mentorship programs.",
-  },
-];
-
-const cultureImages = [
-  "/images/culture-1.jpg",
-  "/images/culture-2.jpg",
-  "/images/culture-3.jpg",
-  "/images/culture-4.jpg",
-];
-
 export default function Careers() {
   const [department, setDepartment] = useState("All");
   const [selectedJob, setSelectedJob] = useState<Job | null>(null);
@@ -183,7 +135,7 @@ export default function Careers() {
           <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-semibold">
             Shape the Future of Science
           </h2>
-          <p className="mt-6 ">
+          <p className="mt-6">
             We&apos;re building a team of passionate scientists, engineers, and
             problem-solvers dedicated to advancing research and improving lives.
           </p>
@@ -203,7 +155,7 @@ export default function Careers() {
           </div>
 
           {/* Department Filter */}
-          <div className="flex flex-wrap gap-2 justify-center mb-12">
+          <div className="flex flex-wrap justify-center gap-2 mb-12">
             {departments.map((d) => (
               <button
                 key={d}
@@ -216,19 +168,19 @@ export default function Careers() {
           </div>
 
           {/* Jobs List */}
-          <div className="max-w-4xl mx-auto space-y-4 ">
+          <div className="max-w-4xl mx-auto space-y-4">
             {filteredJobs.map((job) => (
               <div
                 key={job.id}
-                className="group bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl p-6 transition cursor-pointer"
+                className="group rounded-2xl border border-white/10 bg-white/5 p-6 transition hover:bg-white/10 cursor-pointer"
                 onClick={() => setSelectedJob(job)}
               >
                 <div className="flex flex-wrap items-start justify-between gap-4">
                   <div>
-                    <p className="type-h5 font-semibold text-white group-hover:text-(--color-accent)  transition">
+                    <p className="type-h5 font-semibold text-white transition group-hover:text-(--color-accent)">
                       {job.title}
                     </p>
-                    <div className="flex flex-wrap gap-4 mt-3 type-h6 text-white/60">
+                    <div className="type-h6 mt-3 flex flex-wrap gap-4 text-white/60">
                       <span className="flex items-center gap-1">
                         <FiBriefcase /> {job.department}
                       </span>
@@ -318,3 +270,4 @@ export default function Careers() {
     </PageTransition>
   );
 }
+

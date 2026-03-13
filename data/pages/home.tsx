@@ -2,7 +2,6 @@ import { FiActivity, FiClipboard, FiBarChart2, FiUsers } from "react-icons/fi";
 import { makeSeedImage } from "../factories";
 import { deepFreeze } from "../utils";
 import type {
-  BlogPost,
   CaseStudy,
   FaqItem,
   HomeHero,
@@ -13,7 +12,6 @@ import type {
   WhatWeDoData,
 } from "../types";
 import {
-  validateBlogPosts,
   validateCaseStudies,
   validateFaqs,
   validateHomeHero,

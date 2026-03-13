@@ -1,34 +1,41 @@
+import Image from "next/image";
 import Link from "next/link";
-import LogoMark from "@/components/LogoMark";
-import { footerData, siteMeta } from "@/data";
-import Button from "../ui/Button";
+import Button from "@/components/ui/Button";
+import { footerData } from "@/data";
 
 export default function Footer() {
+  const { description, quickLinksLabel, quickLinks, servicesLabel, services, copyright } =
+    footerData;
+
   return (
-    <footer className="">
+    <footer>
       <div className="m-2">
         <div className="rounded-3xl bg-(--primary-color) px-8 py-10 text-white">
           <div className="grid gap-10 lg:grid-cols-[1.2fr_0.7fr_0.9fr_1fr]">
-            {/* 1. Branding Section */}
             <div>
-              <div className="flex items-center gap-3">
-                <LogoMark />
-                <span className="text-sm font-semibold uppercase tracking-[0.3em]">
-                  {siteMeta.name}
-                </span>
+              <div className="flex items-center">
+                <Link href="/" className="flex items-center gap-2 z-50">
+                  <Image
+                    src="/clinrt-logo-white.png"
+                    alt="ClinRT Logo"
+                    width={160}
+                    height={20}
+                    priority
+                  />
+                </Link>
               </div>
-              <p className="mt-4 text-sm text-white/70 leading-relaxed">
-                {footerData.description}
+              <p className="mt-4 text-sm leading-relaxed text-white/70">
+                {description}
               </p>
             </div>
 
             {/* 2. Quick Links */}
             <div>
               <p className="text-sm font-semibold uppercase tracking-wider">
-                {footerData.quickLinksLabel}
+                {quickLinksLabel}
               </p>
               <ul className="mt-4 space-y-2 text-sm text-white/70">
-                {footerData.quickLinks.map((link) => (
+                {quickLinks.map((link) => (
                   <li key={link.href}>
                     <Link
                       href={link.href}
@@ -44,10 +51,10 @@ export default function Footer() {
             {/* 3. Services */}
             <div>
               <p className="text-sm font-semibold uppercase tracking-wider">
-                {footerData.servicesLabel}
+                {servicesLabel}
               </p>
               <ul className="mt-4 space-y-2 text-sm text-white/70">
-                {footerData.services.map((service) => (
+                {services.map((service) => (
                   <li key={service}>{service}</li>
                 ))}
               </ul>
@@ -58,7 +65,7 @@ export default function Footer() {
               <p className="text-sm font-semibold uppercase tracking-wider text-white">
                 Our Community
               </p>
-              <p className="text-sm text-white/70 leading-relaxed">
+              <p className="text-sm leading-relaxed text-white/70">
                 Be a part of our community and stay close to the conversations,
                 insights, and milestones that shape our work.
               </p>
@@ -68,8 +75,8 @@ export default function Footer() {
           </div>
 
           {/* Copyright Section */}
-          <div className="mt-12 border-t  pt-6 text-center type-h6 text-(--color-orange)">
-            {footerData.copyright}
+          <div className="mt-12 border-t pt-6 text-center type-h6 text-(--color-orange)">
+            {copyright}
           </div>
         </div>
       </div>

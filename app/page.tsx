@@ -13,6 +13,13 @@ import Image from "next/image";
 import { AnimatePresence } from "framer-motion";
 import { FaqModal } from "@/components/FaqModal";
 import { FiArrowRight } from "react-icons/fi";
+import {
+  FaFlask,
+  FaCogs,
+  FaShieldAlt,
+  FaHandshake,
+  FaGlobeAmericas,
+} from "react-icons/fa";
 
 const whyChoosePoints = [
   {
@@ -244,7 +251,7 @@ export default function HomePage() {
                 Research World
               </p>
 
-              <p className="mt-6 max-w-2xl type-h6 text-white/80 type-h6 ">
+              <p className="mt-6 max-w-2xl type-h6 text-white/80">
                 A unified digital ecosystem bringing precision, automation, and
                 intelligence to every stage of the clinical journey. Built on
                 disciplined engineering and deep domain insight, our platform
@@ -257,8 +264,8 @@ export default function HomePage() {
 
               {/* Buttons */}
               <div className="mt-8 flex flex-wrap gap-4 border-b p-8">
-                <Button href="/what-we-build" label="Get Started" />
-                <Button href="/contact" label="What we Build" />
+                <Button href="/who-we-are" label="Get Started" />
+                <Button href="/what-we-build" label="What we Build" />
               </div>
 
               {/* Hero Bottom Stats */}
@@ -304,13 +311,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* <SectionWrapper fullBleed className="py-0">
-        <div className="bg-(--primary-color) px-6 py-4 text-center text-sm font-medium text-white md:text-base">
-          Introducing ClinRT: built for compliant, scalable, and insight-led
-          clinical execution.
-        </div>
-      </SectionWrapper> */}
 
       {/* About clinRT */}
       <SectionWrapper>
@@ -448,7 +448,7 @@ export default function HomePage() {
               />
 
               {/* Floating client badge */}
-              <div className="absolute -bottom-6 left-6 rounded-xl bg-black/30 shadow-lg px-5 py-3 text-white">
+              <div className="absolute -bottom-6 left-6 rounded-xl bg-black/30 shadow-lg px-5 py-3 text-white animate-bounce ">
                 <p className="text-sm font-semibold text-white">
                   Your Partner for Proven, Practical, and High Performance
                   Technology
@@ -490,13 +490,17 @@ export default function HomePage() {
                 <ScrollReveal key={item.title} delay={index * 120}>
                   <div className="flex gap-4">
                     {/* icon */}
-                    <div className="mt-1 h-10 w-10 flex items-center justify-center rounded-lg bg-(--color-primary)/80 text-(--text-invert)">
-                      ✓
+                    <div className="mt-1 h-15 w-15 flex items-center justify-center rounded-lg bg-(--color-primary)/80 text-(--text-invert)">
+                      {index === 0 && <FaFlask size={30} />}
+                      {index === 1 && <FaCogs size={30} />}
+                      {index === 2 && <FaShieldAlt size={30} />}
+                      {index === 3 && <FaHandshake size={30} />}
+                      {index === 4 && <FaGlobeAmericas size={30} />}
                     </div>
 
                     <div>
-                      <p className="font-semibold">{item.title}</p>
-                      <p className="text-sm text-(--muted-color)">
+                      <p className="type-h5 font-semibold">{item.title}</p>
+                      <p className="type-h6 text-(--muted-color)">
                         {item.text}
                       </p>
                     </div>

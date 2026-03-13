@@ -1,26 +1,59 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-   output: "standalone",
+import type { NextConfig } from "next";
 
+const isProd = process.env.NODE_ENV === "production";
+
+const nextConfig: NextConfig = {
+  output: "standalone",
+  distDir: "build",
+  reactStrictMode: !isProd,
+  compress: true,
+  poweredByHeader: false,
+  generateEtags: true,
+  productionBrowserSourceMaps: false,
+  httpAgentOptions: { 
+    keepAlive: true 
+  },
+  
+  // Compiler options
+  compiler: {
+    removeConsole: isProd, // Simply true/false in Next.js 16+
+    reactRemoveProperties: isProd,
+  },
+  
+  // Image configuration
   images: {
-    domains: ['picsum.photos'], // Add your image hostname here
-    // Or for more flexibility, use remotePatterns (Next.js 12.3+)
+    formats: ["image/avif", "image/webp"],
+    minimumCacheTTL: 60,
+    // ✅ REMOVED: 'domains' is deprecated
+    // domains: ["picsum.photos", "images.unsplash.com"],
+    
+    // ✅ Use only remotePatterns (keep these)
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'picsum.photos',
-        port: '',
-        pathname: '/**',
+        protocol: "https",
+        hostname: "picsum.photos",
+        port: "",
+        pathname: "/**",
       },
-      // Add other hosts as needed
       {
-        protocol: 'https',
-        hostname: 'images.unsplash.com',
-        port: '',
-        pathname: '/**',
+        protocol: "https",
+        hostname: "images.unsplash.com",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "tiles.stadiamaps.com",
+        port: "",
+        pathname: "/**",
       },
     ],
   },
-}
+  
+  // Optional: Add experimental features if needed
+  experimental: {
+    optimizeCss: true, // Minifies CSS
+  },
+};
 
-module.exports = nextConfig
+export default nextConfig;
