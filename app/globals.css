@@ -419,21 +419,6 @@ video {
   stroke-width: 1.5;
 }
 
-.leaflet-marker-icon.drop {
-  animation: drop 0.6s ease-out;
-}
-
-@keyframes drop {
-  0% {
-    transform: translateY(-200px);
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
 .reveal {
   opacity: 0;
   filter: blur(6px);
@@ -481,3 +466,11 @@ video {
   }
 }
 
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}

@@ -1,135 +1,226 @@
+"use client";
+
+import { motion } from "framer-motion";
 import Link from "next/link";
 import PageTransition from "@/components/animations/PageTransition";
 import SectionWrapper from "@/components/layout/SectionWrapper";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import Button from "@/components/ui/Button";
+import GlassCard from "@/components/GlassCard";
+import CountUpOnView from "@/components/CountUpOnView";
 
-const iclinrtCapabilities = [
-  "Live trial health dashboards for sponsors and operations teams",
-  "Site and milestone tracking with ownership and escalation logic",
-  "Protocol-aware workflows that reduce execution drift",
-  "Audit-ready activity logs for quality and compliance visibility",
+const supportAreas = [
+  "Coordinated participant and treatment workflows",
+  "Reliable Investigational Product Management",
+  "Structured Clinical Data Capture",
+  "Digital patient and clinician assessment tools",
+  "Streamlined operational oversight across sites and teams",
 ] as const;
 
-const upcomingProducts = [
+const solutionCards = [
+  {
+    title: "iClinRT",
+    text: "Interactive Response Technology for trial operations, allocation logic, and supply coordination.",
+    href: "/iclinrt",
+    status: "Live Platform",
+    image: "/images/why-choose-image.jpg",
+  },
   {
     title: "EDC",
     text: "Electronic data capture designed for cleaner inputs, faster review cycles, and better monitoring confidence.",
     href: "/coming-soon",
+    status: "Coming Soon",
+    image: "/images/case-study-1.jpg",
   },
   {
     title: "CTMS",
     text: "Clinical trial management workflows for timelines, budgets, and cross-functional coordination.",
     href: "/coming-soon",
+    status: "Coming Soon",
+    image: "/images/case-study-2.jpg",
   },
   {
     title: "eCOA",
     text: "Digital patient outcomes capture with dependable compliance and patient-friendly interaction models.",
     href: "/coming-soon",
+    status: "Coming Soon",
+    image: "/images/case-study-3.jpg",
   },
 ] as const;
 
 const Ping = () => (
   <span className="relative h-2.5 w-2.5">
-    <span className="absolute inset-0 rounded-full bg-green-300 animate-ping" />
-    <span className="absolute inset-0.5 rounded-full bg-green-300" />
+    <span className="absolute inset-0 rounded-full bg-orange-500 animate-ping" />
+    <span className="absolute inset-0.5 rounded-full bg-orange-500" />
   </span>
 );
 const Badge = ({ children }: { children: React.ReactNode }) => (
-  <p className="inline-flex items-center gap-2 rounded-full border border-black/50 px-4 py-1.5 text-sm">
+  <p className="inline-flex items-center gap-2 rounded-full border border-orange-500 px-4 py-1.5 text-sm">
     <Ping />
     {children}
   </p>
 );
+
 export default function WhatWeBuildPage() {
   return (
     <PageTransition>
-      <SectionWrapper className="pt-28 md:pt-36" fullBleed>
-        <div className="grid gap-10 rounded-3xl bg-(--primary-color) px-6 py-16 text-white md:px-10 lg:grid-cols-[1.1fr_1fr]">
-          <ScrollReveal>
-            <Badge>What We Build</Badge>
-            <p className="mt-4 type-h1 font-semibold text-white">
-              Clinical technology built for real-world execution
+      <section className="relative min-h-screen overflow-hidden">
+        <video
+          className="absolute inset-0 h-full w-full object-cover"
+          src="/videos/homePageVideo.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+        />
+        <div className="absolute inset-0 bg-linear-to-b from-black/65 via-black/45 to-black/70" />
+        <div className="relative z-10 section-shell flex min-h-screen flex-col justify-center gap-10 px-6 py-20 md:px-10">
+          <ScrollReveal className="max-w-3xl text-white">
+            <Badge>Our Solutions</Badge>
+            <p className="mt-10 type-h1 font-semibold text-white">
+              What we build to power modern clinical research
             </p>
-            <p className="mt-5 max-w-xl text-white/80">
-              We create focused software products that help research teams run
-              studies with clarity, speed, and operational control.
+            <p className="mt-5 text-white/80">
+              ClinRT delivers a growing suite of purpose-built solutions
+              designed to strengthen the operational, logistical, and
+              data-driven foundations of clinical research. Our products support
+              core study functions from randomization and treatment workflows to
+              data capture, outcome reporting, and site operations to ensure
+              structure, precision, and clarity across every stage of the trial
+              lifecycle.
             </p>
+            <div className="mt-6 flex flex-wrap gap-4">
+              <Button href="/contact" label="Request a Demo" />
+              <Link href="/iclinrt" className="link text-sm text-white/80">
+                Explore iClinRT
+              </Link>
+            </div>
           </ScrollReveal>
 
-          <ScrollReveal
-            delay={140}
-            className="relative min-h-72 overflow-hidden rounded-2xl border border-white/20 bg-white/5"
-          >
-            <div className="absolute inset-0 grid place-items-center">
-              <div className="relative h-56 w-56">
-                <span className="absolute inset-0 rounded-full border border-(--color-accent)/70 animate-ping" />
-                <span className="absolute inset-5 rounded-full border border-white/40 animate-[spin_18s_linear_infinite]" />
-                <span className="absolute inset-12 rounded-full border border-(--color-accent) animate-[spin_12s_linear_infinite_reverse]" />
-                <span className="absolute left-1/2 top-1/2 h-5 w-5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-(--color-accent)" />
-              </div>
+          <ScrollReveal delay={140} className="flex flex-wrap gap-4 text-white">
+            <div className="rounded-2xl border border-white/20 bg-white/10 px-5 py-4 backdrop-blur">
+              <CountUpOnView
+                to={15}
+                suffix="+"
+                className="text-4xl font-semibold"
+              />
+              <p className="mt-1 text-xs uppercase tracking-[0.3em] text-white/70">
+                Years of Expertise
+              </p>
             </div>
-            <div className="absolute bottom-4 left-4 rounded-full bg-black/35 px-3 py-1 text-xs tracking-[0.2em] text-white/80 backdrop-blur">
-              Tech Animation
+            <div className="rounded-2xl border border-white/20 bg-white/10 px-5 py-4 backdrop-blur">
+              <CountUpOnView
+                to={5000}
+                suffix="+"
+                className="text-4xl font-semibold"
+              />
+              <p className="mt-1 text-xs uppercase tracking-[0.3em] text-white/70">
+                Clients Trust Worldwide
+              </p>
             </div>
           </ScrollReveal>
         </div>
-      </SectionWrapper>
+      </section>
 
-      <SectionWrapper id="iclinrt">
-        <div className="grid gap-8 lg:grid-cols-[1.1fr_1fr]">
+      <SectionWrapper>
+        <div className="grid gap-20 lg:grid-cols-[1fr_2fr]">
           <ScrollReveal>
-            <Badge>iClinRT</Badge>
-            <h2 className="mt-3 type-h2 font-semibold">
-              The core platform for connected trial operations
-            </h2>
-            <p className="mt-4 text-(--muted-color)">
-              iClinRT gives trial teams one operational source of truth. It
-              links planning, site execution, risks, and outcomes so teams can
-              move faster without losing control of compliance and quality.
+            <Badge>How We Support</Badge>
+            <p className="mt-3 type-h2 font-semibold">
+              How we support modern clinical trials
             </p>
-            <div className="mt-8">
-              <Button href="/contact" label="Request iClinRT Demo" />
+            <p className="mt-4 text-(--muted-color)">
+              Our technology is built to address the most critical needs of
+              today&apos;s studies.
+            </p>
+            <div className="mt-6 grid gap-6">
+              {supportAreas.map((item, index) => (
+                <ScrollReveal key={item} delay={index * 80}>
+                  <motion.div
+                    whileHover={{ y: -4 }}
+                    transition={{ duration: 0.5 }}
+                    className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm"
+                  >
+                    <span className="absolute inset-0 bg-linear-to-r from-(--primary-color)/10 via-transparent to-(--color-accent)/20 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                    <div className="relative z-10 flex items-start gap-3 type-h6">
+                      <span className="relative mt-1 h-3 w-3">
+                        <span className="absolute inset-0 rounded-full bg-(--primary-color) opacity-0 transition-opacity duration-300 group-hover:opacity-60 group-hover:animate-ping" />
+                        <span className="absolute inset-0.5 rounded-full bg-(--primary-color)" />
+                      </span>
+                      <span>{item}</span>
+                    </div>
+                  </motion.div>
+                </ScrollReveal>
+              ))}
             </div>
           </ScrollReveal>
-          <div className="space-y-4">
-            {iclinrtCapabilities.map((capability, index) => (
-              <ScrollReveal key={capability} delay={index * 80}>
-                <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-                  <p className="text-sm text-foreground">{capability}</p>
-                </div>
-              </ScrollReveal>
-            ))}
+
+          <div className="rounded-3xl border border-slate-200 bg-background p-6">
+            <ScrollReveal delay={120}>
+              <Badge>Our Solutions</Badge>
+
+              <p className="mt-3 type-h6 text-(--muted-color)">
+                Explore our current and upcoming solutions below.
+              </p>
+            </ScrollReveal>
+            <div className="mt-6 grid gap-5 md:grid-cols-2">
+              {solutionCards.map((card, index) => (
+                <ScrollReveal key={card.title} delay={index * 90}>
+                  <Link href={card.href} className="block">
+                    <GlassCard
+                      image={card.image}
+                      height="h-72 lg:h-80"
+                      contentPadding="p-6"
+                      overlayOpacity="bg-black/55"
+                      hoverEffect="both"
+                      borderColor="border-white/20"
+                    >
+                      <div className="relative z-10 transition-opacity duration-300 group-hover:opacity-0 group-focus-within:opacity-0">
+                        <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.3em] text-white/70">
+                          <span>{card.status}</span>
+                          <span className="rounded-full bg-white/25 px-2 py-1 text-[10px]">
+                            Explore
+                          </span>
+                        </div>
+                        <p className="mt-4 type-h2 font-semibold text-white">
+                          {card.title}
+                        </p>
+                      </div>
+                      <div className="absolute inset-0 flex flex-col justify-center gap-3 bg-black/90 px-6 text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-within:opacity-100">
+                        <span className="text-[10px] uppercase tracking-[0.3em] text-white/70">
+                          {card.status}
+                        </span>
+                        <p className="type-h2 font-semibold">{card.title}</p>
+                        <p className="type-h6 text-white/80">{card.text}</p>
+                        <span className="text-[10px] uppercase tracking-[0.3em] text-white/60">
+                          Explore
+                        </span>
+                      </div>
+                    </GlassCard>
+                  </Link>
+                </ScrollReveal>
+              ))}
+            </div>
           </div>
         </div>
       </SectionWrapper>
 
       <SectionWrapper fullBleed>
-        <div className="mx-auto  rounded-3xl bg-white px-6 py-14 md:px-10">
-          <ScrollReveal>
-            <Badge>Expanding Platform</Badge>
-            <p className="mt-3 type-h2 font-semibold">
-              EDC, CTMS, and eCOA are launching soon
-            </p>
+        <div className="relative mx-auto overflow-hidden rounded-3xl border border-white/25 bg-(--color-primary) px-6 py-14 text-white shadow-2xl md:px-10">
+          <div className="pointer-events-none absolute -left-20 top-8 h-56 w-56 rounded-full bg-(--color-accent)/25 blur-3xl" />
+          <div className="pointer-events-none absolute -bottom-24 right-10 h-64 w-64 rounded-full bg-(--color-orange)/30 blur-3xl" />
+          <ScrollReveal className="relative z-10 grid gap-6 lg:grid-cols-[1.2fr_auto] lg:items-center">
+            <div>
+              <Badge>Execution Pathways</Badge>
+              <p className="mt-3 type-h2 font-semibold text-white">
+                From early-phase programs to global trials, we support teams in
+                building stable, compliant, and efficient execution pathways.
+              </p>
+            </div>
+            <div className="flex">
+              <Button href="/contact" label="Request a Demo" />
+            </div>
           </ScrollReveal>
-          <div className="mt-8 grid gap-5 md:grid-cols-3">
-            {upcomingProducts.map((product, index) => (
-              <ScrollReveal key={product.title} delay={index * 90}>
-                <Link
-                  href={product.href}
-                  className="group block h-full rounded-2xl border border-slate-200 bg-background p-6 transition hover:-translate-y-1 hover:border-(--primary-color)/30"
-                >
-                  <p className="type-h4 font-semibold">{product.title}</p>
-                  <p className="mt-3 text-sm text-(--muted-color)">
-                    {product.text}
-                  </p>
-                  <p className="mt-5 text-xs font-semibold uppercase tracking-[0.25em] text-(--primary-color)">
-                    Coming soon
-                  </p>
-                </Link>
-              </ScrollReveal>
-            ))}
-          </div>
         </div>
       </SectionWrapper>
     </PageTransition>

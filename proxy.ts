@@ -5,9 +5,9 @@ const csp = `
   default-src 'self';
   script-src 'self' 'unsafe-inline';
   style-src 'self' 'unsafe-inline';
-  img-src 'self' data: blob: https://images.unsplash.com https://picsum.photos https://tiles.stadiamaps.com;
+  img-src 'self' data: blob: https://images.unsplash.com https://picsum.photos https://tiles.stadiamaps.com https://*.tile.openstreetmap.org;
   font-src 'self' data:;
-  connect-src 'self' https://formsubmit.co;
+  connect-src 'self' https://formsubmit.co https://*.tile.openstreetmap.org;
   frame-ancestors 'none';
   base-uri 'self';
   form-action 'self' https://formsubmit.co;

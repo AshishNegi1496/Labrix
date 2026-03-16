@@ -340,7 +340,7 @@ export default function HomePage() {
                   <CountUpOnView
                     to={40}
                     suffix="+"
-                    className="type-h3 font-semibold text-white"
+                    className="text-4xl font-semibold text-white"
                   />
                   <p className="type-h6 text-white/70">
                     Years of Collective Experience
@@ -355,10 +355,18 @@ export default function HomePage() {
                     { src: "/images/author-3.jpg" },
                     { src: "/images/author-2.jpg" },
                   ]}
-                  label="Trusted By"
-                  title="5000+ Clients Worldwide"
+                  label=""
+                  // title="5000+ Clients Worldwide"
                   className="ml-6"
                 />
+                <div className="flex-row">
+                  <CountUpOnView
+                    to={5000}
+                    suffix="+"
+                    className="text-4xl font-semibold text-white"
+                  />
+                  <p className="type-h6 text-white/70">Clients</p>
+                </div>
               </div>
             </ScrollReveal>
 
@@ -519,7 +527,7 @@ export default function HomePage() {
                   { src: "/images/author-2.jpg" },
                 ]}
                 label="Trusted By"
-                title="5k+ Clients"
+                title="5000+ Clients"
                 className="ml-6"
               />
             </div>

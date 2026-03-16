@@ -18,8 +18,8 @@ type ClientsProps = {
 
 export default function Clients({
   avatars,
-  label = "Trusted By",
-  title = "5k+ Clients",
+  label = "",
+  title = "",
   size = 38,
   className,
 }: ClientsProps) {
