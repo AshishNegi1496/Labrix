@@ -1,7 +1,9 @@
 @import "tailwindcss";
 
+/* :root { */
 :root {
-  --color-primary: #0f243a;
+  /* --color-primary: #0f243a; */
+  --color-primary: #38b6ff;
   --color-primary-hover: #0b1b2d;
   --color-primary-active: #081423;
   --color-secondary: #1c3b59;
@@ -67,7 +69,8 @@
   --container-max: 1440px;
   --glass-bg: rgba(255, 255, 255, 0.08);
   --glass-border: rgba(255, 255, 255, 0.18);
-  --btn-bg: #183153;
+  /* --btn-bg: #183153; */
+  --btn-bg: #38b6ff;
   --btn-accent: #d1752a;
   --btn-shadow: 0 6px 24px 0 rgba(0, 0, 0, 0.2);
   --btn-shadow-soft: 0 4px 18px 0 rgba(0, 0, 0, 0.18);
@@ -473,4 +476,185 @@ video {
 
 .no-scrollbar::-webkit-scrollbar {
   display: none;
+}
+
+.coming-hero {
+  position: relative;
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+}
+
+.coming-aurora {
+  position: absolute;
+  inset: -20%;
+  background-image:
+    radial-gradient(40% 40% at 20% 20%, rgba(201, 247, 229, 0.35), transparent 60%),
+    radial-gradient(35% 35% at 80% 10%, rgba(209, 117, 42, 0.35), transparent 60%),
+    radial-gradient(50% 50% at 60% 85%, rgba(15, 36, 58, 0.55), transparent 65%),
+    linear-gradient(180deg, rgba(15, 36, 58, 0.95), rgba(15, 36, 58, 0.88));
+  background-size: 160% 160%;
+  filter: saturate(1.1);
+  animation: aurora-shift 18s ease-in-out infinite;
+}
+
+.coming-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 60px 60px;
+  opacity: 0.2;
+}
+
+.coming-orb {
+  position: absolute;
+  width: 280px;
+  height: 280px;
+  border-radius: 999px;
+  filter: blur(40px);
+  opacity: 0.45;
+  background: radial-gradient(circle, rgba(201, 247, 229, 0.4), transparent 65%);
+  animation: float-slow 12s ease-in-out infinite;
+}
+
+.coming-orb.orb-1 {
+  top: -60px;
+  left: -40px;
+  animation-delay: -2s;
+}
+
+.coming-orb.orb-2 {
+  right: -60px;
+  top: 10%;
+  width: 240px;
+  height: 240px;
+  opacity: 0.35;
+  background: radial-gradient(circle, rgba(209, 117, 42, 0.45), transparent 65%);
+  animation-delay: -6s;
+}
+
+.coming-orb.orb-3 {
+  bottom: -80px;
+  left: 18%;
+  width: 320px;
+  height: 320px;
+  opacity: 0.3;
+  animation-delay: -4s;
+}
+
+.coming-card {
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 24px 80px rgba(15, 36, 58, 0.35);
+  backdrop-filter: blur(16px);
+}
+
+.coming-pill {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.12);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.35em;
+  color: rgba(255, 255, 255, 0.8);
+  overflow: hidden;
+}
+
+.coming-pill::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.6),
+    transparent
+  );
+  transform: translateX(-120%);
+  animation: shimmer 3.6s ease-in-out infinite;
+}
+
+.coming-progress {
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+}
+
+.coming-progress-bar {
+  height: 100%;
+  width: 40%;
+  background: linear-gradient(
+    90deg,
+    rgba(201, 247, 229, 0.2),
+    rgba(201, 247, 229, 0.9),
+    rgba(209, 117, 42, 0.6)
+  );
+  animation: progress-slide 3.2s ease-in-out infinite;
+}
+
+@keyframes aurora-shift {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(-6%, 4%, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes float-slow {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -18px, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-120%);
+  }
+  60% {
+    transform: translateX(120%);
+  }
+  100% {
+    transform: translateX(120%);
+  }
+}
+
+@keyframes progress-slide {
+  0% {
+    transform: translateX(-30%);
+  }
+  50% {
+    transform: translateX(30%);
+  }
+  100% {
+    transform: translateX(-30%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .coming-aurora,
+  .coming-orb,
+  .coming-pill::after,
+  .coming-progress-bar {
+    animation: none;
+  }
 }

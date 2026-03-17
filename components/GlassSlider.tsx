@@ -121,14 +121,14 @@ export default function GlassSlider<T>({
           <>
             <div
               className={cn(
-                "pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-[var(--bg-page)] via-[var(--bg-page)]/70 to-transparent",
+                "pointer-events-none absolute inset-y-0 left-0 w-16",
                 edgeFadeClassName,
               )}
               aria-hidden="true"
             />
             <div
               className={cn(
-                "pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-[var(--bg-page)] via-[var(--bg-page)]/70 to-transparent",
+                "pointer-events-none absolute inset-y-0 right-0 w-16 ",
                 edgeFadeClassName,
               )}
               aria-hidden="true"
@@ -156,7 +156,7 @@ export default function GlassSlider<T>({
           onKeyDown={handleKeyDown}
         >
           {items.map((item, index) => (
-            <div key={index} className="snap-start">
+            <div key={index} className="snap-start shrink-0">
               {renderItem(item, index)}
             </div>
           ))}

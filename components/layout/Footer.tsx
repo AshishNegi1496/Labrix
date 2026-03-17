@@ -4,13 +4,19 @@ import Button from "@/components/ui/Button";
 import { footerData } from "@/data";
 
 export default function Footer() {
-  const { description, quickLinksLabel, quickLinks, servicesLabel, services, copyright } =
-    footerData;
+  const {
+    description,
+    quickLinksLabel,
+    quickLinks,
+    servicesLabel,
+    services,
+    copyright,
+  } = footerData;
 
   return (
     <footer>
       <div className="m-2">
-        <div className="rounded-3xl bg-(--primary-color) px-8 py-10 text-white">
+        <div className="rounded-3xl bg-(--primary-color) px-8 py-10 text-black">
           <div className="grid gap-10 lg:grid-cols-[1.2fr_0.7fr_0.9fr_1fr]">
             <div>
               <div className="flex items-center">
@@ -24,7 +30,7 @@ export default function Footer() {
                   />
                 </Link>
               </div>
-              <p className="mt-4 text-sm leading-relaxed text-white/70">
+              <p className="mt-4 text-sm leading-relaxed text-black/70">
                 {description}
               </p>
             </div>
@@ -34,7 +40,7 @@ export default function Footer() {
               <p className="text-sm font-semibold uppercase tracking-wider">
                 {quickLinksLabel}
               </p>
-              <ul className="mt-4 space-y-2 text-sm text-white/70">
+              <ul className="mt-4 space-y-2 text-sm text-black/70">
                 {quickLinks.map((link) => (
                   <li key={link.href}>
                     <Link
@@ -53,7 +59,7 @@ export default function Footer() {
               <p className="text-sm font-semibold uppercase tracking-wider">
                 {servicesLabel}
               </p>
-              <ul className="mt-4 space-y-2 text-sm text-white/70">
+              <ul className="mt-4 space-y-2 text-sm text-black/70">
                 {services.map((service) => (
                   <li key={service}>{service}</li>
                 ))}
@@ -62,10 +68,10 @@ export default function Footer() {
 
             {/* 4. NEW: Community CTA Section */}
             <div className="flex flex-col gap-4 border-l border-white/10 pl-0 lg:pl-8">
-              <p className="text-sm font-semibold uppercase tracking-wider text-white">
+              <p className="text-sm font-semibold uppercase tracking-wider text-black">
                 Our Community
               </p>
-              <p className="text-sm leading-relaxed text-white/70">
+              <p className="text-sm leading-relaxed text-black/70">
                 Be a part of our community and stay close to the conversations,
                 insights, and milestones that shape our work.
               </p>
@@ -75,7 +81,7 @@ export default function Footer() {
           </div>
 
           {/* Copyright Section */}
-          <div className="mt-12 border-t pt-6 text-center type-h6 text-(--color-orange)">
+          <div className="mt-12 border-t pt-6 text-center type-h6 text-black">
             {copyright}
           </div>
         </div>

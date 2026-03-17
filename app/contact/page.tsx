@@ -62,7 +62,7 @@ export default function Contact() {
       {/* ---------------- CONTACT FORMS ---------------- */}
 
       <SectionWrapper className="bg-(--color-primary)">
-        <div className="mt-30 grid gap-10 lg:grid-cols-[0.9fr_1.1fr] text-white">
+        <div className="mt-30 grid gap-10 lg:grid-cols-[0.9fr_1.1fr] text-black">
           <div className="space-y-6">
             <motion.div
               initial={{ opacity: 0, y: 16 }}
@@ -70,7 +70,7 @@ export default function Contact() {
               className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur"
             >
               <p className="type-h4 font-semibold">Choose your path</p>
-              <p className="mt-2 text-sm text-white/70">
+              <p className="mt-2 text-sm text-black/70">
                 Select the form that fits your request. We will route it to the
                 right team instantly.
               </p>
@@ -99,7 +99,7 @@ export default function Contact() {
                       <div className="flex items-start gap-4">
                         <span
                           className={cn(
-                            "grid h-12 w-12 place-items-center rounded-2xl border text-white",
+                            "grid h-12 w-12 place-items-center rounded-2xl border text-black",
                             isActive
                               ? "border-white/40 bg-white/20"
                               : "border-white/15 bg-white/10",
@@ -108,10 +108,10 @@ export default function Contact() {
                           <Icon className="h-5 w-5" />
                         </span>
                         <div>
-                          <p className="type-h5 font-semibold text-white">
+                          <p className="type-h5 font-semibold text-black">
                             {option.title}
                           </p>
-                          <p className="mt-2 text-sm text-white/70">
+                          <p className="mt-2 text-sm text-black/70">
                             {option.description}
                           </p>
                         </div>
@@ -120,8 +120,8 @@ export default function Contact() {
                         className={cn(
                           "inline-flex items-center gap-2 rounded-full border px-3 py-1 text-[10px] uppercase tracking-[0.3em]",
                           isActive
-                            ? "border-white/40 bg-white/15 text-white"
-                            : "border-white/20 bg-white/10 text-white/70",
+                            ? "border-white/40 bg-white/15 text-black"
+                            : "border-white/20 bg-white/10 text-black/70",
                         )}
                       >
                         {option.badge}
@@ -144,8 +144,8 @@ export default function Contact() {
                 transition={{ duration: 0.4 }}
                 className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur"
               >
-                <p className="type-h2 font-semibold text-white">Get in Touch</p>
-                <p className="type-h6 text-white/70 mt-2">
+                <p className="type-h2 font-semibold text-black">Get in Touch</p>
+                <p className="type-h6 text-black/70 mt-2">
                   Whether you&apos;re exploring or ready to begin ? our team
                   will reach out shortly.
                 </p>
@@ -184,7 +184,7 @@ export default function Contact() {
 
                   <select
                     name="enquiryType"
-                    className="rounded-xl border border-white/20 bg-white/5 px-4 py-3 text-sm text-white"
+                    className="rounded-xl border border-white/20 bg-white/5 px-4 py-3 text-sm text-black"
                   >
                     <option>Request a Demo</option>
                     <option>Product Enquiry</option>
@@ -202,7 +202,7 @@ export default function Contact() {
 
                   <Input type="file" name="file" />
 
-                  <label className="flex gap-2 text-xs text-white/70">
+                  <label className="flex gap-2 text-xs text-black/70">
                     <input type="checkbox" required />I agree to be contacted
                     and accept the privacy policy.
                   </label>
@@ -219,10 +219,10 @@ export default function Contact() {
                 transition={{ duration: 0.4 }}
                 className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur"
               >
-                <h3 className="type-h4 font-semibold text-white">
+                <h3 className="type-h4 font-semibold text-black">
                   Join Our Community
                 </h3>
-                <p className="text-sm text-white/70 mt-2">
+                <p className="text-sm text-black/70 mt-2">
                   Stay connected with updates, insights and industry news.
                 </p>
 
@@ -236,6 +236,7 @@ export default function Contact() {
                       name="firstName"
                       placeholder="First Name*"
                       required
+                      className="text-black"
                     />
                     <Input name="lastName" placeholder="Last Name*" required />
                   </div>
@@ -257,7 +258,7 @@ export default function Contact() {
 
                   <select
                     name="interest"
-                    className="rounded-xl border border-white/20 bg-white/5 px-4 py-3 text-sm text-white"
+                    className="rounded-xl border border-white/20 bg-white/5 px-4 py-3 text-sm text-black"
                   >
                     <option>Product Updates</option>
                     <option>Events & Webinars</option>
@@ -273,7 +274,7 @@ export default function Contact() {
                     required
                   />
 
-                  <label className="flex gap-2 text-xs text-white/70">
+                  <label className="flex gap-2 text-xs text-black/70">
                     <input type="checkbox" required />I agree to receive
                     communications and accept the privacy policy.
                   </label>

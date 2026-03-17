@@ -29,21 +29,21 @@ const solutionCards = [
     title: "EDC",
     text: "Electronic data capture designed for cleaner inputs, faster review cycles, and better monitoring confidence.",
     href: "/coming-soon",
-    status: "Coming Soon",
+    status: "Beta Testing",
     image: "/images/case-study-1.jpg",
   },
   {
     title: "CTMS",
     text: "Clinical trial management workflows for timelines, budgets, and cross-functional coordination.",
     href: "/coming-soon",
-    status: "Coming Soon",
+    status: "In Development",
     image: "/images/case-study-2.jpg",
   },
   {
     title: "eCOA",
     text: "Digital patient outcomes capture with dependable compliance and patient-friendly interaction models.",
     href: "/coming-soon",
-    status: "Coming Soon",
+    status: "Under Architecture",
     image: "/images/case-study-3.jpg",
   },
 ] as const;
@@ -76,24 +76,13 @@ export default function WhatWeBuildPage() {
         <div className="absolute inset-0 bg-linear-to-b from-black/65 via-black/45 to-black/70" />
         <div className="relative z-10 section-shell flex min-h-screen flex-col justify-center gap-10 px-6 py-20 md:px-10">
           <ScrollReveal className="max-w-3xl text-white">
-            <Badge>Our Solutions</Badge>
+            {/* <Badge>Our Solutions</Badge> */}
             <p className="mt-10 type-h1 font-semibold text-white">
-              What we build to power modern clinical research
+              Precision That Powers Every Trial
             </p>
-            <p className="mt-5 text-white/80">
-              ClinRT delivers a growing suite of purpose-built solutions
-              designed to strengthen the operational, logistical, and
-              data-driven foundations of clinical research. Our products support
-              core study functions from randomization and treatment workflows to
-              data capture, outcome reporting, and site operations to ensure
-              structure, precision, and clarity across every stage of the trial
-              lifecycle.
-            </p>
+
             <div className="mt-6 flex flex-wrap gap-4">
               <Button href="/contact" label="Request a Demo" />
-              <Link href="/iclinrt" className="link text-sm text-white/80">
-                Explore iClinRT
-              </Link>
             </div>
           </ScrollReveal>
 

@@ -590,12 +590,6 @@ export default function IclinrtPage() {
                 href="/contact"
                 label="See it in action - request a demo"
               />
-              {/* <Link
-                href="#iclinrt-overview"
-                className="link text-sm text-white"
-              >
-                What is iClinRT
-              </Link> */}
             </div>
           </ScrollReveal>
         </div>
@@ -604,7 +598,7 @@ export default function IclinrtPage() {
       <SectionWrapper
         id="iclinrt-overview"
         fullBleed
-        className="bg-(--color-secondary)"
+        className="bg-(--color-primary)"
       >
         <div className="mx-auto rounded-3xl bg-white px-6 py-14 md:px-10">
           <div className="grid gap-10 lg:grid-cols-[1.1fr_1fr]">
@@ -635,12 +629,6 @@ export default function IclinrtPage() {
                   href="/contact"
                   label="See it in action - request a demo"
                 />
-                <Link href="#iclinrt-potential" className="link text-sm">
-                  Discover the potential of our technology
-                </Link>
-                <Link href="#iclinrt-usps" className="link text-sm">
-                  Discover what sets us apart
-                </Link>
               </div>
             </ScrollReveal>
             <ScrollReveal delay={140}>

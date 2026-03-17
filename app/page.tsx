@@ -14,7 +14,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence } from "framer-motion";
 import { FaqModal } from "@/components/FaqModal";
-import { FiArrowRight } from "react-icons/fi";
+import { FiArrowRight, FiChevronDown, FiPlay } from "react-icons/fi";
 import {
   FaFlask,
   FaCogs,
@@ -89,7 +89,7 @@ const researchFields = [
 const featuredWorks = [
   {
     title: "Build Digital Foundations for Clinical Operations",
-    text: "We create dependable, protocol aligned systems that support the operational backbone of clinical trials Ã¢â‚¬â€ enabling teams to run studies with structure, reliability, and control",
+    text: "We create dependable, protocol aligned systems that support the operational backbone of clinical trials,  enabling teams to run studies with structure, reliability, and control",
   },
   {
     title: "Enable Connected, Harmonized Trial Ecosystems",
@@ -97,7 +97,7 @@ const featuredWorks = [
   },
   {
     title: "Strengthen Data Integrity Across the Trial Lifecycle",
-    text: "We design technology that supports clean, consistent, audit ready data Ã¢â‚¬â€ from enrollment to close out Ã¢â‚¬â€ aligned with clinical research standards and regulatory expectations.",
+    text: "We design technology that supports clean, consistent, audit ready data ‚from enrollment to close out, aligned with clinical research standards and regulatory expectations.",
   },
   {
     title: "Support Scalable, Real World Clinical Execution",
@@ -199,6 +199,12 @@ const posterItems = [
     image: "/images/case-study-3.jpg",
     href: "/whats-new",
   },
+  {
+    title: "Trial at Lab",
+    tag: "Research",
+    image: "/images/case-study-3.jpg",
+    href: "/whats-new",
+  },
 ] as const;
 
 const newsItems = [
@@ -213,6 +219,26 @@ const newsItems = [
   {
     title: "Real-time alerts refreshed for site-specific thresholds.",
     date: "Jan 2026",
+  },
+  {
+    title: " for site-specific thresholds.",
+    date: "Jan 2021",
+  },
+  {
+    title: "Real-time alerts refreshed for .",
+    date: "Jan 2022",
+  },
+  {
+    title: "Real-time .",
+    date: "Jan 2023",
+  },
+  {
+    title: "Real-time alerts refreshed for site.",
+    date: "Jan 2024",
+  },
+  {
+    title: "Real-time alerts refreshed for site-specific .",
+    date: "Jan 2025",
   },
 ] as const;
 
@@ -297,7 +323,7 @@ export default function HomePage() {
   const previewFaqs = faqs.slice(0, PREVIEW_COUNT);
   return (
     <PageTransition>
-      <section className="relative overflow-hidden min-h-[110vh] flex items-center">
+      <section className="relative overflow-hidden min-h-[90vh] sm:min-h-screen lg:min-h-[110vh] flex items-center">
         <video
           className="absolute inset-0 h-full w-full object-cover"
           src="/videos/homePageVideo.mp4"
@@ -311,7 +337,7 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-linear-to-b from-black/40 via-black/70 to-black/90" />
 
         <div className="relative z-10 section-shell py-28 md:py-40 text-white">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <div className="grid lg:grid-cols-2 gap-10 md:gap-14 lg:gap-16 items-center">
             {/* LEFT CONTENT */}
             <ScrollReveal variant="left" className="max-w-3xl mb-4">
               <p className="mt-12 type-h2 md:text-4xl leading-tight font-semibold">
@@ -330,13 +356,13 @@ export default function HomePage() {
               </p>
 
               {/* Buttons */}
-              <div className="mt-8 flex flex-wrap gap-4 border-b p-8">
+              <div className="mt-8 flex flex-wrap gap-4 border-b p-4 sm:p-6 lg:p-8">
                 <Button href="/who-we-are" label="Get Started" />
                 <Button href="/what-we-build" label="What we Build" />
               </div>
 
               {/* Hero Bottom Stats */}
-              <div className="mt-12 flex items-center gap-10 ">
+              <div className="mt-10 sm:mt-12 flex flex-wrap items-center gap-6 md:gap-10">
                 <div className="flex-row">
                   <CountUpOnView
                     to={40}
@@ -409,36 +435,29 @@ export default function HomePage() {
       </SectionWrapper>
 
       {/* Posters + News */}
-      <SectionWrapper fullBleed className="py-12">
-        <div className="section-shell px-6 md:px-10">
-          <div className="grid gap-6 lg:grid-cols-[2fr_1fr]">
-            <div className="relative rounded-3xl border border-slate-100 bg-slate-50/50 p-8 shadow-sm">
+      <SectionWrapper fullBleed className="py-10 sm:py-12 lg:py-14">
+        <div className="section-shell px-4 sm:px-6 md:px-10">
+          <div className="grid gap-6 lg:grid-cols-[2fr_1fr] items-start">
+            <div className="relative min-w-0 rounded-3xl border border-slate-100 bg-slate-50/50 p-5 sm:p-6 lg:p-8 shadow-sm">
               {/* Header Section */}
-              <div className="mb-8 flex items-center justify-between">
+              <div className="mb-6 flex flex-wrap items-center justify-between gap-4 sm:mb-8">
                 <div className="space-y-1">
                   <Badge>At a Glance</Badge>
                 </div>
-
-                <button
-                  type="button"
-                  className="group flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-900 transition-all hover:border-(--color-orange) hover:bg-(--color-orange) hover:text-white"
-                >
-                  <FiArrowRight className="transition-transform group-hover:translate-x-0.5" />
-                </button>
               </div>
 
               {/* Slider Section */}
               <GlassSlider
                 items={posterItems}
                 ariaLabel="At a glance posters"
-                scrollerClassName="gap-6"
+                scrollerClassName="gap-6 w-full"
                 controlsClassName="mt-2 justify-end"
                 edgeFadeClassName="from-slate-50/90 via-slate-50/60"
                 renderItem={(poster, index) => (
                   <ScrollReveal delay={index * 80}>
                     <Link
                       href={poster.href}
-                      className="group relative block w-64 shrink-0 overflow-hidden rounded-2xl bg-white transition-all hover:shadow-xl hover:shadow-slate-200/50 sm:w-72 lg:w-80"
+                      className="group relative block w-60 shrink-0 overflow-hidden rounded-2xl bg-white transition-all hover:shadow-xl hover:shadow-slate-200/50 xs:w-64 sm:w-72 lg:w-80"
                     >
                       {/* Image Container */}
                       <div className="relative aspect-4/5 w-full overflow-hidden">
@@ -467,21 +486,31 @@ export default function HomePage() {
               />
             </div>
 
-            <aside className="rounded-3xl border border-slate-200 bg-(--primary-color) p-6 text-white shadow-sm">
+            <aside className="rounded-3xl border border-slate-200 bg-(--primary-color) p-5 sm:p-6 lg:p-7 text-black shadow-sm max-h-155 lg:max-h-155 sm:max-h-140 flex flex-col">
               <Badge>News & Updates</Badge>
-              <p className="mt-4 text-sm text-white/80">
+              <p className="mt-3 sm:mt-4 text-sm text-black/80">
                 Small updates and launches from the ClinRT product studio.
               </p>
-              <div className="mt-6 space-y-4">
+              <div className="relative mt-5 sm:mt-6 space-y-3 sm:space-y-4 overflow-y-auto pr-2 pb-10 no-scrollbar">
+                <div
+                  className="pointer-events-none absolute inset-x-0 bottom-0 h-14 bg-linear-to-t from-(--color-primary) via-(--color-primary)/70 to-transparent"
+                  aria-hidden="true"
+                />
+                <div
+                  className="pointer-events-none absolute bottom-3 left-1/2 flex h-8 w-8 -translate-x-1/2 items-center justify-center rounded-full border border-white/20 bg-white/10 text-black/80 backdrop-blur-sm animate-bounce"
+                  aria-hidden="true"
+                >
+                  <FiChevronDown className="h-4 w-4 text-orange-500" />
+                </div>
                 {newsItems.map((item) => (
                   <div
                     key={item.title}
                     className="rounded-2xl border border-white/15 bg-white/5 p-4"
                   >
-                    <p className="text-sm font-semibold text-white">
+                    <p className="text-sm font-semibold text-black">
                       {item.title}
                     </p>
-                    <p className="mt-2 text-xs uppercase tracking-[0.2em] text-white/60">
+                    <p className="mt-2 text-xs uppercase tracking-[0.2em] text-black/60">
                       {item.date}
                     </p>
                   </div>
@@ -539,32 +568,41 @@ export default function HomePage() {
             </div>
           </ScrollReveal>
         </ScrollReveal>
-        <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-16 grid gap-6 md:grid-cols-2">
           <ScrollReveal variant="left">
-            <GlassCard
-              image="/images/about.avif"
-              tag="Trial Management"
-              title="Operational Trial Visibility"
-              description="Monitor clinical trial activities, site performance, and progress through a unified operational dashboard."
-            />
+            <GlassCard image="/images/about.avif">
+              <span className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white/90 backdrop-blur">
+                <FiPlay className="h-6 w-6 translate-x-px" />
+              </span>
+            </GlassCard>
           </ScrollReveal>
 
           <ScrollReveal variant="up" delay={150}>
             <GlassCard
               image="/images/about.avif"
               tag="Workflow Automation"
-              title="Smart Process Automation"
-              description="Automate manual operational steps and reduce delays through intelligent workflow coordination."
+              title="1000+ Global Trial Engagements"
+              description="Partnering with sponsors, CROs, and research teams across phases, regions, and therapeutic areas. "
             />
           </ScrollReveal>
 
-          <ScrollReveal variant="right" delay={300}>
-            <GlassCard
-              image="/images/about.avif"
-              tag="Data Intelligence"
-              title="Real-Time Decision Signals"
-              description="Turn operational data into real-time insights that support faster and more confident clinical decisions."
-            />
+          <ScrollReveal variant="right" delay={300} className="md:col-span-2">
+            <GlassCard image="/images/about.avif">
+              <div className="mt-4 flex flex-wrap gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-white/80">
+                <span className="rounded-full border border-white/15 bg-white/10 px-5 py-3">
+                  Unified Trial Operations
+                </span>
+                <span className="rounded-full border border-white/15 bg-white/10 px-5 py-3">
+                  Protocol Driven Accuracy
+                </span>
+                <span className="rounded-full border border-white/15 bg-white/10 px-5 py-3">
+                  Real Time Clinical Intelligence
+                </span>
+                <span className="rounded-full border border-white/15 bg-white/10 px-5 py-3">
+                  Trusted Compliance &amp; Data Integrity
+                </span>
+              </div>
+            </GlassCard>
           </ScrollReveal>
         </div>
       </SectionWrapper>
@@ -575,7 +613,7 @@ export default function HomePage() {
           {/* Section Header */}
           <ScrollReveal className="">
             <Badge>Key Features</Badge>
-            <div className="mt-6 flex flex-col gap-56 lg:flex-row lg:items-start lg:justify-between">
+            <div className="mt-6 flex flex-col gap-10 sm:gap-16 lg:gap-56 lg:flex-row lg:items-start lg:justify-between">
               <p className="mt-4 type-h2 font-semibold ">
                 Leading innovation across critical fields
               </p>
@@ -596,7 +634,7 @@ export default function HomePage() {
                   image={field.image}
                   title={field.title}
                   description={field.description}
-                  height="h-80"
+                  height="h-64 sm:h-72 lg:h-80"
                   glowColor="bg-emerald-400/20"
                   hoverEffect="both"
                 />
@@ -623,7 +661,7 @@ export default function HomePage() {
                 src="/images/why-choose-us.avif"
                 alt=" 	Why ClinRT"
                 width={520}
-                height={720}
+                height={920}
                 className="rounded-2xl object-cover"
               />
 
