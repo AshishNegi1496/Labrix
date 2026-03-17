@@ -8,6 +8,7 @@ import CountUpOnView from "@/components/CountUpOnView";
 import { FaqItem } from "@/components/FaqItem";
 import Clients from "@/components/ui/Clients";
 import GlassCard from "@/components/GlassCard";
+import GlassSlider from "@/components/GlassSlider";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -24,23 +25,23 @@ import {
 
 const whyChoosePoints = [
   {
-    title: "•	Domain-Focused Expertise",
+    title: "Domain-Focused Expertise",
     text: "Strong experience in clinical trial systems, operational workflows, and regulatory expectations",
   },
   {
-    title: "•	Structured Technology Approach",
+    title: "	Structured Technology Approach",
     text: "Solutions designed to align with real-world study processes and protocol requirements",
   },
   {
-    title: "•	Commitment to Reliability",
+    title: "	Commitment to Reliability",
     text: "Emphasis on system stability, operational continuity, and long-term performance",
   },
   {
-    title: "•	Collaborative Implementation Model",
+    title: "	Collaborative Implementation Model",
     text: "Close engagement with sponsors and CROs throughout system configuration and deployment",
   },
   {
-    title: "•	Global Clinical Trial Exposure",
+    title: "	Global Clinical Trial Exposure",
     text: "Experience supporting multi-regional studies across therapeutic areas.",
   },
 ];
@@ -49,46 +50,46 @@ const researchFields = [
     title: "Precision Randomization & Treatment Control",
     description:
       "Balanced allocation across arms and cohorts, with safeguarded emergency unblinding",
-    image: "/images/service-1.jpg",
+    image: "/images/treatment.avif",
   },
   {
     title: "Integrated IP Supply & Kit Operations",
     description:
       "Unified oversight of inventory, resupply, kit assignment, barcoding, expiry, transfers, and temperature mapping",
-    image: "/images/service2.png",
+    image: "/images/kit-ops.avif",
   },
   {
     title: "Full Chain of Custody Accountability",
     description:
       "Complete traceability of every kit from creation to final reconciliation and destruction",
-    image: "/images/service3.png",
+    image: "/images/custody.avif",
   },
 
   {
-    title: ". Streamlined Participant & Visit Workflow",
+    title: " Streamlined Participant & Visit Workflow",
     description:
       "Protocol aligned configuration for screening, enrolment, and visit execution across all sites",
-    image: "/images/service3.png",
+    image: "/images/workflow.avif",
   },
 
   {
     title: "Real Time Operational Intelligence",
     description:
       "Dynamic dashboards, detailed reports, and event driven alerts for confident oversight",
-    image: "/images/service3.png",
+    image: "/images/operations.avif",
   },
 
   {
-    title: ". Compliance Ready, Connected, and Scalable",
+    title: "Compliance Ready, Connected, and Scalable",
     description:
       "Aligned with global regulations and seamlessly integrated with CTMS/EDC for multi region, multi phase trials",
-    image: "/images/service3.png",
+    image: "/images/complaince.avif",
   },
 ];
 const featuredWorks = [
   {
     title: "Build Digital Foundations for Clinical Operations",
-    text: "We create dependable, protocol aligned systems that support the operational backbone of clinical trials — enabling teams to run studies with structure, reliability, and control",
+    text: "We create dependable, protocol aligned systems that support the operational backbone of clinical trials Ã¢â‚¬â€ enabling teams to run studies with structure, reliability, and control",
   },
   {
     title: "Enable Connected, Harmonized Trial Ecosystems",
@@ -96,7 +97,7 @@ const featuredWorks = [
   },
   {
     title: "Strengthen Data Integrity Across the Trial Lifecycle",
-    text: "We design technology that supports clean, consistent, audit ready data — from enrollment to close out — aligned with clinical research standards and regulatory expectations.",
+    text: "We design technology that supports clean, consistent, audit ready data Ã¢â‚¬â€ from enrollment to close out Ã¢â‚¬â€ aligned with clinical research standards and regulatory expectations.",
   },
   {
     title: "Support Scalable, Real World Clinical Execution",
@@ -218,7 +219,7 @@ const newsItems = [
 const faqs = [
   {
     q: "What is iClinRT?",
-    a: "iClinRT is our configurable Interactive Response Technology platform that supports clinical trials with subject management, randomization, drug supply oversight, real-time dashboards, automated alerts, and end-to-end kit tracking. It’s built to handle complex study designs and streamline day-to-day trial execution.",
+    a: "iClinRT is our configurable Interactive Response Technology platform that supports clinical trials with subject management, randomization, drug supply oversight, real-time dashboards, automated alerts, and end-to-end kit tracking. ItÃ¢â‚¬â„¢s built to handle complex study designs and streamline day-to-day trial execution.",
   },
   {
     q: "How long does it take to set up an IRT system for a new study?",
@@ -250,7 +251,7 @@ const faqs = [
   },
   {
     q: "What kind of support does ClinRT offer?",
-    a: "We offer 24×7 helpdesk support, backed by domain experts in IRT and clinical trial supply management. Our team assists with technical troubleshooting, protocol queries, site support, and ongoing study monitoring.",
+    a: "We offer 24Ãƒâ€”7 helpdesk support, backed by domain experts in IRT and clinical trial supply management. Our team assists with technical troubleshooting, protocol queries, site support, and ongoing study monitoring.",
   },
   {
     q: "Can the system handle protocol amendments?",
@@ -262,7 +263,7 @@ const faqs = [
   },
   {
     q: "What distinguishes ClinRT from other IRT providers?",
-    a: "We combine a highly configurable platform with deep domain expertise—over 50 years of leadership experience, support for 1000+ trials, and 500+ global clients. Our strength lies in fast deployment, strong supply chain capabilities, and 24×7 expert support.",
+    a: "We combine a highly configurable platform with deep domain expertiseÃ¢â‚¬â€over 50 years of leadership experience, support for 1000+ trials, and 500+ global clients. Our strength lies in fast deployment, strong supply chain capabilities, and 24Ãƒâ€”7 expert support.",
   },
   {
     q: " How secure is my study data?",
@@ -322,7 +323,7 @@ export default function HomePage() {
               <p className="mt-6 max-w-2xl type-h6 text-white/80">
                 Built on rigorous engineering and deep domain expertise, our
                 platform integrates critical processes into a seamless digital
-                continuum—streamlining data, orchestrating operations, and
+                continuumÃ¢â‚¬â€streamlining data, orchestrating operations, and
                 sustaining performance at scale. From startup to closeout, we
                 simplify complexity and enhance oversight, empowering teams to
                 advance studies with confidence and pace.
@@ -426,13 +427,18 @@ export default function HomePage() {
                 </button>
               </div>
 
-              {/* Grid Section */}
-              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {posterItems.map((poster, index) => (
-                  <ScrollReveal key={poster.title} delay={index * 80}>
+              {/* Slider Section */}
+              <GlassSlider
+                items={posterItems}
+                ariaLabel="At a glance posters"
+                scrollerClassName="gap-6"
+                controlsClassName="mt-2 justify-end"
+                edgeFadeClassName="from-slate-50/90 via-slate-50/60"
+                renderItem={(poster, index) => (
+                  <ScrollReveal delay={index * 80}>
                     <Link
                       href={poster.href}
-                      className="group relative block overflow-hidden rounded-2xl bg-white transition-all hover:shadow-xl hover:shadow-slate-200/50"
+                      className="group relative block w-64 shrink-0 overflow-hidden rounded-2xl bg-white transition-all hover:shadow-xl hover:shadow-slate-200/50 sm:w-72 lg:w-80"
                     >
                       {/* Image Container */}
                       <div className="relative aspect-4/5 w-full overflow-hidden">
@@ -457,8 +463,8 @@ export default function HomePage() {
                       </div>
                     </Link>
                   </ScrollReveal>
-                ))}
-              </div>
+                )}
+              />
             </div>
 
             <aside className="rounded-3xl border border-slate-200 bg-(--primary-color) p-6 text-white shadow-sm">
@@ -509,8 +515,8 @@ export default function HomePage() {
             </ScrollReveal>
           </div>
           <ScrollReveal variant="right" delay={200}>
-            <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm ">
-              <p className="text-sm text-(--muted-color)">
+            <div className="rounded-2xl border border-slate-200 bg-white p-6 mt-10 shadow-sm ">
+              <p className="type-h6 text-(--muted-color)">
                 Designed for sponsors, CROs, and cross-functional teams who need
                 speed with reliability.
               </p>
@@ -521,7 +527,7 @@ export default function HomePage() {
               </ul>
               <Clients
                 avatars={[
-                  { src: "/images/author-1.jpg" },
+                  { src: "/images/about.avif" },
                   { src: "/images/author-2.jpg" },
                   { src: "/images/author-3.jpg" },
                   { src: "/images/author-2.jpg" },
@@ -536,7 +542,7 @@ export default function HomePage() {
         <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           <ScrollReveal variant="left">
             <GlassCard
-              image="/images/service-1.jpg"
+              image="/images/about.avif"
               tag="Trial Management"
               title="Operational Trial Visibility"
               description="Monitor clinical trial activities, site performance, and progress through a unified operational dashboard."
@@ -545,7 +551,7 @@ export default function HomePage() {
 
           <ScrollReveal variant="up" delay={150}>
             <GlassCard
-              image="/images/case-study-1.jpg"
+              image="/images/about.avif"
               tag="Workflow Automation"
               title="Smart Process Automation"
               description="Automate manual operational steps and reduce delays through intelligent workflow coordination."
@@ -554,7 +560,7 @@ export default function HomePage() {
 
           <ScrollReveal variant="right" delay={300}>
             <GlassCard
-              image="/images/case-study-2.jpg"
+              image="/images/about.avif"
               tag="Data Intelligence"
               title="Real-Time Decision Signals"
               description="Turn operational data into real-time insights that support faster and more confident clinical decisions."
@@ -614,10 +620,10 @@ export default function HomePage() {
           <ScrollReveal>
             <div className="relative">
               <Image
-                src="/images/why-choose-image.jpg"
+                src="/images/why-choose-us.avif"
                 alt=" 	Why ClinRT"
                 width={520}
-                height={620}
+                height={720}
                 className="rounded-2xl object-cover"
               />
 
@@ -705,7 +711,7 @@ export default function HomePage() {
                 manage studies with greater structure, transparency, and
                 confidence. Our focus is on creating technology that supports
                 real world execution across sites, subjects, and supply
-                chains—making complex trials easier to run and easier to oversee
+                chains‚making complex trials easier to run and easier to oversee
               </p>
             </div>
             <Button href="/whats-new#case-studies" label="View Case Studies" />
@@ -774,12 +780,17 @@ export default function HomePage() {
             </div>
 
             {/* SLIDER */}
-            <div className="mt-16 flex gap-8 overflow-x-auto pb-6 snap-x snap-mandatory">
-              {testimonials.map((item, index) => (
-                <ScrollReveal key={item.name} delay={index * 120}>
-                  <div className=" snap-start rounded-2xl bg-white/10 backdrop-blur-md border border-white/10 p-6 hover:bg-white/15 transition">
+            <GlassSlider
+              items={testimonials}
+              ariaLabel="Testimonials"
+              scrollerClassName="gap-8"
+              controlsClassName="mt-4 justify-center"
+              edgeFadeClassName="from-[var(--color-primary)]/90 via-[var(--color-primary)]/60"
+              renderItem={(item, index) => (
+                <ScrollReveal delay={index * 120}>
+                  <div className="w-72 shrink-0 rounded-2xl border border-white/10 bg-white/10 p-6 backdrop-blur-md transition hover:bg-white/15 sm:w-80 lg:w-96">
                     {/* IMAGE */}
-                    <div className="relative mb-6 w-20 h-20">
+                    <div className="relative mb-6 h-20 w-20">
                       <Image
                         width={140}
                         height={120}
@@ -806,8 +817,8 @@ export default function HomePage() {
                     </div>
                   </div>
                 </ScrollReveal>
-              ))}
-            </div>
+              )}
+            />
           </div>
         </section>
       </SectionWrapper>
