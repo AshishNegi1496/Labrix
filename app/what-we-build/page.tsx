@@ -94,7 +94,17 @@ export default function WhatWeBuildPage() {
                 className="text-4xl font-semibold"
               />
               <p className="mt-1 text-xs uppercase tracking-[0.3em] text-white/70">
-                Years of Expertise
+                Years of Consolidated Experience
+              </p>
+            </div>
+            <div className="rounded-2xl border border-white/20 bg-white/10 px-5 py-4 backdrop-blur">
+              <CountUpOnView
+                to={1000}
+                suffix="+"
+                className="text-4xl font-semibold"
+              />
+              <p className="mt-1 text-xs uppercase tracking-[0.3em] text-white/70">
+                Clinical Trials Supported
               </p>
             </div>
             <div className="rounded-2xl border border-white/20 bg-white/10 px-5 py-4 backdrop-blur">
@@ -111,45 +121,20 @@ export default function WhatWeBuildPage() {
         </div>
       </section>
 
-      <SectionWrapper>
-        <div className="grid gap-20 lg:grid-cols-[1fr_2fr]">
-          <ScrollReveal>
-            <Badge>How We Support</Badge>
-            <p className="mt-3 type-h2 font-semibold">
-              How we support modern clinical trials
-            </p>
-            <p className="mt-4 text-(--muted-color)">
-              Our technology is built to address the most critical needs of
-              today&apos;s studies.
-            </p>
-            <div className="mt-6 grid gap-6">
-              {supportAreas.map((item, index) => (
-                <ScrollReveal key={item} delay={index * 80}>
-                  <motion.div
-                    whileHover={{ y: -4 }}
-                    transition={{ duration: 0.5 }}
-                    className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm"
-                  >
-                    <span className="absolute inset-0 bg-linear-to-r from-(--primary-color)/10 via-transparent to-(--color-accent)/20 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                    <div className="relative z-10 flex items-start gap-3 type-h6">
-                      <span className="relative mt-1 h-3 w-3">
-                        <span className="absolute inset-0 rounded-full bg-(--primary-color) opacity-0 transition-opacity duration-300 group-hover:opacity-60 group-hover:animate-ping" />
-                        <span className="absolute inset-0.5 rounded-full bg-(--primary-color)" />
-                      </span>
-                      <span>{item}</span>
-                    </div>
-                  </motion.div>
-                </ScrollReveal>
-              ))}
-            </div>
-          </ScrollReveal>
-
+      <SectionWrapper fullBleed>
+        <div className="grid gap-20 ">
           <div className="rounded-3xl border border-slate-200 bg-background p-6">
             <ScrollReveal delay={120}>
               <Badge>Our Solutions</Badge>
 
               <p className="mt-3 type-h6 text-(--muted-color)">
-                Explore our current and upcoming solutions below.
+                ClinRT delivers a growing suite of purpose-built solutions
+                designed to strengthen the operational, logistical, and
+                data-driven foundations of clinical research. Our products
+                support core study functions — from randomization and treatment
+                workflows to data capture, outcome reporting, and site
+                operations — ensuring structure, precision, and clarity across
+                every stage of the trial lifecycle.
               </p>
             </ScrollReveal>
             <div className="mt-6 grid gap-5 md:grid-cols-2">
@@ -195,18 +180,54 @@ export default function WhatWeBuildPage() {
       </SectionWrapper>
 
       <SectionWrapper fullBleed>
+        <ScrollReveal>
+          <Badge>How We Support</Badge>
+          <p className="mt-3 type-h2 font-semibold">
+            How we support modern clinical trials
+          </p>
+          <p className="mt-4 text-(--muted-color)">
+            Our technology is built to address the most critical needs of
+            today&apos;s studies.
+          </p>
+          <div className="mt-6 grid gap-6">
+            {supportAreas.map((item, index) => (
+              <ScrollReveal key={item} delay={index * 80}>
+                <motion.div
+                  whileHover={{ y: -4 }}
+                  transition={{ duration: 0.5 }}
+                  className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm"
+                >
+                  <span className="absolute inset-0 bg-linear-to-r from-(--primary-color)/10 via-transparent to-(--color-accent)/20 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                  <div className="relative z-10 flex items-start gap-3 type-h6">
+                    <span className="relative mt-1 h-3 w-3">
+                      <span className="absolute inset-0 rounded-full bg-(--primary-color) opacity-0 transition-opacity duration-300 group-hover:opacity-60 group-hover:animate-ping" />
+                      <span className="absolute inset-0.5 rounded-full bg-(--primary-color)" />
+                    </span>
+                    <span>{item}</span>
+                  </div>
+                </motion.div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </ScrollReveal>
+      </SectionWrapper>
+
+      <SectionWrapper fullBleed>
         <div className="relative mx-auto overflow-hidden rounded-3xl border border-white/25 bg-(--color-primary) px-6 py-14 text-white shadow-2xl md:px-10">
+          {/* Background Effects */}
           <div className="pointer-events-none absolute -left-20 top-8 h-56 w-56 rounded-full bg-(--color-accent)/25 blur-3xl" />
           <div className="pointer-events-none absolute -bottom-24 right-10 h-64 w-64 rounded-full bg-(--color-orange)/30 blur-3xl" />
-          <ScrollReveal className="relative z-10 grid gap-6 lg:grid-cols-[1.2fr_auto] lg:items-center">
-            <div>
-              <Badge>Execution Pathways</Badge>
-              <p className="mt-3 type-h2 font-semibold text-white">
-                From early-phase programs to global trials, we support teams in
-                building stable, compliant, and efficient execution pathways.
-              </p>
-            </div>
-            <div className="flex">
+
+          {/* Content */}
+          <ScrollReveal className="relative z-10 flex flex-col items-center text-center gap-6">
+            <Badge>Execution Pathways</Badge>
+
+            <p className="type-h2 font-semibold text-white ">
+              From early-phase programs to global trials, we support teams in
+              building stable, compliant, and efficient execution pathways.
+            </p>
+
+            <div className="flex justify-center">
               <Button href="/contact" label="Request a Demo" />
             </div>
           </ScrollReveal>

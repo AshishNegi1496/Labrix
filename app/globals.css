@@ -3,7 +3,7 @@
 /* :root { */
 :root {
   /* --color-primary: #0f243a; */
-  --color-primary: #38b6ff;
+  --color-primary: #8385BC;
   --color-primary-hover: #0b1b2d;
   --color-primary-active: #081423;
   --color-secondary: #1c3b59;
@@ -70,7 +70,7 @@
   --glass-bg: rgba(255, 255, 255, 0.08);
   --glass-border: rgba(255, 255, 255, 0.18);
   /* --btn-bg: #183153; */
-  --btn-bg: #38b6ff;
+  --btn-bg: #8385BC;
   --btn-accent: #d1752a;
   --btn-shadow: 0 6px 24px 0 rgba(0, 0, 0, 0.2);
   --btn-shadow-soft: 0 4px 18px 0 rgba(0, 0, 0, 0.18);
@@ -207,7 +207,7 @@ video {
   align-items: center;
   gap: 28px;
   padding: 20px 0;
-  animation: ticker 32s linear infinite;
+  animation: ticker 100s linear infinite;
   width: max-content;
 }
 

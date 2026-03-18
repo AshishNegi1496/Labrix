@@ -61,7 +61,7 @@ export default function Contact() {
     <PageTransition>
       {/* ---------------- CONTACT FORMS ---------------- */}
 
-      <SectionWrapper className="bg-(--color-primary)">
+      <SectionWrapper className="bg-(--color-primary)/70">
         <div className="mt-30 grid gap-10 lg:grid-cols-[0.9fr_1.1fr] text-black">
           <div className="space-y-6">
             <motion.div

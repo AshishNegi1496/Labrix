@@ -89,7 +89,7 @@ const researchFields = [
 const featuredWorks = [
   {
     title: "Build Digital Foundations for Clinical Operations",
-    text: "We create dependable, protocol aligned systems that support the operational backbone of clinical trials,  enabling teams to run studies with structure, reliability, and control",
+    text: "We create dependable, protocol-aligned systems that support the operational backbone of clinical trials, enabling teams to run studies with structure, reliability, and control.",
   },
   {
     title: "Enable Connected, Harmonized Trial Ecosystems",
@@ -97,11 +97,11 @@ const featuredWorks = [
   },
   {
     title: "Strengthen Data Integrity Across the Trial Lifecycle",
-    text: "We design technology that supports clean, consistent, audit ready data ‚from enrollment to close out, aligned with clinical research standards and regulatory expectations.",
+    text: "We design technology that supports clean, consistent, audit-ready data from enrollment to closeout, aligned with clinical research standards and regulatory expectations.",
   },
   {
-    title: "Support Scalable, Real World Clinical Execution",
-    text: "We build systems that flex with protocol changes, multi country footprints, complex study designs, and evolving operational needs without disrupting execution.",
+    title: "Support Scalable, Real-World Clinical Execution",
+    text: "We build systems that flex with protocol changes, multi-country footprints, complex study designs, and evolving operational needs without disrupting execution.",
   },
 ] as const;
 
@@ -339,7 +339,7 @@ export default function HomePage() {
         <div className="relative z-10 section-shell py-28 md:py-40 text-white">
           <div className="grid lg:grid-cols-2 gap-10 md:gap-14 lg:gap-16 items-center">
             {/* LEFT CONTENT */}
-            <ScrollReveal variant="left" className="max-w-3xl mb-4">
+            <ScrollReveal variant="left" className="max-w-3xl mb-1">
               <p className="mt-12 type-h2 md:text-4xl leading-tight font-semibold">
                 Smarter Clinical Technology <br />
                 for a More Connected <br />
@@ -349,7 +349,7 @@ export default function HomePage() {
               <p className="mt-6 max-w-2xl type-h6 text-white/80">
                 Built on rigorous engineering and deep domain expertise, our
                 platform integrates critical processes into a seamless digital
-                continuumÃ¢â‚¬â€streamlining data, orchestrating operations, and
+                continuum‚ streamlining data, orchestrating operations, and
                 sustaining performance at scale. From startup to closeout, we
                 simplify complexity and enhance oversight, empowering teams to
                 advance studies with confidence and pace.
@@ -388,7 +388,7 @@ export default function HomePage() {
                 />
                 <div className="flex-row">
                   <CountUpOnView
-                    to={5000}
+                    to={500}
                     suffix="+"
                     className="text-4xl font-semibold text-white"
                   />
@@ -421,7 +421,7 @@ export default function HomePage() {
                   {movingTrack.map((item, index) => (
                     <span
                       key={`${item}-${index}`}
-                      className="inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.500 em]"
+                      className="inline-flex items-center gap-3 type-h6 font-semibold uppercase tracking-[0.50 em]"
                     >
                       <span className="h-2 w-2 rounded-full bg-white/50" />
                       {item}
@@ -453,11 +453,13 @@ export default function HomePage() {
                 scrollerClassName="gap-6 w-full"
                 controlsClassName="mt-2 justify-end"
                 edgeFadeClassName="from-slate-50/90 via-slate-50/60"
+                pageSize={2}
+                itemClassName="w-full sm:w-[calc(50%-12px)]"
                 renderItem={(poster, index) => (
                   <ScrollReveal delay={index * 80}>
                     <Link
                       href={poster.href}
-                      className="group relative block w-60 shrink-0 overflow-hidden rounded-2xl bg-white transition-all hover:shadow-xl hover:shadow-slate-200/50 xs:w-64 sm:w-72 lg:w-80"
+                      className="group relative block w-full overflow-hidden rounded-2xl bg-white transition-all hover:shadow-xl hover:shadow-slate-200/50"
                     >
                       {/* Image Container */}
                       <div className="relative aspect-4/5 w-full overflow-hidden">
@@ -549,7 +551,7 @@ export default function HomePage() {
                 Designed for sponsors, CROs, and cross-functional teams who need
                 speed with reliability.
               </p>
-              <ul className="mt-4 space-y-2 type-h6 mb-4 ">
+              <ul className="mt-4 mb-4 space-y-2 list-disc list-inside type-h6">
                 <li>Single operational view across trial functions</li>
                 <li>Execution checkpoints with accountable ownership</li>
                 <li>Compliance-aware process design from day one</li>
@@ -562,7 +564,7 @@ export default function HomePage() {
                   { src: "/images/author-2.jpg" },
                 ]}
                 label="Trusted By"
-                title="5000+ Clients"
+                title="500+ Clients"
                 className="ml-6"
               />
             </div>
@@ -706,18 +708,29 @@ export default function HomePage() {
             <div className="mt-8 space-y-6">
               {whyChoosePoints.map((item, index) => (
                 <ScrollReveal key={item.title} delay={index * 120}>
-                  <div className="flex gap-4">
+                  <div className="group flex gap-4 cursor-pointer">
                     {/* icon */}
-                    <div className="mt-1 h-15 w-15 flex items-center justify-center rounded-lg bg-(--color-primary)/80 text-(--text-invert)">
-                      {index === 0 && <FaFlask size={30} />}
-                      {index === 1 && <FaCogs size={30} />}
-                      {index === 2 && <FaShieldAlt size={30} />}
-                      {index === 3 && <FaHandshake size={30} />}
-                      {index === 4 && <FaGlobeAmericas size={30} />}
+                    <div
+                      className="mt-1 h-15 w-15 flex items-center justify-center rounded-lg 
+          bg-(--color-primary)/80 text-(--text-invert)
+          transition-all duration-300 ease-out
+          group-hover:scale-110 group-hover:rotate-3
+          group-hover:shadow-lg group-hover:shadow-indigo-400/40"
+                    >
+                      <div className="transition-transform duration-300 group-hover:scale-125">
+                        {index === 0 && <FaFlask size={30} />}
+                        {index === 1 && <FaCogs size={30} />}
+                        {index === 2 && <FaShieldAlt size={30} />}
+                        {index === 3 && <FaHandshake size={30} />}
+                        {index === 4 && <FaGlobeAmericas size={30} />}
+                      </div>
                     </div>
 
+                    {/* content */}
                     <div>
-                      <p className="type-h5 font-semibold">{item.title}</p>
+                      <p className="type-h5 font-semibold transition-colors duration-300 group-hover:text-(--color-primary)">
+                        {item.title}
+                      </p>
                       <p className="type-h6 text-(--muted-color)">
                         {item.text}
                       </p>
@@ -738,32 +751,66 @@ export default function HomePage() {
       </SectionWrapper>
 
       {/* What we do section */}
-      <SectionWrapper>
-        <ScrollReveal>
-          <div className="flex flex-wrap items-end justify-between gap-6">
-            <div>
+      <SectionWrapper fullBleed>
+        <div className="relative overflow-hidden rounded-3xl bg-(--primary-color) text-white">
+          <div className="pointer-events-none absolute -left-16 top-10 h-56 w-56 rounded-full bg-(--color-accent)/20 blur-3xl" />
+          <div className="pointer-events-none absolute -bottom-24 right-6 h-64 w-64 rounded-full bg-(--color-orange)/20 blur-3xl" />
+
+          <div className="relative grid gap-10 px-6 py-14 md:px-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
+            <ScrollReveal>
               <Badge>What we Do</Badge>
 
-              <p className="mt-3 type-h2 font-semibold">
+              <p className="mt-4 type-h2 font-semibold text-white">
+                Transforming clinical operations into real-world results
+              </p>
+              <p className="mt-4 text-white/80">
                 At our core, we build digital systems that help clinical teams
                 manage studies with greater structure, transparency, and
                 confidence. Our focus is on creating technology that supports
-                real world execution across sites, subjects, and supply
-                chains‚making complex trials easier to run and easier to oversee
+                real-world execution across sites, subjects, and supply chains,
+                making complex trials easier to run and easier to oversee.
               </p>
-            </div>
-            <Button href="/whats-new#case-studies" label="View Case Studies" />
-          </div>
-        </ScrollReveal>
-        <div className="mt-10 grid gap-5 md:grid-cols-3">
-          {featuredWorks.map((item, index) => (
-            <ScrollReveal key={item.title} delay={index * 90}>
-              <article className="h-full rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-                <p className="type-h5 font-semibold">{item.title}</p>
-                <p className="mt-3 text-sm text-(--muted-color)">{item.text}</p>
-              </article>
+
+              <div className="mt-6 flex flex-wrap gap-4">
+                <Button
+                  href="/whats-new#case-studies"
+                  label="View Case Studies"
+                />
+              </div>
+
+              <div className="mt-8 rounded-2xl border border-white/15 bg-white/10 p-5 backdrop-blur">
+                <CountUpOnView
+                  to={featuredWorks.length}
+                  className="text-3xl font-semibold text-white"
+                />
+                <p className="mt-2 text-xs uppercase tracking-[0.3em] text-white/70">
+                  Core Focus Areas
+                </p>
+                <p className="mt-2 text-sm text-white/75">
+                  Built for operational clarity, data integrity, and scalable
+                  clinical delivery.
+                </p>
+              </div>
             </ScrollReveal>
-          ))}
+
+            <div className="grid gap-4">
+              {featuredWorks.map((item, index) => (
+                <ScrollReveal key={item.title} delay={index * 90}>
+                  <article className="flex gap-4 rounded-2xl border border-white/15 bg-white/10 p-5 backdrop-blur">
+                    <div className="mt-1 flex h-11 w-11 items-center justify-center rounded-xl bg-white/15 text-sm font-semibold text-white/80">
+                      {String(index + 1).padStart(2, "0")}
+                    </div>
+                    <div>
+                      <p className="type-h5 font-semibold text-white">
+                        {item.title}
+                      </p>
+                      <p className="mt-2 text-sm text-white/75">{item.text}</p>
+                    </div>
+                  </article>
+                </ScrollReveal>
+              ))}
+            </div>
+          </div>
         </div>
       </SectionWrapper>
 

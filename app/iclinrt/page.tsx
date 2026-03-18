@@ -1,7 +1,15 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import {
+  AnimatePresence,
+  LayoutGroup,
+  motion,
+  useReducedMotion,
+} from "framer-motion";
 import Link from "next/link";
+import { useEffect, useRef, useState, type RefObject } from "react";
+import { FullScreenCard } from "@/hooks/FullScreenCard";
 import PageTransition from "@/components/animations/PageTransition";
 import SectionWrapper from "@/components/layout/SectionWrapper";
 import ScrollReveal from "@/components/animations/ScrollReveal";
@@ -24,6 +32,7 @@ import {
   FiUsers,
   FiZap,
 } from "react-icons/fi";
+import { useActiveCard } from "@/hooks/useInView";
 
 const serviceMedia = [
   "/images/service1.png",
@@ -440,6 +449,35 @@ const Badge = ({ children }: { children: React.ReactNode }) => (
   </p>
 );
 
+// IclinrtUspsSection.tsx
+
+type StickyCardsProps = {
+  iclinrtUsps: typeof iclinrtUsps;
+  sectionRef: RefObject<HTMLDivElement | null>;
+};
+
+const StickyCards = ({ iclinrtUsps, sectionRef }: StickyCardsProps) => {
+  const activeIndex = useActiveCard(iclinrtUsps.length, sectionRef);
+
+  return (
+    <div className="sticky top-0 h-screen overflow-hidden">
+      {iclinrtUsps.map((item: any, index: number) => {
+        const Icon = uspIcons[index % uspIcons.length] || FiZap;
+
+        return (
+          <FullScreenCard
+            key={item.title}
+            item={item}
+            index={index}
+            activeIndex={activeIndex}
+            Icon={Icon}
+          />
+        );
+      })}
+    </div>
+  );
+};
+
 function IclinrtMedia({ reduceMotion }: { reduceMotion: boolean }) {
   return (
     <div className="relative h-full min-h-80 overflow-hidden rounded-3xl border border-slate-200 bg-black">
@@ -562,8 +600,52 @@ function IclinrtMedia({ reduceMotion }: { reduceMotion: boolean }) {
 
 export default function IclinrtPage() {
   const reduceMotion = useReducedMotion();
+  const uspsSectionRef = useRef<HTMLDivElement | null>(null);
   const regulatoryTrack = [...regulatoryStandards, ...regulatoryStandards];
   const problemTrack = [...problemSolutions, ...problemSolutions];
+  const [activeServiceIndex, setActiveServiceIndex] = useState<number | null>(
+    null,
+  );
+  const [activePotentialIndex, setActivePotentialIndex] = useState<
+    number | null
+  >(null);
+
+  const activeService =
+    activeServiceIndex !== null ? iclinrtServices[activeServiceIndex] : null;
+  const activeServiceMedia =
+    activeServiceIndex !== null
+      ? serviceMedia[activeServiceIndex % serviceMedia.length]
+      : null;
+  const activePotential =
+    activePotentialIndex !== null
+      ? iclinrtPotential[activePotentialIndex]
+      : null;
+  const activePotentialMedia =
+    activePotentialIndex !== null
+      ? potentialMedia[activePotentialIndex % potentialMedia.length]
+      : null;
+
+  useEffect(() => {
+    if (activeServiceIndex === null && activePotentialIndex === null) return;
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setActiveServiceIndex(null);
+        setActivePotentialIndex(null);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [activeServiceIndex, activePotentialIndex]);
+
+  useEffect(() => {
+    const originalOverflow = document.body.style.overflow;
+    if (activeServiceIndex !== null || activePotentialIndex !== null) {
+      document.body.style.overflow = "hidden";
+    }
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, [activeServiceIndex, activePotentialIndex]);
   return (
     <PageTransition>
       <section className="relative min-h-[70vh] overflow-hidden">
@@ -605,11 +687,9 @@ export default function IclinrtPage() {
             <ScrollReveal>
               <Badge>What is iClinRT</Badge>
               <p className="mt-3 type-h2 font-semibold">
-                Configuration That Matters
-              </p>
-              <p className="mt-4 type-h4 font-medium text-(--primary-color)">
                 Your Trial&apos;s Operational Control Center.
               </p>
+
               <p className="mt-3 type-h6 text-(--muted-color)">
                 iClinRT is ClinRT&apos;s dynamic, fully configurable Interactive
                 Response Technology platform designed to streamline and
@@ -625,11 +705,16 @@ export default function IclinrtPage() {
                 visibility, and compliance.
               </p>
               <div className="mt-6 flex flex-wrap gap-4">
-                <Button
-                  href="/contact"
-                  label="See it in action - request a demo"
-                />
+                <Button href="/contact" label="Contact Us" />
               </div>
+              <Link className="link text-sm" href="/contact">
+                Your Trial&apos;s Operational Control Center.
+              </Link>
+
+              <Link className="link text-sm" href="/">
+                {" "}
+                Discover What Sets Us Apart
+              </Link>
             </ScrollReveal>
             <ScrollReveal delay={140}>
               <IclinrtMedia reduceMotion={!!reduceMotion} />
@@ -639,59 +724,199 @@ export default function IclinrtPage() {
       </SectionWrapper>
 
       <SectionWrapper>
-        <GlassSlider
-          ariaLabel="iClinRT services slider"
-          header={
-            <ScrollReveal>
-              <Badge>Services iClinRT Delivers</Badge>
-              <h2 className="mt-3 type-h2 font-semibold">
-                Operational depth for every subject and kit movement
-              </h2>
-            </ScrollReveal>
-          }
-          items={iclinrtServices}
-          renderItem={(service, index) => (
-            <ScrollReveal delay={index * 80}>
-              <GlassCard
-                image={serviceMedia[index % serviceMedia.length]}
-                height="h-72 lg:h-80"
-                contentPadding="p-6"
-                overlayOpacity="bg-gradient-to-b from-black/30 via-black/60 to-black/85"
-                hoverEffect="glow"
-                borderColor="border-white/20"
-                glowColor="bg-[rgba(209,117,42,0.35)]"
-                className="min-w-62.5 sm:min-w-75 lg:min-w-85 bg-white/10 backdrop-blur-2xl shadow-lg transition duration-300 hover:-translate-y-2 hover:shadow-2xl hover:scale-[1.02]"
-                imageClassName="duration-700 group-hover:scale-110 group-hover:-translate-y-2"
-                contentClassName="transition-transform duration-500 group-hover:-translate-y-1"
-                tabIndex={0}
+        <LayoutGroup id="iclinrt-services">
+          <GlassSlider
+            ariaLabel="iClinRT services slider"
+            header={
+              <ScrollReveal>
+                <Badge>Services iClinRT Delivers</Badge>
+                <h2 className="mt-3 type-h2 font-semibold">
+                  Operational depth for every subject and kit movement
+                </h2>
+              </ScrollReveal>
+            }
+            items={iclinrtServices}
+            renderItem={(service, index) => (
+              <ScrollReveal delay={index * 80}>
+                <motion.div
+                  layoutId={`service-card-${index}`}
+                  className="group relative"
+                >
+                  {/* BACKDROP DIM (modal feel) */}
+                  <div className="pointer-events-none absolute inset-0 z-0 rounded-2xl bg-black/0 backdrop-blur-0 transition-all duration-500 group-hover:bg-black/40 group-hover:backdrop-blur-sm" />
+
+                  <GlassCard
+                    image={serviceMedia[index % serviceMedia.length]}
+                    height="h-92 lg:h-102"
+                    contentPadding="p-6"
+                    overlayOpacity="bg-gradient-to-b from-black/30 via-black/60 to-black/90"
+                    borderColor="border-white/20"
+                    className="
+          relative z-10
+          min-w-62.5 sm:min-w-75 lg:min-w-85
+          bg-white/10 backdrop-blur-2xl shadow-lg cursor-pointer
+
+          transition-all duration-500 ease-out
+          group-hover:scale-105
+          group-hover:-translate-y-4
+          group-hover:z-20
+          group-hover:shadow-[0_25px_60px_rgba(0,0,0,0.6)]
+        "
+                    imageClassName="
+          duration-700 ease-out
+          group-hover:scale-110
+          group-hover:-translate-y-3
+        "
+                    contentClassName="transition-all duration-500"
+                    tabIndex={0}
+                    role="button"
+                    aria-haspopup="dialog"
+                    aria-expanded={activeServiceIndex === index}
+                    onClick={() => setActiveServiceIndex(index)}
+                    onKeyDown={(event) => {
+                      if (event.key === "Enter" || event.key === " ") {
+                        event.preventDefault();
+                        setActiveServiceIndex(index);
+                      }
+                    }}
+                  >
+                    {/* HEADER */}
+                    <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.3em] text-white/70">
+                      <span>{`Service ${String(index + 1).padStart(2, "0")}`}</span>
+                      <span className="rounded-full bg-white/15 px-2 py-1 text-[10px]">
+                        iClinRT
+                      </span>
+                    </div>
+
+                    {/* TITLE */}
+                    <p className="mt-3 type-h4 font-semibold text-white">
+                      {service.title}
+                    </p>
+
+                    {/* LOADING SKELETON (fade out) */}
+                    <div className="mt-4 space-y-2 transition-all duration-300 group-hover:opacity-0 group-hover:-translate-y-2">
+                      <div className="h-2 w-3/4 rounded-full bg-white/25 animate-pulse" />
+                      <div className="h-2 w-1/2 rounded-full bg-white/15 animate-pulse [animation-delay:200ms]" />
+                    </div>
+
+                    {/* EXPANDED CONTENT */}
+                    <div
+                      className="
+          mt-4
+          max-h-0 opacity-0 overflow-hidden
+
+          transition-all duration-500 ease-out
+
+          group-hover:max-h-60
+          group-hover:opacity-100
+          group-hover:translate-y-0
+        "
+                    >
+                      <ul className="space-y-2 text-sm text-white/90">
+                        {service.items.map((item) => (
+                          <li key={item} className="flex gap-2">
+                            <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-white/70" />
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    {/* GLOW RING (premium effect) */}
+                    <div
+                      className="
+          pointer-events-none absolute inset-0 rounded-2xl opacity-0 
+          transition-opacity duration-500
+          group-hover:opacity-100
+          bg-[radial-gradient(circle_at_center,rgba(131,133,188,0.25),transparent_70%)]
+        "
+                    />
+                  </GlassCard>
+                </motion.div>
+              </ScrollReveal>
+            )}
+          />
+          <AnimatePresence>
+            {activeService && activeServiceMedia && (
+              <motion.div
+                className="fixed inset-0 z-60 flex items-center justify-center px-4 py-8 sm:px-6"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: reduceMotion ? 0 : 0.2 }}
+                role="dialog"
+                aria-modal="true"
               >
-                <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.3em] text-white/70">
-                  <span>{`Service ${String(index + 1).padStart(2, "0")}`}</span>
-                  <span className="rounded-full bg-white/15 px-2 py-1 text-[10px]">
-                    iClinRT
-                  </span>
-                </div>
-                <p className="mt-3 type-h4 font-semibold text-white">
-                  {service.title}
-                </p>
-                <div className="mt-4 space-y-2 transition-opacity duration-300 group-hover:opacity-0 group-focus-within:opacity-0">
-                  <div className="h-2 w-3/4 rounded-full bg-white/25 animate-pulse" />
-                  <div className="h-2 w-1/2 rounded-full bg-white/15 animate-pulse [animation-delay:200ms]" />
-                </div>
-                <div className="mt-4 max-h-0 overflow-hidden opacity-0 transition-all duration-300 group-hover:max-h-48 group-hover:opacity-100 group-focus-within:max-h-48 group-focus-within:opacity-100">
-                  <ul className="space-y-1 text-xs text-white/85">
-                    {service.items.map((item) => (
-                      <li key={item} className="flex gap-2">
-                        <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-white/70" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </GlassCard>
-            </ScrollReveal>
-          )}
-        />
+                <motion.div
+                  className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+                  onClick={() => setActiveServiceIndex(null)}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                />
+                <motion.div
+                  layoutId={`service-card-${activeServiceIndex}`}
+                  className="relative z-10 w-full max-w-5xl"
+                  transition={
+                    reduceMotion
+                      ? { duration: 0 }
+                      : { type: "spring", stiffness: 160, damping: 22 }
+                  }
+                  onClick={(event) => event.stopPropagation()}
+                >
+                  <GlassCard
+                    image={activeServiceMedia}
+                    height="min-h-[70vh] md:min-h-[75vh]"
+                    contentPadding="p-6 sm:p-8 md:p-10"
+                    contentPosition="top"
+                    overlayOpacity="bg-gradient-to-b from-black/40 via-black/70 to-black/95"
+                    borderColor="border-white/20"
+                    hoverEffect="none"
+                    className="bg-white/10 backdrop-blur-2xl shadow-[0_35px_120px_rgba(0,0,0,0.6)]"
+                  >
+                    <button
+                      type="button"
+                      onClick={() => setActiveServiceIndex(null)}
+                      className="absolute right-6 top-6 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white/80 transition hover:bg-white/20"
+                      aria-label="Close modal"
+                    >
+                      X
+                    </button>
+                    <div className="flex items-center gap-3 text-[10px] uppercase tracking-[0.3em] text-white/70">
+                      <span>
+                        {`Service ${String((activeServiceIndex ?? 0) + 1).padStart(2, "0")}`}
+                      </span>
+                      <span className="rounded-full bg-white/15 px-2 py-1 text-[10px]">
+                        iClinRT
+                      </span>
+                    </div>
+                    <p className="mt-3 type-h2 font-semibold text-white">
+                      {activeService.title}
+                    </p>
+                    <p className="mt-2 text-sm text-white/70">
+                      Full operational detail and protocol-ready execution for
+                      your clinical teams.
+                    </p>
+                    <div className="mt-6 max-h-[40vh] overflow-y-auto pr-2 no-scrollbar">
+                      <ul className="space-y-3 type-h4 text-white/90">
+                        {activeService.items.map((item) => (
+                          <li key={item} className="flex gap-3">
+                            <span className="mt-1.5 h-2 w-2 rounded-full bg-white/70" />
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div className="mt-8 flex flex-wrap gap-3">
+                      <Button href="/contact" label="Talk to ClinRT" />
+                      <Button href="/what-we-build" label="See What We Build" />
+                    </div>
+                  </GlassCard>
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </LayoutGroup>
       </SectionWrapper>
 
       <SectionWrapper fullBleed>
@@ -721,59 +946,159 @@ export default function IclinrtPage() {
       </SectionWrapper>
 
       <SectionWrapper id="iclinrt-potential">
-        <GlassSlider
-          ariaLabel="iClinRT potential slider"
-          header={
-            <ScrollReveal>
-              <Badge>iClinRT&apos;s Potential</Badge>
-              <h2 className="mt-3 type-h2 font-semibold">
-                Features that unlock clarity, control, and speed
-              </h2>
-            </ScrollReveal>
-          }
-          items={iclinrtPotential}
-          renderItem={(item, index) => (
-            <ScrollReveal delay={index * 60}>
-              <GlassCard
-                image={potentialMedia[index % potentialMedia.length]}
-                height="h-72 lg:h-80"
-                contentPadding="p-6"
-                overlayOpacity="bg-gradient-to-b from-black/30 via-black/60 to-black/85"
-                hoverEffect="glow"
-                borderColor="border-white/20"
-                glowColor="bg-[rgba(201,247,229,0.35)]"
-                className="min-w-[250px] sm:min-w-[300px] lg:min-w-[340px] bg-white/10 backdrop-blur-2xl shadow-lg transition duration-300 hover:-translate-y-2 hover:shadow-2xl hover:scale-[1.02]"
-                imageClassName="duration-700 group-hover:scale-110 group-hover:-translate-y-2"
-                contentClassName="transition-transform duration-500 group-hover:-translate-y-1"
-                tabIndex={0}
+        <LayoutGroup id="iclinrt-potential">
+          <GlassSlider
+            ariaLabel="iClinRT potential slider"
+            header={
+              <ScrollReveal>
+                <Badge>iClinRT&apos;s Potential</Badge>
+                <h2 className="mt-3 type-h2 font-semibold">
+                  Features that unlock clarity, control, and speed
+                </h2>
+              </ScrollReveal>
+            }
+            items={iclinrtPotential}
+            renderItem={(item, index) => (
+              <ScrollReveal delay={index * 60}>
+                <motion.div
+                  layoutId={`potential-card-${index}`}
+                  className="group relative"
+                >
+                  <div className="pointer-events-none absolute inset-0 z-0 rounded-2xl bg-black/0 backdrop-blur-0 transition-all duration-500 group-hover:bg-black/40 group-hover:backdrop-blur-sm" />
+                  <GlassCard
+                    image={potentialMedia[index % potentialMedia.length]}
+                    height="h-72 lg:h-80"
+                    contentPadding="p-6"
+                    overlayOpacity="bg-gradient-to-b from-black/30 via-black/60 to-black/85"
+                    hoverEffect="glow"
+                    borderColor="border-white/20"
+                    glowColor="bg-[rgba(201,247,229,0.35)]"
+                    className="min-w-[250px] sm:min-w-[300px] lg:min-w-[340px] bg-white/10 backdrop-blur-2xl shadow-lg transition duration-300 group-hover:-translate-y-3 group-hover:scale-[1.04] group-hover:shadow-[0_30px_80px_rgba(0,0,0,0.45)] cursor-pointer"
+                    imageClassName="duration-700 group-hover:scale-110 group-hover:-translate-y-2"
+                    contentClassName="transition-transform duration-500 group-hover:-translate-y-1"
+                    tabIndex={0}
+                    role="button"
+                    aria-haspopup="dialog"
+                    aria-expanded={activePotentialIndex === index}
+                    onClick={() => setActivePotentialIndex(index)}
+                    onKeyDown={(event) => {
+                      if (event.key === "Enter" || event.key === " ") {
+                        event.preventDefault();
+                        setActivePotentialIndex(index);
+                      }
+                    }}
+                  >
+                    <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.3em] text-white/70">
+                      <span>{`Potential ${String(index + 1).padStart(2, "0")}`}</span>
+                      <span className="rounded-full bg-white/15 px-2 py-1 text-[10px]">
+                        iClinRT
+                      </span>
+                    </div>
+                    <p className="mt-3 type-h5 font-semibold text-white">
+                      {item.title}
+                    </p>
+                    <div className="mt-4 space-y-2 transition-opacity duration-300 group-hover:opacity-0 group-focus-within:opacity-0">
+                      <div className="h-2 w-3/4 rounded-full bg-white/25 animate-pulse" />
+                      <div className="h-2 w-1/2 rounded-full bg-white/15 animate-pulse [animation-delay:200ms]" />
+                    </div>
+                    <div className="mt-4 max-h-0 overflow-hidden opacity-0 transition-all duration-300 group-hover:max-h-48 group-hover:opacity-100 group-focus-within:max-h-48 group-focus-within:opacity-100">
+                      <ul className="space-y-1 text-xs text-white/85">
+                        {item.items.map((point) => (
+                          <li key={point} className="flex gap-2">
+                            <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-white/70" />
+                            <span>{point}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </GlassCard>
+                </motion.div>
+              </ScrollReveal>
+            )}
+          />
+
+          <AnimatePresence>
+            {activePotential && activePotentialMedia && (
+              <motion.div
+                className="fixed inset-0 z-[60] flex items-center justify-center px-4 py-8 sm:px-6"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: reduceMotion ? 0 : 0.2 }}
+                role="dialog"
+                aria-modal="true"
               >
-                <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.3em] text-white/70">
-                  <span>{`Potential ${String(index + 1).padStart(2, "0")}`}</span>
-                  <span className="rounded-full bg-white/15 px-2 py-1 text-[10px]">
-                    iClinRT
-                  </span>
-                </div>
-                <p className="mt-3 type-h5 font-semibold text-white">
-                  {item.title}
-                </p>
-                <div className="mt-4 space-y-2 transition-opacity duration-300 group-hover:opacity-0 group-focus-within:opacity-0">
-                  <div className="h-2 w-3/4 rounded-full bg-white/25 animate-pulse" />
-                  <div className="h-2 w-1/2 rounded-full bg-white/15 animate-pulse [animation-delay:200ms]" />
-                </div>
-                <div className="mt-4 max-h-0 overflow-hidden opacity-0 transition-all duration-300 group-hover:max-h-48 group-hover:opacity-100 group-focus-within:max-h-48 group-focus-within:opacity-100">
-                  <ul className="space-y-1 text-xs text-white/85">
-                    {item.items.map((point) => (
-                      <li key={point} className="flex gap-2">
-                        <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-white/70" />
-                        <span>{point}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </GlassCard>
-            </ScrollReveal>
-          )}
-        />
+                <motion.div
+                  className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+                  onClick={() => setActivePotentialIndex(null)}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                />
+                <motion.div
+                  layoutId={`potential-card-${activePotentialIndex}`}
+                  className="relative z-10 w-full max-w-5xl"
+                  transition={
+                    reduceMotion
+                      ? { duration: 0 }
+                      : { type: "spring", stiffness: 160, damping: 22 }
+                  }
+                  onClick={(event) => event.stopPropagation()}
+                >
+                  <GlassCard
+                    image={activePotentialMedia}
+                    height="min-h-[70vh] md:min-h-[75vh]"
+                    contentPadding="p-6 sm:p-8 md:p-10"
+                    contentPosition="top"
+                    overlayOpacity="bg-gradient-to-b from-black/40 via-black/70 to-black/95"
+                    borderColor="border-white/20"
+                    hoverEffect="none"
+                    className="bg-white/10 backdrop-blur-2xl shadow-[0_35px_120px_rgba(0,0,0,0.6)]"
+                  >
+                    <button
+                      type="button"
+                      onClick={() => setActivePotentialIndex(null)}
+                      className="absolute right-6 top-6 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white/80 transition hover:bg-white/20"
+                      aria-label="Close modal"
+                    >
+                      X
+                    </button>
+                    <div className="flex items-center gap-3 text-[10px] uppercase tracking-[0.3em] text-white/70">
+                      <span>{`Potential ${String((activePotentialIndex ?? 0) + 1).padStart(2, "0")}`}</span>
+                      <span className="rounded-full bg-white/15 px-2 py-1 text-[10px]">
+                        iClinRT
+                      </span>
+                    </div>
+                    <p className="mt-3 type-h2 font-semibold text-white">
+                      {activePotential.title}
+                    </p>
+                    <p className="mt-2 text-sm text-white/70">
+                      Built to deliver clarity, control, and speed across every
+                      operational layer.
+                    </p>
+                    <div className="mt-6 max-h-[40vh] overflow-y-auto pr-2 no-scrollbar">
+                      <ul className="space-y-3 text-sm text-white/90">
+                        {activePotential.items.map((point) => (
+                          <li key={point} className="flex gap-3">
+                            <span className="mt-1.5 h-2 w-2 rounded-full bg-white/70" />
+                            <span>{point}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div className="mt-8 flex flex-wrap gap-3">
+                      <Button href="/contact" label="Request a Demo" />
+                      <Button
+                        href="/what-we-build"
+                        label="Explore Capabilities"
+                      />
+                    </div>
+                  </GlassCard>
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </LayoutGroup>
         <div className="mt-10">
           <Link href="/coming-soon" className="link text-sm">
             View factsheets
@@ -917,71 +1242,15 @@ export default function IclinrtPage() {
         </div>
       </SectionWrapper>
 
-      <SectionWrapper id="iclinrt-usps" fullBleed>
-        <div className="relative mx-auto overflow-hidden rounded-3xl bg-(--primary-color) px-6 py-14 text-white md:px-10">
-          <div className="pointer-events-none absolute -top-24 right-0 h-64 w-64 rounded-full bg-white/10 blur-3xl" />
-          <div className="pointer-events-none absolute -bottom-20 left-10 h-72 w-72 rounded-full bg-(--color-orange)/30 blur-3xl" />
-          <div className="relative z-10">
-            <ScrollReveal>
-              <Badge>
-                <span className="inline-flex items-center gap-2">
-                  iClinRT&apos;s USPs
-                </span>
-              </Badge>
-              <h2 className="mt-3 type-h2 font-semibold text-white">
-                Purpose-built for complexity. Designed for speed. Trusted for
-                reliability.
-              </h2>
-            </ScrollReveal>
-            <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-              {iclinrtUsps.map((item, index) => {
-                const Icon = uspIcons[index % uspIcons.length] || FiZap;
-                return (
-                  <ScrollReveal key={item.title} delay={index * 70}>
-                    <motion.article
-                      className="group relative h-full overflow-hidden rounded-2xl border border-white/20 bg-white/10 p-6 shadow-xl backdrop-blur-xl transition"
-                      whileHover={reduceMotion ? undefined : { y: -6 }}
-                      transition={
-                        reduceMotion
-                          ? undefined
-                          : { duration: 0.35, ease: "easeOut" }
-                      }
-                    >
-                      <div className="pointer-events-none absolute inset-0 opacity-0 transition duration-300 group-hover:opacity-100">
-                        <div className="absolute -right-12 -top-12 h-32 w-32 rounded-full bg-white/15 blur-2xl" />
-                        <div className="absolute bottom-0 left-0 h-24 w-24 rounded-full bg-(--color-orange)/30 blur-2xl" />
-                      </div>
-                      <div className="relative z-10 flex items-center justify-between text-[10px] uppercase tracking-[0.3em] text-white/60">
-                        <span>{`USP ${String(index + 1).padStart(2, "0")}`}</span>
-                        <span className="rounded-full bg-white/10 px-2 py-1 text-[10px]">
-                          iClinRT
-                        </span>
-                      </div>
-                      <div className="relative z-10 mt-4 flex items-start gap-3">
-                        <span className="grid h-11 w-11 place-items-center rounded-2xl border border-white/30 bg-white/10 text-white shadow-sm">
-                          <Icon className="h-5 w-5" />
-                        </span>
-                        <div>
-                          <p className="type-h5 font-semibold text-white">
-                            {item.title}
-                          </p>
-                          <ul className="mt-3 space-y-2 text-sm text-white/75">
-                            {item.items.map((point) => (
-                              <li key={point} className="flex gap-2">
-                                <FiCheck className="mt-0.5 h-4 w-4 text-(--color-accent)" />
-                                <span>{point}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      </div>
-                      <span className="pointer-events-none absolute inset-x-6 bottom-4 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent opacity-0 transition group-hover:opacity-100" />
-                    </motion.article>
-                  </ScrollReveal>
-                );
-              })}
-            </div>
-          </div>
+      <SectionWrapper id="iclinrt-usps">
+        {/* <div className="relative bg-(--primary-color) text-white"> */}
+        <div
+          ref={uspsSectionRef}
+          className="relative"
+          style={{ height: `${iclinrtUsps.length * 100}vh` }}
+        >
+          <StickyCards iclinrtUsps={iclinrtUsps} sectionRef={uspsSectionRef} />
+          {/* </div> */}
         </div>
       </SectionWrapper>
 
@@ -1005,16 +1274,13 @@ export default function IclinrtPage() {
               </p>
               <div className="mt-6 flex flex-wrap gap-4">
                 <Button href="/contact" label="Talk to the ClinRT team" />
-                <Link href="/contact" className="link text-sm">
-                  Ask for a workflow review
-                </Link>
               </div>
             </ScrollReveal>
 
             <ScrollReveal delay={120}>
-              <div className="relative h-[30rem] overflow-hidden rounded-3xl border border-white/40 bg-white/60 p-6 shadow-xl backdrop-blur-2xl">
-                <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-white/80 via-white/40 to-transparent" />
-                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white/80 via-white/40 to-transparent" />
+              <div className="relative h-120 overflow-hidden rounded-3xl border border-white/40 bg-white/60 p-6 shadow-xl backdrop-blur-2xl">
+                <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-linear-to-b from-white/80 via-white/40 to-transparent" />
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-linear-to-t from-white/80 via-white/40 to-transparent" />
 
                 <motion.div
                   className="space-y-4 pr-1"
@@ -1068,7 +1334,6 @@ export default function IclinrtPage() {
             <ScrollReveal>
               <Badge>
                 <span className="inline-flex items-center gap-2">
-                  <FiEye className="h-4 w-4" />
                   Ready to See iClinRT
                 </span>
               </Badge>
@@ -1082,9 +1347,6 @@ export default function IclinrtPage() {
               </p>
               <div className="mt-6 flex flex-wrap gap-4">
                 <Button href="/contact" label="Request iClinRT Demo" />
-                <Link href="/contact" className="link text-sm text-white">
-                  Ask a workflow expert
-                </Link>
               </div>
             </ScrollReveal>
 

@@ -18,10 +18,12 @@ export type GlassSliderProps<T> = {
   header?: ReactNode;
   className?: string;
   scrollerClassName?: string;
+  itemClassName?: string;
   edgeFade?: boolean;
   showControls?: boolean;
   controlsClassName?: string;
   edgeFadeClassName?: string;
+  pageSize?: number;
 };
 
 export default function GlassSlider<T>({
@@ -31,10 +33,12 @@ export default function GlassSlider<T>({
   header,
   className,
   scrollerClassName,
+  itemClassName,
   edgeFade = true,
   showControls = true,
   controlsClassName,
   edgeFadeClassName,
+  pageSize,
 }: GlassSliderProps<T>) {
   const scrollerRef = useRef<HTMLDivElement | null>(null);
   const dragActive = useRef(false);
@@ -67,9 +71,25 @@ export default function GlassSlider<T>({
   const scrollBy = useCallback((direction: -1 | 1) => {
     const slider = scrollerRef.current;
     if (!slider) return;
-    const offset = Math.min(slider.clientWidth * 0.85, 420);
+    let offset = Math.min(slider.clientWidth * 0.85, 420);
+    if (pageSize && pageSize > 0) {
+      const firstItem = slider.querySelector<HTMLElement>("[data-slider-item]");
+      const itemWidth = firstItem?.getBoundingClientRect().width ?? 0;
+      const styles = window.getComputedStyle(slider);
+      const gapValue = parseFloat(styles.columnGap || styles.gap || "0");
+      const denom = itemWidth + gapValue;
+      const visibleCount =
+        denom > 0
+          ? Math.max(1, Math.floor((slider.clientWidth + gapValue) / denom))
+          : 1;
+      const effectivePageSize = Math.min(pageSize, visibleCount);
+      const step = denom * effectivePageSize;
+      if (step > 0) {
+        offset = step;
+      }
+    }
     slider.scrollBy({ left: offset * direction, behavior: "smooth" });
-  }, []);
+  }, [pageSize]);
 
   const handlePointerDown = (event: PointerEvent<HTMLDivElement>) => {
     if (event.button !== 0) return;
@@ -156,7 +176,11 @@ export default function GlassSlider<T>({
           onKeyDown={handleKeyDown}
         >
           {items.map((item, index) => (
-            <div key={index} className="snap-start shrink-0">
+            <div
+              key={index}
+              className={cn("snap-start shrink-0", itemClassName)}
+              data-slider-item
+            >
               {renderItem(item, index)}
             </div>
           ))}

@@ -12,6 +12,6 @@ export const navigation: NavigationData = validateNavigation(
       { href: "/whats-new", label: "What's New" },
       { href: "/contact", label: "Contact Us" },
     ],
-    cta: { href: "/contact", label: "Contact Us" },
+    cta: { href: "/contact", label: "Request a Demo" },
   }),
 );
