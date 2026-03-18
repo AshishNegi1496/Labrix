@@ -1,216 +1,178 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
+
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import Link from "next/link";
 import PageTransition from "@/components/animations/PageTransition";
 import SectionWrapper from "@/components/layout/SectionWrapper";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import Button from "@/components/ui/Button";
 
-const brochures = [
-  "ClinRT Platform Overview 2026",
-  "Clinical Execution Playbook",
-  "Sponsor Collaboration Framework",
+/* ---------------- DATA ---------------- */
+
+const tabs = [
+  "News",
+  "Webinars",
+  "Moments",
+  "Case Studies",
+  "Blogs",
+  "Brochures",
+  "Factsheets",
 ] as const;
 
-const blogs = [
-  {
-    title: "How operational visibility changes trial outcomes",
-    date: "March 2, 2026",
-  },
-  {
-    title: "Designing better workflows for site teams",
-    date: "February 21, 2026",
-  },
-  {
-    title: "Reducing delays in cross-functional trial delivery",
-    date: "February 14, 2026",
-  },
-] as const;
+const data = {
+  News: [
+    "Event: ClinRT at Global Clinical Tech Forum 2026",
+    "Media: Featured in Clinical Innovation Review",
+    "Announcement: New monitoring capabilities released",
+  ],
+  Webinars: [
+    "Modern Clinical Operations",
+    "Implementation patterns for CRO teams",
+  ],
+  "Case Studies": [
+    "Multi-country oncology acceleration",
+    "Workflow redesign for rare disease study",
+  ],
+  Blogs: ["How visibility improves outcomes", "Designing better workflows"],
+  Brochures: ["ClinRT Platform Overview", "Clinical Execution Playbook"],
+  Factsheets: ["IRT Overview", "CTSM Capabilities"],
+  Moments: [
+    { src: "/images/case-study-1.jpg", label: "Workshop" },
+    { src: "/images/case-study-2.jpg", label: "Client Day" },
+    { src: "/images/case-study-3.jpg", label: "Launch Event" },
+  ],
+};
 
-const caseStudies = [
-  "Multi-country oncology operations acceleration",
-  "End-to-end workflow redesign for rare disease study",
-  "Compliance-first coordination model for late-phase trials",
-] as const;
-
-const webinars = [
-  "Modern Clinical Operations: From Data to Decisions",
-  "Implementation patterns for sponsor and CRO teams",
-] as const;
-
-const news = [
-  "Event: ClinRT team at Global Clinical Tech Forum 2026",
-  "Media: Featured in Clinical Innovation Review",
-  "Announcement: New quality monitoring capabilities released",
-] as const;
-
-const moments = [
-  { src: "/images/case-study-1.jpg", label: "Team workshop" },
-  { src: "/images/case-study-2.jpg", label: "Client strategy day" },
-  { src: "/images/case-study-3.jpg", label: "Product launch event" },
-  { src: "/images/service-1.jpg", label: "Clinical operations summit" },
-] as const;
-
-const Ping = () => (
-  <span className="relative h-2.5 w-2.5">
-    <span className="absolute inset-0 rounded-full bg-green-300 animate-ping" />
-    <span className="absolute inset-0.5 rounded-full bg-green-300" />
-  </span>
-);
-const Badge = ({ children }: { children: React.ReactNode }) => (
-  <p className="inline-flex items-center gap-2 rounded-full border border-black/50 px-4 py-1.5 text-sm">
-    <Ping />
-    {children}
-  </p>
-);
+/* ---------------- PAGE ---------------- */
 
 export default function WhatsNewPage() {
+  const [activeTab, setActiveTab] = useState<(typeof tabs)[number]>("News");
+
   return (
     <PageTransition>
-      <section className="relative min-h-screen overflow-hidden">
+      {/* ================= HERO ================= */}
+      <section className="relative h-screen overflow-hidden">
         <Image
           src="/images/why-choose-image.jpg"
-          alt="What's new at ClinRT"
+          alt="What's new"
           fill
           priority
-          className="object-cover"
+          className="object-cover scale-105"
         />
-        <div className="absolute inset-0 bg-black/55" />
-        <div className="relative z-10 section-shell flex min-h-screen items-end py-20">
-          <ScrollReveal className="max-w-3xl text-white">
-            <p className="text-xs uppercase tracking-[0.4em] text-white/70">
-              What&apos;s New
-            </p>
-            <p className="mt-4 type-h1 font-semibold text-white">
-              Latest updates from ClinRT
-            </p>
-            <p className="mt-4 text-white/85">
-              Discover fresh resources, practical insights, and real delivery
-              stories from our teams and partners.
+
+        <div className="absolute inset-0 bg-linear-to-b from-black/40 via-black/70 to-black/95" />
+
+        <div className="relative z-10 h-full flex items-center section-shell pb-20 text-white">
+          <ScrollReveal className="max-w-3xl">
+            <p className="type-h1 md:text-6xl font-semibold">Stay Connected</p>
+            <p className="mt-4 text-white/80 text-lg">
+              Stay connected with our latest updates, resources, and milestones.
+              Here’s everything happening across ClinRT right now.
             </p>
           </ScrollReveal>
         </div>
       </section>
 
+      {/* ================= CONTENT HUB ================= */}
       <SectionWrapper>
-        <div className="grid gap-18 md:grid-cols-2">
-          <ScrollReveal className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-            <Badge>Brochures</Badge>
-            <ul className="mt-4 space-y-3 text-sm">
-              {brochures.map((item) => (
-                <li key={item} className="rounded-xl bg-background p-3">
-                  {item}
-                </li>
+        <div className="grid lg:grid-cols-[260px_1fr] gap-10">
+          {/* ---------- LEFT TABS ---------- */}
+          <div className="sticky top-24 h-fit">
+            <div className="flex flex-col gap-2">
+              {tabs.map((tab) => (
+                <button
+                  key={tab}
+                  onClick={() => setActiveTab(tab)}
+                  className={`text-left px-4 py-3 rounded-xl transition-all ${
+                    activeTab === tab
+                      ? "bg-black text-white shadow-md"
+                      : "hover:bg-gray-100"
+                  }`}
+                >
+                  {tab}
+                </button>
               ))}
-            </ul>
-            <div className="mt-6">
-              <Button href="/contact" label="Request Brochure Pack" size="sm" />
             </div>
-          </ScrollReveal>
+          </div>
 
-          <ScrollReveal
-            delay={120}
-            className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
-          >
-            <Badge>Blogs</Badge>
-            <ul className="mt-4 space-y-3 text-sm">
-              {blogs.map((item) => (
-                <li key={item.title} className="rounded-xl bg-(--bg-page) p-3">
-                  <p className="font-medium">{item.title}</p>
-                  <p className="mt-1 text-xs text-(--muted-color)">
-                    {item.date}
-                  </p>
-                </li>
-              ))}
-            </ul>
-          </ScrollReveal>
-        </div>
-      </SectionWrapper>
-
-      <SectionWrapper id="case-studies" fullBleed>
-        <div className="mx-auto  rounded-3xl bg-(--color-secondary) px-6 py-14 text-white md:px-10">
-          <ScrollReveal>
-            <Badge>Case Studies</Badge>
-            <p className="mt-3 type-h2 font-semibold text-white">
-              Delivery stories from active clinical programs
-            </p>
-          </ScrollReveal>
-          <div className="mt-7 grid gap-4 md:grid-cols-3">
-            {caseStudies.map((item, index) => (
-              <ScrollReveal key={item} delay={index * 90}>
-                <div className="h-full rounded-2xl border border-white/15 bg-white/5 p-5 text-sm text-white/85">
-                  {item}
-                </div>
-              </ScrollReveal>
-            ))}
+          {/* ---------- RIGHT CONTENT ---------- */}
+          <div className="relative min-h-100">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeTab}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.4 }}
+              >
+                <TabContent tab={activeTab} />
+              </motion.div>
+            </AnimatePresence>
           </div>
         </div>
       </SectionWrapper>
-
-      <SectionWrapper>
-        <div className="grid gap-5 md:grid-cols-2">
-          <ScrollReveal className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-            <Badge>Webinars</Badge>
-            <ul className="mt-4 space-y-3 text-sm">
-              {webinars.map((item) => (
-                <li key={item} className="rounded-xl bg-(--bg-page) p-3">
-                  {item}
-                </li>
-              ))}
-            </ul>
-            <div className="mt-6">
-              <Button href="/contact" label="Get Webinar Invites" size="sm" />
-            </div>
-          </ScrollReveal>
-
-          <ScrollReveal
-            delay={120}
-            className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
-          >
-            <p className="text-xs uppercase tracking-[0.35em] text-(--muted-color)">
-              News
-            </p>
-            <p className="mt-2 text-sm text-(--muted-color)">
-              Events, media coverage, and product announcements.
-            </p>
-            <ul className="mt-4 space-y-3 text-sm">
-              {news.map((item) => (
-                <li key={item} className="rounded-xl bg-(--bg-page) p-3">
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </ScrollReveal>
-        </div>
-      </SectionWrapper>
-
-      <SectionWrapper>
-        <ScrollReveal>
-          <Badge>Moments</Badge>
-          <h2 className="mt-3 type-h2 font-semibold">Photos and videos</h2>
-        </ScrollReveal>
-        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {moments.map((item, index) => (
-            <ScrollReveal key={item.label} delay={index * 80}>
-              <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-                <div className="relative h-52">
-                  <Image
-                    src={item.src}
-                    alt={item.label}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <p className="p-3 text-sm">{item.label}</p>
-              </div>
-            </ScrollReveal>
-          ))}
-        </div>
-        <div className="mt-8">
-          <Link href="/videos/homePageVideo.mp4" className="link text-sm">
-            Watch a recent ClinRT moment video
-          </Link>
-        </div>
-      </SectionWrapper>
     </PageTransition>
+  );
+}
+
+/* ---------------- TAB CONTENT ---------------- */
+
+function TabContent({ tab }: { tab: string }) {
+  const content = (data as any)[tab];
+
+  /* MOMENTS (GRID IMAGE STYLE) */
+  if (tab === "Moments") {
+    return (
+      <div className="grid md:grid-cols-3 gap-5">
+        {content.map((item: any, i: number) => (
+          <motion.div
+            key={i}
+            whileHover={{ scale: 1.03 }}
+            className="overflow-hidden rounded-2xl border"
+          >
+            <div className="relative h-56">
+              <Image
+                src={item.src}
+                alt={item.label}
+                fill
+                className="object-cover"
+              />
+            </div>
+            <p className="p-3 text-sm">{item.label}</p>
+          </motion.div>
+        ))}
+      </div>
+    );
+  }
+
+  /* DEFAULT LIST STYLE */
+  return (
+    <div className="grid md:grid-cols-2 gap-5">
+      {content.map((item: string, i: number) => (
+        <motion.div
+          key={i}
+          whileHover={{ y: -4 }}
+          className="p-5 rounded-xl border bg-white shadow-sm"
+        >
+          {item}
+        </motion.div>
+      ))}
+
+      {/* CTA for some tabs */}
+      {(tab === "Webinars" || tab === "Brochures") && (
+        <div className="col-span-full mt-6">
+          <Button
+            href="/contact"
+            label={
+              tab === "Webinars"
+                ? "Get Webinar Invites"
+                : "Request Brochure Pack"
+            }
+          />
+        </div>
+      )}
+    </div>
   );
 }

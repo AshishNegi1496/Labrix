@@ -1,288 +1,264 @@
 "use client";
-import { motion, useScroll, useTransform, type MotionValue } from "framer-motion";
-import { useRef } from "react";
+
+import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import PageTransition from "@/components/animations/PageTransition";
 import SectionWrapper from "@/components/layout/SectionWrapper";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import CountUpOnView from "@/components/CountUpOnView";
+import Button from "@/components/ui/Button";
+import GlassCard from "@/components/GlassCard";
+import { FiCheck } from "react-icons/fi";
+
+const overviewText =
+  "We build the digital foundations that help modern clinical research operate with structure, clarity, and pace. Through thoughtful design and disciplined engineering, we unify critical workflows, elevate data quality, and enable confident decision making across studies of every scale.";
+
+const meaningPoints = [
+  "Seamless orchestration across stakeholders and sites",
+  "Clear, timely insight to guide operational decisions",
+  "Consistent, audit-ready execution throughout the clinical journey",
+] as const;
 
 const leadership = [
   {
     name: "Dr. Maya Srinivasan",
     role: "Chief Executive Officer",
-    text: "Leads enterprise strategy and long-term clinical platform direction.",
+    image: "/images/author-1.jpg",
   },
   {
     name: "Rahul Deshmukh",
     role: "Chief Product Officer",
-    text: "Owns product roadmap, delivery standards, and sponsor outcomes.",
+    image: "/images/author-2.jpg",
   },
   {
     name: "Emily Carter",
     role: "Head of Clinical Solutions",
-    text: "Bridges protocol execution with scalable operational systems.",
+    image: "/images/author-3.jpg",
   },
+] as const;
+
+const leadershipPrinciples = [
+  "Reliability first: stability, security, and continuity as non-negotiables",
+  "Clarity over complexity: purposeful design that removes friction",
+  "Delivery with discipline: on time, compliant, and field-tested",
 ] as const;
 
 const culture = [
   {
     title: "Integrity",
-    text: "Essential for clinical data quality, trust, and compliance.",
+    text: "Every decision, workflow, and dataset meets the highest standards of compliance and accuracy.",
   },
   {
     title: "Ownership",
-    text: "Accountability in every workflow, handoff, and delivery milestone.",
+    text: "We take accountability across every layer, ensuring reliability and trust.",
   },
   {
     title: "Innovation",
-    text: "A tech-driven mindset for solving high-complexity trial problems.",
+    text: "We challenge legacy systems and build modern, scalable clinical platforms.",
   },
   {
     title: "Collaboration",
-    text: "Cross-functional teamwork across clinical, product, and operations.",
+    text: "We operate cross-functionally to deliver intuitive and stable systems.",
   },
   {
     title: "Impact",
-    text: "Focused on better patient and research outcomes, not just activity.",
+    text: "Everything we build ultimately contributes to better patient outcomes.",
   },
 ] as const;
 
-const team = [
-  {
-    name: "Aisha Khan",
-    role: "Clinical Program Manager",
-    image: "/images/team-1.jpg",
-  },
-  {
-    name: "Noah Bennett",
-    role: "Data Operations Lead",
-    image: "/images/team-2.jpg",
-  },
-  {
-    name: "Sofia Ramirez",
-    role: "Regulatory Specialist",
-    image: "/images/team-3.jpg",
-  },
-  {
-    name: "Liam O'Connor",
-    role: "Implementation Engineer",
-    image: "/images/team-4.jpg",
-  },
+const teamStats = [
+  { value: 40, suffix: "+", label: "Years of Experience" },
+  { value: 1000, suffix: "+", label: "Trials Supported" },
+  { value: 500, suffix: "+", label: "Clients Served" },
 ] as const;
-const overviewText =
-  "We combine clinical depth with product grade execution. ClinRT is built by specialists in clinical operations digital workflows and quality systems. We partner with study teams to simplify execution reduce operational friction and keep trial delivery aligned to patient and sponsor needs.";
-const headlineWords = ["We", "Create", "Impact."] as const;
 
-type WordProps = {
-  word: string;
-  progress: MotionValue<number>;
-  range: [number, number];
-};
-
-function Word({ word, progress, range }: WordProps) {
-  const opacity = useTransform(progress, range, [0.2, 1]);
-
-  return (
-    <motion.span
-      style={{ opacity }}
-      className="mr-2 inline-block transition-all duration-300 text-white"
-    >
-      {word}
-    </motion.span>
-  );
-}
+/* ---------------- UI helpers ---------------- */
 
 const Ping = () => (
   <span className="relative h-2.5 w-2.5">
-    <span className="absolute inset-0 rounded-full bg-green-300 animate-ping" />
-    <span className="absolute inset-0.5 rounded-full bg-green-300" />
+    <span className="absolute inset-0 rounded-full bg-orange-500 animate-ping" />
+    <span className="absolute inset-0.5 rounded-full bg-orange-500" />
   </span>
 );
 const Badge = ({ children }: { children: React.ReactNode }) => (
-  <p className="inline-flex items-center gap-2 rounded-full border border-black/50 px-4 py-1.5 text-sm">
+  <p className="inline-flex items-center gap-2 rounded-full border border-orange-500 px-4 py-1.5 text-sm">
     <Ping />
     {children}
   </p>
 );
 
+/* ---------------- Page ---------------- */
+
 export default function WhoWeArePage() {
-  const containerRef = useRef<HTMLDivElement | null>(null);
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start center", "end center"],
-  });
-
-  const words = overviewText.split(" ");
   return (
     <PageTransition>
-      <SectionWrapper className="pt-28 md:pt-36" fullBleed>
-        <div className="rounded-3xl bg-(--primary-color) px-6 py-16 text-white md:px-10 md:py-20">
-          <Badge>Who We Are</Badge>
-          <div className="mt-5 flex flex-wrap gap-3 md:gap-5">
-            {headlineWords.map((word, index) => (
-              <ScrollReveal key={word} variant="zoom" delay={index * 120}>
-                <span className="inline-block rounded-2xl bg-white/10 px-4 py-2 type-h1 font-semibold text-white">
-                  {word}
-                </span>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </SectionWrapper>
-      <SectionWrapper fullBleed className="bg-(--primary-color)">
-        <section ref={containerRef} className="relative h-[220vh]">
-          <div className="sticky top-0 flex h-screen items-center justify-center px-6">
-            <p className="type-h2 gap-2 space-x-2 text-gray-400">
-              {words.map((word, i) => {
-                const start = i / words.length;
-                const end = (i + 1) / words.length;
+      {/* ================= HERO ================= */}
+      <section className="relative h-screen overflow-hidden">
+        <video
+          className="absolute inset-0 h-full w-full object-cover scale-105"
+          src="/videos/homePageVideo.mp4"
+          autoPlay
+          muted
+          loop
+        />
 
-                return (
-                  <Word
-                    key={i}
-                    word={word}
-                    progress={scrollYProgress}
-                    range={[start, end]}
-                  />
-                );
-              })}
-            </p>
-          </div>
-        </section>
-      </SectionWrapper>
-      <SectionWrapper fullBleed>
-        <div className="mx-auto max-w-7xl rounded-3xl bg-white px-6 py-14 md:px-10">
+        {/* overlay */}
+        <div className="absolute inset-0 bg-linear-to-b from-black/40 via-black/70 to-black/95" />
+
+        {/* animated gradient blobs */}
+        <motion.div
+          className="absolute top-20 left-10 w-72 h-72 bg-green-400/20 blur-3xl rounded-full"
+          animate={{ y: [0, -30, 0] }}
+          transition={{ duration: 10, repeat: Infinity }}
+        />
+        <motion.div
+          className="absolute bottom-10 right-10 w-80 h-80 bg-blue-500/20 blur-3xl rounded-full"
+          animate={{ y: [0, 30, 0] }}
+          transition={{ duration: 12, repeat: Infinity }}
+        />
+
+        <div className="relative z-10 h-full flex items-center section-shell text-white">
           <ScrollReveal>
-            <Badge>Our Leadership</Badge>
-          </ScrollReveal>
-          <div className="mt-6 grid gap-5 md:grid-cols-3">
-            {leadership.map((member, index) => (
-              <ScrollReveal key={member.name} delay={index * 90}>
-                <article className="h-full rounded-2xl border border-slate-200 bg-background p-6">
-                  <p className="type-h5 font-semibold">{member.name}</p>
-                  <p className="mt-1 text-sm font-medium text-(--primary-color)">
-                    {member.role}
-                  </p>
-                  <p className="mt-3 text-sm text-(--muted-color)">
-                    {member.text}
-                  </p>
-                </article>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </SectionWrapper>
+            <Badge>WHO WE ARE</Badge>
 
+            <p className="mt-6 text-5xl md:text-6xl font-semibold leading-tight max-w-3xl">
+              Engineering the Digital Backbone of Clinical Research
+            </p>
+
+            <p className="mt-6 text-white/80 max-w-2xl">{overviewText}</p>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* ================= WHAT IT MEANS ================= */}
       <SectionWrapper>
-        <div className="grid gap-5 md:grid-cols-2">
-          <ScrollReveal className="rounded-2xl border border-slate-200 bg-white p-7 shadow-sm">
-            <Badge>Our Vision</Badge>
-            <p className="mt-3 type-h4 font-semibold">
-              Make clinical execution smarter, more connected, and more human.
-            </p>
-            <p className="mt-3 text-sm text-(--muted-color)">
-              We envision a future where research teams can focus on outcomes
-              instead of operational bottlenecks.
-            </p>
-          </ScrollReveal>
-          <ScrollReveal
-            delay={120}
-            className="rounded-2xl border border-slate-200 bg-white p-7 shadow-sm"
-          >
-            <Badge>Our Mission</Badge>
-            <p className="mt-3 type-h4 font-semibold">
-              Build dependable digital systems that help trials run with
-              clarity, speed, and confidence.
-            </p>
-            <p className="mt-3 text-sm text-(--muted-color)">
-              Every solution we ship is grounded in accountability, quality, and
-              real delivery needs.
-            </p>
-          </ScrollReveal>
-        </div>
-      </SectionWrapper>
-
-      <SectionWrapper fullBleed>
-        <div className="mx-auto rounded-3xl bg-(--color-secondary) px-6 py-16 text-white md:px-10">
+        <div className="grid lg:grid-cols-2 gap-10">
           <ScrollReveal>
-            <Badge>Our Culture</Badge>
-            <p className="mt-3 type-h2 font-semibold text-white">
-              Values that guide every decision and delivery cycle
+            <h2 className="text-3xl font-semibold">What this means for you</h2>
+            <p className="mt-4 text-muted-foreground">
+              Real-world impact that simplifies operations and improves clarity.
             </p>
           </ScrollReveal>
-          <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {culture.map((item, index) => (
-              <ScrollReveal key={item.title} delay={index * 70}>
-                <div className="h-full rounded-2xl border border-white/15 bg-white/5 p-5">
-                  <p className="type-h5 font-semibold text-white">
-                    {item.title}
-                  </p>
-                  <p className="mt-2 text-sm text-white/80">{item.text}</p>
-                </div>
+
+          <div className="grid gap-4">
+            {meaningPoints.map((point, i) => (
+              <ScrollReveal key={i} delay={i * 80}>
+                <motion.div
+                  whileHover={{ scale: 1.02 }}
+                  className="p-5 rounded-xl bg-white border shadow-sm flex gap-3"
+                >
+                  <FiCheck className="text-green-500 mt-1" />
+                  <p>{point}</p>
+                </motion.div>
               </ScrollReveal>
             ))}
           </div>
         </div>
       </SectionWrapper>
 
-      <SectionWrapper>
-        <ScrollReveal>
-          <Badge>Our Team</Badge>
-          <h2 className="mt-3 type-h2 font-semibold">
-            Specialists across product, clinical operations, and delivery
-          </h2>
-        </ScrollReveal>
-        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {team.map((member, index) => (
-            <ScrollReveal key={member.name} delay={index * 80}>
-              <article className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-                <div className="relative h-56">
-                  <Image
-                    src={member.image}
-                    alt={member.name}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <div className="p-4">
-                  <p className="type-h5 font-semibold">{member.name}</p>
-                  <p className="text-sm text-(--muted-color)">{member.role}</p>
-                </div>
-              </article>
-            </ScrollReveal>
-          ))}
+      {/* ================= LEADERSHIP ================= */}
+      <SectionWrapper fullBleed>
+        <div className="bg-white rounded-3xl p-10">
+          <ScrollReveal>
+            <h2 className="text-3xl font-semibold">Our Leadership</h2>
+          </ScrollReveal>
+
+          <div className="grid md:grid-cols-3 gap-6 mt-8">
+            {leadership.map((m, i) => (
+              <ScrollReveal key={i} delay={i * 100}>
+                <GlassCard image={m.image} height="h-72">
+                  <p className="text-white font-semibold">{m.name}</p>
+                  <p className="text-white/70 text-sm">{m.role}</p>
+                </GlassCard>
+              </ScrollReveal>
+            ))}
+          </div>
+
+          <div className="mt-10 bg-gray-50 p-6 rounded-xl">
+            <p className="text-sm font-semibold uppercase">
+              Principles we lead by
+            </p>
+            <ul className="mt-4 space-y-2">
+              {leadershipPrinciples.map((p) => (
+                <li key={p} className="flex gap-2">
+                  <FiCheck /> {p}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </SectionWrapper>
 
+      {/* ================= CULTURE ================= */}
       <SectionWrapper fullBleed>
-        <ScrollReveal className="rounded-3xl bg-(--color-accent) p-8 md:p-12">
-          <Badge>Experience Numbers</Badge>
-          <div className="mt-6 grid gap-6 md:grid-cols-2">
-            <div className="rounded-2xl bg-white/60 p-6">
-              <CountUpOnView
-                to={15}
-                suffix="+"
-                className="text-4xl font-semibold text-(--primary-color)"
-              />
-              <p className="mt-2 text-sm text-(--primary-color)/80">
-                Yrs. of deep domain expertise in clinical systems and compliance
-              </p>
-            </div>
-            <div className="rounded-2xl bg-white/60 p-6">
-              <CountUpOnView
-                to={80}
-                suffix="+"
-                className="text-4xl font-semibold text-(--primary-color)"
-              />
-              <p className="mt-2 text-sm text-(--primary-color)/80">
-                Years of collective experience from technologists, creators, and
-                problem-solvers
-              </p>
+        <div className="bg-linear-to-r from-black to-(--color-primary) text-white rounded-3xl p-12">
+          <p className="text-3xl font-semibold">Our Culture</p>
+
+          <div className="grid md:grid-cols-3 gap-6 mt-8">
+            {culture.map((c, i) => (
+              <motion.div
+                key={i}
+                whileHover={{ y: -5 }}
+                className="p-6 rounded-xl bg-white/5 border border-white/10"
+              >
+                <p className="font-semibold type-h3">{c.title}</p>
+                <p className="type-h6 mt-2 text-white/70">{c.text}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </SectionWrapper>
+
+      {/* ================= TEAM ================= */}
+      <SectionWrapper>
+        <div className="grid lg:grid-cols-2 gap-10 items-center">
+          <div className="relative h-80">
+            <Image
+              src="/images/one-team.png"
+              fill
+              alt="team"
+              className="object-cover rounded-2xl"
+            />
+          </div>
+
+          <div>
+            <p className="type-h2 font-semibold">Our Team</p>
+            <p className="mt-4 text-muted-foreground">
+              A collective of engineers, clinicians, and operators working
+              together to improve clinical outcomes through technology.
+            </p>
+
+            <div className="grid grid-cols-3 gap-4 mt-6">
+              {teamStats.map((s) => (
+                <div key={s.label} className="p-4 border rounded-xl">
+                  <CountUpOnView
+                    className="type-h3 font-semibold"
+                    to={s.value}
+                    suffix={s.suffix}
+                  />
+                  <p className="text-sm">{s.label}</p>
+                </div>
+              ))}
             </div>
           </div>
-        </ScrollReveal>
+        </div>
+      </SectionWrapper>
+
+      {/* ================= CTA ================= */}
+      <SectionWrapper fullBleed>
+        <div className="bg-primary text-white rounded-3xl p-12 flex justify-between items-center">
+          <div>
+            <p className="type-h2 text-black font-semibold">
+              Want to work with us?
+            </p>
+            <p className="text-black/80 mt-2">
+              Join us in building impactful clinical technology.
+            </p>
+          </div>
+
+          <Button href="/contact" label="Careers Enquiry" />
+        </div>
       </SectionWrapper>
     </PageTransition>
   );

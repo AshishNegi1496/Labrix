@@ -33,6 +33,14 @@ import {
   FiZap,
 } from "react-icons/fi";
 import { useActiveCard } from "@/hooks/useInView";
+import StudyFlowSvg from "@/components/StudyFlowSvg";
+const phases = [
+  { title: "Study Planning", subtitle: "Study Inception Phase" },
+  { title: "Study Design", subtitle: "Build Phase" },
+  { title: "System Validation", subtitle: "Validation Phase" },
+  { title: "Go Live & Support", subtitle: "Execution Phase" },
+  { title: "Study Close", subtitle: "Closure Phase" },
+];
 
 const serviceMedia = [
   "/images/service1.png",
@@ -1107,139 +1115,41 @@ export default function IclinrtPage() {
       </SectionWrapper>
 
       <SectionWrapper fullBleed>
-        <div className="relative mx-auto overflow-hidden rounded-3xl border border-white/40 bg-white/70 px-6 py-14 shadow-xl backdrop-blur-2xl md:px-10">
-          <div className="pointer-events-none absolute -left-10 top-10 h-48 w-48 rounded-full bg-(--color-accent)/30 blur-3xl" />
-          <div className="pointer-events-none absolute -bottom-16 right-10 h-56 w-56 rounded-full bg-(--color-orange)/20 blur-3xl" />
-          <div className="relative z-10 grid gap-10 lg:grid-cols-[1.05fr_0.95fr]">
-            <div>
-              <ScrollReveal>
-                <Badge>
-                  <span className="inline-flex items-center gap-2">
-                    How It Works
-                  </span>
-                </Badge>
-                <p className="mt-3 type-h2 font-semibold">
-                  A four-layer engine driving trial efficiency
-                </p>
-                <p className="mt-3 text-sm text-(--muted-color)">
-                  A visual workflow of protocol intelligence, orchestration,
-                  supply control, and compliant insight.
-                </p>
-              </ScrollReveal>
-              <div className="mt-6 grid gap-4 sm:grid-cols-2">
-                {howItWorksLayers.map((layer, index) => {
-                  const Icon =
-                    howItWorksIcons[index % howItWorksIcons.length] || FiCpu;
-                  return (
-                    <ScrollReveal key={layer.title} delay={index * 70}>
-                      <GlassCard
-                        image={howItWorksMedia[index % howItWorksMedia.length]}
-                        height="h-60 lg:h-64"
-                        contentPadding="p-6"
-                        overlayOpacity="bg-gradient-to-b from-black/30 via-black/60 to-black/85"
-                        hoverEffect="glow"
-                        borderColor="border-white/20"
-                        glowColor="bg-[rgba(209,117,42,0.25)]"
-                        className="bg-white/10 backdrop-blur-2xl shadow-lg transition duration-300 hover:-translate-y-2 hover:shadow-2xl hover:scale-[1.02]"
-                        imageClassName="duration-700 group-hover:scale-110 group-hover:-translate-y-2"
-                        contentClassName="transition-transform duration-500 group-hover:-translate-y-1"
-                        tabIndex={0}
-                      >
-                        <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.3em] text-white/70">
-                          <span>{`Layer ${index + 1}`}</span>
-                          <span className="rounded-full bg-white/15 px-2 py-1 text-[10px]">
-                            Engine
-                          </span>
-                        </div>
-                        <div className="mt-3 flex items-center gap-3">
-                          <span className="grid h-10 w-10 place-items-center rounded-2xl border border-white/25 bg-white/10 text-white shadow-sm">
-                            <Icon className="h-5 w-5" />
-                          </span>
-                          <p className="type-h5 font-semibold text-white">
-                            {layer.title}
-                          </p>
-                        </div>
-                        <p className="mt-3 text-xs text-white/80 opacity-0 translate-y-2 transition duration-300 group-hover:opacity-100 group-hover:translate-y-0 group-focus-within:opacity-100 group-focus-within:translate-y-0">
-                          {layer.text}
-                        </p>
-                      </GlassCard>
-                    </ScrollReveal>
-                  );
-                })}
-              </div>
-            </div>
-
-            <ScrollReveal delay={120}>
-              <div className="relative overflow-hidden rounded-3xl border border-white/30 bg-white/60 shadow-xl backdrop-blur">
-                <video
-                  className="h-80 w-full object-cover"
-                  src="/videos/homePageVideo.mp4"
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                />
-                <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/10 to-transparent" />
-                <motion.div
-                  className="absolute left-6 top-6 rounded-2xl border border-white/20 bg-white/10 px-4 py-3 text-xs font-semibold uppercase tracking-[0.2em] text-white backdrop-blur"
-                  animate={reduceMotion ? undefined : { y: [0, -10, 0] }}
-                  transition={
-                    reduceMotion
-                      ? undefined
-                      : { duration: 6, repeat: Infinity, ease: "easeInOut" }
-                  }
-                >
-                  <span className="inline-flex items-center gap-2">
-                    <FiActivity className="h-4 w-4" />
-                    Protocol Sync
-                  </span>
-                </motion.div>
-                <motion.div
-                  className="absolute bottom-6 right-6 rounded-2xl border border-white/20 bg-white/10 px-4 py-3 text-xs font-semibold uppercase tracking-[0.2em] text-white backdrop-blur"
-                  animate={reduceMotion ? undefined : { y: [0, 12, 0] }}
-                  transition={
-                    reduceMotion
-                      ? undefined
-                      : { duration: 7, repeat: Infinity, ease: "easeInOut" }
-                  }
-                >
-                  <span className="inline-flex items-center gap-2">
-                    <FiEye className="h-4 w-4" />
-                    Live Oversight
-                  </span>
-                </motion.div>
-              </div>
-
-              <div className="mt-6">
-                <Badge>
-                  <span className="inline-flex items-center gap-2">
-                    Study Types We Support
-                  </span>
-                </Badge>
-                <p className="mt-3 type-h4 font-semibold">
-                  Built for complex programs across phases and regions
-                </p>
-                <div className="mt-4 flex flex-wrap gap-3">
-                  {studyTypes.map((type) => (
-                    <span
-                      key={type}
-                      className="rounded-full border border-white/40 bg-white/70 px-4 py-2 text-sm shadow-sm backdrop-blur transition hover:-translate-y-0.5 hover:shadow-md"
-                    >
-                      {type}
-                    </span>
-                  ))}
-                </div>
-                <div className="mt-6 rounded-2xl border border-white/40 bg-white/70 p-5 shadow-sm backdrop-blur">
-                  <p className="text-sm text-(--muted-color)">
-                    iClinRT supports early to late phase studies, adaptive
-                    designs, and global programs that require precision supply,
-                    protocol control, and inspection-ready documentation.
-                  </p>
-                </div>
-              </div>
-            </ScrollReveal>
-          </div>
+        <div className="rounded-3xl bg-white/70 backdrop-blur-xl p-10 border shadow-xl">
+          <Badge>How it works</Badge>
+          <StudyFlowSvg />
         </div>
+      </SectionWrapper>
+      <SectionWrapper>
+        <ScrollReveal delay={120}>
+          <div className="mt-6">
+            <Badge>
+              <span className="inline-flex items-center gap-2">
+                Study Types We Support
+              </span>
+            </Badge>
+            <p className="mt-3 type-h4 font-semibold">
+              Built for complex programs across phases and regions
+            </p>
+            <div className="mt-4 flex flex-wrap gap-3">
+              {studyTypes.map((type) => (
+                <span
+                  key={type}
+                  className="rounded-full border border-white/40 bg-white/70 px-4 py-2 text-sm shadow-sm backdrop-blur transition hover:-translate-y-0.5 hover:shadow-md"
+                >
+                  {type}
+                </span>
+              ))}
+            </div>
+            <div className="mt-6 rounded-2xl border border-white/40 bg-white/70 p-5 shadow-sm backdrop-blur">
+              <p className="text-sm text-(--muted-color)">
+                iClinRT supports early to late phase studies, adaptive designs,
+                and global programs that require precision supply, protocol
+                control, and inspection-ready documentation.
+              </p>
+            </div>
+          </div>
+        </ScrollReveal>
       </SectionWrapper>
 
       <SectionWrapper id="iclinrt-usps">

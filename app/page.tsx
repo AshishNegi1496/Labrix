@@ -89,7 +89,7 @@ const researchFields = [
 const featuredWorks = [
   {
     title: "Build Digital Foundations for Clinical Operations",
-    text: "We create dependable, protocol-aligned systems that support the operational backbone of clinical trials, enabling teams to run studies with structure, reliability, and control.",
+    text: "We create dependable, protocol aligned systems that support the operational backbone of clinical trials - enabling teams to run studies with structure, reliability, and control.",
   },
   {
     title: "Enable Connected, Harmonized Trial Ecosystems",
@@ -97,11 +97,11 @@ const featuredWorks = [
   },
   {
     title: "Strengthen Data Integrity Across the Trial Lifecycle",
-    text: "We design technology that supports clean, consistent, audit-ready data from enrollment to closeout, aligned with clinical research standards and regulatory expectations.",
+    text: "We design technology that supports clean, consistent, audit ready data - from enrollment to close out - aligned with clinical research standards and regulatory expectations.",
   },
   {
-    title: "Support Scalable, Real-World Clinical Execution",
-    text: "We build systems that flex with protocol changes, multi-country footprints, complex study designs, and evolving operational needs without disrupting execution.",
+    title: "Support Scalable, Real World Clinical Execution",
+    text: "We build systems that flex with protocol changes, multi country footprints, complex study designs, and evolving operational needs without disrupting execution.",
   },
 ] as const;
 
@@ -570,8 +570,11 @@ export default function HomePage() {
             </div>
           </ScrollReveal>
         </ScrollReveal>
-        <div className="mt-16 grid gap-6 md:grid-cols-2">
-          <ScrollReveal variant="left">
+        <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-12 lg:items-stretch">
+          <ScrollReveal
+            variant="left"
+            className="lg:col-span-3 lg:min-h-[260px]"
+          >
             <GlassCard image="/images/about.avif">
               <span className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white/90 backdrop-blur">
                 <FiPlay className="h-6 w-6 translate-x-px" />
@@ -579,7 +582,11 @@ export default function HomePage() {
             </GlassCard>
           </ScrollReveal>
 
-          <ScrollReveal variant="up" delay={150}>
+          <ScrollReveal
+            variant="up"
+            delay={150}
+            className="lg:col-span-4 lg:min-h-[260px]"
+          >
             <GlassCard
               image="/images/about.avif"
               tag="Workflow Automation"
@@ -588,7 +595,11 @@ export default function HomePage() {
             />
           </ScrollReveal>
 
-          <ScrollReveal variant="right" delay={300} className="md:col-span-2">
+          <ScrollReveal
+            variant="right"
+            delay={300}
+            className="md:col-span-2 lg:col-span-5 lg:min-h-[260px]"
+          >
             <GlassCard image="/images/about.avif">
               <div className="mt-4 flex flex-wrap gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-white/80">
                 <span className="rounded-full border border-white/15 bg-white/10 px-5 py-3">
@@ -761,13 +772,13 @@ export default function HomePage() {
               <Badge>What we Do</Badge>
 
               <p className="mt-4 type-h2 font-semibold text-white">
-                Transforming clinical operations into real-world results
+                Bringing operational clarity to modern clinical trials
               </p>
               <p className="mt-4 text-white/80">
                 At our core, we build digital systems that help clinical teams
                 manage studies with greater structure, transparency, and
                 confidence. Our focus is on creating technology that supports
-                real-world execution across sites, subjects, and supply chains,
+                real world execution across sites, subjects, and supply chains -
                 making complex trials easier to run and easier to oversee.
               </p>
 
@@ -777,18 +788,20 @@ export default function HomePage() {
                   label="View Case Studies"
                 />
               </div>
-
-              <div className="mt-8 rounded-2xl border border-white/15 bg-white/10 p-5 backdrop-blur">
+              <div className="mt-8">
                 <CountUpOnView
-                  to={featuredWorks.length}
-                  className="text-3xl font-semibold text-white"
+                  to={98}
+                  suffix="%"
+                  className="c  font-semibold text-white"
                 />
-                <p className="mt-2 text-xs uppercase tracking-[0.3em] text-white/70">
-                  Core Focus Areas
+              </div>
+              <div className="mt-8 rounded-2xl border border-white/15 bg-white/10 p-5 backdrop-blur">
+                <p className="mt-2 type-h5 uppercase tracking-[0.3em] text-white/70">
+                  Operational Reliability
                 </p>
-                <p className="mt-2 text-sm text-white/75">
-                  Built for operational clarity, data integrity, and scalable
-                  clinical delivery.
+                <p className="mt-2 type-h6 text-white/75">
+                  Our platforms help maintain consistent, protocol aligned
+                  execution across global studies.
                 </p>
               </div>
             </ScrollReveal>
@@ -804,7 +817,7 @@ export default function HomePage() {
                       <p className="type-h5 font-semibold text-white">
                         {item.title}
                       </p>
-                      <p className="mt-2 text-sm text-white/75">{item.text}</p>
+                      <p className="mt-2 type-h6 text-white/75">{item.text}</p>
                     </div>
                   </article>
                 </ScrollReveal>
