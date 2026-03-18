@@ -676,10 +676,7 @@ export default function IclinrtPage() {
               Your Trial&apos;s Operational Control Center.
             </p>
             <div className="mt-6 flex flex-wrap gap-4">
-              <Button
-                href="/contact"
-                label="See it in action - request a demo"
-              />
+              <Button href="/contact" label="Contact Us" />
             </div>
           </ScrollReveal>
         </div>

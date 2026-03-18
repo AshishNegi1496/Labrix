@@ -135,7 +135,7 @@ export default function WhoWeArePage() {
       <SectionWrapper>
         <div className="grid lg:grid-cols-2 gap-10">
           <ScrollReveal>
-            <h2 className="text-3xl font-semibold">What this means for you</h2>
+            <Badge>What this means for you </Badge>
             <p className="mt-4 text-muted-foreground">
               Real-world impact that simplifies operations and improves clarity.
             </p>
@@ -161,7 +161,7 @@ export default function WhoWeArePage() {
       <SectionWrapper fullBleed>
         <div className="bg-white rounded-3xl p-10">
           <ScrollReveal>
-            <h2 className="text-3xl font-semibold">Our Leadership</h2>
+            <Badge>Our Leadership</Badge>
           </ScrollReveal>
 
           <div className="grid md:grid-cols-3 gap-6 mt-8">
@@ -193,7 +193,7 @@ export default function WhoWeArePage() {
       {/* ================= CULTURE ================= */}
       <SectionWrapper fullBleed>
         <div className="bg-linear-to-r from-black to-(--color-primary) text-white rounded-3xl p-12">
-          <p className="text-3xl font-semibold">Our Culture</p>
+          <Badge>Our Culture</Badge>
 
           <div className="grid md:grid-cols-3 gap-6 mt-8">
             {culture.map((c, i) => (
@@ -223,7 +223,8 @@ export default function WhoWeArePage() {
           </div>
 
           <div>
-            <p className="type-h2 font-semibold">Our Team</p>
+            <Badge>Our Team</Badge>
+
             <p className="mt-4 text-muted-foreground">
               A collective of engineers, clinicians, and operators working
               together to improve clinical outcomes through technology.

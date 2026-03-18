@@ -283,7 +283,7 @@ video {
 
 /* expand diagonally from center */
 .btn:hover::after {
-  width: 140%;
+  width: 150%;
 }
 
 .btn-content {
@@ -316,7 +316,8 @@ video {
 /* text + icon hover effect */
 .btn:hover .btn-label,
 .btn:hover .btn-icon {
-  color: var(--btn-bg);
+  /* color: var(--btn-bg); */
+  color: #000; 
   animation: scaleUp 0.3s ease-in-out;
 }
 

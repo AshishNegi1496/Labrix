@@ -571,10 +571,7 @@ export default function HomePage() {
           </ScrollReveal>
         </ScrollReveal>
         <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-12 lg:items-stretch">
-          <ScrollReveal
-            variant="left"
-            className="lg:col-span-3 lg:min-h-[260px]"
-          >
+          <ScrollReveal variant="left" className="lg:col-span-3 lg:min-h-65">
             <GlassCard image="/images/about.avif">
               <span className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white/90 backdrop-blur">
                 <FiPlay className="h-6 w-6 translate-x-px" />
@@ -585,7 +582,7 @@ export default function HomePage() {
           <ScrollReveal
             variant="up"
             delay={150}
-            className="lg:col-span-4 lg:min-h-[260px]"
+            className="lg:col-span-4 lg:min-h-65"
           >
             <GlassCard
               image="/images/about.avif"
@@ -771,7 +768,7 @@ export default function HomePage() {
             <ScrollReveal>
               <Badge>What we Do</Badge>
 
-              <p className="mt-4 type-h2 font-semibold text-white">
+              <p className="mt-4 type-h2 font-semibold ">
                 Bringing operational clarity to modern clinical trials
               </p>
               <p className="mt-4 text-white/80">
@@ -792,7 +789,7 @@ export default function HomePage() {
                 <CountUpOnView
                   to={98}
                   suffix="%"
-                  className="c  font-semibold text-white"
+                  className="type-h1 font-semibold "
                 />
               </div>
               <div className="mt-8 rounded-2xl border border-white/15 bg-white/10 p-5 backdrop-blur">
@@ -814,9 +811,7 @@ export default function HomePage() {
                       {String(index + 1).padStart(2, "0")}
                     </div>
                     <div>
-                      <p className="type-h5 font-semibold text-white">
-                        {item.title}
-                      </p>
+                      <p className="type-h5 font-semibold">{item.title}</p>
                       <p className="mt-2 type-h6 text-white/75">{item.text}</p>
                     </div>
                   </article>
