@@ -602,13 +602,13 @@ export default function Contact() {
         </div>
       </SectionWrapper>
 
-      <SectionWrapper className="pb-10 md:pb-16">
-        <div className="grid gap-6 lg:grid-cols-[0.92fr_1.08fr]">
+      <SectionWrapper fullBleed className="pb-10 md:pb-16">
+        <div className="grid gap-10 lg:grid-cols-[0.92fr_1.08fr]">
           <motion.div
             initial={{ opacity: 0, y: 22 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.25 }}
-            className="rounded-[2rem] border border-slate-200 bg-white/85 p-6 shadow-[0_20px_60px_rgba(15,36,58,0.06)] backdrop-blur md:p-8"
+            className="rounded-4xl border border-slate-200 bg-white/85 p-6 shadow-[0_20px_60px_rgba(15,36,58,0.06)] backdrop-blur md:p-8"
           >
             <p className="text-[11px] uppercase tracking-[0.3em] text-slate-500">
               Contact Information
@@ -653,17 +653,6 @@ export default function Contact() {
                 return <div key={item.title}>{card}</div>;
               })}
             </div>
-
-            <div className="mt-6 rounded-[1.5rem] border border-[#0f243a]/10 bg-[#0f243a] p-5 text-white">
-              <div className="flex items-center gap-2 text-[11px] uppercase tracking-[0.3em] text-white/70">
-                <FiGlobe className="h-4 w-4 text-[#f59e0b]" />
-                Office Hours
-              </div>
-              <p className="mt-3 text-sm leading-6 text-white/80">
-                Monday to Friday, 9:30 AM to 6:30 PM IST. Demo and support
-                submissions are reviewed and routed to the appropriate team.
-              </p>
-            </div>
           </motion.div>
 
           <motion.div
@@ -671,7 +660,7 @@ export default function Contact() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.25 }}
             transition={{ delay: 0.05 }}
-            className="rounded-[2rem] border border-slate-200 bg-white/85 p-3 shadow-[0_20px_60px_rgba(15,36,58,0.06)] backdrop-blur"
+            className="rounded-4xl border border-slate-200 bg-white/85 p-3 shadow-[0_20px_60px_rgba(15,36,58,0.06)] backdrop-blur"
           >
             <div className="rounded-[1.75rem] border border-slate-200 bg-white p-5">
               <div className="flex flex-wrap items-center justify-between gap-4">
