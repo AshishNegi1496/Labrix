@@ -1,21 +1,31 @@
 "use client";
 
-import PageTransition from "@/components/animations/PageTransition";
-import SectionWrapper from "@/components/layout/SectionWrapper";
-import Ticker from "@/components/Ticker";
-import Button from "@/components/ui/Button";
+import Image from "next/image";
+import dynamic from "next/dynamic";
+import { AnimatePresence, motion } from "framer-motion";
+import type {
+  InputHTMLAttributes,
+  ReactNode,
+  SelectHTMLAttributes,
+  TextareaHTMLAttributes,
+} from "react";
+import type { IconType } from "react-icons";
+import { useState } from "react";
 import {
+  FiArrowRight,
+  FiCalendar,
+  FiCheckCircle,
+  FiGlobe,
   FiMail,
   FiMapPin,
-  FiPhone,
   FiMessageCircle,
+  FiPhone,
+  FiShield,
   FiUsers,
-  FiArrowRight,
 } from "react-icons/fi";
-import { AnimatePresence, motion } from "framer-motion";
-import dynamic from "next/dynamic";
-import type { InputHTMLAttributes, TextareaHTMLAttributes } from "react";
-import { useState } from "react";
+import PageTransition from "@/components/animations/PageTransition";
+import SectionWrapper from "@/components/layout/SectionWrapper";
+import Button from "@/components/ui/Button";
 import { cn } from "@/lib/cn";
 
 const ContactMap = dynamic(() => import("@/components/ContactMap"), {
@@ -23,11 +33,133 @@ const ContactMap = dynamic(() => import("@/components/ContactMap"), {
 });
 
 const fieldClass =
-  "w-full rounded-xl border border-white/20 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/60 backdrop-blur focus:outline-none focus:border-white/60";
+  "w-full rounded-2xl border border-slate-200 bg-white px-4 py-3.5 text-sm text-slate-900 placeholder:text-slate-400 shadow-[0_10px_30px_rgba(15,36,58,0.05)] transition focus:border-[#0f243a]/35 focus:outline-none focus:ring-4 focus:ring-[#0f243a]/10";
+const selectClass = `${fieldClass} appearance-none`;
+
+type FormType = "demo" | "touch" | "community";
+
+type FormOption = {
+  id: FormType;
+  title: string;
+  description: string;
+  helper: string;
+  badge: string;
+  icon: IconType;
+};
+
+type Highlight = {
+  icon: IconType;
+  title: string;
+  text: string;
+};
+
+type ContactChannel = {
+  icon: IconType;
+  title: string;
+  value: string;
+  href?: string;
+};
+
+const formOptions: FormOption[] = [
+  {
+    id: "demo",
+    title: "Request a Demo",
+    description:
+      "Book a guided walkthrough of iClinRT, its workflows, and the operating model behind it.",
+    helper:
+      "Best for sponsors, CROs, and clinical operations teams actively evaluating the platform.",
+    badge: "Priority Route",
+    icon: FiCalendar,
+  },
+  {
+    id: "touch",
+    title: "Get in Touch",
+    description:
+      "Reach out for support, partnerships, service questions, or a broader conversation with the team.",
+    helper:
+      "Tell us what you need and we will route your enquiry to the right team quickly.",
+    badge: "General Enquiry",
+    icon: FiMessageCircle,
+  },
+  {
+    id: "community",
+    title: "Join Our Community",
+    description:
+      "Stay close to product news, event invites, case studies, and practical clinical operations insights.",
+    helper:
+      "A lighter-touch way to stay connected with the latest from ClinRT.",
+    badge: "Updates & Insights",
+    icon: FiUsers,
+  },
+];
+
+const industryStandards = [
+  "ICH-GCP",
+  "FDA 21 CFR Part 11",
+  "EU Annex 11",
+  "GDPR",
+  "HIPAA",
+] as const;
+
+const quickHighlights: Highlight[] = [
+  {
+    icon: FiCheckCircle,
+    title: "Right team, faster",
+    text: "Each route is structured so demo, support, and community requests land in the right queue.",
+  },
+  {
+    icon: FiCalendar,
+    title: "Demo-first flow",
+    text: "Request a Demo is placed first for teams who are ready to explore the platform in more depth.",
+  },
+  {
+    icon: FiShield,
+    title: "Clean and compliant",
+    text: "The page is designed to feel professional, clear, and aligned with regulated industry expectations.",
+  },
+];
+
+const contactChannels: ContactChannel[] = [
+  {
+    icon: FiMail,
+    title: "General enquiries",
+    value: "enquiry@clinrtglobal.com",
+    href: "mailto:enquiry@clinrtglobal.com",
+  },
+  {
+    icon: FiMail,
+    title: "Product and support",
+    value: "support@clinrtglobal.com",
+    href: "mailto:support@clinrtglobal.com",
+  },
+  {
+    icon: FiMail,
+    title: "Careers",
+    value: "hr@clinrtglobal.com",
+    href: "mailto:hr@clinrtglobal.com",
+  },
+  {
+    icon: FiPhone,
+    title: "Phone",
+    value: "+91 8530067925",
+    href: "tel:+918530067925",
+  },
+  {
+    icon: FiMapPin,
+    title: "Office",
+    value:
+      "ClinRT Global Services Pvt. Ltd. 905, Tower 3, Kohinoor World Towers (KWT) PCMC, Pune, Maharashtra 411018, India",
+  },
+];
 
 type InputProps = InputHTMLAttributes<HTMLInputElement>;
 const Input = ({ className, ...props }: InputProps) => (
   <input {...props} className={cn(fieldClass, className)} />
+);
+
+type SelectProps = SelectHTMLAttributes<HTMLSelectElement>;
+const Select = ({ className, ...props }: SelectProps) => (
+  <select {...props} className={cn(selectClass, className)} />
 );
 
 type TextAreaProps = TextareaHTMLAttributes<HTMLTextAreaElement>;
@@ -35,27 +167,36 @@ const TextArea = ({ className, ...props }: TextAreaProps) => (
   <textarea {...props} className={cn(fieldClass, className)} />
 );
 
-export default function Contact() {
-  const [activeForm, setActiveForm] = useState<"touch" | "community">("touch");
+const FieldShell = ({
+  label,
+  children,
+}: {
+  label: string;
+  children: ReactNode;
+}) => (
+  <label className="grid gap-2">
+    <span className="text-[11px] font-medium uppercase tracking-[0.22em] text-slate-500">
+      {label}
+    </span>
+    {children}
+  </label>
+);
 
-  const formOptions = [
-    {
-      id: "touch" as const,
-      title: "Get in Touch",
-      description:
-        "Tell us about your study goals and we will guide the next best step.",
-      badge: "Enquiry Form",
-      icon: FiMessageCircle,
-    },
-    {
-      id: "community" as const,
-      title: "Join Our Community",
-      description:
-        "Stay close to ClinRT news, product releases, and clinical operations insights.",
-      badge: "Community Form",
-      icon: FiUsers,
-    },
-  ];
+const CheckboxRow = ({ label }: { label: string }) => (
+  <label className="flex items-start gap-3 rounded-2xl border border-slate-200 bg-slate-50/80 px-4 py-3 text-sm text-slate-600">
+    <input
+      type="checkbox"
+      required
+      className="mt-0.5 h-4 w-4 rounded border-slate-300 text-[#0f243a] focus:ring-[#0f243a]"
+    />
+    <span>{label}</span>
+  </label>
+);
+
+export default function Contact() {
+  const [activeForm, setActiveForm] = useState<FormType>("demo");
+  const activeOption =
+    formOptions.find((option) => option.id === activeForm) ?? formOptions[0];
 
   return (
     <PageTransition>

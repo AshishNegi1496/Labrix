@@ -311,13 +311,55 @@ const howItWorksLayers = [
 ] as const;
 
 const studyTypes = [
-  "Oncology",
-  "Rare Diseases",
-  "Biologics",
-  "Vaccine Trials",
-  "Medical Device Trials",
-  "Early to Late Phase Studies",
-  "Many More Complex Trials",
+  {
+    label: "Oncology",
+    detail: "Adaptive cohorts, stratified randomization, and dose changes.",
+    icon: FiActivity,
+    dotClass: "bg-(--color-accent)",
+    position: "lg:left-0 lg:top-8",
+  },
+  {
+    label: "Rare Diseases",
+    detail: "Tight supply planning for low-volume, high-value populations.",
+    icon: FiEye,
+    dotClass: "bg-(--color-orange)",
+    position: "lg:right-10 lg:top-0",
+  },
+  {
+    label: "Biologics",
+    detail: "Cold-chain oversight with precise kit and expiry controls.",
+    icon: FiLayers,
+    dotClass: "bg-emerald-500",
+    position: "lg:left-10 lg:top-44",
+  },
+  {
+    label: "Vaccine Trials",
+    detail: "High-throughput regional rollout with fast site readiness.",
+    icon: FiShield,
+    dotClass: "bg-sky-500",
+    position: "lg:right-0 lg:top-40",
+  },
+  {
+    label: "Medical Device Trials",
+    detail: "Traceability across serials, lots, returns, and accountability.",
+    icon: FiCheck,
+    dotClass: "bg-violet-500",
+    position: "lg:left-0 lg:bottom-12",
+  },
+  {
+    label: "Early to Late Phase",
+    detail: "Designed to scale from first-patient-in to global expansion.",
+    icon: FiGitMerge,
+    dotClass: "bg-amber-500",
+    position: "lg:right-14 lg:bottom-20",
+  },
+  {
+    label: "Complex Global Programs",
+    detail: "Multi-country coordination with protocol control and compliance.",
+    icon: FiCompass,
+    dotClass: "bg-rose-500",
+    position: "lg:left-1/2 lg:bottom-0 lg:-translate-x-1/2",
+  },
 ] as const;
 
 const iclinrtUsps = [
@@ -1025,7 +1067,7 @@ export default function IclinrtPage() {
           <AnimatePresence>
             {activePotential && activePotentialMedia && (
               <motion.div
-                className="fixed inset-0 z-[60] flex items-center justify-center px-4 py-8 sm:px-6"
+                className="fixed inset-0 z-60 flex items-center justify-center px-4 py-8 sm:px-6"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
@@ -1105,9 +1147,7 @@ export default function IclinrtPage() {
           </AnimatePresence>
         </LayoutGroup>
         <div className="mt-10">
-          <Link href="/coming-soon" className="link text-sm">
-            View factsheets
-          </Link>
+          <Button href="/coming-soon" label="View Factsheets" size="sm" />
         </div>
       </SectionWrapper>
 
@@ -1117,33 +1157,206 @@ export default function IclinrtPage() {
           <StudyFlowSvg />
         </div>
       </SectionWrapper>
-      <SectionWrapper>
+      <SectionWrapper fullBleed>
         <ScrollReveal delay={120}>
-          <div className="mt-6">
-            <Badge>
-              <span className="inline-flex items-center gap-2">
-                Study Types We Support
-              </span>
-            </Badge>
-            <p className="mt-3 type-h4 font-semibold">
-              Built for complex programs across phases and regions
-            </p>
-            <div className="mt-4 flex flex-wrap gap-3">
-              {studyTypes.map((type) => (
-                <span
-                  key={type}
-                  className="rounded-full border border-white/40 bg-white/70 px-4 py-2 text-sm shadow-sm backdrop-blur transition hover:-translate-y-0.5 hover:shadow-md"
+          <div className="relative mt-6 overflow-hidden rounded-4xl border border-white/50 bg-white/75 p-6 shadow-xl backdrop-blur-2xl md:p-8">
+            <div className="pointer-events-none absolute -left-10 top-8 h-40 w-40 rounded-full bg-(--color-accent)/20 blur-3xl" />
+            <div className="pointer-events-none absolute right-0 top-1/2 h-56 w-56 -translate-y-1/2 rounded-full bg-(--color-orange)/20 blur-3xl" />
+            <div className="pointer-events-none absolute inset-x-10 top-0 h-px bg-linear-to-r from-transparent via-black/10 to-transparent" />
+
+            <div className="relative z-10 grid gap-8 lg:grid-cols-[0.92fr_1.08fr] lg:items-center">
+              <div>
+                <Badge>
+                  <span className="inline-flex items-center gap-2">
+                    Study Types We Support
+                  </span>
+                </Badge>
+                <p className="mt-3 type-h2 font-semibold">
+                  Built for complex programs across phases, therapies, and
+                  regions
+                </p>
+                <p className="type-h6 mt-4 max-w-xl text-(--muted-color)">
+                  iClinRT adapts to nuanced trial designs without losing control
+                  of supply, protocol execution, or inspection-ready
+                  documentation.
+                </p>
+
+                <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                  <div className="rounded-3xl border border-white/50 bg-white/70 p-5 shadow-sm backdrop-blur">
+                    <p className="type-h6 uppercase tracking-[0.3em] text-(--muted-color)">
+                      Coverage
+                    </p>
+                    <p className="mt-3 text-3xl font-semibold text-(--primary-color)">
+                      {studyTypes.length.toString().padStart(2, "0")}
+                    </p>
+                    <p className="mt-2 text-sm text-(--muted-color)">
+                      study archetypes represented in this capability view.
+                    </p>
+                  </div>
+                  <div className="rounded-3xl border border-white/50 bg-black/3 p-5 shadow-sm backdrop-blur">
+                    <p className="type-h6 uppercase tracking-[0.3em] text-(--muted-color)">
+                      Operating Mode
+                    </p>
+                    <p className="mt-3 text-2xl font-semibold text-(--primary-color)">
+                      Global-ready
+                    </p>
+                    <p className="mt-2 text-sm text-(--muted-color)">
+                      Supports adaptive designs, regional supply complexity, and
+                      cross-functional teams.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="mt-6 rounded-[1.75rem] border border-white/50 bg-white/80 p-5 shadow-sm backdrop-blur">
+                  <div className="flex items-start gap-4">
+                    <motion.div
+                      className="relative mt-1 flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-(--color-accent)/10 text-(--primary-color)"
+                      animate={reduceMotion ? undefined : { y: [0, -4, 0] }}
+                      transition={
+                        reduceMotion
+                          ? undefined
+                          : {
+                              duration: 4.5,
+                              repeat: Infinity,
+                              ease: "easeInOut",
+                            }
+                      }
+                    >
+                      <span className="absolute inset-0 rounded-2xl border border-black/10" />
+                      <FiZap className="relative h-5 w-5" />
+                    </motion.div>
+
+                    <div>
+                      <p className="type-h6 uppercase tracking-[0.3em] text-(--muted-color)">
+                        Operational Fit
+                      </p>
+                      <p className="mt-2 text-sm leading-6 text-(--muted-color)">
+                        iClinRT supports early to late phase studies, adaptive
+                        designs, and global programs that require precision
+                        supply, protocol control, and inspection-ready
+                        documentation.
+                      </p>
+                      <div className="mt-4 flex flex-wrap gap-2">
+                        {[
+                          "Protocol control",
+                          "Supply precision",
+                          "Inspection-ready docs",
+                        ].map((item) => (
+                          <span
+                            key={item}
+                            className="rounded-full border border-black/5 bg-black/3 px-3 py-1 text-[11px] uppercase tracking-[0.22em] text-(--muted-color)"
+                          >
+                            {item}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="relative overflow-hidden rounded-[1.75rem] border border-white/60 bg-white/60 p-4 shadow-inner shadow-white/60 backdrop-blur-xl sm:p-5 lg:min-h-[520px]">
+                <div className="pointer-events-none absolute inset-4 rounded-3xl border border-white/60" />
+                <div className="pointer-events-none absolute left-1/2 top-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full border border-black/5" />
+                <motion.div
+                  className="pointer-events-none absolute left-1/2 top-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full border border-(--color-accent)/20"
+                  animate={reduceMotion ? undefined : { rotate: 360 }}
+                  transition={
+                    reduceMotion
+                      ? undefined
+                      : { duration: 24, repeat: Infinity, ease: "linear" }
+                  }
+                />
+
+                <motion.div
+                  className="relative z-10 mx-auto flex h-40 w-full max-w-[18rem] flex-col justify-center rounded-[1.75rem] border border-white/70 bg-white/85 px-6 py-5 text-center shadow-lg backdrop-blur lg:absolute lg:left-1/2 lg:top-1/2 lg:mb-0 lg:h-48 lg:w-48 lg:-translate-x-1/2 lg:-translate-y-1/2"
+                  animate={
+                    reduceMotion
+                      ? undefined
+                      : { y: [0, -8, 0], scale: [1, 1.02, 1] }
+                  }
+                  transition={
+                    reduceMotion
+                      ? undefined
+                      : { duration: 6, repeat: Infinity, ease: "easeInOut" }
+                  }
                 >
-                  {type}
-                </span>
-              ))}
-            </div>
-            <div className="mt-6 rounded-2xl border border-white/40 bg-white/70 p-5 shadow-sm backdrop-blur">
-              <p className="text-sm text-(--muted-color)">
-                iClinRT supports early to late phase studies, adaptive designs,
-                and global programs that require precision supply, protocol
-                control, and inspection-ready documentation.
-              </p>
+                  <div className="type-h6 uppercase tracking-[0.35em] text-(--muted-color)">
+                    Trial Spectrum
+                  </div>
+                  <p className="mt-3 text-4xl font-semibold text-(--primary-color)">
+                    Precision
+                  </p>
+                  <p className="mt-2 text-sm text-(--muted-color)">
+                    Matching randomization, supply, and oversight to study
+                    complexity.
+                  </p>
+                </motion.div>
+
+                <div className="relative z-10 mt-4 grid gap-3 sm:grid-cols-2 lg:mt-0 lg:block">
+                  {studyTypes.map((type, index) => {
+                    const Icon = type.icon;
+
+                    return (
+                      <motion.div
+                        key={type.label}
+                        className={`rounded-3xl border border-white/70 bg-white/85 p-4 shadow-lg backdrop-blur transition-transform duration-300 hover:-translate-y-1.5 lg:absolute lg:w-[215px] ${type.position}`}
+                        initial={{ opacity: 0, y: 24 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 0.35 }}
+                        transition={{
+                          duration: reduceMotion ? 0 : 0.45,
+                          delay: reduceMotion ? 0 : index * 0.08,
+                        }}
+                        whileHover={
+                          reduceMotion ? undefined : { y: -6, scale: 1.02 }
+                        }
+                      >
+                        <motion.div
+                          animate={
+                            reduceMotion
+                              ? undefined
+                              : {
+                                  y: [0, index % 2 === 0 ? -8 : 8, 0],
+                                  x: [0, index % 3 === 0 ? 4 : -4, 0],
+                                }
+                          }
+                          transition={
+                            reduceMotion
+                              ? undefined
+                              : {
+                                  duration: 5.5 + index * 0.35,
+                                  repeat: Infinity,
+                                  ease: "easeInOut",
+                                }
+                          }
+                        >
+                          <div className="flex items-center justify-between">
+                            <span className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-black/4 text-(--primary-color)">
+                              <Icon className="h-5 w-5" />
+                            </span>
+                            <span className="text-[10px] font-medium uppercase tracking-[0.3em] text-(--muted-color)">
+                              {(index + 1).toString().padStart(2, "0")}
+                            </span>
+                          </div>
+
+                          <div className="mt-4 flex items-center gap-2">
+                            <span
+                              className={`h-2.5 w-2.5 rounded-full ${type.dotClass}`}
+                            />
+                            <p className="text-sm font-semibold text-(--primary-color)">
+                              {type.label}
+                            </p>
+                          </div>
+                          <p className="mt-2 text-sm leading-6 text-(--muted-color)">
+                            {type.detail}
+                          </p>
+                        </motion.div>
+                      </motion.div>
+                    );
+                  })}
+                </div>
+              </div>
             </div>
           </div>
         </ScrollReveal>
