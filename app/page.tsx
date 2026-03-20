@@ -224,22 +224,6 @@ const newsItems = [
     title: " for site-specific thresholds.",
     date: "Jan 2021",
   },
-  {
-    title: "Real-time alerts refreshed for .",
-    date: "Jan 2022",
-  },
-  {
-    title: "Real-time .",
-    date: "Jan 2023",
-  },
-  {
-    title: "Real-time alerts refreshed for site.",
-    date: "Jan 2024",
-  },
-  {
-    title: "Real-time alerts refreshed for site-specific .",
-    date: "Jan 2025",
-  },
 ] as const;
 
 const faqs = [
@@ -483,9 +467,7 @@ export default function HomePage() {
 
             <aside className="rounded-3xl border border-slate-200 bg-(--primary-color) p-5 sm:p-6 lg:p-7 text-black shadow-sm max-h-155 lg:max-h-155 sm:max-h-140 flex flex-col">
               <Badge>News & Updates</Badge>
-              <p className="mt-3 sm:mt-4 text-sm text-black/80">
-                Small updates and launches from the ClinRT product studio.
-              </p>
+
               <div className="relative mt-5 sm:mt-6 space-y-3 sm:space-y-4 overflow-y-auto pr-2 pb-10 no-scrollbar">
                 <div
                   className="pointer-events-none absolute inset-x-0 bottom-0 h-14 bg-linear-to-t from-(--color-primary) via-(--color-primary)/70 to-transparent"

@@ -93,32 +93,6 @@ const formOptions: FormOption[] = [
   },
 ];
 
-const industryStandards = [
-  "ICH-GCP",
-  "FDA 21 CFR Part 11",
-  "EU Annex 11",
-  "GDPR",
-  "HIPAA",
-] as const;
-
-const quickHighlights: Highlight[] = [
-  {
-    icon: FiCheckCircle,
-    title: "Right team, faster",
-    text: "Each route is structured so demo, support, and community requests land in the right queue.",
-  },
-  {
-    icon: FiCalendar,
-    title: "Demo-first flow",
-    text: "Request a Demo is placed first for teams who are ready to explore the platform in more depth.",
-  },
-  {
-    icon: FiShield,
-    title: "Clean and compliant",
-    text: "The page is designed to feel professional, clear, and aligned with regulated industry expectations.",
-  },
-];
-
 const contactChannels: ContactChannel[] = [
   {
     icon: FiMail,

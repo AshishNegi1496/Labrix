@@ -7,6 +7,7 @@ import {
   motion,
   useReducedMotion,
 } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState, type RefObject } from "react";
 import { FullScreenCard } from "@/hooks/FullScreenCard";
@@ -154,16 +155,20 @@ const iclinrtServices = [
 ] as const;
 
 const regulatoryStandards = [
-  { label: "ICH GCP", abbr: "ICH" },
-  { label: "FDA 21 CFR Part 11", abbr: "FDA" },
-  { label: "GAMP 5", abbr: "GAMP" },
-  { label: "GXP", abbr: "GXP" },
-  { label: "HIPAA", abbr: "HIPAA" },
-  { label: "GDPR", abbr: "GDPR" },
-  { label: "CDSCO", abbr: "CDSCO" },
-  { label: "MedRA", abbr: "MED" },
-  { label: "CDISC", abbr: "CDISC" },
-  { label: "EU Annex 11", abbr: "EU" },
+  { label: "ICH GCP", abbr: "ICH", logo: "/images/ich.webp" },
+  {
+    label: "FDA 21 CFR Part 11",
+    abbr: "FDA",
+    logo: "/images/fda.webp",
+  },
+  { label: "GAMP 5", abbr: "GAMP", logo: "/images/gamp.webp" },
+  { label: "GXP", abbr: "GXP", logo: "/images/gxpw.webp" },
+  { label: "HIPAA", abbr: "HIPAA", logo: "/images/hipaa.webp" },
+  { label: "GDPR", abbr: "GDPR", logo: "/images/gdprw.webp" },
+  { label: "CDSCO", abbr: "CDSCO", logo: undefined },
+  { label: "MedRA", abbr: "MED", logo: "/images/meddra.webp" },
+  { label: "CDISC", abbr: "CDISC", logo: "/images/cdisc.webp" },
+  { label: "EU Annex 11", abbr: "EU", logo: undefined },
 ] as const;
 
 const iclinrtPotential = [
@@ -966,16 +971,28 @@ export default function IclinrtPage() {
               Built to meet global regulatory and data-integrity requirements
             </p>
           </ScrollReveal>
-          <div className="mt-8 overflow-hidden rounded-2xl border border-white/20 bg-white/5">
+          <div className="mt-6 overflow-hidden rounded-2xl border border-white/20 bg-white/5">
             <div className="flex w-max animate-[ticker_30s_linear_infinite] items-center gap-4 px-6 py-5">
               {regulatoryTrack.map((item, index) => (
                 <div
                   key={`${item.label}-${index}`}
                   className="flex items-center gap-3 rounded-full border border-white/30 bg-white/10 px-4 py-2 text-xs uppercase tracking-[0.25em] text-white/90"
                 >
-                  <span className="grid h-9 w-9 place-items-center rounded-full bg-white/20 text-[10px] font-semibold">
-                    {item.abbr}
-                  </span>
+                  {item?.logo ? (
+                    <span className="grid h-9 w-9 place-items-center overflow-hidden rounded-full bg-white px-1.5">
+                      <Image
+                        src={item.logo}
+                        alt={item.label + " logo"}
+                        width={52}
+                        height={76}
+                        className="h-auto max-h-6 w-auto object-contain"
+                      />
+                    </span>
+                  ) : (
+                    <span className="grid h-9 w-9 place-items-center rounded-full bg-white/20 px-1 text-[10px] font-semibold">
+                      {item.abbr}
+                    </span>
+                  )}
                   <span>{item.label}</span>
                 </div>
               ))}
@@ -1340,6 +1357,7 @@ export default function IclinrtPage() {
           className="relative"
           style={{ height: `${iclinrtUsps.length * 100}vh` }}
         >
+          <Badge>USP</Badge>
           <StickyCards iclinrtUsps={iclinrtUsps} sectionRef={uspsSectionRef} />
           {/* </div> */}
         </div>
@@ -1399,11 +1417,11 @@ export default function IclinrtPage() {
                           <p className="text-[10px] uppercase tracking-[0.3em] text-(--muted-color)">
                             Problem
                           </p>
-                          <p className="mt-1 text-sm font-semibold text-(--primary-color)">
+                          <p className="mt-1 type-h5 font-semibold text-(--primary-color)">
                             {item.problem}
                           </p>
-                          <div className="mt-3 flex items-start gap-2 text-sm text-(--muted-color)">
-                            <FiCheck className="mt-0.5 h-4 w-4 text-(--color-accent)" />
+                          <div className="mt-3 flex items-start gap-2 type-h6 text-(--muted-color)">
+                            <FiCheck className="mt-0.5 h-4 w-4 text-(--color-orange)" />
                             <span>{item.solution}</span>
                           </div>
                         </div>
