@@ -656,9 +656,7 @@ export default function IclinrtPage() {
   const [activeServiceIndex, setActiveServiceIndex] = useState<number | null>(
     null,
   );
-  const [activePotentialIndex, setActivePotentialIndex] = useState<
-    number | null
-  >(null);
+  const [selectedPotentialIndex, setSelectedPotentialIndex] = useState(0);
 
   const activeService =
     activeServiceIndex !== null ? iclinrtServices[activeServiceIndex] : null;
@@ -666,36 +664,30 @@ export default function IclinrtPage() {
     activeServiceIndex !== null
       ? serviceMedia[activeServiceIndex % serviceMedia.length]
       : null;
-  const activePotential =
-    activePotentialIndex !== null
-      ? iclinrtPotential[activePotentialIndex]
-      : null;
+  const activePotential = iclinrtPotential[selectedPotentialIndex];
   const activePotentialMedia =
-    activePotentialIndex !== null
-      ? potentialMedia[activePotentialIndex % potentialMedia.length]
-      : null;
+    potentialMedia[selectedPotentialIndex % potentialMedia.length];
 
   useEffect(() => {
-    if (activeServiceIndex === null && activePotentialIndex === null) return;
+    if (activeServiceIndex === null) return;
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         setActiveServiceIndex(null);
-        setActivePotentialIndex(null);
       }
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [activeServiceIndex, activePotentialIndex]);
+  }, [activeServiceIndex]);
 
   useEffect(() => {
     const originalOverflow = document.body.style.overflow;
-    if (activeServiceIndex !== null || activePotentialIndex !== null) {
+    if (activeServiceIndex !== null) {
       document.body.style.overflow = "hidden";
     }
     return () => {
       document.body.style.overflow = originalOverflow;
     };
-  }, [activeServiceIndex, activePotentialIndex]);
+  }, [activeServiceIndex]);
   return (
     <PageTransition>
       <section className="relative min-h-[70vh] overflow-hidden">
@@ -992,162 +984,141 @@ export default function IclinrtPage() {
         </div>
       </SectionWrapper>
 
-      <SectionWrapper id="iclinrt-potential">
-        <LayoutGroup id="iclinrt-potential">
-          <GlassSlider
-            ariaLabel="iClinRT potential slider"
-            header={
+      <SectionWrapper fullBleed id="iclinrt-potential">
+        <div className="relative overflow-hidden rounded-[2.25rem] border border-white/30 bg-(--primary-color) px-6 py-8 text-white shadow-[0_30px_120px_rgba(15,23,42,0.2)] md:px-8 md:py-10">
+          <div className="pointer-events-none absolute -left-16 top-10 h-48 w-48 rounded-full bg-(--color-accent)/20 blur-3xl" />
+          <div className="pointer-events-none absolute -right-10 bottom-6 h-64 w-64 rounded-full bg-(--color-orange)/20 blur-3xl" />
+          <div className="relative z-10 grid gap-8 xl:grid-cols-[0.7fr_1.3fr] xl:items-start">
+            <div>
               <ScrollReveal>
                 <Badge>iClinRT&apos;s Potential</Badge>
-                <h2 className="mt-3 type-h2 font-semibold">
-                  Features that unlock clarity, control, and speed
-                </h2>
               </ScrollReveal>
-            }
-            items={iclinrtPotential}
-            renderItem={(item, index) => (
-              <ScrollReveal delay={index * 60}>
-                <motion.div
-                  layoutId={`potential-card-${index}`}
-                  className="group relative"
-                >
-                  <div className="pointer-events-none absolute inset-0 z-0 rounded-2xl bg-black/0 backdrop-blur-0 transition-all duration-500 group-hover:bg-black/40 group-hover:backdrop-blur-sm" />
-                  <GlassCard
-                    image={potentialMedia[index % potentialMedia.length]}
-                    height="h-72 lg:h-80"
-                    contentPadding="p-6"
-                    overlayOpacity="bg-gradient-to-b from-black/30 via-black/60 to-black/85"
-                    hoverEffect="glow"
-                    borderColor="border-white/20"
-                    glowColor="bg-[rgba(201,247,229,0.35)]"
-                    className="min-w-[250px] sm:min-w-[300px] lg:min-w-[340px] bg-white/10 backdrop-blur-2xl shadow-lg transition duration-300 group-hover:-translate-y-3 group-hover:scale-[1.04] group-hover:shadow-[0_30px_80px_rgba(0,0,0,0.45)] cursor-pointer"
-                    imageClassName="duration-700 group-hover:scale-110 group-hover:-translate-y-2"
-                    contentClassName="transition-transform duration-500 group-hover:-translate-y-1"
-                    tabIndex={0}
-                    role="button"
-                    aria-haspopup="dialog"
-                    aria-expanded={activePotentialIndex === index}
-                    onClick={() => setActivePotentialIndex(index)}
-                    onKeyDown={(event) => {
-                      if (event.key === "Enter" || event.key === " ") {
-                        event.preventDefault();
-                        setActivePotentialIndex(index);
-                      }
-                    }}
-                  >
-                    <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.3em] text-white/70">
-                      <span>{`Potential ${String(index + 1).padStart(2, "0")}`}</span>
-                      <span className="rounded-full bg-white/15 px-2 py-1 text-[10px]">
-                        iClinRT
-                      </span>
-                    </div>
-                    <p className="mt-3 type-h5 font-semibold text-white">
-                      {item.title}
-                    </p>
-                    <div className="mt-4 space-y-2 transition-opacity duration-300 group-hover:opacity-0 group-focus-within:opacity-0">
-                      <div className="h-2 w-3/4 rounded-full bg-white/25 animate-pulse" />
-                      <div className="h-2 w-1/2 rounded-full bg-white/15 animate-pulse [animation-delay:200ms]" />
-                    </div>
-                    <div className="mt-4 max-h-0 overflow-hidden opacity-0 transition-all duration-300 group-hover:max-h-48 group-hover:opacity-100 group-focus-within:max-h-48 group-focus-within:opacity-100">
-                      <ul className="space-y-1 text-xs text-white/85">
-                        {item.items.map((point) => (
-                          <li key={point} className="flex gap-2">
-                            <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-white/70" />
-                            <span>{point}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </GlassCard>
-                </motion.div>
-              </ScrollReveal>
-            )}
-          />
 
-          <AnimatePresence>
-            {activePotential && activePotentialMedia && (
-              <motion.div
-                className="fixed inset-0 z-60 flex items-center justify-center px-4 py-8 sm:px-6"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: reduceMotion ? 0 : 0.2 }}
-                role="dialog"
-                aria-modal="true"
-              >
-                <motion.div
-                  className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-                  onClick={() => setActivePotentialIndex(null)}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                />
-                <motion.div
-                  layoutId={`potential-card-${activePotentialIndex}`}
-                  className="relative z-10 w-full max-w-5xl"
-                  transition={
-                    reduceMotion
-                      ? { duration: 0 }
-                      : { type: "spring", stiffness: 160, damping: 22 }
-                  }
-                  onClick={(event) => event.stopPropagation()}
-                >
-                  <GlassCard
-                    image={activePotentialMedia}
-                    height="min-h-[70vh] md:min-h-[75vh]"
-                    contentPadding="p-6 sm:p-8 md:p-10"
-                    contentPosition="top"
-                    overlayOpacity="bg-gradient-to-b from-black/40 via-black/70 to-black/95"
-                    borderColor="border-white/20"
-                    hoverEffect="none"
-                    className="bg-white/10 backdrop-blur-2xl shadow-[0_35px_120px_rgba(0,0,0,0.6)]"
-                  >
-                    <button
+              <div className="mt-8 max-h-140 space-y-3 overflow-y-auto pr-2 no-scrollbar">
+                {iclinrtPotential.map((item, index) => {
+                  const isActive = selectedPotentialIndex === index;
+
+                  return (
+                    <motion.button
+                      key={item.title}
                       type="button"
-                      onClick={() => setActivePotentialIndex(null)}
-                      className="absolute right-6 top-6 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white/80 transition hover:bg-white/20"
-                      aria-label="Close modal"
+                      onClick={() => setSelectedPotentialIndex(index)}
+                      initial={{ opacity: 0, x: -16 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true, amount: 0.25 }}
+                      transition={{ delay: reduceMotion ? 0 : index * 0.04 }}
+                      className={`w-full rounded-3xl border px-4 py-4 text-left transition duration-300 ${
+                        isActive
+                          ? "border-white/30 bg-white/15 shadow-lg"
+                          : "border-white/12 bg-white/10 hover:border-white/20 hover:bg-white/12"
+                      }`}
+                      aria-pressed={isActive}
                     >
-                      X
-                    </button>
-                    <div className="flex items-center gap-3 text-[10px] uppercase tracking-[0.3em] text-white/70">
-                      <span>{`Potential ${String((activePotentialIndex ?? 0) + 1).padStart(2, "0")}`}</span>
-                      <span className="rounded-full bg-white/15 px-2 py-1 text-[10px]">
-                        iClinRT
+                      <div className="flex items-start gap-4">
+                        <span
+                          className={`inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border text-sm font-semibold ${
+                            isActive
+                              ? "border-white/25 bg-white/15 text-white"
+                              : "border-white/10 bg-black/10 text-white/70"
+                          }`}
+                        >
+                          {String(index + 1).padStart(2, "0")}
+                        </span>
+                        <div>
+                          <p className="text-base font-semibold text-white">
+                            {item.title}
+                          </p>
+                          <p className="mt-2 text-sm leading-6 text-white/68">
+                            {item.items[0]}
+                          </p>
+                        </div>
+                      </div>
+                    </motion.button>
+                  );
+                })}
+              </div>
+            </div>
+
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={selectedPotentialIndex}
+                initial={
+                  reduceMotion ? undefined : { opacity: 0, y: 20, scale: 0.98 }
+                }
+                animate={
+                  reduceMotion ? undefined : { opacity: 1, y: 0, scale: 1 }
+                }
+                exit={
+                  reduceMotion ? undefined : { opacity: 0, y: -20, scale: 0.99 }
+                }
+                transition={
+                  reduceMotion ? undefined : { duration: 0.35, ease: "easeOut" }
+                }
+                className="relative"
+              >
+                <GlassCard
+                  image={activePotentialMedia}
+                  height="min-h-[520px] lg:min-h-[620px]"
+                  contentPadding="p-5 sm:p-6 lg:p-8"
+                  contentPosition="top"
+                  overlayOpacity="bg-gradient-to-b from-black/25 via-black/55 to-black/88"
+                  hoverEffect="none"
+                  borderColor="border-white/18"
+                  className="bg-white/10 backdrop-blur-2xl shadow-[0_35px_100px_rgba(0,0,0,0.35)]"
+                  imageClassName={
+                    reduceMotion
+                      ? "object-cover"
+                      : "object-cover scale-[1.02] transition duration-700"
+                  }
+                >
+                  <div className="flex h-full flex-col justify-between">
+                    <div className="flex flex-wrap items-center gap-3">
+                      <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[10px] uppercase tracking-[0.3em] text-white/80">
+                        {`Potential ${String(selectedPotentialIndex + 1).padStart(2, "0")}`}
+                      </span>
+                      <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[10px] uppercase tracking-[0.3em] text-white/70">
+                        Large Focus View
                       </span>
                     </div>
-                    <p className="mt-3 type-h2 font-semibold text-white">
-                      {activePotential.title}
-                    </p>
-                    <p className="mt-2 text-sm text-white/70">
-                      Built to deliver clarity, control, and speed across every
-                      operational layer.
-                    </p>
-                    <div className="mt-6 max-h-[40vh] overflow-y-auto pr-2 no-scrollbar">
-                      <ul className="space-y-3 text-sm text-white/90">
-                        {activePotential.items.map((point) => (
-                          <li key={point} className="flex gap-3">
-                            <span className="mt-1.5 h-2 w-2 rounded-full bg-white/70" />
-                            <span>{point}</span>
-                          </li>
-                        ))}
-                      </ul>
+
+                    <div className="mt-auto">
+                      <div className="max-w-3xl rounded-[1.75rem] border border-white/15 bg-white/10 p-5 backdrop-blur-xl sm:p-6">
+                        <p className="type-h2 font-semibold text-white">
+                          {activePotential.title}
+                        </p>
+                        <p className="mt-3 max-w-2xl text-sm leading-7 text-white/75">
+                          Built to deliver clarity, control, and speed across
+                          every operational layer while keeping teams aligned
+                          with protocol and supply realities.
+                        </p>
+                        <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                          {activePotential.items.map((point) => (
+                            <div
+                              key={point}
+                              className="rounded-[1.25rem] border border-white/12 bg-black/10 px-4 py-4 text-sm leading-6 text-white/88"
+                            >
+                              <div className="flex gap-3">
+                                <span className="mt-1.5 h-2 w-2 rounded-full bg-white/75" />
+                                <span>{point}</span>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                        <div className="mt-8 flex flex-wrap gap-3">
+                          <Button href="/contact" label="Request a Demo" />
+                          <Button
+                            href="/coming-soon"
+                            label="View Factsheets"
+                            size="sm"
+                          />
+                        </div>
+                      </div>
                     </div>
-                    <div className="mt-8 flex flex-wrap gap-3">
-                      <Button href="/contact" label="Request a Demo" />
-                      <Button
-                        href="/what-we-build"
-                        label="Explore Capabilities"
-                      />
-                    </div>
-                  </GlassCard>
-                </motion.div>
+                  </div>
+                </GlassCard>
               </motion.div>
-            )}
-          </AnimatePresence>
-        </LayoutGroup>
-        <div className="mt-10">
-          <Button href="/coming-soon" label="View Factsheets" size="sm" />
+            </AnimatePresence>
+          </div>
         </div>
       </SectionWrapper>
 

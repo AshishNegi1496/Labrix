@@ -439,13 +439,6 @@ export default function HomePage() {
         <div className="section-shell px-4 sm:px-6 md:px-10">
           <div className="grid gap-6 lg:grid-cols-[2fr_1fr] items-start">
             <div className="relative min-w-0 rounded-3xl border border-slate-100 bg-slate-50/50 p-5 sm:p-6 lg:p-8 shadow-sm">
-              {/* Header Section */}
-              <div className="mb-6 flex flex-wrap items-center justify-between gap-4 sm:mb-8">
-                <div className="space-y-1">
-                  <Badge>At a Glance</Badge>
-                </div>
-              </div>
-
               {/* Slider Section */}
               <GlassSlider
                 items={posterItems}
@@ -453,8 +446,8 @@ export default function HomePage() {
                 scrollerClassName="gap-6 w-full"
                 controlsClassName="mt-2 justify-end"
                 edgeFadeClassName="from-slate-50/90 via-slate-50/60"
-                pageSize={2}
-                itemClassName="w-full sm:w-[calc(50%-12px)]"
+                pageSize={1}
+                itemClassName="w-full"
                 renderItem={(poster, index) => (
                   <ScrollReveal delay={index * 80}>
                     <Link
@@ -462,7 +455,7 @@ export default function HomePage() {
                       className="group relative block w-full overflow-hidden rounded-2xl bg-white transition-all hover:shadow-xl hover:shadow-slate-200/50"
                     >
                       {/* Image Container */}
-                      <div className="relative aspect-4/5 w-full overflow-hidden">
+                      <div className="relative aspect-5/6 max-h-[72vh] w-full overflow-hidden">
                         <Image
                           src={poster.image}
                           alt={poster.title}
@@ -572,7 +565,7 @@ export default function HomePage() {
         </ScrollReveal>
         <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-12 lg:items-stretch">
           <ScrollReveal variant="left" className="lg:col-span-3 lg:min-h-65">
-            <GlassCard image="/images/about.avif">
+            <GlassCard image="/images/about.avif" height="h-80 sm:h-84">
               <span className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white/90 backdrop-blur">
                 <FiPlay className="h-6 w-6 translate-x-px" />
               </span>
@@ -585,6 +578,7 @@ export default function HomePage() {
             className="lg:col-span-4 lg:min-h-65"
           >
             <GlassCard
+              height="h-80 sm:h-84"
               image="/images/about.avif"
               tag="Workflow Automation"
               title="1000+ Global Trial Engagements"
@@ -595,9 +589,9 @@ export default function HomePage() {
           <ScrollReveal
             variant="right"
             delay={300}
-            className="md:col-span-2 lg:col-span-5 lg:min-h-[260px]"
+            className="md:col-span-2 lg:col-span-5 lg:min-h-65"
           >
-            <GlassCard image="/images/about.avif">
+            <GlassCard height="h-80 sm:h-84" image="/images/about.avif">
               <div className="mt-4 flex flex-wrap gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-white/80">
                 <span className="rounded-full border border-white/15 bg-white/10 px-5 py-3">
                   Unified Trial Operations
@@ -623,15 +617,19 @@ export default function HomePage() {
           {/* Section Header */}
           <ScrollReveal className="">
             <Badge>Key Features</Badge>
-            <div className="mt-6 flex flex-col gap-10 sm:gap-16 lg:gap-56 lg:flex-row lg:items-start lg:justify-between">
-              <p className="mt-4 type-h2 font-semibold ">
+            <div className="mt-2 flex flex-col gap-4 sm:gap-8 lg:gap-30 lg:flex-row lg:items-start lg:justify-between">
+              <p className=" type-h2 font-semibold ">
                 Leading innovation across critical fields
               </p>
 
-              <p className="mt-4 type-h6 text-(--text-invert)">
-                Each research field is supported by expert teams and modern
-                technologies, ensuring precision, innovation, and real-world
-                impact across clinical research programs.
+              <p className=" type-h6 text-(--text-invert)">
+                These features collectively enable streamlined clinical trial
+                execution by reducing manual effort, minimizing operational
+                risks, and ensuring real‑time control across subjects, supplies,
+                and study data. The platform is designed to adapt to complex
+                protocol requirements while maintaining strong regulatory
+                compliance, transparency, and operational efficiency throughout
+                the trial lifecycle.
               </p>
             </div>
           </ScrollReveal>

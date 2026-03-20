@@ -4,6 +4,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import { useSearchParams } from "next/navigation";
 import PageTransition from "@/components/animations/PageTransition";
 import SectionWrapper from "@/components/layout/SectionWrapper";
 import ScrollReveal from "@/components/animations/ScrollReveal";
@@ -20,6 +21,12 @@ const tabs = [
   "Brochures",
   "Factsheets",
 ] as const;
+
+type Tab = (typeof tabs)[number];
+
+function isTab(value: string | null): value is Tab {
+  return tabs.includes(value as Tab);
+}
 
 const data = {
   News: [
@@ -48,7 +55,10 @@ const data = {
 /* ---------------- PAGE ---------------- */
 
 export default function WhatsNewPage() {
-  const [activeTab, setActiveTab] = useState<(typeof tabs)[number]>("News");
+  const searchParams = useSearchParams();
+  const requestedTab = searchParams.get("tab");
+  const [selectedTab, setSelectedTab] = useState<Tab | null>(null);
+  const activeTab = selectedTab ?? (isTab(requestedTab) ? requestedTab : "News");
 
   return (
     <PageTransition>
@@ -66,28 +76,28 @@ export default function WhatsNewPage() {
 
         <div className="relative z-10 h-full flex items-center section-shell pb-20 text-white">
           <ScrollReveal className="max-w-3xl">
-            <p className="type-h1 md:text-6xl font-semibold">Stay Connected</p>
-            <p className="mt-4 text-white/80 text-lg">
+            <p className="type-h1 md:text-6xl font-semibold">
+              {" "}
               Stay connected with our latest updates, resources, and milestones.
-              Here’s everything happening across ClinRT right now.
+              Here’s everything happening across ClinRT right now
             </p>
           </ScrollReveal>
         </div>
       </section>
 
       {/* ================= CONTENT HUB ================= */}
-      <SectionWrapper>
+      <SectionWrapper id="content-hub">
         <div className="grid lg:grid-cols-[260px_1fr] gap-10">
           {/* ---------- LEFT TABS ---------- */}
           <div className="sticky top-24 h-fit">
-            <div className="flex flex-col gap-2">
-              {tabs.map((tab) => (
-                <button
-                  key={tab}
-                  onClick={() => setActiveTab(tab)}
-                  className={`text-left px-4 py-3 rounded-xl transition-all ${
-                    activeTab === tab
-                      ? "bg-black text-white shadow-md"
+              <div className="flex flex-col gap-2">
+                {tabs.map((tab) => (
+                  <button
+                    key={tab}
+                    onClick={() => setSelectedTab(tab)}
+                    className={`text-left px-4 py-3 rounded-xl transition-all ${
+                      activeTab === tab
+                        ? "bg-black text-white shadow-md"
                       : "hover:bg-gray-100"
                   }`}
                 >
