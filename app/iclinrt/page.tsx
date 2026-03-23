@@ -707,7 +707,13 @@ export default function IclinrtPage() {
         <div className="absolute inset-0 bg-linear-to-b from-black/65 via-black/45 to-black/70" />
         <div className="relative z-10 section-shell flex min-h-[70vh] flex-col justify-center gap-8 px-6 py-20 md:px-10">
           <ScrollReveal className="max-w-3xl text-white">
-            <Badge>iClinRT</Badge>
+            <Image
+              src="/clinrt-logo-white.png"
+              alt="iClinRT"
+              width={120}
+              height={32}
+              priority
+            />
             <p className="mt-4 type-h2 font-semibold text-white">
               Configuration That Matters
             </p>
@@ -769,117 +775,120 @@ export default function IclinrtPage() {
 
       <SectionWrapper>
         <LayoutGroup id="iclinrt-services">
-          <GlassSlider
-            ariaLabel="iClinRT services slider"
-            header={
-              <ScrollReveal>
-                <Badge>Services iClinRT Delivers</Badge>
-                <h2 className="mt-3 type-h2 font-semibold">
-                  Operational depth for every subject and kit movement
-                </h2>
-              </ScrollReveal>
-            }
-            items={iclinrtServices}
-            renderItem={(service, index) => (
-              <ScrollReveal delay={index * 80}>
+          {/* HEADING */}
+          <ScrollReveal>
+            <div className="mb-12">
+              <Badge>Services iClinRT Delivers</Badge>
+              <h2 className="mt-3 type-h2 font-semibold max-w-2xl">
+                Operational depth for every subject and kit movement
+              </h2>
+            </div>
+          </ScrollReveal>
+
+          {/* GRID */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-fr">
+            {iclinrtServices.map((service, index) => (
+              <ScrollReveal key={index} delay={index * 60}>
                 <motion.div
                   layoutId={`service-card-${index}`}
-                  className="group relative"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    duration: 0.5,
+                    delay: index * 0.06,
+                    ease: [0.25, 0.1, 0.25, 1],
+                  }}
+                  className="group relative cursor-pointer h-full"
+                  onClick={() => setActiveServiceIndex(index)}
+                  tabIndex={0}
+                  role="button"
+                  aria-haspopup="dialog"
+                  aria-expanded={activeServiceIndex === index}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter" || event.key === " ") {
+                      event.preventDefault();
+                      setActiveServiceIndex(index);
+                    }
+                  }}
                 >
-                  {/* BACKDROP DIM (modal feel) */}
-                  <div className="pointer-events-none absolute inset-0 z-0 rounded-2xl bg-black/0 backdrop-blur-0 transition-all duration-500 group-hover:bg-black/40 group-hover:backdrop-blur-sm" />
-
                   <GlassCard
                     image={serviceMedia[index % serviceMedia.length]}
-                    height="h-92 lg:h-102"
+                    height="h-80 lg:h-92"
                     contentPadding="p-6"
-                    overlayOpacity="bg-gradient-to-b from-black/30 via-black/60 to-black/90"
-                    borderColor="border-white/20"
+                    overlayOpacity="bg-gradient-to-b from-black/20 via-black/50 to-black/90"
+                    borderColor="border-white/10"
                     className="
-          relative z-10
-          min-w-62.5 sm:min-w-75 lg:min-w-85
-          bg-white/10 backdrop-blur-2xl shadow-lg cursor-pointer
-
-          transition-all duration-500 ease-out
-          group-hover:scale-105
-          group-hover:-translate-y-4
-          group-hover:z-20
-          group-hover:shadow-[0_25px_60px_rgba(0,0,0,0.6)]
-        "
+                relative overflow-hidden rounded-2xl
+                bg-white/5 backdrop-blur-xl shadow-md
+                border border-white/10
+                transition-all duration-500 ease-out
+                group-hover:scale-[1.02]
+                group-hover:-translate-y-2
+                group-hover:shadow-[0_20px_60px_rgba(0,0,0,0.3)]
+                group-hover:border-white/25
+              "
                     imageClassName="
-          duration-700 ease-out
-          group-hover:scale-110
-          group-hover:-translate-y-3
-        "
-                    contentClassName="transition-all duration-500"
-                    tabIndex={0}
-                    role="button"
-                    aria-haspopup="dialog"
-                    aria-expanded={activeServiceIndex === index}
-                    onClick={() => setActiveServiceIndex(index)}
-                    onKeyDown={(event) => {
-                      if (event.key === "Enter" || event.key === " ") {
-                        event.preventDefault();
-                        setActiveServiceIndex(index);
-                      }
-                    }}
+                transition-all duration-700 ease-out
+                group-hover:scale-110
+              "
                   >
-                    {/* HEADER */}
-                    <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.3em] text-white/70">
-                      <span>{`Service ${String(index + 1).padStart(2, "0")}`}</span>
-                      <span className="rounded-full bg-white/15 px-2 py-1 text-[10px]">
+                    {/* SERVICE NUMBER */}
+                    <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.3em] text-white/50">
+                      <span>{`${String(index + 1).padStart(2, "0")}`}</span>
+                      <span className="rounded-full bg-white/10 px-2 py-1 text-[10px] backdrop-blur-sm border border-white/10">
                         iClinRT
                       </span>
                     </div>
 
                     {/* TITLE */}
-                    <p className="mt-3 type-h4 font-semibold text-white">
+                    <p className="mt-3 type-h4 font-semibold text-white leading-snug">
                       {service.title}
                     </p>
 
-                    {/* LOADING SKELETON (fade out) */}
-                    <div className="mt-4 space-y-2 transition-all duration-300 group-hover:opacity-0 group-hover:-translate-y-2">
-                      <div className="h-2 w-3/4 rounded-full bg-white/25 animate-pulse" />
-                      <div className="h-2 w-1/2 rounded-full bg-white/15 animate-pulse [animation-delay:200ms]" />
+                    {/* ITEMS PREVIEW */}
+                    <div className="mt-4 space-y-1.5 opacity-0 translate-y-4 transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0">
+                      {service.items.slice(0, 3).map((item) => (
+                        <div
+                          key={item}
+                          className="flex items-start gap-2 text-xs text-white/80"
+                        >
+                          <span className="mt-1.5 h-1 w-1 rounded-full bg-white/60 shrink-0" />
+                          <span>{item}</span>
+                        </div>
+                      ))}
+                      {service.items.length > 3 && (
+                        <p className="text-xs text-white/40 mt-1">
+                          +{service.items.length - 3} more
+                        </p>
+                      )}
                     </div>
 
-                    {/* EXPANDED CONTENT */}
-                    <div
-                      className="
-          mt-4
-          max-h-0 opacity-0 overflow-hidden
-
-          transition-all duration-500 ease-out
-
-          group-hover:max-h-60
-          group-hover:opacity-100
-          group-hover:translate-y-0
-        "
-                    >
-                      <ul className="space-y-2 text-sm text-white/90">
-                        {service.items.map((item) => (
-                          <li key={item} className="flex gap-2">
-                            <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-white/70" />
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
+                    {/* ARROW CTA */}
+                    <div className="absolute bottom-6 right-6 h-8 w-8 rounded-full bg-white/10 border border-white/20 flex items-center justify-center opacity-0 translate-x-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0 backdrop-blur-sm">
+                      <svg
+                        viewBox="0 0 24 24"
+                        className="h-4 w-4 text-white"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                      >
+                        <path
+                          d="M7 17L17 7M17 7H7M17 7v10"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
                     </div>
 
-                    {/* GLOW RING (premium effect) */}
-                    <div
-                      className="
-          pointer-events-none absolute inset-0 rounded-2xl opacity-0 
-          transition-opacity duration-500
-          group-hover:opacity-100
-          bg-[radial-gradient(circle_at_center,rgba(131,133,188,0.25),transparent_70%)]
-        "
-                    />
+                    {/* GLOW */}
+                    <div className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100 bg-[radial-gradient(circle_at_50%_100%,rgba(131,133,188,0.15),transparent_60%)]" />
                   </GlassCard>
                 </motion.div>
               </ScrollReveal>
-            )}
-          />
+            ))}
+          </div>
+
+          {/* MODAL — unchanged */}
           <AnimatePresence>
             {activeService && activeServiceMedia && (
               <motion.div
@@ -927,9 +936,7 @@ export default function IclinrtPage() {
                       X
                     </button>
                     <div className="flex items-center gap-3 text-[10px] uppercase tracking-[0.3em] text-white/70">
-                      <span>
-                        {`Service ${String((activeServiceIndex ?? 0) + 1).padStart(2, "0")}`}
-                      </span>
+                      <span>{`Service ${String((activeServiceIndex ?? 0) + 1).padStart(2, "0")}`}</span>
                       <span className="rounded-full bg-white/15 px-2 py-1 text-[10px]">
                         iClinRT
                       </span>
@@ -937,7 +944,7 @@ export default function IclinrtPage() {
                     <p className="mt-3 type-h2 font-semibold text-white">
                       {activeService.title}
                     </p>
-                    <p className="mt-2 text-sm text-white/70">
+                    <p className="mt-2 text-sm text-black">
                       Full operational detail and protocol-ready execution for
                       your clinical teams.
                     </p>
@@ -1145,14 +1152,28 @@ export default function IclinrtPage() {
           <StudyFlowSvg />
         </div>
       </SectionWrapper>
+
       <SectionWrapper fullBleed>
         <ScrollReveal delay={120}>
-          <div className="relative mt-6 overflow-hidden rounded-4xl border border-white/50 bg-white/75 p-6 md:p-8 bg-linear-to-br from-orange-100/90 via-white/95 to-purple-100/90 shadow-xl backdrop-blur-sm">
+          <div className="relative mt-6 overflow-hidden rounded-4xl border border-white/50 shadow-xl">
+            {/* LEFT BG - gradient */}
+            <div className="absolute inset-0 bg-linear-to-br from-orange-100/90 via-white/95 to-purple-100/90 backdrop-blur-sm" />
+
+            {/* RIGHT BG - solid primary color with diagonal clip */}
+            <div
+              className="absolute inset-0 bg-(--primary-color)"
+              style={{
+                clipPath: "polygon(45% 0%, 100% 0%, 100% 100%, 35% 100%)",
+              }}
+            />
+
+            {/* DECORATIVE */}
             <div className="pointer-events-none absolute -left-10 top-8 h-40 w-40 rounded-full bg-(--color-accent)/20 blur-3xl" />
             <div className="pointer-events-none absolute right-0 top-1/2 h-56 w-56 -translate-y-1/2 rounded-full bg-(--color-orange)/20 blur-3xl" />
             <div className="pointer-events-none absolute inset-x-10 top-0 h-px bg-linear-to-r from-transparent via-black/10 to-transparent" />
 
-            <div className="relative z-10 grid gap-8 lg:grid-cols-[0.92fr_1.08fr] lg:items-center">
+            <div className="relative z-10 grid gap-8 p-6 md:p-8 lg:grid-cols-[0.92fr_1.08fr] lg:items-center">
+              {/* LEFT CONTENT */}
               <div>
                 <Badge>
                   <span className="inline-flex items-center gap-2">
@@ -1188,7 +1209,7 @@ export default function IclinrtPage() {
                     <p className="mt-3 text-2xl font-semibold text-(--primary-color)">
                       Global-ready
                     </p>
-                    <p className="mt-2 text-sm text-(--muted-color)">
+                    <p className="mt-2 text-sm text-black">
                       Supports adaptive designs, regional supply complexity, and
                       cross-functional teams.
                     </p>
@@ -1243,11 +1264,12 @@ export default function IclinrtPage() {
                 </div>
               </div>
 
-              <div className="relative overflow-hidden rounded-[1.75rem] border border-white/60 bg-white/60 p-4 shadow-inner shadow-white/60 backdrop-blur-xl sm:p-5 lg:min-h-[520px]">
-                <div className="pointer-events-none absolute inset-4 rounded-3xl border border-white/60" />
-                <div className="pointer-events-none absolute left-1/2 top-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full border border-black/5" />
+              {/* RIGHT CONTENT - white text on dark bg */}
+              <div className="relative overflow-hidden rounded-[1.75rem] border border-white/20 bg-transparent p-4 sm:p-5 lg:min-h-130">
+                <div className="pointer-events-none absolute inset-4 rounded-3xl border border-white/20" />
+                <div className="pointer-events-none absolute left-1/2 top-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/10" />
                 <motion.div
-                  className="pointer-events-none absolute left-1/2 top-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full border border-(--color-accent)/20"
+                  className="pointer-events-none absolute left-1/2 top-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/20"
                   animate={reduceMotion ? undefined : { rotate: 360 }}
                   transition={
                     reduceMotion
@@ -1257,7 +1279,7 @@ export default function IclinrtPage() {
                 />
 
                 <motion.div
-                  className="relative z-10 mx-auto flex h-40 w-full max-w-[18rem] flex-col justify-center rounded-[1.75rem] border border-white/70 bg-white/85 px-6 py-5 text-center shadow-lg backdrop-blur lg:absolute lg:left-1/2 lg:top-1/2 lg:mb-0 lg:h-48 lg:w-48 lg:-translate-x-1/2 lg:-translate-y-1/2"
+                  className="relative z-10 mx-auto flex h-40 w-full max-w-[18rem] flex-col justify-center rounded-[1.75rem] border border-white/20 bg-white/10 px-6 py-5 text-center shadow-lg backdrop-blur lg:absolute lg:left-1/2 lg:top-1/2 lg:mb-0 lg:h-48 lg:w-48 lg:-translate-x-1/2 lg:-translate-y-1/2"
                   animate={
                     reduceMotion
                       ? undefined
@@ -1269,13 +1291,13 @@ export default function IclinrtPage() {
                       : { duration: 6, repeat: Infinity, ease: "easeInOut" }
                   }
                 >
-                  <div className="type-h6 uppercase tracking-[0.35em] text-(--muted-color)">
+                  <div className="type-h6 uppercase tracking-[0.35em] text-white/60">
                     Trial Spectrum
                   </div>
-                  <p className="mt-3 text-4xl font-semibold text-(--primary-color)">
+                  <p className="mt-3 text-4xl font-semibold text-white">
                     Precision
                   </p>
-                  <p className="mt-2 text-sm text-(--muted-color)">
+                  <p className="mt-2 text-sm text-white/60">
                     Matching randomization, supply, and oversight to study
                     complexity.
                   </p>
@@ -1284,11 +1306,10 @@ export default function IclinrtPage() {
                 <div className="relative z-10 mt-4 grid gap-3 sm:grid-cols-2 lg:mt-0 lg:block">
                   {studyTypes.map((type, index) => {
                     const Icon = type.icon;
-
                     return (
                       <motion.div
                         key={type.label}
-                        className={`rounded-3xl border border-white/70 bg-white/85 p-4 shadow-lg backdrop-blur transition-transform duration-300 hover:-translate-y-1.5 lg:absolute lg:w-[215px] ${type.position}`}
+                        className={`rounded-3xl border border-white/20 bg-white/10 p-4 shadow-lg backdrop-blur transition-transform duration-300 hover:-translate-y-1.5 lg:absolute lg:w-[215px] ${type.position}`}
                         initial={{ opacity: 0, y: 24 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, amount: 0.35 }}
@@ -1320,23 +1341,22 @@ export default function IclinrtPage() {
                           }
                         >
                           <div className="flex items-center justify-between">
-                            <span className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-black/4 text-(--primary-color)">
+                            <span className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-white/10 text-white">
                               <Icon className="h-5 w-5" />
                             </span>
-                            <span className="text-[10px] font-medium uppercase tracking-[0.3em] text-(--muted-color)">
+                            <span className="text-[10px] font-medium uppercase tracking-[0.3em] text-white/50">
                               {(index + 1).toString().padStart(2, "0")}
                             </span>
                           </div>
-
                           <div className="mt-4 flex items-center gap-2">
                             <span
                               className={`h-2.5 w-2.5 rounded-full ${type.dotClass}`}
                             />
-                            <p className="text-sm font-semibold text-(--primary-color)">
+                            <p className="text-sm font-semibold text-white">
                               {type.label}
                             </p>
                           </div>
-                          <p className="mt-2 text-sm leading-6 text-(--muted-color)">
+                          <p className="mt-2 text-sm leading-6 text-white/70">
                             {type.detail}
                           </p>
                         </motion.div>
@@ -1436,22 +1456,25 @@ export default function IclinrtPage() {
       </SectionWrapper>
 
       <SectionWrapper fullBleed>
-        <div className="relative items-center mx-auto overflow-hidden rounded-3xl border border-white/25 bg-(--color-primary) px-6 py-14 text-white shadow-2xl md:px-10">
+        <div className="relative text-center mx-auto overflow-hidden rounded-3xl border border-white/25 bg-(--color-primary) px-6 py-14 text-white shadow-2xl md:px-10">
           <ScrollReveal>
-            <Badge>
-              <span className="inline-flex items-center justify-center gap-2">
-                Ready to See iClinRT
-              </span>
-            </Badge>
-            <p className="mt-3 type-h2 font-semibold text-(--text-invert) items-center justify-center">
-              Bring operational clarity to every trial milestone
-            </p>
-            <p className="mt-4 max-w-2xl text-(--text-invert) items-center justify-center">
-              Connect your teams, sites, and supply workflows with a platform
-              designed for protocol fidelity, compliance, and real-time insight.
-            </p>
-            <div className="mt-6 flex flex-wrap gap-4 ">
-              <Button href="/contact" label="Request iClinRT Demo" />
+            <div className="flex flex-col items-center">
+              <Badge>
+                <span className="inline-flex items-center justify-center gap-2">
+                  Ready to See iClinRT
+                </span>
+              </Badge>
+              <p className="mt-3 type-h2 font-semibold text-(--text-invert)">
+                Bring operational clarity to every trial milestone
+              </p>
+              <p className="mt-4 max-w-2xl text-(--text-invert)">
+                Connect your teams, sites, and supply workflows with a platform
+                designed for protocol fidelity, compliance, and real-time
+                insight.
+              </p>
+              <div className="mt-6 flex flex-wrap gap-4 justify-center">
+                <Button href="/contact" label="Request iClinRT Demo" />
+              </div>
             </div>
           </ScrollReveal>
         </div>

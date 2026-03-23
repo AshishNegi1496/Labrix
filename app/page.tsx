@@ -219,18 +219,6 @@ const newsItems = [
     title: "Adaptive randomization workflows now supported across cohorts.",
     date: "Mar 2026",
   },
-  {
-    title: "Auto-shipments and buffer stock logic expanded to global depots.",
-    date: "Feb 2026",
-  },
-  {
-    title: "Real-time alerts refreshed for site-specific thresholds.",
-    date: "Jan 2026",
-  },
-  {
-    title: " for site-specific thresholds.",
-    date: "Jan 2021",
-  },
 ] as const;
 
 const faqs = [
@@ -308,10 +296,13 @@ const Badge = ({ children }: { children: React.ReactNode }) => (
     {children}
   </p>
 );
+
 export default function HomePage() {
+  const [activeIndex, setActiveIndex] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const PREVIEW_COUNT = 5;
   const previewFaqs = faqs.slice(0, PREVIEW_COUNT);
+
   return (
     <PageTransition>
       <section className="relative overflow-hidden min-h-[90vh] sm:min-h-screen lg:min-h-[110vh] flex items-center">
@@ -325,20 +316,17 @@ export default function HomePage() {
         />
 
         {/* Dark overlay */}
-        <div className="absolute inset-0 bg-linear-to-b from-black/70 via-black/70 to-black/90" />
+        {/* <div className="absolute inset-0 bg-linear-to-b from-black/70 via-black/70 to-black/90" /> */}
 
         <div className="relative z-10 section-shell py-28 md:py-40 text-white">
           <div className="grid lg:grid-cols-2 gap-10 md:gap-14 lg:gap-16 items-center">
             {/* LEFT CONTENT */}
             <ScrollReveal variant="left" className="max-w-3xl mb-1">
-              <p className="mt-12 type-h1 md:text-4xl leading-tight font-semibold">
+              <p className="mt-12 type-h2 md:text-4xl leading-tight font-semibold">
                 Powering Smarter Clinical Research
               </p>
 
               {/* Buttons */}
-              <div className="m-8 flex flex-wrap gap-4  sm:p-6 lg:p-8">
-                <Button href="/who-we-are" label="Get Started" />
-              </div>
 
               {/* Hero Bottom Stats */}
               <div className="mt-10 sm:mt-12 flex flex-wrap items-center gap-6 md:gap-10">
@@ -376,10 +364,13 @@ export default function HomePage() {
                   <p className="type-h6 mt-3 text-white/70">Clients</p>
                 </div>
               </div>
+              <div className="mt-8 ">
+                <Button href="/who-we-are" label="Get Started" />
+              </div>
             </ScrollReveal>
 
             {/* RIGHT VIDEO CIRCLE */}
-            <div className="hidden lg:flex justify-center">
+            <div className="hidden lg:flex justify-end">
               <a
                 href="https://www.youtube.com/watch?v=Y-x0efG1seA"
                 className="relative flex items-center justify-center h-40 w-40 rounded-full border border-white/80 backdrop-blur-md hover:scale-110 transition"
@@ -416,31 +407,37 @@ export default function HomePage() {
       </SectionWrapper>
 
       {/* Posters + News */}
-      <SectionWrapper className="py-10 sm:py-12 lg:py-14">
-        <div className="section-shell px-4 sm:px-6 md:px-10">
+      <SectionWrapper className="py-10 ">
+        <div className="section-shell ">
           <div className="grid gap-6 items-start lg:grid-cols-[2fr_1fr] lg:items-stretch">
-            <div className="relative min-w-0 rounded-3xl border border-slate-200 bg-slate-50/50 p-5 shadow-sm sm:p-6 lg:h-full lg:p-8">
+            <div className="relative min-w-0 rounded-3xl  shadow-sm  lg:h-full">
               {/* Slider Section */}
               <GlassSlider
                 items={posterItems}
                 ariaLabel="At a glance posters"
-                scrollerClassName="w-full gap-6 pt-0 pb-0"
-                controlsClassName="pointer-events-none absolute inset-x-3 top-1/2 z-10 -translate-y-1/2 justify-between sm:inset-x-4 lg:inset-x-5"
+                scrollerClassName="w-full pt-0 pb-0 h-full"
+                controlsClassName="pointer-events-none absolute top-1/2 z-10 -translate-y-1/2 justify-between sm:inset-x-4 "
                 edgeFadeClassName="from-slate-50/90 via-slate-50/60"
                 pageSize={1}
-                itemClassName="w-full"
+                itemClassName="w-full h-full"
                 renderItem={(poster, index) => (
                   <ScrollReveal delay={index * 80}>
                     <Link
                       href={poster.href}
-                      className="group relative mx-auto block w-full max-w-136 overflow-hidden rounded-2xl bg-white transition-all hover:shadow-xl hover:shadow-slate-200/50"
+                      className="group relative block w-full h-full overflow-hidden rounded-2xl bg-white transition-all hover:shadow-xl hover:shadow-slate-200/50"
                     >
-                      {/* Image Container */}
-                      <div className="relative aspect-1/2 max-h-[52vh] w-full overflow-hidden">
+                      {/* Image Container - add min-height for debugging */}
+                      <div
+                        className="relative h-full w-full overflow-hidden"
+                        style={{ minHeight: "400px" }}
+                      >
+                        {/* Debug: Show image path */}
+
                         <Image
                           src={poster.image}
                           alt={poster.title}
                           fill
+                          sizes="100vw"
                           className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                         />
                         {/* Soft Overlay */}
@@ -448,7 +445,7 @@ export default function HomePage() {
 
                         {/* Floating Content (Bottom-aligned) */}
                         <div className="absolute bottom-0 left-0 w-full p-5">
-                          <span className="inline-block rounded-md bg-white/10 px-2 py-1 text-[10px] font-bold uppercase tracking-widest text-white backdrop-blur-md">
+                          <span className="inline-block rounded-md bg-(--color-orange)/10 px-2 py-1 text-[10px] font-bold uppercase tracking-widest text-white backdrop-blur-md">
                             {poster.tag}
                           </span>
                           <p className="mt-3 type-h4 font-medium leading-snug text-white">
@@ -622,8 +619,9 @@ export default function HomePage() {
                   title={field.title}
                   description={field.description}
                   height="h-64 sm:h-72 lg:h-80"
-                  glowColor="bg-emerald-400/20"
+                  glowColor="bg-(--color-orange)"
                   hoverEffect="both"
+                  contentClassName="hover:bg-black/80"
                 />
               </ScrollReveal>
             ))}
@@ -847,7 +845,6 @@ export default function HomePage() {
             <div className="text-center max-w-3xl mx-auto">
               <ScrollReveal>
                 <Badge>Our Testimonials</Badge>
-
                 <p className="mt-4 type-h2 font-semibold text-white">
                   Recognized for Providing Operational Transparency and Reliable
                   Platform Performance
@@ -862,38 +859,53 @@ export default function HomePage() {
               scrollerClassName="gap-8"
               controlsClassName="mt-4 justify-center"
               edgeFadeClassName="from-[var(--color-primary)]/90 via-[var(--color-primary)]/60"
-              renderItem={(item, index) => (
-                <ScrollReveal delay={index * 120}>
-                  <div className="w-72 shrink-0 rounded-2xl border border-white/10 bg-white/10 p-6 backdrop-blur-md transition hover:bg-white/15 sm:w-80 lg:w-96">
-                    {/* IMAGE */}
-                    <div className="relative mb-6 h-20 w-20">
-                      <Image
-                        width={140}
-                        height={120}
-                        src={item.image}
-                        alt={item.name}
-                        className="rounded-full object-cover"
-                      />
+              onActiveChange={(i) => setActiveIndex(i)}
+              renderItem={(item, index) => {
+                const isCenter = index === activeIndex;
+                const isSide = Math.abs(index - activeIndex) === 1;
 
-                      {/* PLAY BUTTON */}
-                      <div className="absolute -bottom-1 -right-1 flex h-8 w-8 items-center justify-center rounded-full bg-(--color-orange)">
-                        ▶
+                return (
+                  <ScrollReveal delay={index * 120}>
+                    <div
+                      onClick={() => setActiveIndex(index)}
+                      className={`
+                  w-72 shrink-0 rounded-2xl border border-white/10 bg-white/10 p-6 backdrop-blur-md
+                  transition-all duration-500 cursor-pointer sm:w-80 lg:w-96
+                  ${isCenter ? "scale-110 z-10 bg-white/20 shadow-2xl border-white/30" : "scale-95"}
+                  ${isSide ? "blur-[1.5px] opacity-70" : ""}
+                  ${!isCenter && !isSide ? "blur-[3px] opacity-40" : ""}
+                  hover:bg-white/15
+                `}
+                    >
+                      {/* IMAGE */}
+                      <div className="relative mb-6 h-20 w-20">
+                        <Image
+                          width={140}
+                          height={120}
+                          src={item.image}
+                          alt={item.name}
+                          className="rounded-full object-cover"
+                        />
+                        {/* PLAY BUTTON */}
+                        <div className="absolute -bottom-1 -right-1 flex h-8 w-8 items-center justify-center rounded-full bg-(--color-orange)">
+                          ▶
+                        </div>
+                      </div>
+
+                      {/* QUOTE */}
+                      <p className="text-white/80 text-sm leading-relaxed">
+                        {item.text}
+                      </p>
+
+                      {/* AUTHOR */}
+                      <div className="mt-6">
+                        <p className="font-semibold">{item.name}</p>
+                        <p className="text-sm text-white/60">{item.role}</p>
                       </div>
                     </div>
-
-                    {/* QUOTE */}
-                    <p className="text-white/80 text-sm leading-relaxed">
-                      {item.text}
-                    </p>
-
-                    {/* AUTHOR */}
-                    <div className="mt-6">
-                      <p className="font-semibold">{item.name}</p>
-                      <p className="text-sm text-white/60">{item.role}</p>
-                    </div>
-                  </div>
-                </ScrollReveal>
-              )}
+                  </ScrollReveal>
+                );
+              }}
             />
           </div>
         </section>

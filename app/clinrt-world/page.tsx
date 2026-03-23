@@ -33,7 +33,6 @@ const tabs = [
   "Case Studies",
   "Blogs",
   "Brochures",
-  "Factsheets",
 ] as const;
 
 const INITIAL_VISIBLE = 6;
@@ -356,47 +355,6 @@ const contentByTab: Record<Tab, TabContent> = {
         summary:
           "A summary of control frameworks, documentation readiness, and quality practices.",
         meta: "Quality brochure",
-      },
-    ],
-  },
-  Factsheets: {
-    title: "Factsheets",
-    description:
-      "Structured for quick lookup, easy filtering, and a growing inventory of capability summaries.",
-    icon: FiFileText,
-    cta: {
-      href: "/coming-soon",
-      label: "View Factsheets",
-    },
-    items: [
-      {
-        eyebrow: "IRT",
-        title: "IRT overview factsheet",
-        summary:
-          "Key capability highlights for subject flow, randomization, and treatment assignment.",
-        meta: "Capability summary",
-        featured: true,
-      },
-      {
-        eyebrow: "CTSM",
-        title: "CTSM capabilities factsheet",
-        summary:
-          "A compact summary of inventory, resupply, expiry, and accountability controls.",
-        meta: "Operations summary",
-      },
-      {
-        eyebrow: "Sites",
-        title: "Site inventory operations factsheet",
-        summary:
-          "Operational details focused on visibility, traceability, and site-level readiness.",
-        meta: "Site management",
-      },
-      {
-        eyebrow: "Kits",
-        title: "Kit management controls factsheet",
-        summary:
-          "A fast read on assignment accuracy, barcode verification, and chain-of-custody support.",
-        meta: "Control summary",
       },
     ],
   },

@@ -8,6 +8,7 @@ import SectionWrapper from "@/components/layout/SectionWrapper";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import CountUpOnView from "@/components/CountUpOnView";
 import Button from "@/components/ui/Button";
+import CultureGraphic from "@/components/CultureGraphic";
 import {
   FiCheck,
   FiEye,
@@ -18,7 +19,7 @@ import {
   FiUsers,
   FiZap,
 } from "react-icons/fi";
-import { type RefObject, useRef } from "react";
+import { type RefObject, useRef, useState } from "react";
 import { FullScreenCard } from "@/hooks/FullScreenCard";
 import { useActiveCard } from "@/hooks/useInView";
 import { IconType } from "react-icons";
@@ -392,6 +393,7 @@ function LeadershipProfileCard({
 /* ---------------- Page ---------------- */
 
 export default function WhoWeArePage() {
+  const [activeCultureCard, setActiveCultureCard] = useState(0);
   const uspsSectionRef = useRef<HTMLDivElement | null>(null);
   const knownForCards = meaningPoints.map((point) => ({
     title: point,
@@ -435,8 +437,6 @@ export default function WhoWeArePage() {
 
         <div className="relative z-10 h-full flex items-center section-shell text-white">
           <ScrollReveal>
-            <Badge>WHO WE ARE</Badge>
-
             <p className="mt-6 text-5xl md:text-6xl font-semibold leading-tight max-w-3xl">
               Experienced people.
               <br />
@@ -459,115 +459,245 @@ export default function WhoWeArePage() {
 
       {/* ================= WHAT IT MEANS ================= */}
       <SectionWrapper fullBleed>
-        <div className="relative overflow-hidden rounded-4xl border border-black/8 bg-linear-to-br from-slate-50 via-white to-orange-50/60 p-6 shadow-[0_24px_80px_rgba(15,36,58,0.08)] md:p-10">
-          <motion.div
-            className="absolute -left-12 top-10 h-40 w-40 rounded-full bg-orange-200/40 blur-3xl"
-            animate={{ y: [0, -18, 0] }}
-            transition={{ duration: 9, repeat: Infinity }}
-          />
-          <motion.div
-            className="absolute -right-10 bottom-0 h-48 w-48 rounded-full bg-sky-200/35 blur-3xl"
-            animate={{ y: [0, 20, 0] }}
-            transition={{ duration: 11, repeat: Infinity }}
+        <div className="relative overflow-hidden rounded-4xl border border-black/8 bg-[#080c14] p-8 shadow-[0_24px_80px_rgba(0,0,0,0.4)] md:p-14">
+          {/* CINEMATIC BACKGROUND LAYERS */}
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(99,120,180,0.18),transparent)]" />
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_40%_40%_at_80%_80%,rgba(255,120,60,0.07),transparent)]" />
+          <div className="pointer-events-none absolute left-0 top-0 h-px w-full bg-linear-to-r from-transparent via-white/15 to-transparent" />
+          <div className="pointer-events-none absolute bottom-0 left-0 h-px w-full bg-linear-to-r from-transparent via-white/8 to-transparent" />
+
+          {/* ANIMATED GRID LINES */}
+          <div
+            className="pointer-events-none absolute inset-0 opacity-[0.04]"
+            style={{
+              backgroundImage: `linear-gradient(rgba(255,255,255,0.8) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.8) 1px, transparent 1px)`,
+              backgroundSize: "80px 80px",
+            }}
           />
 
-          <div className="relative grid gap-10 lg:grid-cols-2 lg:items-start">
-            {/* LEFT SIDE - Animated Overview */}
+          {/* FLOATING ORBS */}
+          <motion.div
+            className="absolute -left-12 top-10 h-64 w-64 rounded-full bg-blue-500/10 blur-[80px]"
+            animate={{ y: [0, -25, 0], x: [0, 10, 0] }}
+            transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.div
+            className="absolute -right-10 bottom-0 h-72 w-72 rounded-full bg-orange-500/8 blur-[80px]"
+            animate={{ y: [0, 20, 0], x: [0, -10, 0] }}
+            transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+          />
+
+          <div className="relative grid gap-16 lg:grid-cols-2 lg:items-start text-white">
+            {/* LEFT SIDE */}
             <ScrollReveal>
               <motion.div
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
                 viewport={{ once: true }}
-                className="space-y-6"
+                className="space-y-8"
               >
-                <Badge>Overview</Badge>
+                {/* EYEBROW */}
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: 0.1 }}
+                  viewport={{ once: true }}
+                  className="flex items-center gap-3"
+                >
+                  <Badge>Overview</Badge>
+                </motion.div>
 
+                {/* CINEMATIC WORD-BY-WORD HEADLINE */}
+                <div className="overflow-hidden">
+                  {[
+                    { text: "We are a team", delay: 0.15 },
+                    { text: "of people who", delay: 0.25 },
+                    { text: "work closely with", delay: 0.35 },
+                    { text: "clinical research teams", delay: 0.45 },
+                  ].map((line, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, y: 60, skewY: 3 }}
+                      whileInView={{ opacity: 1, y: 0, skewY: 0 }}
+                      transition={{
+                        duration: 0.7,
+                        delay: line.delay,
+                        ease: [0.22, 1, 0.36, 1],
+                      }}
+                      viewport={{ once: true }}
+                    >
+                      <span className="block text-3xl font-semibold leading-tight text-white md:text-4xl lg:text-[2.6rem]">
+                        {line.text}
+                      </span>
+                    </motion.div>
+                  ))}
+                </div>
+
+                {/* BODY TEXT with staggered fade */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.2 }}
+                  transition={{ duration: 0.7, delay: 0.65 }}
                   viewport={{ once: true }}
+                  className="space-y-4 border-l border-white/10 pl-5"
                 >
-                  <p className="type-h3 font-semibold leading-tight text-black md:text-3xl lg:text-4xl">
-                    We are a team of people who work closely with clinical
-                    research teams and understand the realities of running
-                    trials. Our background spans clinical operations,
-                    technology, and delivery — giving us a practical view of
-                    what works and what does not. We believe good work comes
-                    from clear thinking, strong ownership, and dependable
-                    execution. Our focus is on supporting teams with structure,
-                    clarity, and consistency, so they can work with confidence
-                    throughout the study lifecycle.
+                  <p className="text-base leading-8 text-white/45">
+                    Our background spans clinical operations, technology, and
+                    delivery — giving us a practical view of what works and what
+                    does not.
                   </p>
+                  <p className="text-base leading-8 text-white/45">
+                    We believe good work comes from clear thinking, strong
+                    ownership, and dependable execution throughout the study
+                    lifecycle.
+                  </p>
+                </motion.div>
+
+                {/* STAT ROW */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.8 }}
+                  viewport={{ once: true }}
+                  className="flex items-center gap-8 pt-2"
+                >
+                  {[
+                    { value: "10+", label: "Years in clinical ops" },
+                    { value: "3", label: "Disciplines united" },
+                  ].map((stat, i) => (
+                    <div key={i} className="space-y-1">
+                      <p className="text-3xl font-semibold text-white">
+                        {stat.value}
+                      </p>
+                      <p className="text-[11px] uppercase tracking-[0.3em] text-white/35">
+                        {stat.label}
+                      </p>
+                    </div>
+                  ))}
+                  <div className="h-8 w-px bg-white/10" />
+                  <motion.div
+                    animate={{ scale: [1, 1.15, 1] }}
+                    transition={{
+                      duration: 2.5,
+                      repeat: Infinity,
+                      repeatDelay: 2,
+                    }}
+                    className="flex items-center gap-2"
+                  >
+                    <span className="h-2 w-2 rounded-full bg-green-400" />
+                    <span className="text-[11px] uppercase tracking-[0.3em] text-green-400/70">
+                      Active
+                    </span>
+                  </motion.div>
                 </motion.div>
               </motion.div>
             </ScrollReveal>
 
-            {/* RIGHT SIDE - What this means for you */}
+            {/* RIGHT SIDE */}
             <ScrollReveal>
               <motion.div
-                initial={{ opacity: 0, x: 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: 0.8,
+                  ease: [0.25, 0.1, 0.25, 1],
+                  delay: 0.2,
+                }}
                 viewport={{ once: true }}
-                className="space-y-6"
+                className="space-y-8"
               >
-                <Badge>What this means for you</Badge>
-
-                <motion.p
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.4 }}
+                {/* EYEBROW */}
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
                   viewport={{ once: true }}
-                  className="text-3xl font-semibold leading-tight text-black md:text-4xl"
+                  className="flex items-center gap-3"
                 >
-                  Our experience and ways of working help research teams
-                </motion.p>
+                  <Badge>What this means for you</Badge>
+                </motion.div>
 
+                {/* CINEMATIC HEADLINE RIGHT */}
+                <div className="overflow-hidden">
+                  {[
+                    { text: "Our experience", delay: 0.3 },
+                    { text: "helps research", delay: 0.4 },
+                    { text: "teams thrive", delay: 0.5 },
+                  ].map((line, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, y: 60, skewY: 3 }}
+                      whileInView={{ opacity: 1, y: 0, skewY: 0 }}
+                      transition={{
+                        duration: 0.7,
+                        delay: line.delay,
+                        ease: [0.22, 1, 0.36, 1],
+                      }}
+                      viewport={{ once: true }}
+                    >
+                      <span className="block text-3xl font-semibold leading-tight text-white md:text-4xl lg:text-[2.6rem]">
+                        {line.text}
+                      </span>
+                    </motion.div>
+                  ))}
+                </div>
+
+                {/* POINTS LIST — cinematic cards */}
                 <motion.ul
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.6 }}
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  transition={{ duration: 0.5, delay: 0.55 }}
                   viewport={{ once: true }}
-                  className="grid gap-3"
+                  className="space-y-2"
                 >
-                  {whatThisMeansPoints.map((point) => (
+                  {whatThisMeansPoints.map((point, i) => (
                     <motion.li
                       key={point}
-                      initial={{ opacity: 0, x: 18 }}
+                      initial={{ opacity: 0, x: 30 }}
                       whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.45, delay: 0.62 }}
+                      transition={{
+                        duration: 0.5,
+                        delay: 0.55 + i * 0.08,
+                        ease: [0.22, 1, 0.36, 1],
+                      }}
                       viewport={{ once: true }}
-                      className="flex items-start gap-3 rounded-2xl border border-black/8 bg-white/70 px-4 py-3 shadow-sm backdrop-blur"
+                      whileHover={{ x: 4 }}
+                      className="group flex items-start gap-4 rounded-2xl border border-white/6 bg-white/4 px-5 py-4 backdrop-blur transition-all duration-300 hover:border-white/12 hover:bg-white/7"
                     >
-                      <span className="mt-0.5 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-green-500/10 text-green-600">
-                        <FiCheck className="h-4 w-4" />
+                      <span className="mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-green-500/15 text-green-400 ring-1 ring-green-500/20">
+                        <FiCheck className="h-3.5 w-3.5" />
                       </span>
-                      <p className="text-sm leading-7 text-black/65">{point}</p>
+                      <p className="text-sm leading-7 text-white/50 transition-colors duration-300 group-hover:text-white/70">
+                        {point}
+                      </p>
                     </motion.li>
                   ))}
                 </motion.ul>
 
+                {/* BOTTOM CALLOUT */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.7 }}
+                  transition={{ duration: 0.6, delay: 0.85 }}
                   viewport={{ once: true }}
-                  className="inline-flex max-w-md items-start gap-3 rounded-2xl border border-black/8 bg-white/80 px-5 py-4 shadow-sm backdrop-blur"
+                  className="flex items-start gap-4 rounded-2xl border border-white/8 bg-linear-to-br from-white/6 to-white/2 px-5 py-5 backdrop-blur"
                 >
                   <motion.span
-                    animate={{ scale: [1, 1.2, 1] }}
+                    animate={{ scale: [1, 1.3, 1], opacity: [1, 0.6, 1] }}
                     transition={{
-                      duration: 2,
+                      duration: 2.5,
                       repeat: Infinity,
-                      repeatDelay: 3,
+                      repeatDelay: 1.5,
                     }}
-                    className="mt-1 h-2.5 w-2.5 rounded-full bg-green-500"
+                    className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-green-400"
                   />
-                  <p className="text-sm leading-7 text-black/65">
-                    We aim to bring steadiness and order to environments that
-                    are often fast moving and complex.
+                  <p className="text-sm leading-7 text-white/40">
+                    We aim to bring{" "}
+                    <span className="text-white/80 font-medium">
+                      steadiness and order
+                    </span>{" "}
+                    to environments that are often fast moving and complex.
                   </p>
                 </motion.div>
               </motion.div>
@@ -575,7 +705,6 @@ export default function WhoWeArePage() {
           </div>
         </div>
       </SectionWrapper>
-
       {/* <SectionWrapper>
         <ScrollReveal delay={120}>
           <div className="rounded-[28px] bg-slate-950 p-6 text-white shadow-[0_24px_60px_rgba(15,36,58,0.18)] md:p-8">
@@ -698,163 +827,513 @@ export default function WhoWeArePage() {
       </SectionWrapper>
 
       <SectionWrapper fullBleed>
-        <div className="relative overflow-hidden rounded-3xl bg-linear-to-br from-slate-50 via-white to-slate-50 shadow-xl">
-          {/* Modern gradient background */}
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,var(--tw-gradient-stops))] from-orange-100/20 via-transparent to-blue-100/20" />
+        <div className="relative overflow-hidden rounded-3xl bg-[#080c14] shadow-2xl">
+          {/* CINEMATIC BACKGROUND */}
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_30%_0%,rgba(80,100,160,0.15),transparent)]" />
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_40%_40%_at_90%_90%,rgba(200,80,40,0.08),transparent)]" />
+          <div
+            className="pointer-events-none absolute inset-0 opacity-[0.03]"
+            style={{
+              backgroundImage: `linear-gradient(rgba(255,255,255,0.8) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.8) 1px, transparent 1px)`,
+              backgroundSize: "60px 60px",
+            }}
+          />
+          <div className="pointer-events-none absolute left-0 top-0 h-px w-full bg-linear-to-r from-transparent via-white/15 to-transparent" />
+          <div className="pointer-events-none absolute bottom-0 left-0 h-px w-full bg-linear-to-r from-transparent via-white/8 to-transparent" />
 
-          {/* Animated blur elements */}
-          <div className="pointer-events-none absolute -left-32 top-20 h-64 w-64 rounded-full bg-orange-300/20 blur-3xl animate-pulse" />
-          <div className="pointer-events-none absolute -bottom-32 right-20 h-80 w-80 rounded-full bg-blue-300/20 blur-3xl animate-pulse animation-delay-1000" />
+          {/* FLOATING ORBS */}
+          <motion.div
+            className="pointer-events-none absolute -left-20 top-10 h-72 w-72 rounded-full bg-blue-500/8 blur-[100px]"
+            animate={{ y: [0, -20, 0], x: [0, 10, 0] }}
+            transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.div
+            className="pointer-events-none absolute -right-20 bottom-10 h-80 w-80 rounded-full bg-orange-500/6 blur-[100px]"
+            animate={{ y: [0, 20, 0], x: [0, -10, 0] }}
+            transition={{ duration: 17, repeat: Infinity, ease: "easeInOut" }}
+          />
 
-          {/* Subtle grid pattern */}
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
+          <div className="relative px-6 py-16 md:px-10 md:py-20 lg:px-14 lg:py-24">
+            {/* SECTION EYEBROW */}
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="mb-14 flex items-center gap-3"
+            ></motion.div>
 
-          <div className="relative px-6 py-16 md:px-10 md:py-20 lg:px-12 lg:py-24">
-            <div className="mx-auto max-w-7xl">
-              {/* Three blocks in one line */}
-              <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 items-stretch">
-                {/* Vision Card - Biggest */}
-                <ScrollReveal delay={80} className="flex-1 lg:flex-[1.4]">
-                  <motion.div
-                    whileHover={{ y: -4 }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                    className="group relative rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-xl md:p-8 h-full"
-                  >
-                    <Badge>Mission</Badge>
+            <div className="flex flex-col lg:flex-row gap-px">
+              {/* MISSION */}
+              <motion.div
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                whileHover={{ y: -4 }}
+                className="group relative flex-1 lg:flex-[1.4] rounded-2xl border border-white/8 bg-white/4 p-8 md:p-10 backdrop-blur transition-all duration-500 hover:border-white/16 hover:bg-white/6 hover:shadow-[0_0_60px_rgba(255,255,255,0.04)] cursor-default"
+              >
+                {/* CARD GLOW ON HOVER */}
+                <div className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-[radial-gradient(ellipse_at_top_left,rgba(255,255,255,0.04),transparent_60%)]" />
 
-                    <p className="text-base leading-relaxed text-slate-600 mt-4">
-                      Our mission is to support clinical research teams with
-                      practical, dependable ways of working that reflect real
-                      world needs. We focus on improving coordination,
-                      strengthening visibility, and supporting consistent
-                      execution across studies.
+                {/* EYEBROW */}
+                <div className="mb-6 flex items-center gap-3">
+                  <span className="h-px w-5 bg-linear-to-r from-blue-400/60 to-transparent" />
+                  <span className="text-[10px] font-medium uppercase tracking-[0.4em] text-blue-400/70">
+                    Mission
+                  </span>
+                </div>
+
+                {/* HEADLINE */}
+                <div className="overflow-hidden mb-6">
+                  {[
+                    "Supporting clinical",
+                    "research teams with",
+                    "practical ways of working",
+                  ].map((line, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, y: 40, skewY: 2 }}
+                      whileInView={{ opacity: 1, y: 0, skewY: 0 }}
+                      viewport={{ once: true }}
+                      transition={{
+                        duration: 0.65,
+                        delay: 0.1 + i * 0.1,
+                        ease: [0.22, 1, 0.36, 1],
+                      }}
+                    >
+                      <span className="block text-2xl font-semibold leading-snug text-white">
+                        {line}
+                      </span>
+                    </motion.div>
+                  ))}
+                </div>
+
+                <motion.p
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.45 }}
+                  className="text-sm leading-7 text-white/45 mb-6 border-l border-white/10 pl-4"
+                >
+                  We focus on improving coordination, strengthening visibility,
+                  and supporting consistent execution across studies —
+                  reflecting real world needs.
+                </motion.p>
+
+                {/* POINTS */}
+                <div className="space-y-2 mt-auto">
+                  {missionPoints.map((point, idx) => (
+                    <motion.div
+                      key={idx}
+                      initial={{ opacity: 0, x: 16 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{
+                        duration: 0.45,
+                        delay: 0.5 + idx * 0.07,
+                        ease: [0.22, 1, 0.36, 1],
+                      }}
+                      className="flex items-start gap-3 group/item"
+                    >
+                      <span className="mt-2.5 h-1 w-1 rounded-full bg-white/30 shrink-0 group-hover/item:bg-white/60 transition-colors" />
+                      <span className="text-sm italic leading-7 text-white/40 group-hover/item:text-white/60 transition-colors">
+                        {point}
+                      </span>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+
+              {/* VERTICAL DIVIDER */}
+              <div className="hidden lg:block w-px bg-white/6 mx-1" />
+
+              {/* VISION */}
+              <motion.div
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{
+                  duration: 0.7,
+                  delay: 0.12,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                whileHover={{ y: -4 }}
+                className="group relative flex-1 lg:flex-[1.2] rounded-2xl border border-white/8 bg-white/4 p-8 md:p-10 backdrop-blur transition-all duration-500 hover:border-white/16 hover:bg-white/6 hover:shadow-[0_0_60px_rgba(255,255,255,0.04)] cursor-default"
+              >
+                <div className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-[radial-gradient(ellipse_at_top_left,rgba(255,255,255,0.04),transparent_60%)]" />
+
+                {/* EYEBROW */}
+                <div className="mb-6 flex items-center gap-3">
+                  <span className="h-px w-5 bg-linear-to-r from-orange-400/60 to-transparent" />
+                  <span className="text-[10px] font-medium uppercase tracking-[0.4em] text-orange-400/70">
+                    Vision
+                  </span>
+                </div>
+
+                {/* HEADLINE */}
+                <div className="overflow-hidden mb-6">
+                  {["Clinical research,", "easier to run", "and manage"].map(
+                    (line, i) => (
+                      <motion.div
+                        key={i}
+                        initial={{ opacity: 0, y: 40, skewY: 2 }}
+                        whileInView={{ opacity: 1, y: 0, skewY: 0 }}
+                        viewport={{ once: true }}
+                        transition={{
+                          duration: 0.65,
+                          delay: 0.2 + i * 0.1,
+                          ease: [0.22, 1, 0.36, 1],
+                        }}
+                      >
+                        <span className="block text-2xl font-semibold leading-snug text-white">
+                          {line}
+                        </span>
+                      </motion.div>
+                    ),
+                  )}
+                </div>
+
+                <motion.p
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.55 }}
+                  className="text-sm leading-7 text-white/45 border-l border-white/10 pl-4"
+                >
+                  Clear information, connected ways of working, and dependable
+                  support so studies move forward with fewer disruptions —
+                  helping research teams{" "}
+                  <span className="text-white/75 font-medium">
+                    focus on progress instead of process.
+                  </span>
+                </motion.p>
+
+                {/* DECORATIVE STAT */}
+                <motion.div
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.7 }}
+                  className="mt-8 pt-6 border-t border-white/6 flex items-center gap-6"
+                >
+                  <div>
+                    <p className="text-2xl font-semibold text-white">100%</p>
+                    <p className="text-[10px] uppercase tracking-[0.3em] text-white/30 mt-0.5">
+                      Research-focused
                     </p>
-                    <div className="grid gap-1">
-                      {missionPoints.map((point, idx) => (
-                        <div
-                          key={idx}
-                          // className="flex items-start gap-1 rounded-xl bg-slate-50 p-3 transition-all duration-200 hover:bg-slate-100"
-                        >
-                          {/* <FiCheck className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" /> */}
-                          <span className="text-sm text-slate-600 italic">
-                            {point}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  </motion.div>
-                </ScrollReveal>
-
-                {/* Mission Card - Medium (a little smaller) */}
-                <ScrollReveal delay={140} className="flex-1 lg:flex-[1.2]">
-                  <motion.div
-                    whileHover={{ y: -4 }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                    className="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-xl md:p-7 h-full"
-                  >
-                    <Badge>Vision</Badge>
-                    <p className="mb-6 text-base leading-relaxed text-slate-600 mt-4">
-                      Our vision is to make clinical research easier to run and
-                      easier to manage. We want teams to have clear information,
-                      connected ways of working, and dependable support so
-                      studies can move forward with fewer disruptions. By
-                      strengthening the foundations behind daily operations, we
-                      help research teams focus on progress instead of process.
+                  </div>
+                  <div className="h-8 w-px bg-white/8" />
+                  <div>
+                    <p className="text-2xl font-semibold text-white">Global</p>
+                    <p className="text-[10px] uppercase tracking-[0.3em] text-white/30 mt-0.5">
+                      Ready
                     </p>
-                  </motion.div>
-                </ScrollReveal>
+                  </div>
+                </motion.div>
+              </motion.div>
 
-                {/* How We Work Card - Smallest */}
-                <ScrollReveal delay={200} className="flex-1 lg:flex-1">
-                  <motion.div
-                    whileHover={{ y: -4 }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                    className="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-all duration-300 hover:shadow-xl md:p-6 h-full"
-                  >
-                    <Badge>How We Work</Badge>
+              {/* VERTICAL DIVIDER */}
+              <div className="hidden lg:block w-px bg-white/6 mx-1" />
 
-                    <div className="grid gap-2 mt-4">
-                      {howWeWorkPoints.map((point, idx) => (
-                        <div
-                          key={idx}
-                          className="flex items-start gap-2 rounded-xl bg-white/5 p-2.5 transition-all duration-200 hover:bg-white/10"
-                        >
-                          <FiCheck className="mt-0.5 h-3.5 w-3.5 shrink-0 text-orange-400" />
-                          <span className="text-sm text-black">{point}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </motion.div>
-                </ScrollReveal>
-              </div>
+              {/* HOW WE WORK */}
+              <motion.div
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{
+                  duration: 0.7,
+                  delay: 0.24,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                whileHover={{ y: -4 }}
+                className="group relative flex-1 rounded-2xl border border-white/8 bg-white/4 p-8 md:p-10 backdrop-blur transition-all duration-500 hover:border-white/16 hover:bg-white/6 hover:shadow-[0_0_60px_rgba(255,255,255,0.04)] cursor-default"
+              >
+                <div className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-[radial-gradient(ellipse_at_top_left,rgba(255,255,255,0.04),transparent_60%)]" />
+
+                {/* EYEBROW */}
+                <div className="mb-6 flex items-center gap-3">
+                  <span className="h-px w-5 bg-linear-to-r from-green-400/60 to-transparent" />
+                  <span className="text-[10px] font-medium uppercase tracking-[0.4em] text-green-400/70">
+                    How We Work
+                  </span>
+                </div>
+
+                {/* HEADLINE */}
+                <div className="overflow-hidden mb-8">
+                  {["Structured,", "dependable,", "and consistent"].map(
+                    (line, i) => (
+                      <motion.div
+                        key={i}
+                        initial={{ opacity: 0, y: 40, skewY: 2 }}
+                        whileInView={{ opacity: 1, y: 0, skewY: 0 }}
+                        viewport={{ once: true }}
+                        transition={{
+                          duration: 0.65,
+                          delay: 0.3 + i * 0.1,
+                          ease: [0.22, 1, 0.36, 1],
+                        }}
+                      >
+                        <span className="block text-2xl font-semibold leading-snug text-white">
+                          {line}
+                        </span>
+                      </motion.div>
+                    ),
+                  )}
+                </div>
+
+                {/* POINTS */}
+                <div className="space-y-2">
+                  {howWeWorkPoints.map((point, idx) => (
+                    <motion.div
+                      key={idx}
+                      initial={{ opacity: 0, x: 20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{
+                        duration: 0.45,
+                        delay: 0.55 + idx * 0.07,
+                        ease: [0.22, 1, 0.36, 1],
+                      }}
+                      whileHover={{ x: 4 }}
+                      className="group/item flex items-start gap-3 rounded-xl border border-white/6 bg-white/3 px-4 py-3 transition-all duration-300 hover:border-white/12 hover:bg-white/6"
+                    >
+                      <span className="mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-green-500/15 ring-1 ring-green-500/20">
+                        <FiCheck className="h-3 w-3 text-green-400" />
+                      </span>
+                      <span className="text-sm leading-6 text-white/50 group-hover/item:text-white/70 transition-colors">
+                        {point}
+                      </span>
+                    </motion.div>
+                  ))}
+                </div>
+
+                {/* LIVE INDICATOR */}
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.9 }}
+                  className="mt-6 flex items-center gap-2"
+                >
+                  <motion.span
+                    animate={{ scale: [1, 1.4, 1], opacity: [1, 0.5, 1] }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      repeatDelay: 1,
+                    }}
+                    className="h-1.5 w-1.5 rounded-full bg-green-400"
+                  />
+                  <span className="text-[10px] uppercase tracking-[0.3em] text-green-400/60">
+                    Active approach
+                  </span>
+                </motion.div>
+              </motion.div>
             </div>
           </div>
         </div>
       </SectionWrapper>
-
       {/* ================= CULTURE ================= */}
+      {/* Replace your existing SectionWrapper content with this */}
       <SectionWrapper id="culture" fullBleed className="scroll-mt-24">
-        <div className="bg-linear-to-r from-black to-(--color-primary) text-white rounded-3xl p-12">
-          <Badge>Our Culture</Badge>
-
-          <div className="grid md:grid-cols-3 gap-6 mt-8">
-            {culture.map((c, i) => (
+        <div className="bg-linear-to-r from-black to-(--color-primary) text-white rounded-3xl overflow-hidden">
+          <div className="grid lg:grid-cols-2 min-h-150">
+            {/* LEFT — sticky graphic panel */}
+            <div className="sticky top-24 h-125 lg:h-auto flex flex-col items-center justify-center p-12 border-r border-white/8">
+              {/* Eyebrow */}
               <motion.div
-                key={i}
-                whileHover={{ y: -5 }}
-                className="p-6 rounded-xl bg-white/5 border border-white/10"
+                initial={{ opacity: 0, y: -10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="mb-10 flex items-center gap-3 self-start"
               >
-                <p className="font-semibold type-h3">{c.title}</p>
-                <p className="type-h6 mt-2 text-white/70">{c.text}</p>
+                <Badge>Our Culture</Badge>
               </motion.div>
-            ))}
+
+              {/* Dynamic SVG graphic */}
+              <div className="w-64 h-64 lg:w-80 lg:h-80">
+                <CultureGraphic index={activeCultureCard} />
+              </div>
+
+              {/* Dot nav */}
+              <div className="mt-10 flex items-center gap-2">
+                {culture.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setActiveCultureCard(i)}
+                    className={`transition-all duration-300 rounded-full ${
+                      activeCultureCard === i
+                        ? "w-6 h-1.5 bg-white"
+                        : "w-1.5 h-1.5 bg-white/30 hover:bg-white/50"
+                    }`}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* RIGHT — stacked scroll cards */}
+            <div className="py-12 px-8 lg:px-12 space-y-4">
+              {/* Heading */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="mb-10"
+              >
+                <p className="type-h2 font-semibold leading-tight">
+                  Principles that shape how we work
+                </p>
+              </motion.div>
+
+              {/* Cards */}
+              {culture.map((c, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, x: 40 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: "-80px" }}
+                  onViewportEnter={() => setActiveCultureCard(i)}
+                  transition={{
+                    duration: 0.6,
+                    delay: i * 0.08,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                  whileHover={{ x: 6 }}
+                  onClick={() => setActiveCultureCard(i)}
+                  className={`group cursor-pointer rounded-2xl border p-6 transition-all duration-500 ${
+                    activeCultureCard === i
+                      ? "border-white/30 bg-white/12 shadow-[0_0_40px_rgba(255,255,255,0.06)]"
+                      : "border-white/8 bg-white/4 hover:border-white/15 hover:bg-white/8"
+                  }`}
+                >
+                  <div className="flex items-start gap-4">
+                    {/* Number */}
+                    <span
+                      className={`text-[10px] font-medium uppercase tracking-[0.3em] mt-1 transition-colors duration-300 ${
+                        activeCultureCard === i
+                          ? "text-white/60"
+                          : "text-white/25"
+                      }`}
+                    >
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+
+                    <div className="flex-1">
+                      <div className="flex items-center justify-between">
+                        <p className="font-semibold type-h4">{c.title}</p>
+                        {/* Active indicator */}
+                        <motion.div
+                          animate={{ scale: activeCultureCard === i ? 1 : 0 }}
+                          transition={{ duration: 0.3 }}
+                          className="h-1.5 w-1.5 rounded-full bg-white/60"
+                        />
+                      </div>
+                      <motion.p
+                        animate={{
+                          height: activeCultureCard === i ? "auto" : 0,
+                          opacity: activeCultureCard === i ? 1 : 0,
+                        }}
+                        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                        className="overflow-hidden type-h6 text-white/60 leading-relaxed"
+                      >
+                        <span className="block mt-2">{c.text}</span>
+                      </motion.p>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+
+              {/* Bottom CTA card */}
+              <ScrollReveal delay={180}>
+                <motion.div
+                  whileHover={{ y: -4 }}
+                  className="mt-6 grid gap-6 rounded-[30px] border border-white/12 bg-white/6 p-6 backdrop-blur md:grid-cols-[1.1fr_auto] md:items-center"
+                >
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-[0.35em] text-white/55">
+                      Shared Moments
+                    </p>
+                    <p className="mt-3 max-w-2xl text-2xl font-semibold leading-tight text-white">
+                      Our culture comes alive through shared moments.
+                    </p>
+                    <p className="mt-3 max-w-2xl text-sm leading-7 text-white/70">
+                      Explore the events, celebrations, and team experiences
+                      that shape how we work together across ClinRT.
+                    </p>
+                  </div>
+                  <div className="md:justify-self-end">
+                    <Button
+                      href="/whats-new?tab=Moments#content-hub"
+                      label="Explore Our Moments"
+                    />
+                  </div>
+                </motion.div>
+              </ScrollReveal>
+            </div>
           </div>
-
-          <ScrollReveal delay={180}>
-            <motion.div
-              whileHover={{ y: -4 }}
-              className="mt-10 grid gap-6 rounded-[30px] border border-white/12 bg-white/6 p-6 backdrop-blur md:grid-cols-[1.1fr_auto] md:items-center"
-            >
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.35em] text-white/55">
-                  Shared Moments
-                </p>
-                <p className="mt-3 max-w-2xl text-2xl font-semibold leading-tight text-white">
-                  Our culture comes alive through shared moments.
-                </p>
-                <p className="mt-3 max-w-2xl text-sm leading-7 text-white/70">
-                  Explore the events, celebrations, and team experiences that
-                  shape how we work together across ClinRT.
-                </p>
-              </div>
-
-              <div className="md:justify-self-end">
-                <Button
-                  href="/whats-new?tab=Moments#content-hub"
-                  label="Explore Our Moments"
-                />
-              </div>
-            </motion.div>
-          </ScrollReveal>
         </div>
       </SectionWrapper>
-
       {/* ================= TEAM ================= */}
-      <SectionWrapper id="team" className="scroll-mt-24">
-        <div className="grid lg:grid-cols-2 gap-10 items-center">
-          <div className="relative h-80">
-            <Image
-              src="/images/one-team.png"
-              fill
-              alt="team"
-              className="object-cover rounded-2xl"
-            />
+      <SectionWrapper id="team">
+        {/* Heading First */}
+        <div className="text-center mb-6">
+          <Badge>Our Team</Badge>
+          <h2 className="type-h2 mt-4">
+            Meet the Experts Behind the Innovation
+          </h2>
+          <p className="text-muted-foreground mt-4 max-w-2xl mx-auto">
+            A diverse group of professionals united by a common mission
+          </p>
+        </div>
+
+        {/* Collage of Images - Full Width with Container */}
+        <div className="container -mb-40">
+          <div className="relative min-h-screen w-full overflow-hidden team-collage">
+            {/* Collage Grid */}
+            <div className="grid h-full w-full grid-cols-1 gap-2 sm:p-2 md:grid-cols-6 md:grid-rows-4 md:gap-3">
+              {/* Large tile */}
+              <div className="relative col-span-1 md:col-span-4 md:row-span-4 group team-float">
+                <div className="relative h-full w-full rounded-2xl overflow-hidden transition-all duration-500 ease-out ring-1 ring-white/20 shadow-lg group-hover:scale-[1.02] group-hover:z-10 group-hover:shadow-2xl group-hover:ring-2 group-hover:ring-white/70">
+                  <Image
+                    src="/images/one-team.png"
+                    fill
+                    alt="team background"
+                    className="object-cover team-collage-bg"
+                    priority
+                  />
+                </div>
+              </div>
+
+              {[
+                {
+                  image: "/images/service1.png",
+                },
+                {
+                  image: "/images/service2.png",
+                },
+              ].map((member, idx) => (
+                <div
+                  key={idx}
+                  className="relative col-span-1 md:col-span-2 md:row-span-2  min-h-75 group team-float"
+                >
+                  <div className="relative h-full w-full rounded-xl overflow-hidden transition-all duration-500 ease-out ring-1 ring-white/20 shadow-lg group-hover:scale-105 group-hover:z-10 group-hover:shadow-2xl group-hover:ring-2 group-hover:ring-white/70">
+                    <Image
+                      src={member.image}
+                      fill
+                      alt={member.image}
+                      className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
+        </div>
 
-          <div>
-            <Badge>Our Team</Badge>
-
-            <p className="mt-4 text-muted-foreground">
+        {/* Text Content Below */}
+        <div className=" -mt-72 ">
+          <div className="max-w-3xl mx-auto text-center">
+            <p className="text-muted-foreground text-lg leading-relaxed">
               Our team brings together product thinkers, clinical specialists,
               engineers, and operators who care deeply about improving how
               trials run. We work closely across disciplines, combining
@@ -864,15 +1343,24 @@ export default function WhoWeArePage() {
               more reliable—one workflow at a time.
             </p>
 
-            <div className="grid grid-cols-3 gap-4 mt-6">
+            <div className="grid grid-cols-3 gap-6 mt-12">
               {teamStats.map((s) => (
-                <div key={s.label} className="p-4 border rounded-xl">
-                  <CountUpOnView
-                    className="type-h3 font-semibold"
-                    to={s.value}
-                    suffix={s.suffix}
-                  />
-                  <p className="text-sm">{s.label}</p>
+                <div
+                  key={s.label}
+                  className="relative p-6 text-center hover:-translate-y-1 transition-all duration-300 group"
+                >
+                  {/* Rhombus background */}
+                  <div className="absolute inset-0 bg-(--color-primary) border border-indigo-200 skew-x-6 skew-y-2 rounded-sm group-hover:shadow-xl group-hover:from-indigo-100 group-hover:to-blue-200 transition-all duration-300" />
+
+                  {/* Content (counter-skewed to stay straight) */}
+                  <div className="relative z-10 -skew-x-6 -skew-y-2">
+                    <CountUpOnView
+                      className="text-3xl md:text-4xl font-bold text-white"
+                      to={s.value}
+                      suffix={s.suffix}
+                    />
+                    <p className="text-sm text-white mt-2">{s.label}</p>
+                  </div>
                 </div>
               ))}
             </div>

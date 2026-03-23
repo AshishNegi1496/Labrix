@@ -24,6 +24,7 @@ export type GlassSliderProps<T> = {
   controlsClassName?: string;
   edgeFadeClassName?: string;
   pageSize?: number;
+  onActiveChange?: (index: number) => void;
 };
 
 export default function GlassSlider<T>({
@@ -39,6 +40,7 @@ export default function GlassSlider<T>({
   controlsClassName,
   edgeFadeClassName,
   pageSize,
+  onActiveChange,
 }: GlassSliderProps<T>) {
   const scrollerRef = useRef<HTMLDivElement | null>(null);
   const dragActive = useRef(false);
@@ -53,7 +55,25 @@ export default function GlassSlider<T>({
     const maxScroll = slider.scrollWidth - slider.clientWidth;
     setCanScrollLeft(slider.scrollLeft > 8);
     setCanScrollRight(slider.scrollLeft < maxScroll - 8);
-  }, []);
+
+    // NEW: detect center item
+    if (onActiveChange) {
+      const sliderCenter = slider.scrollLeft + slider.clientWidth / 2;
+      const sliderItems =
+        slider.querySelectorAll<HTMLElement>("[data-slider-item]");
+      let closestIndex = 0;
+      let closestDistance = Infinity;
+      sliderItems.forEach((el, i) => {
+        const itemCenter = el.offsetLeft + el.offsetWidth / 2;
+        const distance = Math.abs(sliderCenter - itemCenter);
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closestIndex = i;
+        }
+      });
+      onActiveChange(closestIndex);
+    }
+  }, [onActiveChange]);
 
   useEffect(() => {
     updateNav();
@@ -68,28 +88,32 @@ export default function GlassSlider<T>({
     };
   }, [updateNav, items.length]);
 
-  const scrollBy = useCallback((direction: -1 | 1) => {
-    const slider = scrollerRef.current;
-    if (!slider) return;
-    let offset = Math.min(slider.clientWidth * 0.85, 420);
-    if (pageSize && pageSize > 0) {
-      const firstItem = slider.querySelector<HTMLElement>("[data-slider-item]");
-      const itemWidth = firstItem?.getBoundingClientRect().width ?? 0;
-      const styles = window.getComputedStyle(slider);
-      const gapValue = parseFloat(styles.columnGap || styles.gap || "0");
-      const denom = itemWidth + gapValue;
-      const visibleCount =
-        denom > 0
-          ? Math.max(1, Math.floor((slider.clientWidth + gapValue) / denom))
-          : 1;
-      const effectivePageSize = Math.min(pageSize, visibleCount);
-      const step = denom * effectivePageSize;
-      if (step > 0) {
-        offset = step;
+  const scrollBy = useCallback(
+    (direction: -1 | 1) => {
+      const slider = scrollerRef.current;
+      if (!slider) return;
+      let offset = Math.min(slider.clientWidth * 0.85, 420);
+      if (pageSize && pageSize > 0) {
+        const firstItem =
+          slider.querySelector<HTMLElement>("[data-slider-item]");
+        const itemWidth = firstItem?.getBoundingClientRect().width ?? 0;
+        const styles = window.getComputedStyle(slider);
+        const gapValue = parseFloat(styles.columnGap || styles.gap || "0");
+        const denom = itemWidth + gapValue;
+        const visibleCount =
+          denom > 0
+            ? Math.max(1, Math.floor((slider.clientWidth + gapValue) / denom))
+            : 1;
+        const effectivePageSize = Math.min(pageSize, visibleCount);
+        const step = denom * effectivePageSize;
+        if (step > 0) {
+          offset = step;
+        }
       }
-    }
-    slider.scrollBy({ left: offset * direction, behavior: "smooth" });
-  }, [pageSize]);
+      slider.scrollBy({ left: offset * direction, behavior: "smooth" });
+    },
+    [pageSize],
+  );
 
   const handlePointerDown = (event: PointerEvent<HTMLDivElement>) => {
     if (event.button !== 0) return;

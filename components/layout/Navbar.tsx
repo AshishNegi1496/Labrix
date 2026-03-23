@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -10,13 +10,50 @@ import { navigation, uiLabels } from "@/data";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const lastScrollYRef = useRef(0);
+  const tickingRef = useRef(false);
   const pathname = usePathname();
+
+  useEffect(() => {
+    const controlNavbar = () => {
+      const currentScrollY = window.scrollY;
+
+      // Hide navbar when scrolling down, show when scrolling up
+      if (currentScrollY > lastScrollYRef.current && currentScrollY > 100) {
+        setIsVisible(false);
+      } else if (currentScrollY < lastScrollYRef.current) {
+        setIsVisible(true);
+      }
+
+      lastScrollYRef.current = currentScrollY;
+      tickingRef.current = false;
+    };
+
+    const onScroll = () => {
+      if (!tickingRef.current) {
+        requestAnimationFrame(controlNavbar);
+        tickingRef.current = true;
+      }
+    };
+
+    window.addEventListener("scroll", onScroll);
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, []);
 
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-50 backdrop-blur-sm bg-black/5 border-b border-white/10">
+      <header
+        className={`
+          fixed inset-x-0 top-0 z-50 backdrop-blur-sm bg-black/5 border-b border-white/10
+          transition-transform duration-300 ease-in-out will-change-transform
+          ${isVisible ? "translate-y-0" : "-translate-y-full"}
+        `}
+      >
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
-          {/* Logo */}
           <Link href="/" className="flex items-center gap-2 z-50">
             <Image
               src="/clinrt-logo-white.png"
@@ -27,7 +64,6 @@ export default function Navbar() {
             />
           </Link>
 
-          {/* Desktop Navigation */}
           <nav
             className="hidden items-center gap-8 type-h6 text-white lg:flex"
             aria-label="Primary"
@@ -43,7 +79,7 @@ export default function Navbar() {
                   className={`transition ${
                     isActive
                       ? "border-(--color-orange) pb-1 text-white border-b-2"
-                      : "text-white/70"
+                      : "text-white/70 hover:text-white"
                   }`}
                 >
                   {item.label}
@@ -52,14 +88,12 @@ export default function Navbar() {
             })}
           </nav>
 
-          {/* Desktop CTA */}
           <Button
             href={navigation.cta.href}
             label={navigation.cta.label}
             className="hidden lg:inline-flex"
           />
 
-          {/* Mobile Toggle */}
           <button
             className="z-50 p-2 lg:hidden text-white"
             onClick={() => setIsOpen(!isOpen)}
@@ -72,7 +106,6 @@ export default function Navbar() {
         </div>
       </header>
 
-      {/* Mobile Menu - Now outside header, no inheritance */}
       <div
         id="mobile-menu"
         className={`
