@@ -51,7 +51,7 @@ export const FullScreenCard = ({ item, index, activeIndex, Icon }: Props) => {
 
         {/* Header */}
         <div className="relative flex items-center justify-between text-[11px] font-semibold  tracking-[0.35em] text-white/70">
-          <span>{`USP ${String(index + 1).padStart(2, "0")}`}</span>
+          {/* <span>{`USP ${String(index + 1).padStart(2, "0")}`}</span> */}
           <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1">
             iClinRT
           </span>

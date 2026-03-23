@@ -7,9 +7,10 @@ export const navigation: NavigationData = validateNavigation(
   deepFreeze({
     brandLabel: "ClinRT",
     items: [
-      { href: "/who-we-are", label: "Who We Are" },
-      { href: "/what-we-build", label: "What We Build" },
-      { href: "/whats-new", label: "What's New" },
+     { href: "/", label: "Home" },
+      { href: "/who-we-are", label: "About ClinRT" },
+      { href: "/iclinrt", label: "iClinRT" },
+      { href: "/clinrt-world", label: "ClinRT World" },
       { href: "/contact", label: "Contact Us" },
     ],
     cta: { href: "/contact", label: "Request a Demo" },

@@ -25,24 +25,24 @@ import {
 
 const whyChoosePoints = [
   {
-    title: "Domain-Focused Expertise",
-    text: "Strong experience in clinical trial systems, operational workflows, and regulatory expectations",
+    title:
+      "Deep Clinical Domain Expertise Strong experience across clinical trial systems, operational workflows, and regulatory expectations—ensuring technology that fits real‑world trial execution",
   },
   {
-    title: "	Structured Technology Approach",
-    text: "Solutions designed to align with real-world study processes and protocol requirements",
+    title:
+      "	Reliable, Structured Digital Foundations Protocol‑aligned platforms designed for operational stability, continuity, and consistent performance across the full clinical lifecycle",
   },
   {
-    title: "	Commitment to Reliability",
-    text: "Emphasis on system stability, operational continuity, and long-term performance",
+    title:
+      "Integrated and Connected Trial Ecosystems Seamless integration with existing clinical platforms and unified workflows that improve coordination between sponsors, CROs, sites, and partners—reducing data silos and fragmentation",
   },
   {
-    title: "	Collaborative Implementation Model",
-    text: "Close engagement with sponsors and CROs throughout system configuration and deployment",
+    title:
+      "Data Integrity and Compliance by Design Technology built to support clean, consistent, audit‑ready data across systems—from enrollment through close‑out—aligned with global research standards",
   },
   {
-    title: "	Global Clinical Trial Exposure",
-    text: "Experience supporting multi-regional studies across therapeutic areas.",
+    title:
+      "	Scalable, Collaborative Global Delivery Flexible systems that adapt to protocol changes, multi‑country studies, and evolving needs, delivered through close partnership and global trial experience",
   },
 ];
 const researchFields = [
@@ -103,6 +103,13 @@ const featuredWorks = [
     title: "Support Scalable, Real World Clinical Execution",
     text: "We build systems that flex with protocol changes, multi country footprints, complex study designs, and evolving operational needs without disrupting execution.",
   },
+] as const;
+
+const featuredWorkIcons = [
+  FaFlask,
+  FaHandshake,
+  FaShieldAlt,
+  FaGlobeAmericas,
 ] as const;
 
 const clients = [
@@ -310,7 +317,7 @@ export default function HomePage() {
       <section className="relative overflow-hidden min-h-[90vh] sm:min-h-screen lg:min-h-[110vh] flex items-center">
         <video
           className="absolute inset-0 h-full w-full object-cover"
-          src="/videos/homePageVideo.mp4"
+          src="/videos/home-final.mp4"
           autoPlay
           muted
           loop
@@ -318,43 +325,33 @@ export default function HomePage() {
         />
 
         {/* Dark overlay */}
-        <div className="absolute inset-0 bg-linear-to-b from-black/40 via-black/70 to-black/90" />
+        <div className="absolute inset-0 bg-linear-to-b from-black/70 via-black/70 to-black/90" />
 
         <div className="relative z-10 section-shell py-28 md:py-40 text-white">
           <div className="grid lg:grid-cols-2 gap-10 md:gap-14 lg:gap-16 items-center">
             {/* LEFT CONTENT */}
             <ScrollReveal variant="left" className="max-w-3xl mb-1">
-              <p className="mt-12 type-h2 md:text-4xl leading-tight font-semibold">
-                Smarter Clinical Technology <br />
-                for a More Connected <br />
-                Research World
-              </p>
-
-              <p className="mt-6 max-w-2xl type-h6 text-white/80">
-                Built on rigorous engineering and deep domain expertise, our
-                platform integrates critical processes into a seamless digital
-                continuum‚ streamlining data, orchestrating operations, and
-                sustaining performance at scale. From startup to closeout, we
-                simplify complexity and enhance oversight, empowering teams to
-                advance studies with confidence and pace.
+              <p className="mt-12 type-h1 md:text-4xl leading-tight font-semibold">
+                Powering Smarter Clinical Research
               </p>
 
               {/* Buttons */}
-              <div className="mt-8 flex flex-wrap gap-4 border-b p-4 sm:p-6 lg:p-8">
+              <div className="m-8 flex flex-wrap gap-4  sm:p-6 lg:p-8">
                 <Button href="/who-we-are" label="Get Started" />
-                <Button href="/what-we-build" label="What we Build" />
               </div>
 
               {/* Hero Bottom Stats */}
               <div className="mt-10 sm:mt-12 flex flex-wrap items-center gap-6 md:gap-10">
-                <div className="flex-row">
+                <div className="flex flex-row gap-2">
                   <CountUpOnView
                     to={40}
                     suffix="+"
                     className="text-4xl font-semibold text-white"
                   />
-                  <p className="type-h6 text-white/70">
-                    Years of Collective Experience
+                  <p className="type-h6  text-white/70">
+                    Years of
+                    <br />
+                    Collective Experience
                   </p>
                 </div>
 
@@ -370,13 +367,13 @@ export default function HomePage() {
                   // title="5000+ Clients Worldwide"
                   className="ml-6"
                 />
-                <div className="flex-row">
+                <div className=" flex flex-row gap-2">
                   <CountUpOnView
                     to={500}
                     suffix="+"
                     className="text-4xl font-semibold text-white"
                   />
-                  <p className="type-h6 text-white/70">Clients</p>
+                  <p className="type-h6 mt-3 text-white/70">Clients</p>
                 </div>
               </div>
             </ScrollReveal>
@@ -419,16 +416,16 @@ export default function HomePage() {
       </SectionWrapper>
 
       {/* Posters + News */}
-      <SectionWrapper fullBleed className="py-10 sm:py-12 lg:py-14">
+      <SectionWrapper className="py-10 sm:py-12 lg:py-14">
         <div className="section-shell px-4 sm:px-6 md:px-10">
-          <div className="grid gap-6 lg:grid-cols-[2fr_1fr] items-start">
-            <div className="relative min-w-0 rounded-3xl border border-slate-100 bg-slate-50/50 p-5 sm:p-6 lg:p-8 shadow-sm">
+          <div className="grid gap-6 items-start lg:grid-cols-[2fr_1fr] lg:items-stretch">
+            <div className="relative min-w-0 rounded-3xl border border-slate-200 bg-slate-50/50 p-5 shadow-sm sm:p-6 lg:h-full lg:p-8">
               {/* Slider Section */}
               <GlassSlider
                 items={posterItems}
                 ariaLabel="At a glance posters"
-                scrollerClassName="gap-6 w-full"
-                controlsClassName="mt-2 justify-end"
+                scrollerClassName="w-full gap-6 pt-0 pb-0"
+                controlsClassName="pointer-events-none absolute inset-x-3 top-1/2 z-10 -translate-y-1/2 justify-between sm:inset-x-4 lg:inset-x-5"
                 edgeFadeClassName="from-slate-50/90 via-slate-50/60"
                 pageSize={1}
                 itemClassName="w-full"
@@ -436,10 +433,10 @@ export default function HomePage() {
                   <ScrollReveal delay={index * 80}>
                     <Link
                       href={poster.href}
-                      className="group relative block w-full overflow-hidden rounded-2xl bg-white transition-all hover:shadow-xl hover:shadow-slate-200/50"
+                      className="group relative mx-auto block w-full max-w-136 overflow-hidden rounded-2xl bg-white transition-all hover:shadow-xl hover:shadow-slate-200/50"
                     >
                       {/* Image Container */}
-                      <div className="relative aspect-5/6 max-h-[72vh] w-full overflow-hidden">
+                      <div className="relative aspect-1/2 max-h-[52vh] w-full overflow-hidden">
                         <Image
                           src={poster.image}
                           alt={poster.title}
@@ -465,10 +462,10 @@ export default function HomePage() {
               />
             </div>
 
-            <aside className="rounded-3xl border border-slate-200 bg-(--primary-color) p-5 sm:p-6 lg:p-7 text-black shadow-sm max-h-155 lg:max-h-155 sm:max-h-140 flex flex-col">
+            <aside className="flex h-full min-h-96 flex-col rounded-3xl border border-slate-200 bg-(--primary-color) p-5 text-black shadow-sm sm:p-6 lg:p-7">
               <Badge>News & Updates</Badge>
 
-              <div className="relative mt-5 sm:mt-6 space-y-3 sm:space-y-4 overflow-y-auto pr-2 pb-10 no-scrollbar">
+              <div className="relative mt-5 min-h-0 flex-1 space-y-3 overflow-y-auto pb-10 pr-2 no-scrollbar sm:mt-6 sm:space-y-4">
                 <div
                   className="pointer-events-none absolute inset-x-0 bottom-0 h-14 bg-linear-to-t from-(--color-primary) via-(--color-primary)/70 to-transparent"
                   aria-hidden="true"
@@ -499,7 +496,7 @@ export default function HomePage() {
       </SectionWrapper>
 
       {/* About clinRT */}
-      <SectionWrapper>
+      {/* <SectionWrapper>
         <ScrollReveal className="grid gap-8 lg:grid-cols-[1.2fr_1fr]">
           <div>
             <Badge>About ClinRT</Badge>
@@ -591,7 +588,7 @@ export default function HomePage() {
             </GlassCard>
           </ScrollReveal>
         </div>
-      </SectionWrapper>
+      </SectionWrapper> */}
 
       {/* key features section */}
       <SectionWrapper fullBleed>
@@ -599,12 +596,12 @@ export default function HomePage() {
           {/* Section Header */}
           <ScrollReveal className="">
             <Badge>Key Features</Badge>
-            <div className="mt-2 flex flex-col gap-4 sm:gap-8 lg:gap-30 lg:flex-row lg:items-start lg:justify-between">
-              <p className=" type-h2 font-semibold ">
+            <div className="mt-2 flex flex-col gap-1 sm:gap-4 lg:gap-8 lg:flex-row lg:items-start lg:justify-between">
+              <p className=" type-h3 font-semibold ">
                 Leading innovation across critical fields
               </p>
 
-              <p className=" type-h6 text-(--text-invert)">
+              <p className=" type-h6 mt-4 text-(--text-invert)">
                 These features collectively enable streamlined clinical trial
                 execution by reducing manual effort, minimizing operational
                 risks, and ensuring real‑time control across subjects, supplies,
@@ -706,21 +703,18 @@ export default function HomePage() {
           group-hover:shadow-lg group-hover:shadow-indigo-400/40"
                     >
                       <div className="transition-transform duration-300 group-hover:scale-125">
-                        {index === 0 && <FaFlask size={30} />}
-                        {index === 1 && <FaCogs size={30} />}
-                        {index === 2 && <FaShieldAlt size={30} />}
-                        {index === 3 && <FaHandshake size={30} />}
-                        {index === 4 && <FaGlobeAmericas size={30} />}
+                        {index === 0 && <FaFlask size={50} />}
+                        {index === 1 && <FaCogs size={50} />}
+                        {index === 2 && <FaShieldAlt size={50} />}
+                        {index === 3 && <FaHandshake size={50} />}
+                        {index === 4 && <FaGlobeAmericas size={50} />}
                       </div>
                     </div>
 
                     {/* content */}
                     <div>
-                      <p className="type-h5 font-semibold transition-colors duration-300 group-hover:text-(--color-primary)">
+                      <p className="type-h6 font-semibold transition-colors duration-300 group-hover:text-(--color-primary)">
                         {item.title}
-                      </p>
-                      <p className="type-h6 text-(--muted-color)">
-                        {item.text}
                       </p>
                     </div>
                   </div>
@@ -739,7 +733,7 @@ export default function HomePage() {
       </SectionWrapper>
 
       {/* What we do section */}
-      <SectionWrapper fullBleed>
+      {/* <SectionWrapper fullBleed>
         <div className="relative overflow-hidden rounded-3xl bg-(--primary-color) text-white">
           <div className="pointer-events-none absolute -left-16 top-10 h-56 w-56 rounded-full bg-(--color-accent)/20 blur-3xl" />
           <div className="pointer-events-none absolute -bottom-24 right-6 h-64 w-64 rounded-full bg-(--color-orange)/20 blur-3xl" />
@@ -786,13 +780,22 @@ export default function HomePage() {
             <div className="grid gap-4">
               {featuredWorks.map((item, index) => (
                 <ScrollReveal key={item.title} delay={index * 90}>
-                  <article className="flex gap-4 rounded-2xl border border-white/15 bg-white/10 p-5 backdrop-blur">
-                    <div className="mt-1 flex h-11 w-11 items-center justify-center rounded-xl bg-white/15 text-sm font-semibold text-white/80">
-                      {String(index + 1).padStart(2, "0")}
-                    </div>
-                    <div>
-                      <p className="type-h5 font-semibold">{item.title}</p>
-                      <p className="mt-2 type-h6 text-white/75">{item.text}</p>
+                  <article className="group relative overflow-hidden rounded-2xl border border-white/15 bg-white/10 p-5 backdrop-blur transition duration-300 hover:-translate-y-1.5 hover:border-white/30 hover:bg-white/14 hover:shadow-[0_22px_55px_rgba(15,23,42,0.2)]">
+                    <div className="pointer-events-none absolute inset-x-0 top-0 h-18 bg-linear-to-r from-white/12 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                    <div className="relative flex gap-4">
+                      <div className="mt-1 flex h-11 w-11 items-center justify-center rounded-xl bg-white/15 text-white/85 transition duration-300 group-hover:-translate-y-0.5 group-hover:scale-110 group-hover:bg-white/20 group-hover:shadow-lg group-hover:shadow-slate-950/20">
+                        {(() => {
+                          const Icon =
+                            featuredWorkIcons[index % featuredWorkIcons.length];
+                          return <Icon className="h-5 w-5" />;
+                        })()}
+                      </div>
+                      <div>
+                        <p className="type-h5 font-semibold">{item.title}</p>
+                        <p className="mt-2 type-h6 text-white/75">
+                          {item.text}
+                        </p>
+                      </div>
                     </div>
                   </article>
                 </ScrollReveal>
@@ -800,10 +803,10 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-      </SectionWrapper>
+      </SectionWrapper> */}
 
       {/* Our clients section */}
-      <SectionWrapper fullBleed>
+      {/* <SectionWrapper fullBleed>
         <div className="mx-auto rounded-3xl bg-white px-6 py-14 md:px-10">
           <ScrollReveal>
             <Badge> Our Clients</Badge>
@@ -828,7 +831,7 @@ export default function HomePage() {
             ))}
           </div>
         </div>
-      </SectionWrapper>
+      </SectionWrapper> */}
 
       {/* Testimonials section */}
       <SectionWrapper fullBleed>

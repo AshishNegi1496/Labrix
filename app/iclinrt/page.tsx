@@ -1147,7 +1147,7 @@ export default function IclinrtPage() {
       </SectionWrapper>
       <SectionWrapper fullBleed>
         <ScrollReveal delay={120}>
-          <div className="relative mt-6 overflow-hidden rounded-4xl border border-white/50 bg-white/75 p-6 shadow-xl backdrop-blur-2xl md:p-8">
+          <div className="relative mt-6 overflow-hidden rounded-4xl border border-white/50 bg-white/75 p-6 md:p-8 bg-linear-to-br from-orange-100/90 via-white/95 to-purple-100/90 shadow-xl backdrop-blur-sm">
             <div className="pointer-events-none absolute -left-10 top-8 h-40 w-40 rounded-full bg-(--color-accent)/20 blur-3xl" />
             <div className="pointer-events-none absolute right-0 top-1/2 h-56 w-56 -translate-y-1/2 rounded-full bg-(--color-orange)/20 blur-3xl" />
             <div className="pointer-events-none absolute inset-x-10 top-0 h-px bg-linear-to-r from-transparent via-black/10 to-transparent" />
@@ -1397,7 +1397,7 @@ export default function IclinrtPage() {
                   transition={
                     reduceMotion
                       ? undefined
-                      : { duration: 40, repeat: Infinity, ease: "linear" }
+                      : { duration: 90, repeat: Infinity, ease: "linear" }
                   }
                 >
                   {problemTrack.map((item, index) => (
@@ -1436,115 +1436,24 @@ export default function IclinrtPage() {
       </SectionWrapper>
 
       <SectionWrapper fullBleed>
-        <div className="relative mx-auto overflow-hidden rounded-3xl border border-white/25 bg-(--color-primary) px-6 py-14 text-white shadow-2xl md:px-10">
-          <div className="pointer-events-none absolute -left-16 top-6 h-56 w-56 rounded-full bg-(--color-accent)/20 blur-3xl" />
-          <div className="pointer-events-none absolute -bottom-20 right-10 h-64 w-64 rounded-full bg-(--color-orange)/30 blur-3xl" />
-          <div className="relative z-10 grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
-            <ScrollReveal>
-              <Badge>
-                <span className="inline-flex items-center gap-2">
-                  Ready to See iClinRT
-                </span>
-              </Badge>
-              <p className="mt-3 type-h2 font-semibold text-(--text-invert)">
-                Bring operational clarity to every trial milestone
-              </p>
-              <p className="mt-4 max-w-2xl text-(--text-invert)">
-                Connect your teams, sites, and supply workflows with a platform
-                designed for protocol fidelity, compliance, and real-time
-                insight.
-              </p>
-              <div className="mt-6 flex flex-wrap gap-4">
-                <Button href="/contact" label="Request iClinRT Demo" />
-              </div>
-            </ScrollReveal>
-
-            <ScrollReveal delay={120}>
-              <div className="relative overflow-hidden rounded-3xl border border-white/20 bg-white/10 p-4 shadow-xl backdrop-blur-2xl">
-                <div className="relative overflow-hidden rounded-2xl border border-white/15 bg-black/60">
-                  <video
-                    className="h-64 w-full object-cover"
-                    src="/videos/homePageVideo.mp4"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-                  <motion.div
-                    className="absolute left-4 top-4 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[10px] uppercase tracking-[0.3em] text-white/80 backdrop-blur"
-                    animate={reduceMotion ? undefined : { y: [0, -6, 0] }}
-                    transition={
-                      reduceMotion
-                        ? undefined
-                        : { duration: 5, repeat: Infinity, ease: "easeInOut" }
-                    }
-                  >
-                    Live Q&amp;A
-                  </motion.div>
-                  <motion.div
-                    className="absolute left-1/2 top-1/2 grid h-14 w-14 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-white/30 bg-white/20 text-white backdrop-blur"
-                    animate={
-                      reduceMotion
-                        ? undefined
-                        : { scale: [1, 1.08, 1], opacity: [0.9, 1, 0.9] }
-                    }
-                    transition={
-                      reduceMotion
-                        ? undefined
-                        : { duration: 2.6, repeat: Infinity, ease: "easeInOut" }
-                    }
-                  >
-                    <svg
-                      viewBox="0 0 24 24"
-                      className="h-6 w-6"
-                      fill="currentColor"
-                    >
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
-                  </motion.div>
-                </div>
-
-                <div className="mt-4 space-y-3">
-                  <div className="flex items-start gap-3 rounded-2xl border border-white/15 bg-white/10 px-4 py-3 text-xs text-white/85">
-                    <span className="mt-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-white/10">
-                      <FiActivity className="h-4 w-4" />
-                    </span>
-                    <div>
-                      <p className="text-[10px] uppercase tracking-[0.25em] text-white/60">
-                        Question
-                      </p>
-                      <p className="mt-1">
-                        How fast can we go live with iClinRT?
-                      </p>
-                    </div>
-                  </div>
-                  <motion.div
-                    className="flex items-start gap-3 rounded-2xl border border-white/15 bg-white/10 px-4 py-3 text-xs text-white/85"
-                    animate={reduceMotion ? undefined : { x: [0, 4, 0] }}
-                    transition={
-                      reduceMotion
-                        ? undefined
-                        : { duration: 6, repeat: Infinity, ease: "easeInOut" }
-                    }
-                  >
-                    <span className="mt-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-white/10">
-                      <FiCheck className="h-4 w-4" />
-                    </span>
-                    <div>
-                      <p className="text-[10px] uppercase tracking-[0.25em] text-white/60">
-                        Answer
-                      </p>
-                      <p className="mt-1">
-                        Most programs are configured and validated in about four
-                        weeks.
-                      </p>
-                    </div>
-                  </motion.div>
-                </div>
-              </div>
-            </ScrollReveal>
-          </div>
+        <div className="relative items-center mx-auto overflow-hidden rounded-3xl border border-white/25 bg-(--color-primary) px-6 py-14 text-white shadow-2xl md:px-10">
+          <ScrollReveal>
+            <Badge>
+              <span className="inline-flex items-center justify-center gap-2">
+                Ready to See iClinRT
+              </span>
+            </Badge>
+            <p className="mt-3 type-h2 font-semibold text-(--text-invert) items-center justify-center">
+              Bring operational clarity to every trial milestone
+            </p>
+            <p className="mt-4 max-w-2xl text-(--text-invert) items-center justify-center">
+              Connect your teams, sites, and supply workflows with a platform
+              designed for protocol fidelity, compliance, and real-time insight.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-4 ">
+              <Button href="/contact" label="Request iClinRT Demo" />
+            </div>
+          </ScrollReveal>
         </div>
       </SectionWrapper>
     </PageTransition>

@@ -192,7 +192,7 @@ export default function GlassSlider<T>({
             type="button"
             onClick={() => scrollBy(-1)}
             disabled={!canScrollLeft}
-            className="group inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white/70 text-(--primary-color) shadow-sm backdrop-blur transition hover:-translate-y-0.5 hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:translate-y-0"
+            className="pointer-events-auto group inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white/70 text-(--primary-color) shadow-sm backdrop-blur transition hover:-translate-y-0.5 hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:translate-y-0"
             aria-label="Scroll left"
           >
             <svg
@@ -209,7 +209,7 @@ export default function GlassSlider<T>({
             type="button"
             onClick={() => scrollBy(1)}
             disabled={!canScrollRight}
-            className="group inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white/70 text-(--primary-color) shadow-sm backdrop-blur transition hover:-translate-y-0.5 hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:translate-y-0"
+            className="pointer-events-auto group inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white/70 text-(--primary-color) shadow-sm backdrop-blur transition hover:-translate-y-0.5 hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:translate-y-0"
             aria-label="Scroll right"
           >
             <svg
