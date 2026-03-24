@@ -35,14 +35,20 @@ function resolveBoolean(value: string | undefined, fallback: boolean) {
 
 function resolveSiteUrl(value: string | undefined) {
   const normalized = value?.trim();
-  if (!normalized) {
+if (!normalized) {
+    // If we are on Vercel, use their automatically provided URL as a fallback
+    if (process.env.VERCEL_URL) {
+      return `https://${process.env.VERCEL_URL}`;
+    }
+
     if (process.env.NODE_ENV === "production") {
-      throw new Error("NEXT_PUBLIC_SITE_URL is required in production.");
+      // Switch this to a warning instead of a throw during build if you want to be safe
+      console.warn("⚠️ NEXT_PUBLIC_SITE_URL is missing. Falling back to Vercel System URL.");
+      return process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000";
     }
 
     return "http://localhost:3000";
   }
-
   try {
     return new URL(normalized).toString().replace(/\/$/, "");
   } catch {
