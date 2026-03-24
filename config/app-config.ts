@@ -53,6 +53,14 @@ function normalizeAbsoluteUrl(value: string) {
   return new URL(value).toString().replace(/\/$/, "");
 }
 
+function resolveBrowserSiteUrl() {
+  if (typeof window === "undefined") {
+    return null;
+  }
+
+  return normalizeAbsoluteUrl(window.location.origin);
+}
+
 function normalizeVercelUrl(value: string | undefined) {
   const normalized = value?.trim();
 
@@ -97,6 +105,12 @@ function resolveSiteUrl(value: string | undefined) {
   const normalized = value?.trim();
 
   if (!normalized) {
+    const browserSiteUrl = resolveBrowserSiteUrl();
+
+    if (browserSiteUrl) {
+      return browserSiteUrl;
+    }
+
     const vercelSiteUrl = resolveVercelSiteUrl();
 
     if (vercelSiteUrl) {
@@ -104,9 +118,7 @@ function resolveSiteUrl(value: string | undefined) {
     }
 
     if (process.env.NODE_ENV === "production") {
-      throw new Error(
-        "NEXT_PUBLIC_SITE_URL must be set to a valid absolute URL when not deploying on Vercel.",
-      );
+      return "http://localhost:3000";
     }
 
     return "http://localhost:3000";
