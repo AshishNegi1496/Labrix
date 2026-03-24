@@ -37,11 +37,12 @@ export const homeImages = deepFreeze({
 /** Hero content and CTAs. */
 export const homeHero: HomeHero = validateHomeHero(
   deepFreeze({
-    eyebrow: "The Science Behind Smarter Solutions",
-    title: "Trusted Scientific Solutions for a Smarter, Safer World",
-    description: "Accurate testing, custom research, and expert consultation.",
-    primaryCta: { href: "/services", label: "Get Started" },
-    secondaryCta: { href: "/contact", label: "Explore" },
+    eyebrow: "Powering Smarter Clinical Research",
+    title: "Trusted Clinical Technology for Structured Trial Execution",
+    description:
+      "Connected workflows, dependable oversight, and protocol-aligned operations for modern studies.",
+    primaryCta: { href: "/who-we-are", label: "Get Started" },
+    secondaryCta: { href: "/contact", label: "Request a Demo" },
     videoSrc: "/videos/homePageVideo.mp4",
     stats: [
       { value: 16, suffix: "+", label: "years" },
@@ -54,9 +55,9 @@ export const homeHero: HomeHero = validateHomeHero(
 
 /** About section copy. */
 export const homeAbout = deepFreeze({
-  badge: "About our Laboratory",
-  title: "Pioneering scientific research into real-world solutions",
-  description: "Translating complex science into practical outcomes.",
+  badge: "About ClinRT",
+  title: "Built for the realities of modern clinical trial operations",
+  description: "Turning complex study workflows into dependable execution.",
 });
 
 /** Research fields section copy. */
@@ -65,14 +66,15 @@ export const homeResearch = deepFreeze({
   title: "Leading innovation across",
   titleEmphasis: "critical research fields",
   description:
-    "Each research field is supported by expert teams and cutting-edge technologies, ensuring precision, innovation, and real-world relevance.",
+    "Each capability is designed to improve control, visibility, and execution across clinical trial workflows.",
 });
 
 /** Why choose us section copy. */
 export const homeWhyChoose = deepFreeze({
   badge: "Why choose us",
-  title: "Powered by technology, driven by curiosity",
-  description: "Accurate, innovative, future-ready research solutions.",
+  title: "Powered by technology and clinical expertise",
+  description:
+    "Structured, connected, and compliance-aware solutions for clinical operations.",
   items: [
     { title: "Proven Track Record", text: "Successful studies & outcomes" },
     { title: "Collaborative Approach", text: "Clients at every step" },
@@ -83,8 +85,11 @@ export const homeWhyChoose = deepFreeze({
 /** Case studies section copy. */
 export const homeCaseStudies = deepFreeze({
   badge: "Our Case Studies",
-  title: "Innovative solutions backed by scientific rigor",
-  cta: { href: "/case-studies", label: "Explore All Studies" },
+  title: "Operational stories, product updates, and execution insights",
+  cta: {
+    href: "/clinrt-world?tab=Case%20Studies#content-hub",
+    label: "Explore All Studies",
+  },
 });
 
 /** FAQ section copy. */
@@ -92,8 +97,8 @@ export const homeFaq = deepFreeze({
   badge: "Frequently Asked Questions",
   title: "Browse our most asked questions",
   description:
-    "Weâ€™ve compiled answers common questions about our lab services and research.",
-  cta: { href: "/faqs", label: "View All FAQs" },
+    "We have compiled answers to the most common questions about iClinRT and ClinRT operations support.",
+  cta: { href: "/contact", label: "Talk to the Team" },
 });
 
 /** Testimonials section copy. */
@@ -272,17 +277,17 @@ export const caseStudies: ReadonlyArray<CaseStudy> = validateCaseStudies(
     {
       title: "Genomic Research Unlocks Drought-Resistant Crop Varieties",
       image: "/images/case-study-1.jpg",
-      href: "/case-studies/genomic-research",
+      href: "/clinrt-world?tab=Case%20Studies#content-hub",
     },
     {
       title: "Detecting Water Contaminants Using Advanced Spectroscopy",
       image: "/images/case-study-2.jpg",
-      href: "/case-studies/water-contaminants",
+      href: "/clinrt-world?tab=Case%20Studies#content-hub",
     },
     {
       title: "Accelerating Vaccine Development with Rapid Antigen Testing",
       image: "/images/case-study-3.jpg",
-      href: "/case-studies/vaccine-development",
+      href: "/clinrt-world?tab=Case%20Studies#content-hub",
     },
   ]),
 );
@@ -368,3 +373,5 @@ export const teamMembers: ReadonlyArray<TeamMember> = validateTeamMembers(
     },
   ]),
 );
+
+

@@ -9,12 +9,13 @@ import { FaqItem } from "@/components/FaqItem";
 import Clients from "@/components/ui/Clients";
 import GlassCard from "@/components/GlassCard";
 import GlassSlider from "@/components/GlassSlider";
+import SectionBadge from "@/components/ui/SectionBadge";
 
 import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence } from "framer-motion";
 import { FaqModal } from "@/components/FaqModal";
-import { FiArrowRight, FiChevronDown, FiPlay } from "react-icons/fi";
+import { FiArrowRight, FiChevronDown } from "react-icons/fi";
 import {
   FaFlask,
   FaCogs,
@@ -22,280 +23,17 @@ import {
   FaHandshake,
   FaGlobeAmericas,
 } from "react-icons/fa";
+import {
+  homeFaqItems as faqs,
+  homeMovingWords,
+  homeNewsItems as newsItems,
+  homePageTestimonials as testimonials,
+  homePosterItems as posterItems,
+  homeResearchFields as researchFields,
+  homeWhyChoosePoints as whyChoosePoints,
+} from "@/data";
 
-const whyChoosePoints = [
-  {
-    title:
-      "Deep Clinical Domain Expertise Strong experience across clinical trial systems, operational workflows, and regulatory expectations—ensuring technology that fits real‑world trial execution",
-  },
-  {
-    title:
-      "	Reliable, Structured Digital Foundations Protocol‑aligned platforms designed for operational stability, continuity, and consistent performance across the full clinical lifecycle",
-  },
-  {
-    title:
-      "Integrated and Connected Trial Ecosystems Seamless integration with existing clinical platforms and unified workflows that improve coordination between sponsors, CROs, sites, and partners—reducing data silos and fragmentation",
-  },
-  {
-    title:
-      "Data Integrity and Compliance by Design Technology built to support clean, consistent, audit‑ready data across systems—from enrollment through close‑out—aligned with global research standards",
-  },
-  {
-    title:
-      "	Scalable, Collaborative Global Delivery Flexible systems that adapt to protocol changes, multi‑country studies, and evolving needs, delivered through close partnership and global trial experience",
-  },
-];
-const researchFields = [
-  {
-    title: "Precision Randomization & Treatment Control",
-    description:
-      "Balanced allocation across arms and cohorts, with safeguarded emergency unblinding",
-    image: "/images/treatment.avif",
-  },
-  {
-    title: "Integrated IP Supply & Kit Operations",
-    description:
-      "Unified oversight of inventory, resupply, kit assignment, barcoding, expiry, transfers, and temperature mapping",
-    image: "/images/kit-ops.avif",
-  },
-  {
-    title: "Full Chain of Custody Accountability",
-    description:
-      "Complete traceability of every kit from creation to final reconciliation and destruction",
-    image: "/images/custody.avif",
-  },
-
-  {
-    title: " Streamlined Participant & Visit Workflow",
-    description:
-      "Protocol aligned configuration for screening, enrolment, and visit execution across all sites",
-    image: "/images/workflow.avif",
-  },
-
-  {
-    title: "Real Time Operational Intelligence",
-    description:
-      "Dynamic dashboards, detailed reports, and event driven alerts for confident oversight",
-    image: "/images/operations.avif",
-  },
-
-  {
-    title: "Compliance Ready, Connected, and Scalable",
-    description:
-      "Aligned with global regulations and seamlessly integrated with CTMS/EDC for multi region, multi phase trials",
-    image: "/images/complaince.avif",
-  },
-];
-const featuredWorks = [
-  {
-    title: "Build Digital Foundations for Clinical Operations",
-    text: "We create dependable, protocol aligned systems that support the operational backbone of clinical trials - enabling teams to run studies with structure, reliability, and control.",
-  },
-  {
-    title: "Enable Connected, Harmonized Trial Ecosystems",
-    text: "We help sponsors, CROs, and sites work from unified workflows and shared data environments, reducing fragmentation and improving coordination across study functions.",
-  },
-  {
-    title: "Strengthen Data Integrity Across the Trial Lifecycle",
-    text: "We design technology that supports clean, consistent, audit ready data - from enrollment to close out - aligned with clinical research standards and regulatory expectations.",
-  },
-  {
-    title: "Support Scalable, Real World Clinical Execution",
-    text: "We build systems that flex with protocol changes, multi country footprints, complex study designs, and evolving operational needs without disrupting execution.",
-  },
-] as const;
-
-const featuredWorkIcons = [
-  FaFlask,
-  FaHandshake,
-  FaShieldAlt,
-  FaGlobeAmericas,
-] as const;
-
-const clients = [
-  "Novalife Pharma",
-  "CoreThera Biologics",
-  "Apex Clinical",
-  "MediPath Research",
-  "Altura CRO",
-  "Northbridge Health",
-  "Vectra Labs",
-  "Asteris Trials",
-] as const;
-
-const testimonials = [
-  {
-    name: "Grace Martin",
-    role: "Lab Supervisor",
-    text: "ClinRT helped us streamline trial logistics and maintain full oversight across multiple study sites.",
-    image: "/images/author-2.jpg",
-  },
-  {
-    name: "Emma Davis",
-    role: "Project Coordinator",
-    text: "The platform simplified our coordination between research teams and improved operational clarity.",
-    image: "/images/author-3.jpg",
-  },
-  {
-    name: "Jenny Wilson",
-    role: "Research Analyst",
-    text: "From planning to execution, the tools allowed us to track every stage of our trials confidently.",
-    image: "/images/author-1.jpg",
-  },
-  {
-    name: "Ashish Sharma",
-    role: "Research Analyst",
-    text: "From planning to execution, the tools allowed us to track every stage of our trials confidently.",
-    image: "/images/author-1.jpg",
-  },
-  {
-    name: "Dennis Levi",
-    role: "Research Analyst",
-    text: "From planning to execution, the tools allowed us to track every stage of our trials confidently.",
-    image: "/images/author-1.jpg",
-  },
-] as const;
-
-const movingWords = [
-  "Interactive Response Technology",
-  "Randomization & Trial Supply Management",
-  "Subject Management",
-  "Drug Supply Management",
-  "Auto Shipments",
-  "Kit Management",
-  "Drug Accountability",
-  "Subject Unblinding",
-  "Visit Schedule Management",
-  "Inventory Tracking",
-  "Dynamic Dashboards",
-  "Real-Time Reporting",
-  "Notifications & Alerts",
-  "Supply Prediction Engine",
-  "Buffer Stock Strategy",
-  "Retention Sample Management",
-  "Kit Expiry Tracking",
-  "Cohort & Strata-Based Randomization",
-  "Adaptive Trial Support",
-  "Regulatory-Compliant Workflows",
-] as const;
-
-const movingTrack = [...movingWords, ...movingWords];
-
-const posterItems = [
-  {
-    title: "Protocol-Ready IRT Stack",
-    tag: "Launch",
-    image: "/images/case-study-1.jpg",
-    href: "/what-we-build",
-  },
-  {
-    title: "Supply Forecasting Console",
-    tag: "Update",
-    image: "/images/case-study-2.jpg",
-    href: "/whats-new",
-  },
-  {
-    title: "Live Trial Dashboards",
-    tag: "Insight",
-    image: "/images/case-study-3.jpg",
-    href: "/whats-new",
-  },
-  {
-    title: "Demo at Home",
-    tag: "Insight",
-    image: "/images/case-study-3.jpg",
-    href: "/whats-new",
-  },
-  {
-    title: "Trial at Lab",
-    tag: "Research",
-    image: "/images/case-study-3.jpg",
-    href: "/whats-new",
-  },
-] as const;
-
-const newsItems = [
-  {
-    title: "Adaptive randomization workflows now supported across cohorts.",
-    date: "Mar 2026",
-  },
-] as const;
-
-const faqs = [
-  {
-    q: "What is iClinRT?",
-    a: "iClinRT is our configurable Interactive Response Technology platform that supports clinical trials with subject management, randomization, drug supply oversight, real-time dashboards, automated alerts, and end-to-end kit tracking. ItÃ¢â‚¬â„¢s built to handle complex study designs and streamline day-to-day trial execution.",
-  },
-  {
-    q: "How long does it take to set up an IRT system for a new study?",
-    a: "Our standard build-to-go-live timeline is approximately 4 weeks, even for complex randomization and supply requirements. This includes configuration, validation, training, and study readiness.",
-  },
-  {
-    q: "Does iClinRT support complex randomization designs?",
-    a: "Yes. iClinRT is built to support stratified, cohort-based, site-based, block, and multi-arm randomization approaches. It can adapt to protocol amendments and can manage subject subgroups and complex visit schedules.",
-  },
-  {
-    q: "Can iClinRT manage drug supplies and auto-shipments?",
-    a: "Absolutely. The system tracks kits from origin to destruction, handles expiry updates, supports cold-chain and temperature excursion assessment, and automates shipments based on predefined triggers and predictive logic. It also manages site-to-site transfers and retention samples.",
-  },
-  {
-    q: "Is emergency unblinding supported?",
-    a: "Yes. iClinRT provides a secure, audit-ready emergency unblinding process for use during medical emergencies or safety concerns. Access is controlled and fully traceable.",
-  },
-  {
-    q: "What kind of reports and dashboards does iClinRT provide?",
-    a: "The platform offers real-time dashboards and configurable reports covering enrollment, randomization, subject visits, supply status, compliance, site performance, and more. Reports can be filtered by country, site, depot, or user role.",
-  },
-  {
-    q: "How does iClinRT maintain data integrity and compliance?",
-    a: "iClinRT complies with 21 CFR Part 11, GCP requirements, and global data privacy standards like GDPR and HIPAA. It maintains full audit trails, access controls, encryption, and complete validation documentation.",
-  },
-  {
-    q: " Can iClinRT integrate with EDC, CTMS, or other systems?",
-    a: "Yes. iClinRT can integrate with external clinical systems such as EDC and CTMS to support seamless data flow and reduce operational duplication.",
-  },
-  {
-    q: "What kind of support does ClinRT offer?",
-    a: "We offer 24Ãƒâ€”7 helpdesk support, backed by domain experts in IRT and clinical trial supply management. Our team assists with technical troubleshooting, protocol queries, site support, and ongoing study monitoring.",
-  },
-  {
-    q: "Can the system handle protocol amendments?",
-    a: "Yes. iClinRT is built to accommodate changes such as visit schedule updates, randomization modifications, and supply logic adjustments without disrupting ongoing study activities.",
-  },
-  {
-    q: "Does iClinRT support global, multi-site trials?",
-    a: "Yes. The platform is designed for global scalability across programs, phases, and regions. It handles multi-country supply logic, depot structures, time-zone alignment, and role-based access for global teams.",
-  },
-  {
-    q: "What distinguishes ClinRT from other IRT providers?",
-    a: "We combine a highly configurable platform with deep domain expertiseÃ¢â‚¬â€over 50 years of leadership experience, support for 1000+ trials, and 500+ global clients. Our strength lies in fast deployment, strong supply chain capabilities, and 24Ãƒâ€”7 expert support.",
-  },
-  {
-    q: " How secure is my study data?",
-    a: "All study data is encrypted, access-controlled, and fully audit-tracked. We follow secure architecture practices and jurisdiction specific data protection requirements to ensure privacy and compliance.",
-  },
-  {
-    q: "Do you offer demos or consultations?",
-    a: "Yes. You can request a live demo through our enquiry form, and our team will walk you through the platform, discuss your protocol needs, and address any questions.",
-  },
-  {
-    q: "How do I get started?",
-    a: "Simply submit an enquiry or request a demo. Our team will gather your study details, propose a configuration plan, and guide you through the build, validation, training, and go-live process.",
-  },
-] as const;
-
-const Ping = () => (
-  <span className="relative h-2.5 w-2.5">
-    <span className="absolute inset-0 rounded-full bg-orange-500 animate-ping" />
-    <span className="absolute inset-0.5 rounded-full bg-orange-500" />
-  </span>
-);
-const Badge = ({ children }: { children: React.ReactNode }) => (
-  <p className="inline-flex items-center gap-2 rounded-full border border-orange-500 px-4 py-1.5 text-sm">
-    <Ping />
-    {children}
-  </p>
-);
+const movingTrack = [...homeMovingWords, ...homeMovingWords];
 
 export default function HomePage() {
   const [activeIndex, setActiveIndex] = useState(1);
@@ -407,16 +145,15 @@ export default function HomePage() {
       </SectionWrapper>
 
       {/* Posters + News */}
-      <SectionWrapper className="py-10 ">
-        <div className="section-shell ">
+      <SectionWrapper className="py-10">
+        <div className="section-shell">
           <div className="grid gap-6 items-start lg:grid-cols-[2fr_1fr] lg:items-stretch">
-            <div className="relative min-w-0 rounded-3xl  shadow-sm  lg:h-full">
-              {/* Slider Section */}
+            <div className="relative min-w-0 rounded-3xl shadow-sm lg:h-full">
               <GlassSlider
                 items={posterItems}
                 ariaLabel="At a glance posters"
-                scrollerClassName="w-full pt-0 pb-0 h-full"
-                controlsClassName="pointer-events-none absolute top-1/2 z-10 -translate-y-1/2 justify-between sm:inset-x-4 "
+                scrollerClassName="h-full w-full pb-0 pt-0"
+                controlsClassName="pointer-events-none absolute top-1/2 z-10 -translate-y-1/2 justify-between sm:inset-x-4"
                 edgeFadeClassName="from-slate-50/90 via-slate-50/60"
                 pageSize={1}
                 itemClassName="w-full h-full"
@@ -426,13 +163,7 @@ export default function HomePage() {
                       href={poster.href}
                       className="group relative block w-full h-full overflow-hidden rounded-2xl bg-white transition-all hover:shadow-xl hover:shadow-slate-200/50"
                     >
-                      {/* Image Container - add min-height for debugging */}
-                      <div
-                        className="relative h-full w-full overflow-hidden"
-                        style={{ minHeight: "400px" }}
-                      >
-                        {/* Debug: Show image path */}
-
+                      <div className="relative h-full min-h-100 w-full overflow-hidden">
                         <Image
                           src={poster.image}
                           alt={poster.title}
@@ -440,10 +171,7 @@ export default function HomePage() {
                           sizes="100vw"
                           className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                         />
-                        {/* Soft Overlay */}
                         <div className="absolute inset-0 bg-linear-to-t from-slate-950/80 via-transparent to-transparent opacity-60 transition-opacity group-hover:opacity-80" />
-
-                        {/* Floating Content (Bottom-aligned) */}
                         <div className="absolute bottom-0 left-0 w-full p-5">
                           <span className="inline-block rounded-md bg-(--color-orange)/10 px-2 py-1 text-[10px] font-bold uppercase tracking-widest text-white backdrop-blur-md">
                             {poster.tag}
@@ -460,7 +188,7 @@ export default function HomePage() {
             </div>
 
             <aside className="flex h-full min-h-96 flex-col rounded-3xl border border-slate-200 bg-(--primary-color) p-5 text-black shadow-sm sm:p-6 lg:p-7">
-              <Badge>News & Updates</Badge>
+              <SectionBadge>News & Updates</SectionBadge>
 
               <div className="relative mt-5 min-h-0 flex-1 space-y-3 overflow-y-auto pb-10 pr-2 no-scrollbar sm:mt-6 sm:space-y-4">
                 <div
@@ -492,107 +220,12 @@ export default function HomePage() {
         </div>
       </SectionWrapper>
 
-      {/* About clinRT */}
-      {/* <SectionWrapper>
-        <ScrollReveal className="grid gap-8 lg:grid-cols-[1.2fr_1fr]">
-          <div>
-            <Badge>About ClinRT</Badge>
-            <ScrollReveal variant="left" delay={200}>
-              <p className="mt-4 type-h1 font-semibold">
-                Enabling Resilient Tech for Next Gen Clinical Studies
-              </p>
-              <p className="mt-4 text-(--muted-color)">
-                ClinRT is a clinical research technology company focused on
-                developing dependable and well-structured digital solutions for
-                modern clinical trial environments. Headquartered in Pune,
-                India, we support Sponsors and Contract Research Organizations
-                (CROs) by providing configurable systems aligned with
-                operational workflows, regulatory expectations, and study
-                coordination requirements. Our approach emphasizes system
-                stability, usability, and process alignment to ensure consistent
-                and reliable trial execution.
-              </p>
-            </ScrollReveal>
-          </div>
-          <ScrollReveal variant="right" delay={200}>
-            <div className="rounded-2xl border border-slate-200 bg-white p-6 mt-10 shadow-sm ">
-              <p className="type-h6 text-(--muted-color)">
-                Designed for sponsors, CROs, and cross-functional teams who need
-                speed with reliability.
-              </p>
-              <ul className="mt-4 mb-4 space-y-2 list-disc list-inside type-h6">
-                <li>Single operational view across trial functions</li>
-                <li>Execution checkpoints with accountable ownership</li>
-                <li>Compliance-aware process design from day one</li>
-              </ul>
-              <Clients
-                avatars={[
-                  { src: "/images/about.avif" },
-                  { src: "/images/author-2.jpg" },
-                  { src: "/images/author-3.jpg" },
-                  { src: "/images/author-2.jpg" },
-                ]}
-                label="Trusted By"
-                title="500+ Clients"
-                className="ml-6"
-              />
-            </div>
-          </ScrollReveal>
-        </ScrollReveal>
-        <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-12 lg:items-stretch">
-          <ScrollReveal variant="left" className="lg:col-span-3 lg:min-h-65">
-            <GlassCard image="/images/about.avif" height="h-80 sm:h-84">
-              <span className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white/90 backdrop-blur">
-                <FiPlay className="h-6 w-6 translate-x-px" />
-              </span>
-            </GlassCard>
-          </ScrollReveal>
-
-          <ScrollReveal
-            variant="up"
-            delay={150}
-            className="lg:col-span-4 lg:min-h-65"
-          >
-            <GlassCard
-              height="h-80 sm:h-84"
-              image="/images/about.avif"
-              tag="Workflow Automation"
-              title="1000+ Global Trial Engagements"
-              description="Partnering with sponsors, CROs, and research teams across phases, regions, and therapeutic areas. "
-            />
-          </ScrollReveal>
-
-          <ScrollReveal
-            variant="right"
-            delay={300}
-            className="md:col-span-2 lg:col-span-5 lg:min-h-65"
-          >
-            <GlassCard height="h-80 sm:h-84" image="/images/about.avif">
-              <div className="mt-4 flex flex-wrap gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-white/80">
-                <span className="rounded-full border border-white/15 bg-white/10 px-5 py-3">
-                  Unified Trial Operations
-                </span>
-                <span className="rounded-full border border-white/15 bg-white/10 px-5 py-3">
-                  Protocol Driven Accuracy
-                </span>
-                <span className="rounded-full border border-white/15 bg-white/10 px-5 py-3">
-                  Real Time Clinical Intelligence
-                </span>
-                <span className="rounded-full border border-white/15 bg-white/10 px-5 py-3">
-                  Trusted Compliance &amp; Data Integrity
-                </span>
-              </div>
-            </GlassCard>
-          </ScrollReveal>
-        </div>
-      </SectionWrapper> */}
-
       {/* key features section */}
       <SectionWrapper fullBleed>
         <div className="mx-auto  px-6 py-20 bg-(--primary-color) rounded-3xl text-(--text-invert)">
           {/* Section Header */}
           <ScrollReveal className="">
-            <Badge>Key Features</Badge>
+            <SectionBadge>Key Features</SectionBadge>
             <div className="mt-2 flex flex-col gap-1 sm:gap-4 lg:gap-8 lg:flex-row lg:items-start lg:justify-between">
               <p className=" type-h3 font-semibold ">
                 Leading innovation across critical fields
@@ -674,7 +307,7 @@ export default function HomePage() {
           {/* RIGHT CONTENT */}
           <div>
             <ScrollReveal>
-              <Badge>Why Choose Us</Badge>
+              <SectionBadge>Why Choose Us</SectionBadge>
 
               <p className="mt-4 type-h2 font-semibold">
                 Powered by technology and clinical expertise
@@ -730,107 +363,6 @@ export default function HomePage() {
         </div>
       </SectionWrapper>
 
-      {/* What we do section */}
-      {/* <SectionWrapper fullBleed>
-        <div className="relative overflow-hidden rounded-3xl bg-(--primary-color) text-white">
-          <div className="pointer-events-none absolute -left-16 top-10 h-56 w-56 rounded-full bg-(--color-accent)/20 blur-3xl" />
-          <div className="pointer-events-none absolute -bottom-24 right-6 h-64 w-64 rounded-full bg-(--color-orange)/20 blur-3xl" />
-
-          <div className="relative grid gap-10 px-6 py-14 md:px-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
-            <ScrollReveal>
-              <Badge>What we Do</Badge>
-
-              <p className="mt-4 type-h2 font-semibold ">
-                Bringing operational clarity to modern clinical trials
-              </p>
-              <p className="mt-4 text-white/80">
-                At our core, we build digital systems that help clinical teams
-                manage studies with greater structure, transparency, and
-                confidence. Our focus is on creating technology that supports
-                real world execution across sites, subjects, and supply chains -
-                making complex trials easier to run and easier to oversee.
-              </p>
-
-              <div className="mt-6 flex flex-wrap gap-4">
-                <Button
-                  href="/whats-new#case-studies"
-                  label="View Case Studies"
-                />
-              </div>
-              <div className="mt-8">
-                <CountUpOnView
-                  to={98}
-                  suffix="%"
-                  className="type-h1 font-semibold "
-                />
-              </div>
-              <div className="mt-8 rounded-2xl border border-white/15 bg-white/10 p-5 backdrop-blur">
-                <p className="mt-2 type-h5 uppercase tracking-[0.3em] text-white/70">
-                  Operational Reliability
-                </p>
-                <p className="mt-2 type-h6 text-white/75">
-                  Our platforms help maintain consistent, protocol aligned
-                  execution across global studies.
-                </p>
-              </div>
-            </ScrollReveal>
-
-            <div className="grid gap-4">
-              {featuredWorks.map((item, index) => (
-                <ScrollReveal key={item.title} delay={index * 90}>
-                  <article className="group relative overflow-hidden rounded-2xl border border-white/15 bg-white/10 p-5 backdrop-blur transition duration-300 hover:-translate-y-1.5 hover:border-white/30 hover:bg-white/14 hover:shadow-[0_22px_55px_rgba(15,23,42,0.2)]">
-                    <div className="pointer-events-none absolute inset-x-0 top-0 h-18 bg-linear-to-r from-white/12 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                    <div className="relative flex gap-4">
-                      <div className="mt-1 flex h-11 w-11 items-center justify-center rounded-xl bg-white/15 text-white/85 transition duration-300 group-hover:-translate-y-0.5 group-hover:scale-110 group-hover:bg-white/20 group-hover:shadow-lg group-hover:shadow-slate-950/20">
-                        {(() => {
-                          const Icon =
-                            featuredWorkIcons[index % featuredWorkIcons.length];
-                          return <Icon className="h-5 w-5" />;
-                        })()}
-                      </div>
-                      <div>
-                        <p className="type-h5 font-semibold">{item.title}</p>
-                        <p className="mt-2 type-h6 text-white/75">
-                          {item.text}
-                        </p>
-                      </div>
-                    </div>
-                  </article>
-                </ScrollReveal>
-              ))}
-            </div>
-          </div>
-        </div>
-      </SectionWrapper> */}
-
-      {/* Our clients section */}
-      {/* <SectionWrapper fullBleed>
-        <div className="mx-auto rounded-3xl bg-white px-6 py-14 md:px-10">
-          <ScrollReveal>
-            <Badge> Our Clients</Badge>
-
-            <p className="mt-3 type-h2 font-semibold">
-              Collaborating With Clinical Leaders to Advance Global Research
-              Excellence
-            </p>
-
-            <p className="mt-3 type-h6 font-semibold">
-              Collaborating With Clinical Leaders to Advance Global Research
-              Excellence
-            </p>
-          </ScrollReveal>
-          <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {clients.map((client, index) => (
-              <ScrollReveal key={client} delay={index * 60}>
-                <div className="rounded-xl border border-slate-200 bg-background px-4 py-3 text-sm font-medium">
-                  {client}
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </SectionWrapper> */}
-
       {/* Testimonials section */}
       <SectionWrapper fullBleed>
         <section className="relative overflow-hidden bg-(--primary-color) rounded-3xl text-white">
@@ -844,7 +376,7 @@ export default function HomePage() {
             {/* HEADING */}
             <div className="text-center max-w-3xl mx-auto">
               <ScrollReveal>
-                <Badge>Our Testimonials</Badge>
+                <SectionBadge>Our Testimonials</SectionBadge>
                 <p className="mt-4 type-h2 font-semibold text-white">
                   Recognized for Providing Operational Transparency and Reliable
                   Platform Performance
@@ -916,7 +448,7 @@ export default function HomePage() {
       <SectionWrapper>
         <div className="grid gap-10 lg:grid-cols-[1fr_1.3fr]">
           <ScrollReveal>
-            <Badge>FAQs</Badge>
+            <SectionBadge>FAQs</SectionBadge>
             <p className="mt-3 type-h2 font-semibold">
               Clear Answers. Confident Decisions.
             </p>

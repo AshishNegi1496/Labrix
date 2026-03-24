@@ -1,153 +1,38 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import PageTransition from "@/components/animations/PageTransition";
 import SectionWrapper from "@/components/layout/SectionWrapper";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import CountUpOnView from "@/components/CountUpOnView";
 import Button from "@/components/ui/Button";
+import SectionBadge from "@/components/ui/SectionBadge";
 import CultureGraphic from "@/components/CultureGraphic";
 import {
   FiCheck,
-  FiEye,
   FiShield,
   FiStar,
-  FiTarget,
   FiTrendingUp,
   FiUsers,
-  FiZap,
 } from "react-icons/fi";
-import { type RefObject, useRef, useState } from "react";
-import { FullScreenCard } from "@/hooks/FullScreenCard";
-import { useActiveCard } from "@/hooks/useInView";
+import { useRef, useState } from "react";
 import { IconType } from "react-icons";
-
-const meaningPoints = [
-  "Deep understanding of clinical trial operations",
-  "Calm execution in complex, regulated environments",
-  "Clear ownership and reliable delivery",
-  "Long term partnerships built on trust",
-] as const;
-
-const whatThisMeansPoints = [
-  "Stay aligned across teams, sites, and stakeholders",
-  "Make decisions with better clarity and visibility",
-  "Maintain consistency and readiness across studies",
-  "Reduce day to day operational complexity",
-] as const;
-
-const leadership = [
-  {
-    name: "Dr. Maya Srinivasan",
-    role: "Chief Executive Officer",
-    image: "/images/author-1.jpg",
-    summary:
-      "Sets the strategic direction for the organization with a strong focus on dependable delivery, and partner trust across complex clinical programs.",
-    highlights: ["Strategy & governance", "Operational quality"],
-  },
-  {
-    name: "Rahul Deshmukh",
-    role: "Chief Product Officer",
-    image: "/images/author-2.jpg",
-    summary:
-      "Leads product vision and platform decisions around real-world study workflows, scalable architecture, and clear operational usability for trial teams.",
-    highlights: ["Product strategy", "Workflow design", "Platform scale"],
-  },
-  {
-    name: "Emily Carter",
-    role: "Head of Clinical Solutions",
-    image: "/images/author-3.jpg",
-    summary:
-      "Brings clinical and operational needs into practical solution design, helping sponsors and delivery teams execute with clarity, control, and consistency.",
-    highlights: ["Clinical operations", "Solution design", "Execution clarity"],
-  },
-] as const;
-
-const leadershipPrinciples = [
-  {
-    title: "Reliability first",
-    text: "Stability and consistency are essential.",
-  },
-  {
-    title: "Clarity over complexity",
-    text: "Simple, purposeful approaches.",
-  },
-  {
-    title: "Strong follow through",
-    text: "Planning and delivery with discipline.",
-  },
-  {
-    title: "Practical innovation",
-    text: "Improving how work gets done without unnecessary change.",
-  },
-] as const;
-
-const missionPoints = [
-  "Linking essential workflows into one cohesive operating system",
-  "Improving data quality and giving teams better oversight",
-  "Designing solutions that scale across programs, phases, and global regions",
-] as const;
-
-const howWeWorkPoints = [
-  "We listen before we design",
-  "We prioritise clarity over speed",
-  "We plan carefully and follow through",
-  "We take responsibility for outcomes",
-] as const;
-
-const culture = [
-  {
-    title: "Integrity",
-    text: "Every decision, workflow, and dataset meets the highest standards of compliance and accuracy.",
-  },
-  {
-    title: "Ownership",
-    text: "We take accountability across every layer, ensuring reliability and trust.",
-  },
-  {
-    title: "Innovation",
-    text: "We challenge legacy systems and build modern, scalable clinical platforms.",
-  },
-  {
-    title: "Collaboration",
-    text: "We operate cross-functionally to deliver intuitive and stable systems.",
-  },
-  {
-    title: "Impact",
-    text: "Everything we build ultimately contributes to better patient outcomes.",
-  },
-] as const;
-
-const teamStats = [
-  { value: 40, suffix: "+", label: "Years of Consolidated Experience" },
-  { value: 1000, suffix: "+", label: " Clinical Trials Supported" },
-  {
-    value: 500,
-    suffix: "+",
-    label: "Clients Catered with IRT and CTSM Services",
-  },
-] as const;
+import {
+  whoWeAreCulture as culture,
+  whoWeAreHowWeWorkPoints as howWeWorkPoints,
+  whoWeAreLeadership as leadership,
+  whoWeAreLeadershipPrinciples as leadershipPrinciples,
+  whoWeAreMeaningPoints as meaningPoints,
+  whoWeAreMissionPoints as missionPoints,
+  whoWeAreTeamStats as teamStats,
+  whoWeAreWhatThisMeansPoints as whatThisMeansPoints,
+} from "@/data";
 
 /* ---------------- UI helpers ---------------- */
 
-const Ping = () => (
-  <span className="relative h-2.5 w-2.5">
-    <span className="absolute inset-0 rounded-full bg-orange-500 animate-ping" />
-    <span className="absolute inset-0.5 rounded-full bg-orange-500" />
-  </span>
-);
-const Badge = ({ children }: { children: React.ReactNode }) => (
-  <p className="inline-flex items-center gap-2 rounded-full border border-orange-500 px-4 py-1.5 text-sm">
-    <Ping />
-    {children}
-  </p>
-);
-
 type StickyCardsProps = {
   iclinrtUsps: readonly string[];
-  sectionRef: RefObject<HTMLDivElement | null>;
 };
 
 type EnhancedPoint = {
@@ -158,7 +43,7 @@ type EnhancedPoint = {
   metrics: string;
 };
 
-const StickyCards = ({ iclinrtUsps, sectionRef }: StickyCardsProps) => {
+const StickyCards = ({ iclinrtUsps }: StickyCardsProps) => {
   const iconMap: IconType[] = [FiStar, FiShield, FiTrendingUp, FiUsers];
   const colorMap = [
     "from-blue-500 to-cyan-400",
@@ -395,10 +280,23 @@ function LeadershipProfileCard({
 export default function WhoWeArePage() {
   const [activeCultureCard, setActiveCultureCard] = useState(0);
   const uspsSectionRef = useRef<HTMLDivElement | null>(null);
-  const knownForCards = meaningPoints.map((point) => ({
-    title: point,
-    items: [],
-  }));
+  const revealUp = {
+    initial: { opacity: 0, y: 28 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true },
+  } as const;
+  const cinematicEase: [number, number, number, number] = [0.22, 1, 0.36, 1];
+  const overviewLines = [
+    "We are a team",
+    "of people who",
+    "work closely with",
+    "clinical research teams",
+  ];
+  const impactLines = ["Our experience", "helps research", "teams thrive"];
+  const overviewStats = [
+    { value: "10+", label: "Years in clinical ops" },
+    { value: "3", label: "Disciplines united" },
+  ];
 
   return (
     <PageTransition>
@@ -412,7 +310,7 @@ export default function WhoWeArePage() {
           loop
         /> */}
         <Image
-          src="/images/about-clinrt.avif" // Replace with your actual image path
+          src="/images/about-clinrt.avif"
           alt="Background"
           fill
           className="object-cover scale-105"
@@ -421,7 +319,7 @@ export default function WhoWeArePage() {
         />
 
         {/* overlay */}
-        <div className="absolute inset-0 bg-linear-to-b from-black/40 via-black/70 to-black/95" />
+        {/* <div className="absolute inset-0 bg-linear-to-b from-black/40 via-black/70 to-black/95" /> */}
 
         {/* animated gradient blobs */}
         <motion.div
@@ -459,123 +357,93 @@ export default function WhoWeArePage() {
 
       {/* ================= WHAT IT MEANS ================= */}
       <SectionWrapper fullBleed>
-        <div className="relative overflow-hidden rounded-4xl border border-black/8 bg-[#080c14] p-8 shadow-[0_24px_80px_rgba(0,0,0,0.4)] md:p-14">
-          {/* CINEMATIC BACKGROUND LAYERS */}
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(99,120,180,0.18),transparent)]" />
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_40%_40%_at_80%_80%,rgba(255,120,60,0.07),transparent)]" />
-          <div className="pointer-events-none absolute left-0 top-0 h-px w-full bg-linear-to-r from-transparent via-white/15 to-transparent" />
-          <div className="pointer-events-none absolute bottom-0 left-0 h-px w-full bg-linear-to-r from-transparent via-white/8 to-transparent" />
+        <div className="relative overflow-hidden rounded-4xl border border-white/10 bg-[#070b13] p-8 shadow-[0_28px_90px_rgba(2,6,23,0.55)] md:p-14">
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(80%_55%_at_50%_-10%,rgba(125,168,255,0.2),transparent)]" />
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(45%_45%_at_85%_85%,rgba(249,115,22,0.12),transparent)]" />
+          <div className="pointer-events-none absolute inset-0 opacity-[0.045] bg-[linear-gradient(rgba(255,255,255,0.75)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.75)_1px,transparent_1px)] [background-size:76px_76px]" />
+          <div className="pointer-events-none absolute left-0 top-0 h-px w-full bg-linear-to-r from-transparent via-white/20 to-transparent" />
+          <div className="pointer-events-none absolute bottom-0 left-0 h-px w-full bg-linear-to-r from-transparent via-white/12 to-transparent" />
 
-          {/* ANIMATED GRID LINES */}
-          <div
-            className="pointer-events-none absolute inset-0 opacity-[0.04]"
-            style={{
-              backgroundImage: `linear-gradient(rgba(255,255,255,0.8) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.8) 1px, transparent 1px)`,
-              backgroundSize: "80px 80px",
-            }}
-          />
-
-          {/* FLOATING ORBS */}
           <motion.div
-            className="absolute -left-12 top-10 h-64 w-64 rounded-full bg-blue-500/10 blur-[80px]"
-            animate={{ y: [0, -25, 0], x: [0, 10, 0] }}
+            className="absolute -left-16 top-8 h-64 w-64 rounded-full bg-blue-400/15 blur-[90px]"
+            animate={{ y: [0, -24, 0], x: [0, 12, 0] }}
             transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
           />
           <motion.div
-            className="absolute -right-10 bottom-0 h-72 w-72 rounded-full bg-orange-500/8 blur-[80px]"
-            animate={{ y: [0, 20, 0], x: [0, -10, 0] }}
+            className="absolute -right-14 bottom-0 h-72 w-72 rounded-full bg-orange-400/12 blur-[95px]"
+            animate={{ y: [0, 20, 0], x: [0, -12, 0] }}
             transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
           />
 
-          <div className="relative grid gap-16 lg:grid-cols-2 lg:items-start text-white">
-            {/* LEFT SIDE */}
+          <div className="relative grid gap-14 text-white lg:grid-cols-2 lg:items-start">
             <ScrollReveal>
               <motion.div
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
-                viewport={{ once: true }}
+                {...revealUp}
+                transition={{ duration: 0.8 }}
                 className="space-y-8"
               >
-                {/* EYEBROW */}
                 <motion.div
-                  initial={{ opacity: 0, x: -20 }}
+                  initial={{ opacity: 0, x: -18 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: 0.1 }}
+                  transition={{ duration: 0.45, delay: 0.1 }}
                   viewport={{ once: true }}
-                  className="flex items-center gap-3"
                 >
-                  <Badge>Overview</Badge>
+                  <SectionBadge>Overview</SectionBadge>
                 </motion.div>
 
-                {/* CINEMATIC WORD-BY-WORD HEADLINE */}
                 <div className="overflow-hidden">
-                  {[
-                    { text: "We are a team", delay: 0.15 },
-                    { text: "of people who", delay: 0.25 },
-                    { text: "work closely with", delay: 0.35 },
-                    { text: "clinical research teams", delay: 0.45 },
-                  ].map((line, i) => (
+                  {overviewLines.map((line, index) => (
                     <motion.div
-                      key={i}
+                      key={line}
                       initial={{ opacity: 0, y: 60, skewY: 3 }}
                       whileInView={{ opacity: 1, y: 0, skewY: 0 }}
                       transition={{
-                        duration: 0.7,
-                        delay: line.delay,
-                        ease: [0.22, 1, 0.36, 1],
+                        duration: 0.65,
+                        delay: 0.15 + index * 0.1,
+                        ease: cinematicEase,
                       }}
                       viewport={{ once: true }}
                     >
-                      <span className="block text-3xl font-semibold leading-tight text-white md:text-4xl lg:text-[2.6rem]">
-                        {line.text}
+                      <span className="block text-3xl font-semibold leading-tight tracking-tight text-white md:text-4xl lg:text-[2.6rem]">
+                        {line}
                       </span>
                     </motion.div>
                   ))}
                 </div>
 
-                {/* BODY TEXT with staggered fade */}
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.7, delay: 0.65 }}
-                  viewport={{ once: true }}
-                  className="space-y-4 border-l border-white/10 pl-5"
+                  {...revealUp}
+                  transition={{ duration: 0.7, delay: 0.62 }}
+                  className="space-y-4 border-l border-white/12 pl-5"
                 >
-                  <p className="text-base leading-8 text-white/45">
+                  <p className="text-base leading-8 text-white/60">
                     Our background spans clinical operations, technology, and
                     delivery — giving us a practical view of what works and what
                     does not.
                   </p>
-                  <p className="text-base leading-8 text-white/45">
+                  <p className="text-base leading-8 text-white/60">
                     We believe good work comes from clear thinking, strong
                     ownership, and dependable execution throughout the study
                     lifecycle.
                   </p>
                 </motion.div>
 
-                {/* STAT ROW */}
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  {...revealUp}
                   transition={{ duration: 0.6, delay: 0.8 }}
-                  viewport={{ once: true }}
-                  className="flex items-center gap-8 pt-2"
+                  className="flex flex-wrap items-center gap-8 pt-2"
                 >
-                  {[
-                    { value: "10+", label: "Years in clinical ops" },
-                    { value: "3", label: "Disciplines united" },
-                  ].map((stat, i) => (
-                    <div key={i} className="space-y-1">
+                  {overviewStats.map((stat) => (
+                    <div key={stat.label} className="space-y-1">
                       <p className="text-3xl font-semibold text-white">
                         {stat.value}
                       </p>
-                      <p className="text-[11px] uppercase tracking-[0.3em] text-white/35">
+                      <p className="text-[11px] uppercase tracking-[0.28em] text-white/45">
                         {stat.label}
                       </p>
                     </div>
                   ))}
-                  <div className="h-8 w-px bg-white/10" />
+                  <div className="h-8 w-px bg-white/15" />
                   <motion.div
                     animate={{ scale: [1, 1.15, 1] }}
                     transition={{
@@ -586,7 +454,7 @@ export default function WhoWeArePage() {
                     className="flex items-center gap-2"
                   >
                     <span className="h-2 w-2 rounded-full bg-green-400" />
-                    <span className="text-[11px] uppercase tracking-[0.3em] text-green-400/70">
+                    <span className="text-[11px] uppercase tracking-[0.28em] text-green-300/80">
                       Active
                     </span>
                   </motion.div>
@@ -594,61 +462,44 @@ export default function WhoWeArePage() {
               </motion.div>
             </ScrollReveal>
 
-            {/* RIGHT SIDE */}
             <ScrollReveal>
               <motion.div
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: 0.8,
-                  ease: [0.25, 0.1, 0.25, 1],
-                  delay: 0.2,
-                }}
-                viewport={{ once: true }}
-                className="space-y-8"
+                {...revealUp}
+                transition={{ duration: 0.8, delay: 0.15 }}
+                className="space-y-7 rounded-3xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur-xl md:p-8"
               >
-                {/* EYEBROW */}
                 <motion.div
-                  initial={{ opacity: 0, x: 20 }}
+                  initial={{ opacity: 0, x: 18 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: 0.2 }}
+                  transition={{ duration: 0.45, delay: 0.2 }}
                   viewport={{ once: true }}
-                  className="flex items-center gap-3"
                 >
-                  <Badge>What this means for you</Badge>
+                  <SectionBadge>What this means for you</SectionBadge>
                 </motion.div>
 
-                {/* CINEMATIC HEADLINE RIGHT */}
                 <div className="overflow-hidden">
-                  {[
-                    { text: "Our experience", delay: 0.3 },
-                    { text: "helps research", delay: 0.4 },
-                    { text: "teams thrive", delay: 0.5 },
-                  ].map((line, i) => (
+                  {impactLines.map((line, index) => (
                     <motion.div
-                      key={i}
+                      key={line}
                       initial={{ opacity: 0, y: 60, skewY: 3 }}
                       whileInView={{ opacity: 1, y: 0, skewY: 0 }}
                       transition={{
-                        duration: 0.7,
-                        delay: line.delay,
-                        ease: [0.22, 1, 0.36, 1],
+                        duration: 0.65,
+                        delay: 0.28 + index * 0.1,
+                        ease: cinematicEase,
                       }}
                       viewport={{ once: true }}
                     >
-                      <span className="block text-3xl font-semibold leading-tight text-white md:text-4xl lg:text-[2.6rem]">
-                        {line.text}
+                      <span className="block text-3xl font-semibold leading-tight tracking-tight text-white md:text-4xl lg:text-[2.5rem]">
+                        {line}
                       </span>
                     </motion.div>
                   ))}
                 </div>
 
-                {/* POINTS LIST — cinematic cards */}
                 <motion.ul
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
+                  {...revealUp}
                   transition={{ duration: 0.5, delay: 0.55 }}
-                  viewport={{ once: true }}
                   className="space-y-2"
                 >
                   {whatThisMeansPoints.map((point, i) => (
@@ -659,29 +510,26 @@ export default function WhoWeArePage() {
                       transition={{
                         duration: 0.5,
                         delay: 0.55 + i * 0.08,
-                        ease: [0.22, 1, 0.36, 1],
+                        ease: cinematicEase,
                       }}
                       viewport={{ once: true }}
-                      whileHover={{ x: 4 }}
-                      className="group flex items-start gap-4 rounded-2xl border border-white/6 bg-white/4 px-5 py-4 backdrop-blur transition-all duration-300 hover:border-white/12 hover:bg-white/7"
+                      whileHover={{ x: 4, scale: 1.01 }}
+                      className="group flex items-start gap-4 rounded-2xl border border-white/10 bg-white/5 px-5 py-4 backdrop-blur transition-all duration-300 hover:border-white/20 hover:bg-white/10"
                     >
-                      <span className="mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-green-500/15 text-green-400 ring-1 ring-green-500/20">
+                      <span className="mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-green-400/15 text-green-300 ring-1 ring-green-400/25">
                         <FiCheck className="h-3.5 w-3.5" />
                       </span>
-                      <p className="text-sm leading-7 text-white/50 transition-colors duration-300 group-hover:text-white/70">
+                      <p className="text-sm leading-7 text-white/65 transition-colors duration-300 group-hover:text-white/85">
                         {point}
                       </p>
                     </motion.li>
                   ))}
                 </motion.ul>
 
-                {/* BOTTOM CALLOUT */}
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  {...revealUp}
                   transition={{ duration: 0.6, delay: 0.85 }}
-                  viewport={{ once: true }}
-                  className="flex items-start gap-4 rounded-2xl border border-white/8 bg-linear-to-br from-white/6 to-white/2 px-5 py-5 backdrop-blur"
+                  className="flex items-start gap-4 rounded-2xl border border-white/12 bg-linear-to-br from-white/10 to-white/4 px-5 py-5 backdrop-blur"
                 >
                   <motion.span
                     animate={{ scale: [1, 1.3, 1], opacity: [1, 0.6, 1] }}
@@ -692,9 +540,9 @@ export default function WhoWeArePage() {
                     }}
                     className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-green-400"
                   />
-                  <p className="text-sm leading-7 text-white/40">
+                  <p className="text-sm leading-7 text-white/70">
                     We aim to bring{" "}
-                    <span className="text-white/80 font-medium">
+                    <span className="font-medium text-white">
                       steadiness and order
                     </span>{" "}
                     to environments that are often fast moving and complex.
@@ -705,30 +553,10 @@ export default function WhoWeArePage() {
           </div>
         </div>
       </SectionWrapper>
-      {/* <SectionWrapper>
-        <ScrollReveal delay={120}>
-          <div className="rounded-[28px] bg-slate-950 p-6 text-white shadow-[0_24px_60px_rgba(15,36,58,0.18)] md:p-8">
-            <Badge>What We&apos;re Known For</Badge>
-            <div
-              ref={uspsSectionRef}
-              className="relative "
-              // style={{ height: `${knownForCards.length * 40}vh` }}
-              // style={{ height: `60vh` }}
-              style={{
-                height: `${Math.min(knownForCards.length * 30, 100)}vh`,
-              }}
-            >
-              <StickyCards
-                iclinrtUsps={meaningPoints}
-                sectionRef={uspsSectionRef}
-              />
-            </div>
-          </div>
-        </ScrollReveal>
-      </SectionWrapper> */}
+
       <SectionWrapper fullBleed>
         <ScrollReveal delay={120}>
-          <div className="relative rounded-[28px] bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-6 text-white shadow-2xl overflow-hidden md:p-8">
+          <div className="relative rounded-[28px] bg-linear-to-br from-slate-950 via-slate-900 to-slate-950 p-6 text-white shadow-2xl overflow-hidden md:p-8">
             {/* Animated background */}
             <div className="absolute inset-0 opacity-30">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(59,130,246,0.1),transparent_50%)]" />
@@ -739,7 +567,7 @@ export default function WhoWeArePage() {
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:24px_24px]" />
 
             <div className="relative z-10">
-              <Badge>What We&lsquo;re Known For</Badge>
+              <SectionBadge>What We&lsquo;re Known For</SectionBadge>
 
               <div
                 ref={uspsSectionRef}
@@ -748,10 +576,7 @@ export default function WhoWeArePage() {
                   height: `${Math.min(meaningPoints.length * 35, 100)}vh`,
                 }}
               >
-                <StickyCards
-                  iclinrtUsps={meaningPoints}
-                  sectionRef={uspsSectionRef}
-                />
+                <StickyCards iclinrtUsps={meaningPoints} />
               </div>
             </div>
           </div>
@@ -767,7 +592,7 @@ export default function WhoWeArePage() {
             <div className="grid gap-8 xl:grid-cols-[1.08fr_0.92fr] xl:items-start">
               <ScrollReveal>
                 <div className="max-w-3xl">
-                  <Badge>Our Leadership</Badge>
+                  <SectionBadge>Our Leadership</SectionBadge>
                   <p className="mt-5 text-3xl font-semibold leading-tight text-black md:text-5xl">
                     Experience That Guides Our Direction
                   </p>
@@ -788,7 +613,7 @@ export default function WhoWeArePage() {
 
               <ScrollReveal delay={140}>
                 <div className="rounded-[1.9rem] border border-black/8 bg-white/80 p-6 shadow-[0_20px_60px_rgba(15,23,42,0.08)] backdrop-blur md:p-7">
-                  <Badge> Principles We Lead By</Badge>
+                  <SectionBadge> Principles We Lead By</SectionBadge>
                   <div className="mt-6 grid gap-6 sm:grid-cols-2">
                     {leadershipPrinciples.map((principle) => (
                       <div
@@ -1147,7 +972,7 @@ export default function WhoWeArePage() {
                 viewport={{ once: true }}
                 className="mb-10 flex items-center gap-3 self-start"
               >
-                <Badge>Our Culture</Badge>
+                <SectionBadge>Our Culture</SectionBadge>
               </motion.div>
 
               {/* Dynamic SVG graphic */}
@@ -1263,7 +1088,7 @@ export default function WhoWeArePage() {
                   </div>
                   <div className="md:justify-self-end">
                     <Button
-                      href="/whats-new?tab=Moments#content-hub"
+                      href="/clinrt-world?tab=Moments#content-hub"
                       label="Explore Our Moments"
                     />
                   </div>
@@ -1277,7 +1102,7 @@ export default function WhoWeArePage() {
       <SectionWrapper id="team">
         {/* Heading First */}
         <div className="text-center mb-6">
-          <Badge>Our Team</Badge>
+          <SectionBadge>Our Team</SectionBadge>
           <h2 className="type-h2 mt-4">
             Meet the Experts Behind the Innovation
           </h2>
@@ -1385,7 +1210,7 @@ export default function WhoWeArePage() {
             </p>
 
             <Button
-              href="/whats-new?tab=Moments#content-hub"
+              href="/clinrt-world?tab=Moments#content-hub"
               label="Explore now"
             />
           </div>

@@ -18,7 +18,7 @@ export const footerData: FooterData = validateFooter(
       { href: "/", label: "Home" },
       { href: "/who-we-are", label: "Who We Are" },
       { href: "/what-we-build", label: "What We Build" },
-      { href: "/whats-new", label: "What's New" },
+      { href: "/clinrt-world", label: "What's New" },
       { href: "/contact", label: "Contact Us" },
     ],
     services: [

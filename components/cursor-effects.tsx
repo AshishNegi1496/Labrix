@@ -1,19 +1,35 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 
 export function CursorEffects() {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const cursorRef = useRef<HTMLDivElement | null>(null);
+  const frameRef = useRef(0);
+  const latestPositionRef = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
     if (window.matchMedia("(max-width: 1024px)").matches) return;
 
     const onMove = (e: MouseEvent) => {
-      setPosition({ x: e.clientX, y: e.clientY });
+      latestPositionRef.current = { x: e.clientX, y: e.clientY };
+
+      if (frameRef.current) return;
+      frameRef.current = window.requestAnimationFrame(() => {
+        frameRef.current = 0;
+        const cursor = cursorRef.current;
+        if (!cursor) return;
+
+        cursor.style.transform = `translate3d(${latestPositionRef.current.x - 4}px, ${latestPositionRef.current.y - 4}px, 0)`;
+      });
     };
 
     window.addEventListener("mousemove", onMove);
-    return () => window.removeEventListener("mousemove", onMove);
+    return () => {
+      if (frameRef.current) {
+        window.cancelAnimationFrame(frameRef.current);
+      }
+      window.removeEventListener("mousemove", onMove);
+    };
   }, []);
 
   if (
@@ -25,11 +41,9 @@ export function CursorEffects() {
 
   return (
     <div
+      ref={cursorRef}
       className="fixed pointer-events-none z-50 hidden lg:block"
-      style={{
-        left: position.x - 4,
-        top: position.y - 4,
-      }}
+      style={{ transform: "translate3d(-9999px, -9999px, 0)" }}
     >
       <div
         className="w-3 h-3 rounded-full transition-transform duration-150 "

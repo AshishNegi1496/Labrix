@@ -409,7 +409,7 @@ export default function WhatsNewPage() {
           className="object-cover scale-105"
         />
 
-        <div className="absolute inset-0 bg-linear-to-b from-black/40 via-black/70 to-black/95" />
+        <div className="absolute inset-0 bg-linear-to-b from-black/10 via-black/40 to-black/65" />
 
         <div className="relative z-10 h-full flex items-center section-shell pb-20 text-white">
           <ScrollReveal className="max-w-3xl">

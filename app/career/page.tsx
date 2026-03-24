@@ -8,18 +8,7 @@ import Ticker from "@/components/Ticker";
 import HeroBanner from "@/components/layout/HeroBanner";
 import { Panel } from "@/components/ui/Panel";
 import Button from "@/components/ui/Button";
-const Ping = () => (
-  <span className="relative h-2.5 w-2.5">
-    <span className="absolute inset-0 rounded-full bg-green-300 animate-ping" />
-    <span className="absolute inset-0.5 rounded-full bg-green-300" />
-  </span>
-);
-const Badge = ({ children }: { children: React.ReactNode }) => (
-  <p className="inline-flex items-center gap-2 rounded-full border border-black/50 px-4 py-1.5 text-sm">
-    <Ping />
-    {children}
-  </p>
-);
+import SectionBadge from "@/components/ui/SectionBadge";
 // Types
 type Job = {
   id: string;
@@ -131,7 +120,12 @@ export default function Careers() {
       {/* Why Join Us */}
       <SectionWrapper>
         <div className="text-center max-w-3xl mx-auto">
-          <Badge>Join Us</Badge>
+          <SectionBadge
+            borderClassName="border border-black/50"
+            dotClassName="bg-green-300"
+          >
+            Join Us
+          </SectionBadge>
           <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-semibold">
             Shape the Future of Science
           </h2>

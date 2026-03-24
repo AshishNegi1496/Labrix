@@ -48,7 +48,7 @@ test("page data collections are populated", () => {
   assert.ok(aboutStoryCards.length > 0);
   assert.ok(blogHero.title.length > 0);
   assert.ok(blogPosts.length > 0);
-  assert.ok(contactHero.title.length > 0);
+  assert.ok(contactHero.punchline.length > 0);
   assert.ok(featureCards.length > 0);
   assert.ok(researchFields.length > 0);
   assert.ok(caseStudies.length > 0);

@@ -8,6 +8,7 @@ import { CursorEffects } from "@/components/cursor-effects";
 import { siteMeta } from "@/data";
 import Watermark from "@/components/Watermark";
 import WatermarkRight from "@/components/WatermarkRight";
+import { appConfig } from "@/config/app-config";
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -38,7 +39,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     >
       <body className="min-h-screen bg-background text-foreground">
         <Navbar />
-        <CursorEffects />
+        {appConfig.enableCursorEffects ? <CursorEffects /> : null}
         <Watermark />
         <WatermarkRight />
         {children}

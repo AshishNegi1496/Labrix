@@ -1,12 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
-import {
-  motion,
-  useScroll,
-  useTransform,
-  AnimatePresence,
-} from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 // Add this component in the same file or import it
 export default function CultureGraphic({ index }: { index: number }) {

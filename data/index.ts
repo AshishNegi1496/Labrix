@@ -14,3 +14,7 @@ export * from "./pages/blog";
 export * from "./pages/contact";
 export * from "./pages/career";
 export * from "./pages/gallery";
+export * from "./pages/what-we-build";
+export * from "./pages/home-page";
+export * from "./pages/who-we-are";
+export * from "./pages/iclinrt";

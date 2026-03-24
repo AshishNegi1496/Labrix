@@ -28,14 +28,28 @@ const MAP_STYLE: StyleSpecification = {
   ],
 };
 
-const POPUP_HTML = `
-  <div class="type-h6">
-    <strong>ClinRT Global Services Pvt. Ltd.</strong><br/>
-    905, Tower 3, Kohinoor World Towers<br/>
-    PCMC, Pune, Maharashtra 411018<br/>
-    India
-  </div>
-`;
+function createPopupContent() {
+  const container = document.createElement("div");
+  container.className = "type-h6";
+
+  const title = document.createElement("strong");
+  title.textContent = "ClinRT Global Services Pvt. Ltd.";
+  container.appendChild(title);
+  container.appendChild(document.createElement("br"));
+
+  const addressLines = [
+    "905, Tower 3, Kohinoor World Towers",
+    "PCMC, Pune, Maharashtra 411018",
+    "India",
+  ];
+
+  addressLines.forEach((line) => {
+    container.append(document.createTextNode(line));
+    container.appendChild(document.createElement("br"));
+  });
+
+  return container;
+}
 
 export default function ContactMap() {
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -57,7 +71,11 @@ export default function ContactMap() {
 
     new maplibregl.Marker({ color: "#0f243a" })
       .setLngLat(LOCATION)
-      .setPopup(new maplibregl.Popup({ offset: 24 }).setHTML(POPUP_HTML))
+      .setPopup(
+        new maplibregl.Popup({ offset: 24 }).setDOMContent(
+          createPopupContent(),
+        ),
+      )
       .addTo(map);
 
     return () => {

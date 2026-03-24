@@ -16,13 +16,13 @@ export default function Footer() {
   return (
     <footer>
       <div className="m-2">
-        <div className="rounded-3xl bg-(--primary-color) px-8 py-10 text-white">
+        <div className="rounded-3xl bg-[#070b13] px-8 py-10 text-white">
           <div className="grid gap-10 lg:grid-cols-[1.2fr_0.7fr_0.9fr_1fr]">
             <div>
               <div className="flex items-center">
                 <Link href="/" className="flex items-center gap-2 z-50">
                   <Image
-                    src="/clinrt-logo-white.png"
+                    src="/images/company-logo.png"
                     alt="ClinRT Logo"
                     width={160}
                     height={20}

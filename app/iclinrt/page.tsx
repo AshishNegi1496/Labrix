@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import {
@@ -16,494 +15,21 @@ import SectionWrapper from "@/components/layout/SectionWrapper";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import Button from "@/components/ui/Button";
 import GlassCard from "@/components/GlassCard";
-import GlassSlider from "@/components/GlassSlider";
-import {
-  FiActivity,
-  FiBarChart2,
-  FiCheck,
-  FiCompass,
-  FiCpu,
-  FiEye,
-  FiGitMerge,
-  FiLayers,
-  FiSettings,
-  FiShield,
-  FiShuffle,
-  FiTruck,
-  FiUsers,
-  FiZap,
-} from "react-icons/fi";
+import SectionBadge from "@/components/ui/SectionBadge";
+import { FiActivity, FiCheck, FiZap } from "react-icons/fi";
 import { useActiveCard } from "@/hooks/useInView";
 import StudyFlowSvg from "@/components/StudyFlowSvg";
-const phases = [
-  { title: "Study Planning", subtitle: "Study Inception Phase" },
-  { title: "Study Design", subtitle: "Build Phase" },
-  { title: "System Validation", subtitle: "Validation Phase" },
-  { title: "Go Live & Support", subtitle: "Execution Phase" },
-  { title: "Study Close", subtitle: "Closure Phase" },
-];
-
-const serviceMedia = [
-  "/images/service1.png",
-  "/images/service2.png",
-  "/images/service3.png",
-  "/images/service4.png",
-  "/images/service5.png",
-  "/images/service6.png",
-  "/images/service-1.jpg",
-] as const;
-
-const potentialMedia = [
-  "/images/case-study-1.jpg",
-  "/images/case-study-2.jpg",
-  "/images/case-study-3.jpg",
-  "/images/service-1.jpg",
-  "/images/about-lab.png",
-  "/images/why-choose-image.jpg",
-] as const;
-
-const howItWorksMedia = [
-  "/images/service-1.jpg",
-  "/images/about-lab.png",
-  "/images/why-choose-image.jpg",
-  "/images/case-study-2.jpg",
-] as const;
-
-const howItWorksIcons = [FiCpu, FiShuffle, FiTruck, FiBarChart2] as const;
-
-const uspIcons = [
-  FiZap,
-  FiUsers,
-  FiTruck,
-  FiShield,
-  FiGitMerge,
-  FiActivity,
-  FiSettings,
-] as const;
-
-const iclinrtServices = [
-  {
-    title: "Subject Management",
-    items: [
-      "Supports screening, enrollment, and subject status updates in real time.",
-      "Guides sites through protocol-aligned visit workflows (scheduled or unscheduled).",
-      "Applies guardrails to reduce deviations and data entry errors.",
-      "Provides clear subject timelines (visit due, completed, missed, rescheduled).",
-      "Maintains an audit trail for all subject actions.",
-    ],
-  },
-  {
-    title: "Subject Randomization and Treatment Assignment",
-    items: [
-      "Executes unbiased, protocol-aligned allocation across arms, cohorts, and strata.",
-      "Preserves blinding integrity and supports emergency unblinding with full logs.",
-      "Handles complex designs (block, stratified, cohort expansion) without delays.",
-      "Links treatment assignment to visit dosing for operational consistency.",
-      "Captures allocation decisions with time and user stamps for inspection readiness.",
-    ],
-  },
-  {
-    title: "Kit Management and Assignment",
-    items: [
-      "Tracks kit creation, status, and location (depot to site to subject).",
-      "Matches the right kit to the right subject and visit per protocol.",
-      "Uses barcode verification to prevent dispensing errors.",
-      "Supports returns, quarantines, replacements, and status changes.",
-      "Maintains full traceability for accountability and audits.",
-    ],
-  },
-  {
-    title: "Triggers and Auto Shipments",
-    items: [
-      "Predicts site-level demand using enrollment, dosing cadence, and historical use.",
-      "Auto-generates resupply shipments based on predefined buffer rules and thresholds.",
-      "Minimizes stock-outs and urgent shipments through proactive planning.",
-      "Adjusts to changes in recruitment or dosing with dynamic trigger logic.",
-      "Provides shipment visibility (created, dispatched, received, reconciled).",
-    ],
-  },
-  {
-    title: "Kit Expiry Date Management",
-    items: [
-      "Monitors expiry per kit or lot and flags early warning windows.",
-      "Supports safe dispense rules (do not assign within X days of expiry).",
-      "Guides redistribution and replacement to reduce wastage.",
-      "Captures expiry-related actions (quarantine, destroy) with documentation.",
-      "Surfaces site-level views of usable vs near-expiry inventory.",
-    ],
-  },
-  {
-    title: "Drug and Supply Management",
-    items: [
-      "Provides end-to-end IMP oversight from packaging to final disposition.",
-      "Maintains chain-of-custody across depots, couriers, sites, and subjects.",
-      "Supports temperature mapping for cold-chain products and records excursion reviews.",
-      "Manages retention samples with custody and location tracking.",
-      "Offers planning and reconciliation views for supply teams (by region, site, lot).",
-    ],
-  },
-  {
-    title: "Site-Level Inventory Management",
-    items: [
-      "Shows real-time on-hand inventory by kit, lot, and status at each site.",
-      "Highlights reserved, quarantined, and near-expiry stock for quick action.",
-      "Enables site-to-site transfers with traceable approvals and receipts.",
-      "Reduces manual logs with automatic updates from dispensing and returns.",
-      "Aligns inventory readiness with upcoming visit schedules.",
-    ],
-  },
-] as const;
-
-const regulatoryStandards = [
-  { label: "ICH GCP", abbr: "ICH", logo: "/images/ich.webp" },
-  {
-    label: "FDA 21 CFR Part 11",
-    abbr: "FDA",
-    logo: "/images/fda.webp",
-  },
-  { label: "GAMP 5", abbr: "GAMP", logo: "/images/gamp.webp" },
-  { label: "GXP", abbr: "GXP", logo: "/images/gxpw.webp" },
-  { label: "HIPAA", abbr: "HIPAA", logo: "/images/hipaa.webp" },
-  { label: "GDPR", abbr: "GDPR", logo: "/images/gdprw.webp" },
-  { label: "CDSCO", abbr: "CDSCO", logo: undefined },
-  { label: "MedRA", abbr: "MED", logo: "/images/meddra.webp" },
-  { label: "CDISC", abbr: "CDISC", logo: "/images/cdisc.webp" },
-  { label: "EU Annex 11", abbr: "EU", logo: undefined },
-] as const;
-
-const iclinrtPotential = [
-  {
-    title: "Management of every Subject",
-    items: [
-      "Supports screening, enrollment, and visit flow.",
-      "Ensures sites follow protocol-aligned steps.",
-      "Keeps subject status clear and organized.",
-    ],
-  },
-  {
-    title: "Fair Treatment Assignments",
-    items: [
-      "Assigns subjects to arms without bias.",
-      "Handles cohorts, stratification, and multi-arm setups.",
-      "Protects allocation integrity.",
-    ],
-  },
-  {
-    title: "Supply That Thinks Ahead",
-    items: [
-      "Tracks inventory at depots and sites.",
-      "Predicts supply needs and auto-triggers shipments.",
-      "Helps prevent shortages and reduce wastage.",
-    ],
-  },
-  {
-    title: "Smart Kit Assignment",
-    items: [
-      "Ensures the correct physical kit is given to the right participant.",
-      "Checks kit status (available, reserved, expired, returned).",
-      "Uses barcode scanning for quick, error-free verification.",
-      "Matches kits to visit schedules in real time.",
-      "Minimizes dispensing mistakes at sites.",
-    ],
-  },
-  {
-    title: "Safety First - Expiry Under Control",
-    items: [
-      "Monitors expiry dates continuously.",
-      "Alerts teams before a kit expires.",
-      "Ensures expired kits are never used.",
-    ],
-  },
-  {
-    title: "Kit Lifecycle Tracking",
-    items: [
-      "Tracks each kit from creation to destruction.",
-      "Logs dispensing, returns, and reconciliation.",
-      "Maintains inspection-ready records.",
-    ],
-  },
-  {
-    title: "Barcode-Enabled Tracking",
-    items: [
-      "Supports barcode scanning at sites and depots.",
-      "Reduces manual errors in kit selection and handling.",
-      "Speeds up dispensing, returns, and accountability workflows.",
-    ],
-  },
-  {
-    title: "Controlled Unblinding - For True Emergencies Only",
-    items: [
-      "Secure unblinding for medical emergencies.",
-      "Logs every action for audit trails.",
-      "Protects trial integrity.",
-    ],
-  },
-  {
-    title: "Reports and Dashboards for Complete Visibility",
-    items: [
-      "Real-time view of enrollment, supply, and visits.",
-      "Role-based filters for sponsors, CROs, sites, and depots.",
-      "Supports faster, more confident decisions.",
-    ],
-  },
-  {
-    title: "Stay Ahead with Notifications and Alerts",
-    items: [
-      "Alerts for supply risk, expiries, shipments, or key events.",
-      "Helps teams act early and avoid delays.",
-      "Keeps stakeholders aligned.",
-    ],
-  },
-  {
-    title: "24x7 Expert Assisted Support",
-    items: [
-      "Dedicated helpdesk for sites and study teams.",
-      "Technical and workflow assistance.",
-      "Ensures smooth daily operations.",
-    ],
-  },
-  {
-    title: "Quick Site-to-Site Transfers",
-    items: [
-      "Enables safe, traceable transfers of study drug kits between sites.",
-      "Helps manage fast enrollment or local shortages.",
-      "Maintains complete visibility during movement.",
-    ],
-  },
-  {
-    title: "Cold-Chain and Excursion Handling",
-    items: [
-      "Tracks temperature-sensitive kits.",
-      "Flags excursions for review.",
-      "Supports usability decisions and compliance.",
-    ],
-  },
-  {
-    title: "Retention Sample Management",
-    items: [
-      "Manages long-term storage samples.",
-      "Tracks movement and location.",
-      "Supports regulatory and scientific needs.",
-    ],
-  },
-  {
-    title: "Study Startup and Go-Live Setup",
-    items: [
-      "Configuration, testing, validation, and training.",
-      "Ensures readiness before first-patient-in.",
-      "Smooth transition into conduct.",
-    ],
-  },
-] as const;
-
-const howItWorksLayers = [
-  {
-    title: "Protocol Intelligence",
-    text: "Encode study logic, eligibility, and treatment rules into a single source of truth.",
-  },
-  {
-    title: "Workflow Orchestration",
-    text: "Coordinate subject visits, randomization, and site actions with protocol-aligned guardrails.",
-  },
-  {
-    title: "Supply and Inventory Engine",
-    text: "Automate kit movement, expiry management, and resupply triggers across depots and sites.",
-  },
-  {
-    title: "Insights and Compliance",
-    text: "Deliver real-time dashboards, audit trails, and inspection-ready documentation.",
-  },
-] as const;
-
-const studyTypes = [
-  {
-    label: "Oncology",
-    detail: "Adaptive cohorts, stratified randomization, and dose changes.",
-    icon: FiActivity,
-    dotClass: "bg-(--color-accent)",
-    position: "lg:left-0 lg:top-8",
-  },
-  {
-    label: "Rare Diseases",
-    detail: "Tight supply planning for low-volume, high-value populations.",
-    icon: FiEye,
-    dotClass: "bg-(--color-orange)",
-    position: "lg:right-10 lg:top-0",
-  },
-  {
-    label: "Biologics",
-    detail: "Cold-chain oversight with precise kit and expiry controls.",
-    icon: FiLayers,
-    dotClass: "bg-emerald-500",
-    position: "lg:left-10 lg:top-44",
-  },
-  {
-    label: "Vaccine Trials",
-    detail: "High-throughput regional rollout with fast site readiness.",
-    icon: FiShield,
-    dotClass: "bg-sky-500",
-    position: "lg:right-0 lg:top-40",
-  },
-  {
-    label: "Medical Device Trials",
-    detail: "Traceability across serials, lots, returns, and accountability.",
-    icon: FiCheck,
-    dotClass: "bg-violet-500",
-    position: "lg:left-0 lg:bottom-12",
-  },
-  {
-    label: "Early to Late Phase",
-    detail: "Designed to scale from first-patient-in to global expansion.",
-    icon: FiGitMerge,
-    dotClass: "bg-amber-500",
-    position: "lg:right-14 lg:bottom-20",
-  },
-  {
-    label: "Complex Global Programs",
-    detail: "Multi-country coordination with protocol control and compliance.",
-    icon: FiCompass,
-    dotClass: "bg-rose-500",
-    position: "lg:left-1/2 lg:bottom-0 lg:-translate-x-1/2",
-  },
-] as const;
-
-const iclinrtUsps = [
-  {
-    title: "Fast 4-Week Setup",
-    items: [
-      "Rapid configuration and validation to support First Patient In timelines.",
-      "Handles multi-arm, cohort-based, and stratified designs without delay.",
-      "Streamlined user acceptance testing and protocol-aligned setup.",
-    ],
-  },
-  {
-    title: "Deep Industry Expertise",
-    items: [
-      "Led by teams experienced in IRT and clinical trial supply management.",
-      "Strong understanding of real clinical workflows across phases and therapeutic areas.",
-      "Practical guidance that supports sites, CROs, and Sponsors.",
-    ],
-  },
-  {
-    title: "Smarter Supply Management",
-    items: [
-      "Predicts supply requirements based on enrollment trends and dosing schedules.",
-      "Ensures stable IMP inventory across depots and sites.",
-      "Supports site-to-site kit transfers, retention sample management, and cold-chain needs.",
-    ],
-  },
-  {
-    title: "Compliance Built-In",
-    items: [
-      "Aligned with ICH-GCP, 21 CFR Part 11, EU Annex 11, GDPR, and HIPAA.",
-      "Features complete audit trails, electronic signatures, and validated workflows.",
-      "Ensures records meet ALCOA+ principles for data integrity.",
-    ],
-  },
-  {
-    title: "Seamless System Integrations",
-    items: [
-      "Connects with CTMS and EDC platforms.",
-      "Reduces manual reconciliation and improves data consistency.",
-      "Supports unified oversight similar to leading integrated platforms.",
-    ],
-  },
-  {
-    title: "Designed for Users",
-    items: [
-      "Clear, real-time dashboards for enrollment, visits, supply, and site performance.",
-      "Simple, protocol-aligned workflows minimize site burden.",
-      "Supported by a responsive helpdesk for operational and technical queries.",
-    ],
-  },
-  {
-    title: "Flexible, Scalable, User-Friendly",
-    items: [
-      "Adapts to early-phase, late-phase, and global multi-region studies.",
-      "Easily accommodates mid-study protocol amendments.",
-      "Remains intuitive and reliable as study scope grows.",
-    ],
-  },
-] as const;
-
-const problemSolutions = [
-  {
-    problem: "Imbalanced treatment arms in complex designs",
-    solution:
-      "Protocol-aligned randomization across arms, cohorts, and strata.",
-  },
-  {
-    problem: "Site stock-outs or over-stock",
-    solution: "Predictive resupply and automated depot-to-site shipments.",
-  },
-  {
-    problem: "Dispensing errors at the site",
-    solution: "Barcode-verified kit assignment at the right visit.",
-  },
-  {
-    problem: "Poor visibility of kit status and movement",
-    solution:
-      "End-to-end kit traceability from creation to dispense, return, reconcile, and destroy.",
-  },
-  {
-    problem: "Cold-chain uncertainty during storage or transport",
-    solution: "Temperature mapping to record, review, and document integrity.",
-  },
-  {
-    problem: "Kits nearing expiry and late action",
-    solution: "Expiry tracking with early alerts and replacement guidance.",
-  },
-  {
-    problem: "Retention samples missed or mishandled",
-    solution: "Retention sample tracking with clear custody and status.",
-  },
-  {
-    problem: "Inconsistent visit execution across sites",
-    solution: "Protocol-driven subject and visit workflows.",
-  },
-  {
-    problem: "Limited real-time oversight for sponsors and CROs",
-    solution: "Live dashboards, configurable reports, and event-based alerts.",
-  },
-  {
-    problem: "Operational disruption after protocol amendments",
-    solution:
-      "Amendment-friendly configuration that updates logic without derailing sites.",
-  },
-  {
-    problem: "Audit and inspection readiness concerns",
-    solution:
-      "Audit trails, role-based access, e-signatures, and ALCOA+ records.",
-  },
-  {
-    problem: "Multi-country coordination challenges",
-    solution:
-      "Unified oversight across regions, depots, and sites in one system.",
-  },
-  {
-    problem: "Slow issue resolution at sites",
-    solution: "Responsive helpdesk and study support for operational queries.",
-  },
-  {
-    problem: "Data duplication across systems",
-    solution:
-      "Seamless integrations with CTMS, EDC, and other eClinical platforms.",
-  },
-] as const;
-
-const Ping = () => (
-  <span className="relative h-2.5 w-2.5">
-    <span className="absolute inset-0 rounded-full bg-orange-500 animate-ping" />
-    <span className="absolute inset-0.5 rounded-full bg-orange-500" />
-  </span>
-);
-const Badge = ({ children }: { children: React.ReactNode }) => (
-  <p className="inline-flex items-center gap-2 rounded-full border border-orange-500 px-4 py-1.5 text-sm">
-    <Ping />
-    {children}
-  </p>
-);
-
+import {
+  iclinrtPotential as iclinrtPotential,
+  iclinrtPotentialMedia as potentialMedia,
+  iclinrtProblemSolutions as problemSolutions,
+  iclinrtRegulatoryStandards as regulatoryStandards,
+  iclinrtServiceMedia as serviceMedia,
+  iclinrtServices as iclinrtServices,
+  iclinrtStudyTypes as studyTypes,
+  iclinrtUsps as iclinrtUsps,
+  iclinrtUspIcons as uspIcons,
+} from "@/data";
 // IclinrtUspsSection.tsx
 
 type StickyCardsProps = {
@@ -511,12 +37,14 @@ type StickyCardsProps = {
   sectionRef: RefObject<HTMLDivElement | null>;
 };
 
+type StickyCardItem = (typeof iclinrtUsps)[number];
+
 const StickyCards = ({ iclinrtUsps, sectionRef }: StickyCardsProps) => {
   const activeIndex = useActiveCard(iclinrtUsps.length, sectionRef);
 
   return (
     <div className="sticky top-0 h-screen overflow-hidden">
-      {iclinrtUsps.map((item: any, index: number) => {
+      {iclinrtUsps.map((item: StickyCardItem, index: number) => {
         const Icon = uspIcons[index % uspIcons.length] || FiZap;
 
         return (
@@ -708,10 +236,10 @@ export default function IclinrtPage() {
         <div className="relative z-10 section-shell flex min-h-[70vh] flex-col justify-center gap-8 px-6 py-20 md:px-10">
           <ScrollReveal className="max-w-3xl text-white">
             <Image
-              src="/clinrt-logo-white.png"
+              src="/images/product-logo.png"
               alt="iClinRT"
               width={120}
-              height={32}
+              height={72}
               priority
             />
             <p className="mt-4 type-h2 font-semibold text-white">
@@ -735,7 +263,7 @@ export default function IclinrtPage() {
         <div className="mx-auto rounded-3xl bg-white px-6 py-14 md:px-10">
           <div className="grid gap-10 lg:grid-cols-[1.1fr_1fr]">
             <ScrollReveal>
-              <Badge>What is iClinRT</Badge>
+              <SectionBadge>What is iClinRT</SectionBadge>
               <p className="mt-3 type-h2 font-semibold">
                 Your Trial&apos;s Operational Control Center.
               </p>
@@ -778,7 +306,7 @@ export default function IclinrtPage() {
           {/* HEADING */}
           <ScrollReveal>
             <div className="mb-12">
-              <Badge>Services iClinRT Delivers</Badge>
+              <SectionBadge>Services iClinRT Delivers</SectionBadge>
               <h2 className="mt-3 type-h2 font-semibold max-w-2xl">
                 Operational depth for every subject and kit movement
               </h2>
@@ -786,7 +314,7 @@ export default function IclinrtPage() {
           </ScrollReveal>
 
           {/* GRID */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-fr">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 auto-rows-fr">
             {iclinrtServices.map((service, index) => (
               <ScrollReveal key={index} delay={index * 60}>
                 <motion.div
@@ -829,7 +357,7 @@ export default function IclinrtPage() {
               "
                     imageClassName="
                 transition-all duration-700 ease-out
-                group-hover:scale-110
+                group-hover:scale-120
               "
                   >
                     {/* SERVICE NUMBER */}
@@ -935,7 +463,7 @@ export default function IclinrtPage() {
                     >
                       X
                     </button>
-                    <div className="flex items-center gap-3 text-[10px] uppercase tracking-[0.3em] text-white/70">
+                    <div className="flex items-center gap-3 text-[10px]  tracking-[0.3em] text-white/70">
                       <span>{`Service ${String((activeServiceIndex ?? 0) + 1).padStart(2, "0")}`}</span>
                       <span className="rounded-full bg-white/15 px-2 py-1 text-[10px]">
                         iClinRT
@@ -944,7 +472,7 @@ export default function IclinrtPage() {
                     <p className="mt-3 type-h2 font-semibold text-white">
                       {activeService.title}
                     </p>
-                    <p className="mt-2 text-sm text-black">
+                    <p className="mt-2 text-sm text-white">
                       Full operational detail and protocol-ready execution for
                       your clinical teams.
                     </p>
@@ -973,7 +501,7 @@ export default function IclinrtPage() {
       <SectionWrapper fullBleed>
         <div className="mx-auto rounded-3xl bg-(--primary-color) px-6 py-14 text-white md:px-10">
           <ScrollReveal>
-            <Badge>Global Compliance</Badge>
+            <SectionBadge>Global Compliance</SectionBadge>
             <p className="mt-3 type-h2 font-semibold text-white">
               Built to meet global regulatory and data-integrity requirements
             </p>
@@ -1015,7 +543,7 @@ export default function IclinrtPage() {
           <div className="relative z-10 grid gap-8 xl:grid-cols-[0.7fr_1.3fr] xl:items-start">
             <div>
               <ScrollReveal>
-                <Badge>iClinRT&apos;s Potential</Badge>
+                <SectionBadge>iClinRT&apos;s Potential</SectionBadge>
               </ScrollReveal>
 
               <div className="mt-8 max-h-140 space-y-3 overflow-y-auto pr-2 no-scrollbar">
@@ -1148,7 +676,7 @@ export default function IclinrtPage() {
 
       <SectionWrapper fullBleed>
         <div className="rounded-3xl bg-white/70 backdrop-blur-xl p-10 border shadow-xl">
-          <Badge>How it works</Badge>
+          <SectionBadge>How it works</SectionBadge>
           <StudyFlowSvg />
         </div>
       </SectionWrapper>
@@ -1175,11 +703,11 @@ export default function IclinrtPage() {
             <div className="relative z-10 grid gap-8 p-6 md:p-8 lg:grid-cols-[0.92fr_1.08fr] lg:items-center">
               {/* LEFT CONTENT */}
               <div>
-                <Badge>
+                <SectionBadge>
                   <span className="inline-flex items-center gap-2">
                     Study Types We Support
                   </span>
-                </Badge>
+                </SectionBadge>
                 <p className="mt-3 type-h2 font-semibold">
                   Built for complex programs across phases, therapies, and
                   regions
@@ -1377,7 +905,7 @@ export default function IclinrtPage() {
           className="relative"
           style={{ height: `${iclinrtUsps.length * 100}vh` }}
         >
-          <Badge>USP</Badge>
+          <SectionBadge>USP</SectionBadge>
           <StickyCards iclinrtUsps={iclinrtUsps} sectionRef={uspsSectionRef} />
           {/* </div> */}
         </div>
@@ -1389,11 +917,11 @@ export default function IclinrtPage() {
           <div className="pointer-events-none absolute -bottom-24 right-6 h-64 w-64 rounded-full bg-(--color-orange)/25 blur-3xl" />
           <div className="relative z-10 grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
             <ScrollReveal>
-              <Badge>
+              <SectionBadge>
                 <span className="inline-flex items-center gap-2">
                   Problem to Solution
                 </span>
-              </Badge>
+              </SectionBadge>
               <p className="mt-3 type-h2 font-semibold">
                 Solve operational bottlenecks with iClinRT
               </p>
@@ -1459,11 +987,11 @@ export default function IclinrtPage() {
         <div className="relative text-center mx-auto overflow-hidden rounded-3xl border border-white/25 bg-(--color-primary) px-6 py-14 text-white shadow-2xl md:px-10">
           <ScrollReveal>
             <div className="flex flex-col items-center">
-              <Badge>
+              <SectionBadge>
                 <span className="inline-flex items-center justify-center gap-2">
                   Ready to See iClinRT
                 </span>
-              </Badge>
+              </SectionBadge>
               <p className="mt-3 type-h2 font-semibold text-(--text-invert)">
                 Bring operational clarity to every trial milestone
               </p>

@@ -4,29 +4,37 @@ import Image from "next/image";
 import dynamic from "next/dynamic";
 import { AnimatePresence, motion } from "framer-motion";
 import type {
+  FormEvent,
   InputHTMLAttributes,
   ReactNode,
   SelectHTMLAttributes,
   TextareaHTMLAttributes,
 } from "react";
-import type { IconType } from "react-icons";
 import { useState } from "react";
-import {
-  FiArrowRight,
-  FiCalendar,
-  FiCheckCircle,
-  FiGlobe,
-  FiMail,
-  FiMapPin,
-  FiMessageCircle,
-  FiPhone,
-  FiShield,
-  FiUsers,
-} from "react-icons/fi";
+import { FiArrowRight, FiShield } from "react-icons/fi";
 import PageTransition from "@/components/animations/PageTransition";
 import SectionWrapper from "@/components/layout/SectionWrapper";
 import Button from "@/components/ui/Button";
 import { cn } from "@/lib/cn";
+import ScrollReveal from "@/components/animations/ScrollReveal";
+import {
+  contactChannels,
+  contactFileConstraints,
+  contactFormAction,
+  contactFormOptions,
+  contactFormSuccessPath,
+  contactFormTemplate,
+  contactHero,
+  contactInfoBlock,
+  contactMapBlock,
+  type ContactFormType,
+} from "@/data";
+import { appConfig } from "@/config/app-config";
+import {
+  sanitizeEmailValue,
+  sanitizePhoneValue,
+  sanitizeTextValue,
+} from "@/lib/sanitize";
 
 const ContactMap = dynamic(() => import("@/components/ContactMap"), {
   ssr: false,
@@ -35,96 +43,6 @@ const ContactMap = dynamic(() => import("@/components/ContactMap"), {
 const fieldClass =
   "w-full rounded-2xl border border-slate-200 bg-white px-4 py-3.5 text-sm text-slate-900 placeholder:text-slate-400 shadow-[0_10px_30px_rgba(15,36,58,0.05)] transition focus:border-[#0f243a]/35 focus:outline-none focus:ring-4 focus:ring-[#0f243a]/10";
 const selectClass = `${fieldClass} appearance-none`;
-
-type FormType = "demo" | "touch" | "community";
-
-type FormOption = {
-  id: FormType;
-  title: string;
-  description: string;
-  helper: string;
-  badge: string;
-  icon: IconType;
-};
-
-type Highlight = {
-  icon: IconType;
-  title: string;
-  text: string;
-};
-
-type ContactChannel = {
-  icon: IconType;
-  title: string;
-  value: string;
-  href?: string;
-};
-
-const formOptions: FormOption[] = [
-  {
-    id: "demo",
-    title: "Request a Demo",
-    description:
-      "Book a guided walkthrough of iClinRT, its workflows, and the operating model behind it.",
-    helper:
-      "Best for sponsors, CROs, and clinical operations teams actively evaluating the platform.",
-    badge: "Priority Route",
-    icon: FiCalendar,
-  },
-  {
-    id: "touch",
-    title: "Get in Touch",
-    description:
-      "Reach out for support, partnerships, service questions, or a broader conversation with the team.",
-    helper:
-      "Tell us what you need and we will route your enquiry to the right team quickly.",
-    badge: "General Enquiry",
-    icon: FiMessageCircle,
-  },
-  {
-    id: "community",
-    title: "Join Our Community",
-    description:
-      "Stay close to product news, event invites, case studies, and practical clinical operations insights.",
-    helper:
-      "A lighter-touch way to stay connected with the latest from ClinRT.",
-    badge: "Updates & Insights",
-    icon: FiUsers,
-  },
-];
-
-const contactChannels: ContactChannel[] = [
-  {
-    icon: FiMail,
-    title: "General enquiries",
-    value: "enquiry@clinrtglobal.com",
-    href: "mailto:enquiry@clinrtglobal.com",
-  },
-  {
-    icon: FiMail,
-    title: "Product and support",
-    value: "support@clinrtglobal.com",
-    href: "mailto:support@clinrtglobal.com",
-  },
-  {
-    icon: FiMail,
-    title: "Careers",
-    value: "hr@clinrtglobal.com",
-    href: "mailto:hr@clinrtglobal.com",
-  },
-  {
-    icon: FiPhone,
-    title: "Phone",
-    value: "+91 8530067925",
-    href: "tel:+918530067925",
-  },
-  {
-    icon: FiMapPin,
-    title: "Office",
-    value:
-      "ClinRT Global Services Pvt. Ltd. 905, Tower 3, Kohinoor World Towers (KWT) PCMC, Pune, Maharashtra 411018, India",
-  },
-];
 
 type InputProps = InputHTMLAttributes<HTMLInputElement>;
 const Input = ({ className, ...props }: InputProps) => (
@@ -168,12 +86,84 @@ const CheckboxRow = ({ label }: { label: string }) => (
 );
 
 export default function Contact() {
-  const [activeForm, setActiveForm] = useState<FormType>("demo");
+  const [activeForm, setActiveForm] = useState<ContactFormType>("demo");
   const activeOption =
-    formOptions.find((option) => option.id === activeForm) ?? formOptions[0];
+    contactFormOptions.find((option) => option.id === activeForm) ??
+    contactFormOptions[0];
+  const successRedirectUrl = `${appConfig.siteUrl}${contactFormSuccessPath}`;
+
+  function handleFormSubmit(event: FormEvent<HTMLFormElement>) {
+    const form = event.currentTarget;
+    const textFields = form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>(
+      "input:not([type='hidden']):not([type='checkbox']):not([type='file']), textarea",
+    );
+
+    textFields.forEach((field) => {
+      if (field.name === "email") {
+        field.value = sanitizeEmailValue(field.value);
+        return;
+      }
+
+      if (field.name === "phone") {
+        field.value = sanitizePhoneValue(field.value);
+        return;
+      }
+
+      field.value = sanitizeTextValue(field.value);
+    });
+
+    const fileField = form.elements.namedItem("file");
+    if (!(fileField instanceof HTMLInputElement) || !fileField.files?.length) {
+      return;
+    }
+
+    const [file] = fileField.files;
+    const allowedTypes = new Set([
+      "application/pdf",
+      "application/msword",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "image/jpeg",
+      "image/png",
+      "image/webp",
+    ]);
+
+    if (
+      file.size > contactFileConstraints.maxSizeBytes ||
+      !allowedTypes.has(file.type)
+    ) {
+      fileField.setCustomValidity(contactFileConstraints.errorMessage);
+      fileField.reportValidity();
+      event.preventDefault();
+      return;
+    }
+
+    fileField.setCustomValidity("");
+  }
 
   return (
     <PageTransition>
+      {/* ---------------- HERO ---------------- */}
+
+      <section className="relative h-screen overflow-hidden">
+        <Image
+          src={contactHero.image}
+          alt="ClinRT operations workspace"
+          fill
+          priority
+          className="object-cover scale-105"
+        />
+
+        <div className="absolute inset-0 bg-linear-to-b from-black/10 via-black/40 to-black/65" />
+
+        <div className="relative z-10 h-full flex items-center section-shell pb-20 text-white">
+          <ScrollReveal className="max-w-3xl">
+            <p className="type-h1 md:text-6xl font-semibold">
+              {contactHero.punchline}
+            </p>
+          </ScrollReveal>
+        </div>
+      </section>
+
       {/* ---------------- CONTACT FORMS ---------------- */}
 
       <SectionWrapper fullBleed>
@@ -198,12 +188,12 @@ export default function Contact() {
             >
               <p className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-[11px] uppercase tracking-[0.3em] text-white/75">
                 <span className="h-2.5 w-2.5 rounded-full bg-[#f59e0b]" />
-                Contact ClinRT
+                {contactHero.eyebrow}
               </p>
             </motion.div>
 
             <div className="space-y-4">
-              {formOptions.map((option, index) => {
+              {contactFormOptions.map((option, index) => {
                 const Icon = option.icon;
                 const isActive = activeForm === option.id;
                 return (
@@ -291,15 +281,31 @@ export default function Contact() {
 
               {activeForm === "demo" && (
                 <form
-                  action="https://formsubmit.co/enquiry@clinrtglobal.com"
+                  action={contactFormAction}
                   method="POST"
+                  onSubmit={handleFormSubmit}
                   className="mt-6 grid gap-5"
                 >
+                  <input
+                    type="text"
+                    name="_honey"
+                    className="hidden"
+                    tabIndex={-1}
+                    autoComplete="off"
+                  />
                   <input
                     type="hidden"
                     name="_subject"
                     value="Request a Demo - ClinRT website"
                   />
+                  <input
+                    type="hidden"
+                    name="_template"
+                    value={contactFormTemplate}
+                  />
+                  <input type="hidden" name="_next" value={successRedirectUrl} />
+                  <input type="hidden" name="formType" value="Request a Demo" />
+                  <input type="hidden" name="sourcePage" value="Contact Page" />
                   <input type="hidden" name="_captcha" value="false" />
 
                   <div className="grid gap-4 sm:grid-cols-2">
@@ -307,6 +313,8 @@ export default function Contact() {
                       <Input
                         name="firstName"
                         placeholder="Enter first name"
+                        autoComplete="given-name"
+                        maxLength={80}
                         required
                       />
                     </FieldShell>
@@ -314,6 +322,8 @@ export default function Contact() {
                       <Input
                         name="lastName"
                         placeholder="Enter last name"
+                        autoComplete="family-name"
+                        maxLength={80}
                         required
                       />
                     </FieldShell>
@@ -325,6 +335,7 @@ export default function Contact() {
                         type="email"
                         name="email"
                         placeholder="name@company.com"
+                        autoComplete="email"
                         required
                       />
                     </FieldShell>
@@ -333,6 +344,8 @@ export default function Contact() {
                         type="tel"
                         name="phone"
                         placeholder="+91 or local number"
+                        inputMode="tel"
+                        maxLength={20}
                       />
                     </FieldShell>
                   </div>
@@ -342,6 +355,8 @@ export default function Contact() {
                       <Input
                         name="company"
                         placeholder="Company or organisation"
+                        autoComplete="organization"
+                        maxLength={120}
                         required
                       />
                     </FieldShell>
@@ -349,6 +364,8 @@ export default function Contact() {
                       <Input
                         name="designation"
                         placeholder="Clinical operations lead"
+                        autoComplete="organization-title"
+                        maxLength={120}
                         required
                       />
                     </FieldShell>
@@ -386,6 +403,7 @@ export default function Contact() {
                       rows={4}
                       placeholder="Tell us about your study type, current tools, timelines, or the workflows you want to see."
                       className="min-h-[140px] resize-none"
+                      maxLength={1200}
                       required
                     />
                   </FieldShell>
@@ -404,16 +422,32 @@ export default function Contact() {
 
               {activeForm === "touch" && (
                 <form
-                  action="https://formsubmit.co/enquiry@clinrtglobal.com"
+                  action={contactFormAction}
                   method="POST"
                   encType="multipart/form-data"
+                  onSubmit={handleFormSubmit}
                   className="mt-6 grid gap-5"
                 >
+                  <input
+                    type="text"
+                    name="_honey"
+                    className="hidden"
+                    tabIndex={-1}
+                    autoComplete="off"
+                  />
                   <input
                     type="hidden"
                     name="_subject"
                     value="Get in Touch - ClinRT website"
                   />
+                  <input
+                    type="hidden"
+                    name="_template"
+                    value={contactFormTemplate}
+                  />
+                  <input type="hidden" name="_next" value={successRedirectUrl} />
+                  <input type="hidden" name="formType" value="Get in Touch" />
+                  <input type="hidden" name="sourcePage" value="Contact Page" />
                   <input type="hidden" name="_captcha" value="false" />
 
                   <div className="grid gap-4 sm:grid-cols-2">
@@ -421,6 +455,8 @@ export default function Contact() {
                       <Input
                         name="firstName"
                         placeholder="Enter first name"
+                        autoComplete="given-name"
+                        maxLength={80}
                         required
                       />
                     </FieldShell>
@@ -428,6 +464,8 @@ export default function Contact() {
                       <Input
                         name="lastName"
                         placeholder="Enter last name"
+                        autoComplete="family-name"
+                        maxLength={80}
                         required
                       />
                     </FieldShell>
@@ -439,6 +477,7 @@ export default function Contact() {
                         type="email"
                         name="email"
                         placeholder="name@company.com"
+                        autoComplete="email"
                         required
                       />
                     </FieldShell>
@@ -447,6 +486,8 @@ export default function Contact() {
                         type="tel"
                         name="phone"
                         placeholder="Add a direct line"
+                        inputMode="tel"
+                        maxLength={20}
                         required
                       />
                     </FieldShell>
@@ -457,11 +498,18 @@ export default function Contact() {
                       <Input
                         name="company"
                         placeholder="Company name"
+                        autoComplete="organization"
+                        maxLength={120}
                         required
                       />
                     </FieldShell>
                     <FieldShell label="Designation">
-                      <Input name="designation" placeholder="Your role" />
+                      <Input
+                        name="designation"
+                        placeholder="Your role"
+                        autoComplete="organization-title"
+                        maxLength={120}
+                      />
                     </FieldShell>
                   </div>
 
@@ -484,6 +532,7 @@ export default function Contact() {
                       rows={4}
                       placeholder="Tell us how we can help."
                       className="min-h-[140px] resize-none"
+                      maxLength={1200}
                       required
                     />
                   </FieldShell>
@@ -492,6 +541,7 @@ export default function Contact() {
                     <Input
                       type="file"
                       name="file"
+                      accept={contactFileConstraints.accept}
                       className="file:mr-4 file:rounded-full file:border-0 file:bg-[#0f243a] file:px-4 file:py-2 file:text-xs file:font-medium file:uppercase file:tracking-[0.2em] file:text-white hover:file:bg-[#163451]"
                     />
                   </FieldShell>
@@ -510,15 +560,35 @@ export default function Contact() {
 
               {activeForm === "community" && (
                 <form
-                  action="https://formsubmit.co/enquiry@clinrtglobal.com"
+                  action={contactFormAction}
                   method="POST"
+                  onSubmit={handleFormSubmit}
                   className="mt-6 grid gap-5"
                 >
+                  <input
+                    type="text"
+                    name="_honey"
+                    className="hidden"
+                    tabIndex={-1}
+                    autoComplete="off"
+                  />
                   <input
                     type="hidden"
                     name="_subject"
                     value="Join Our Community - ClinRT website"
                   />
+                  <input
+                    type="hidden"
+                    name="_template"
+                    value={contactFormTemplate}
+                  />
+                  <input type="hidden" name="_next" value={successRedirectUrl} />
+                  <input
+                    type="hidden"
+                    name="formType"
+                    value="Join Our Community"
+                  />
+                  <input type="hidden" name="sourcePage" value="Contact Page" />
                   <input type="hidden" name="_captcha" value="false" />
 
                   <div className="grid gap-4 sm:grid-cols-2">
@@ -526,6 +596,8 @@ export default function Contact() {
                       <Input
                         name="firstName"
                         placeholder="Enter first name"
+                        autoComplete="given-name"
+                        maxLength={80}
                         required
                       />
                     </FieldShell>
@@ -533,6 +605,8 @@ export default function Contact() {
                       <Input
                         name="lastName"
                         placeholder="Enter last name"
+                        autoComplete="family-name"
+                        maxLength={80}
                         required
                       />
                     </FieldShell>
@@ -544,6 +618,7 @@ export default function Contact() {
                         type="email"
                         name="email"
                         placeholder="name@company.com"
+                        autoComplete="email"
                         required
                       />
                     </FieldShell>
@@ -551,6 +626,8 @@ export default function Contact() {
                       <Input
                         name="company"
                         placeholder="Company or organisation"
+                        autoComplete="organization"
+                        maxLength={120}
                       />
                     </FieldShell>
                   </div>
@@ -560,6 +637,8 @@ export default function Contact() {
                       <Input
                         name="role"
                         placeholder="Designation or role"
+                        autoComplete="organization-title"
+                        maxLength={120}
                         required
                       />
                     </FieldShell>
@@ -567,6 +646,8 @@ export default function Contact() {
                       <Input
                         name="country"
                         placeholder="Country or region"
+                        autoComplete="country-name"
+                        maxLength={80}
                         required
                       />
                     </FieldShell>
@@ -611,14 +692,13 @@ export default function Contact() {
             className="rounded-4xl border border-slate-200 bg-white/85 p-6 shadow-[0_20px_60px_rgba(15,36,58,0.06)] backdrop-blur md:p-8"
           >
             <p className="text-[11px] uppercase tracking-[0.3em] text-slate-500">
-              Contact Information
+              {contactInfoBlock.label}
             </p>
             <h3 className="mt-3 type-h3 font-semibold text-[#0f243a]">
-              Reach the ClinRT team directly
+              {contactInfoBlock.title}
             </h3>
             <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-600">
-              If you already know where your request belongs, use the details
-              below. For everything else, the forms above are the fastest path.
+              {contactInfoBlock.description}
             </p>
 
             <div className="mt-6 grid gap-3">
@@ -666,14 +746,14 @@ export default function Contact() {
               <div className="flex flex-wrap items-center justify-between gap-4">
                 <div>
                   <p className="text-[11px] uppercase tracking-[0.3em] text-slate-500">
-                    Find Us
+                    {contactMapBlock.label}
                   </p>
                   <h3 className="mt-2 text-2xl font-semibold text-[#0f243a]">
-                    Pune office location
+                    {contactMapBlock.title}
                   </h3>
                 </div>
                 <span className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-[11px] uppercase tracking-[0.22em] text-slate-600">
-                  On-site and remote support
+                  {contactMapBlock.badge}
                 </span>
               </div>
 

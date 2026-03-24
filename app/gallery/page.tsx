@@ -30,7 +30,7 @@ export default function Gallery() {
       category === "All"
         ? galleryItems
         : galleryItems.filter((item) => item.category === category),
-    [category, galleryItems],
+    [category],
   );
   const visibleItems = useMemo(
     () => filteredItems.slice(0, visibleCount),

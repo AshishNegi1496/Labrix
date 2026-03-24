@@ -48,15 +48,15 @@ export default function Navbar() {
     <>
       <header
         className={`
-          fixed inset-x-0 top-0 z-50 backdrop-blur-sm bg-black/5 border-b border-white/10
+          fixed inset-x-0 top-0 z-50 backdrop-blur-sm bg-[#070b13] border-b border-white/10
           transition-transform duration-300 ease-in-out will-change-transform
           ${isVisible ? "translate-y-0" : "-translate-y-full"}
         `}
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
-          <Link href="/" className="flex items-center gap-2 z-50">
+          <Link href="/" className="flex items-center gap-2 z-50 -ml-16">
             <Image
-              src="/clinrt-logo-white.png"
+              src="/images/company-logo.png"
               alt="ClinRT Logo"
               width={160}
               height={20}

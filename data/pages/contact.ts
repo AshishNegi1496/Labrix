@@ -1,57 +1,137 @@
-import { makeHero, makeSeedImage } from "../factories";
+import {
+  FiCalendar,
+  FiMail,
+  FiMapPin,
+  FiMessageCircle,
+  FiPhone,
+  FiUsers,
+} from "react-icons/fi";
 import { deepFreeze } from "../utils";
-import type { ContactDetails, ContactFormContent, HeroContent } from "../types";
-import { validateContactDetails, validateHero } from "../validators";
+import type { ContactDetails } from "../types";
+import { validateContactDetails } from "../validators";
 
-/** Contact page hero. */
-export const contactHero: HeroContent = validateHero(
-  makeHero({
-    title: "Contact us",
-    breadcrumb: "Home / Contact Us",
-    image: makeSeedImage("labrix-contact-hero", 1600, 900),
-  }),
-);
+export type ContactFormType = "demo" | "touch" | "community";
 
-/** Contact page imagery. */
-export const contactImages = deepFreeze({
-  hero: contactHero.image,
-  card: makeSeedImage("labrix-contact", 900, 700),
+export type ContactFormOption = Readonly<{
+  id: ContactFormType;
+  title: string;
+  description: string;
+  helper: string;
+  badge: string;
+  icon: typeof FiCalendar;
+}>;
+
+export type ContactChannel = Readonly<{
+  icon: typeof FiMail;
+  title: string;
+  value: string;
+  href?: string;
+}>;
+
+export const contactHero = deepFreeze({
+  eyebrow: "Contact ClinRT",
+  punchline: "Let’s make clinical operations feel effortless.",
+  image: "/images/operations.avif",
 });
 
-/** Contact form copy. */
-export const contactFormContent: ContactFormContent = deepFreeze({
-  label: "Start a project",
-  title: "Tell us about your next experiment",
-  description:
-    "Share your timeline, scope, and goals. We will follow up with a clear plan.",
-  cta: "Send message",
-  fields: [
-    { type: "text", placeholder: "Name" },
-    { type: "email", placeholder: "Email" },
-    { type: "text", placeholder: "Project summary" },
-  ],
+export const contactFormRecipient = "ashishnegi1496@gmail.com";
+
+export const contactFormAction = `https://formsubmit.co/${contactFormRecipient}`;
+
+export const contactFormTemplate = "table";
+
+export const contactFormSuccessPath = "/contact/success";
+
+export const contactFileConstraints = deepFreeze({
+  accept: ".pdf,.doc,.docx,.png,.jpg,.jpeg,.webp",
+  maxSizeBytes: 5 * 1024 * 1024,
+  errorMessage:
+    "Please upload a PDF, DOC, DOCX, PNG, JPG, JPEG, or WEBP file up to 5MB.",
 });
 
-/** Contact card hours. */
-export const contactHours = deepFreeze([
-  { label: "Mon - Fri", value: "10:00AM - 07:00PM" },
-  { label: "Saturday", value: "12:00AM - 05:00PM" },
-  { label: "Sunday", value: "Closed" },
+export const contactFormOptions: ReadonlyArray<ContactFormOption> = deepFreeze([
+  {
+    id: "demo",
+    title: "Request a Demo",
+    description:
+      "Book a guided walkthrough of iClinRT, its workflows, and the operating model behind it.",
+    helper:
+      "Best for sponsors, CROs, and clinical operations teams actively evaluating the platform.",
+    badge: "Priority Route",
+    icon: FiCalendar,
+  },
+  {
+    id: "touch",
+    title: "Get in Touch",
+    description:
+      "Reach out for support, partnerships, service questions, or a broader conversation with the team.",
+    helper:
+      "Tell us what you need and we will route your enquiry to the right team quickly.",
+    badge: "General Enquiry",
+    icon: FiMessageCircle,
+  },
+  {
+    id: "community",
+    title: "Join Our Community",
+    description:
+      "Stay close to product news, event invites, case studies, and practical clinical operations insights.",
+    helper:
+      "A lighter-touch way to stay connected with the latest from ClinRT.",
+    badge: "Updates & Insights",
+    icon: FiUsers,
+  },
 ]);
 
-/** Contact details block. */
+export const contactChannels: ReadonlyArray<ContactChannel> = deepFreeze([
+  {
+    icon: FiMail,
+    title: "General enquiries",
+    value: "enquiry@clinrtglobal.com",
+    href: "mailto:enquiry@clinrtglobal.com",
+  },
+  {
+    icon: FiMail,
+    title: "Product and support",
+    value: "support@clinrtglobal.com",
+    href: "mailto:support@clinrtglobal.com",
+  },
+  {
+    icon: FiMail,
+    title: "Careers",
+    value: "hr@clinrtglobal.com",
+    href: "mailto:hr@clinrtglobal.com",
+  },
+  {
+    icon: FiPhone,
+    title: "Phone",
+    value: "+91 8530067925",
+    href: "tel:+918530067925",
+  },
+  {
+    icon: FiMapPin,
+    title: "Office",
+    value:
+      "ClinRT Global Services Pvt. Ltd. 905, Tower 3, Kohinoor World Towers (KWT) PCMC, Pune, Maharashtra 411018, India",
+  },
+]);
+
 export const contactDetails: ContactDetails = validateContactDetails(
   deepFreeze({
-    email: "labrix.studio@gmail.com",
-    location: "Pune + Remote",
-    phone: "+91 98760-89889",
+    email: "enquiry@clinrtglobal.com",
+    location: "Pune, Maharashtra, India",
+    phone: "+91 8530067925",
   }),
 );
 
-/** Contact details copy. */
-export const contactDetailsContent = deepFreeze({
-  label: "Contact details",
-  title: "Ready to connect with the team",
+export const contactInfoBlock = deepFreeze({
+  label: "Contact Information",
+  title: "Reach the ClinRT team directly",
   description:
-    "We respond within two business days and can schedule a discovery call quickly.",
+    "If you already know where your request belongs, use the details below. For everything else, the forms above are the fastest path.",
+});
+
+export const contactMapBlock = deepFreeze({
+  label: "Find Us",
+  title: "Pune office location",
+  badge: "On-site and remote support",
 });

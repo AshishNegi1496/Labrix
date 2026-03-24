@@ -8,58 +8,11 @@ import ScrollReveal from "@/components/animations/ScrollReveal";
 import Button from "@/components/ui/Button";
 import GlassCard from "@/components/GlassCard";
 import CountUpOnView from "@/components/CountUpOnView";
-
-const supportAreas = [
-  "Coordinated participant and treatment workflows",
-  "Reliable Investigational Product Management",
-  "Structured Clinical Data Capture",
-  "Digital patient and clinician assessment tools",
-  "Streamlined operational oversight across sites and teams",
-] as const;
-
-const solutionCards = [
-  {
-    title: "iClinRT",
-    text: "Interactive Response Technology for trial operations, allocation logic, and supply coordination.",
-    href: "/iclinrt",
-    status: "Live Platform",
-    image: "/images/why-choose-image.jpg",
-  },
-  {
-    title: "EDC",
-    text: "Electronic data capture designed for cleaner inputs, faster review cycles, and better monitoring confidence.",
-    href: "/coming-soon",
-    status: "Beta Testing",
-    image: "/images/case-study-1.jpg",
-  },
-  {
-    title: "CTMS",
-    text: "Clinical trial management workflows for timelines, budgets, and cross-functional coordination.",
-    href: "/coming-soon",
-    status: "In Development",
-    image: "/images/case-study-2.jpg",
-  },
-  {
-    title: "eCOA",
-    text: "Digital patient outcomes capture with dependable compliance and patient-friendly interaction models.",
-    href: "/coming-soon",
-    status: "Under Architecture",
-    image: "/images/case-study-3.jpg",
-  },
-] as const;
-
-const Ping = () => (
-  <span className="relative h-2.5 w-2.5">
-    <span className="absolute inset-0 rounded-full bg-orange-500 animate-ping" />
-    <span className="absolute inset-0.5 rounded-full bg-orange-500" />
-  </span>
-);
-const Badge = ({ children }: { children: React.ReactNode }) => (
-  <p className="inline-flex items-center gap-2 rounded-full border border-orange-500 px-4 py-1.5 text-sm">
-    <Ping />
-    {children}
-  </p>
-);
+import SectionBadge from "@/components/ui/SectionBadge";
+import {
+  whatWeBuildSolutionCards as solutionCards,
+  whatWeBuildSupportAreas as supportAreas,
+} from "@/data";
 
 export default function WhatWeBuildPage() {
   return (
@@ -76,7 +29,7 @@ export default function WhatWeBuildPage() {
         <div className="absolute inset-0 bg-linear-to-b from-black/65 via-black/45 to-black/70" />
         <div className="relative z-10 section-shell flex min-h-screen flex-col justify-center gap-10 px-6 py-20 md:px-10">
           <ScrollReveal className="max-w-3xl text-white">
-            {/* <Badge>Our Solutions</Badge> */}
+            {/* <SectionBadge>Our Solutions</SectionBadge> */}
             <p className="mt-10 type-h1 font-semibold text-white">
               Precision That Powers Every Trial
             </p>
@@ -125,7 +78,7 @@ export default function WhatWeBuildPage() {
         <div className="grid gap-20 ">
           <div className="rounded-3xl border border-slate-200 bg-background p-6">
             <ScrollReveal delay={120}>
-              <Badge>Our Solutions</Badge>
+              <SectionBadge>Our Solutions</SectionBadge>
 
               <p className="mt-3 type-h6 text-(--muted-color)">
                 ClinRT delivers a growing suite of purpose-built solutions
@@ -181,7 +134,7 @@ export default function WhatWeBuildPage() {
 
       <SectionWrapper fullBleed>
         <ScrollReveal>
-          <Badge>How We Support</Badge>
+          <SectionBadge>How We Support</SectionBadge>
           <p className="mt-3 type-h2 font-semibold">
             How we support modern clinical trials
           </p>
@@ -220,7 +173,7 @@ export default function WhatWeBuildPage() {
 
           {/* Content */}
           <ScrollReveal className="relative z-10 flex flex-col items-center text-center gap-6">
-            <Badge>Execution Pathways</Badge>
+            <SectionBadge>Execution Pathways</SectionBadge>
 
             <p className="type-h2 font-semibold text-white ">
               From early-phase programs to global trials, we support teams in
