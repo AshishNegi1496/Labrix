@@ -24,6 +24,7 @@ const nextConfig: NextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 60,
+    unoptimized: true,
     // ✅ REMOVED: 'domains' is deprecated
     // domains: ["picsum.photos", "images.unsplash.com"],
     
