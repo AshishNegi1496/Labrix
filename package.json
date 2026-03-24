@@ -3,14 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "engines": {
-    "node": ">=20.0.0"
+    "node": "20.x"
   },
-"scripts": {
-  "dev": "next dev",
-  "build": "next build", 
-  "start": "next start",
-  "lint": "eslint"
-},
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint ."
+  },
   "dependencies": {
     "framer-motion": "^12.34.2",
     "lucide-react": "^0.575.0",

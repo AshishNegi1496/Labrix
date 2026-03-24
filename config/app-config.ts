@@ -8,10 +8,6 @@ type AppConfig = Readonly<{
 }>;
 
 function resolveEnv(value: string | undefined): AppEnvironment {
-  if (!value) {
-    return process.env.NODE_ENV === "production" ? "production" : "development";
-  }
-
   if (
     value === "development" ||
     value === "staging" ||
@@ -20,37 +16,104 @@ function resolveEnv(value: string | undefined): AppEnvironment {
     return value;
   }
 
-  throw new Error(
-    "NEXT_PUBLIC_APP_ENV must be one of: development, staging, production.",
-  );
+  if (value !== undefined) {
+    throw new Error(
+      "NEXT_PUBLIC_APP_ENV must be one of: development, staging, production.",
+    );
+  }
+
+  if (process.env.VERCEL_ENV === "production") {
+    return "production";
+  }
+
+  if (process.env.VERCEL_ENV === "preview") {
+    return "staging";
+  }
+
+  if (process.env.VERCEL_ENV === "development") {
+    return "development";
+  }
+
+  return process.env.NODE_ENV === "production"
+    ? "production"
+    : "development";
 }
 
 function resolveBoolean(value: string | undefined, fallback: boolean) {
   if (value === undefined) return fallback;
+
   if (value !== "true" && value !== "false") {
     throw new Error("Feature flags must be provided as 'true' or 'false'.");
   }
+
   return value === "true";
+}
+
+function normalizeAbsoluteUrl(value: string) {
+  return new URL(value).toString().replace(/\/$/, "");
+}
+
+function normalizeVercelUrl(value: string | undefined) {
+  const normalized = value?.trim();
+
+  if (!normalized) {
+    return null;
+  }
+
+  const withProtocol = /^https?:\/\//i.test(normalized)
+    ? normalized
+    : `https://${normalized}`;
+
+  return normalizeAbsoluteUrl(withProtocol);
+}
+
+function resolveVercelSiteUrl() {
+  const vercelEnv = process.env.VERCEL_ENV;
+  const vercelUrlCandidates =
+    vercelEnv === "production"
+      ? [
+          process.env.VERCEL_PROJECT_PRODUCTION_URL,
+          process.env.VERCEL_BRANCH_URL,
+          process.env.VERCEL_URL,
+        ]
+      : [
+          process.env.VERCEL_BRANCH_URL,
+          process.env.VERCEL_URL,
+          process.env.VERCEL_PROJECT_PRODUCTION_URL,
+        ];
+
+  for (const candidate of vercelUrlCandidates) {
+    const resolvedUrl = normalizeVercelUrl(candidate);
+
+    if (resolvedUrl) {
+      return resolvedUrl;
+    }
+  }
+
+  return null;
 }
 
 function resolveSiteUrl(value: string | undefined) {
   const normalized = value?.trim();
-if (!normalized) {
-    // If we are on Vercel, use their automatically provided URL as a fallback
-    if (process.env.VERCEL_URL) {
-      return `https://${process.env.VERCEL_URL}`;
+
+  if (!normalized) {
+    const vercelSiteUrl = resolveVercelSiteUrl();
+
+    if (vercelSiteUrl) {
+      return vercelSiteUrl;
     }
 
     if (process.env.NODE_ENV === "production") {
-      // Switch this to a warning instead of a throw during build if you want to be safe
-      console.warn("⚠️ NEXT_PUBLIC_SITE_URL is missing. Falling back to Vercel System URL.");
-      return process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000";
+      throw new Error(
+        "NEXT_PUBLIC_SITE_URL must be set to a valid absolute URL when not deploying on Vercel.",
+      );
     }
 
     return "http://localhost:3000";
   }
+
   try {
-    return new URL(normalized).toString().replace(/\/$/, "");
+    return normalizeAbsoluteUrl(normalized);
   } catch {
     throw new Error("NEXT_PUBLIC_SITE_URL must be a valid absolute URL.");
   }
@@ -84,6 +147,7 @@ class AppConfigManager {
     if (!AppConfigManager.instance) {
       AppConfigManager.instance = new AppConfigManager();
     }
+
     return AppConfigManager.instance;
   }
 

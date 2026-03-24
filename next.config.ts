@@ -1,34 +1,35 @@
 import type { NextConfig } from "next";
 
 const isProd = process.env.NODE_ENV === "production";
+const isVercel = process.env.VERCEL === "1";
 
 const nextConfig: NextConfig = {
-  output: "standalone",
-  distDir: "build",
+  ...(isVercel
+    ? {}
+    : {
+        output: "standalone",
+        distDir: "build",
+      }),
   reactStrictMode: !isProd,
   compress: true,
   poweredByHeader: false,
   generateEtags: true,
   productionBrowserSourceMaps: false,
-  httpAgentOptions: { 
-    keepAlive: true 
+  httpAgentOptions: {
+    keepAlive: true,
   },
-  
+
   // Compiler options
   compiler: {
-    removeConsole: isProd, // Simply true/false in Next.js 16+
+    removeConsole: isProd,
     reactRemoveProperties: isProd,
   },
-  
+
   // Image configuration
   images: {
     formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 60,
-    unoptimized: true,
-    // ✅ REMOVED: 'domains' is deprecated
-    // domains: ["picsum.photos", "images.unsplash.com"],
-    
-    // ✅ Use only remotePatterns (keep these)
+    unoptimized: !isVercel,
     remotePatterns: [
       {
         protocol: "https",
@@ -50,10 +51,9 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  
-  // Optional: Add experimental features if needed
+
   experimental: {
-    optimizeCss: true, // Minifies CSS
+    optimizeCss: true,
   },
 };
 
