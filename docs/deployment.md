@@ -24,7 +24,7 @@ Install dependencies and create the standalone bundle:
 
 ```bash
 npm ci
-npm run build:deploy
+npm run build
 ```
 
 This produces a self-contained server in `build/standalone/`.
@@ -34,7 +34,7 @@ This produces a self-contained server in `build/standalone/`.
 Start the production server:
 
 ```bash
-PORT=3000 HOSTNAME=0.0.0.0 node build/standalone/server.js
+npm start
 ```
 
 ## EC2 / Linux VM
@@ -45,8 +45,8 @@ Recommended flow:
 2. Copy the project to the server.
 3. Add a `.env.production` file.
 4. Run `npm ci`.
-5. Run `npm run build:deploy`.
-6. Start `node build/standalone/server.js` behind Nginx or another reverse proxy.
+5. Run `npm run build`.
+6. Start `npm start` behind Nginx or another reverse proxy.
 
 ## Reverse Proxy
 

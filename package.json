@@ -7,9 +7,11 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "build:deploy": "npm run build && node scripts/prepare-standalone.mjs",
-    "start": "next start",
+    "build:next": "next build",
+    "build": "npm run build:next && node scripts/prepare-standalone.mjs",
+    "build:deploy": "npm run build",
+    "start": "node build/standalone/server.js",
+    "start:next": "next start",
     "start:standalone": "node build/standalone/server.js",
     "lint": "eslint"
   },
