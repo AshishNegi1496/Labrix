@@ -1,7 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { Plus_Jakarta_Sans, Source_Serif_4 } from "next/font/google";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { CursorEffects } from "@/components/cursor-effects";
@@ -9,20 +8,6 @@ import { siteMeta } from "@/data";
 import Watermark from "@/components/Watermark";
 import WatermarkRight from "@/components/WatermarkRight";
 import { appConfig } from "@/config/app-config";
-
-const plusJakarta = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-body",
-  weight: ["300", "400", "500", "600", "700"],
-});
-
-const sourceSerif = Source_Serif_4({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-heading",
-  weight: ["400", "500", "600", "700"],
-});
 
 //define metadata for website
 
@@ -33,10 +18,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html
-      lang="en"
-      className={`${plusJakarta.variable} ${sourceSerif.variable}`}
-    >
+    <html lang="en">
       <body className="min-h-screen bg-background text-foreground">
         <Navbar />
         {appConfig.enableCursorEffects ? <CursorEffects /> : null}

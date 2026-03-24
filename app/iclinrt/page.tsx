@@ -223,7 +223,7 @@ export default function IclinrtPage() {
   }, [activeServiceIndex]);
   return (
     <PageTransition>
-      <section className="relative min-h-[70vh] overflow-hidden">
+      <section className="relative overflow-hidden min-h-[90vh] sm:min-h-screen lg:min-h-[110vh] flex items-center">
         <video
           className="absolute inset-0 h-full w-full object-cover"
           src="/videos/homePageVideo.mp4"
@@ -301,7 +301,7 @@ export default function IclinrtPage() {
         </div>
       </SectionWrapper>
 
-      <SectionWrapper>
+      <SectionWrapper fullBleed>
         <LayoutGroup id="iclinrt-services">
           {/* HEADING */}
           <ScrollReveal>
@@ -1010,4 +1010,3 @@ export default function IclinrtPage() {
     </PageTransition>
   );
 }
-

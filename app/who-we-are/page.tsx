@@ -89,8 +89,8 @@ const StickyCards = ({ iclinrtUsps }: StickyCardsProps) => {
     <div className="relative w-full py-12">
       {/* Background gradient orbs */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/4 -left-1/4 w-125 h-125 rounded-full bg-linear-to-r from-blue-500/20 to-cyan-500/20 blur-[100px] animate-pulse" />
-        <div className="absolute bottom-1/4 -right-1/4 w-125 h-125 rounded-full bg-linear-to-r from-purple-500/20 to-pink-500/20 blur-[100px] animate-pulse animation-delay-1000" />
+        <div className="absolute top-1/4 -left-1/4 h-125 w-125 rounded-full bg-linear-to-r from-sky-200/60 to-cyan-100/45 blur-[110px] animate-pulse" />
+        <div className="absolute bottom-1/4 -right-1/4 h-125 w-125 rounded-full bg-linear-to-r from-orange-200/45 to-amber-100/40 blur-[110px] animate-pulse animation-delay-1000" />
       </div>
 
       {/* Cards Grid */}
@@ -120,7 +120,7 @@ const StickyCards = ({ iclinrtUsps }: StickyCardsProps) => {
                   transition-all duration-300
                 `}
               >
-                <div className="relative rounded-3xl bg-slate-950/90 backdrop-blur-xl p-8 md:p-10 h-full">
+                <div className="relative rounded-3xl bg-blue-900/90 backdrop-blur-xl p-8 md:p-10 h-full">
                   {/* Animated background effect */}
                   <motion.div
                     className="absolute inset-0 bg-linear-to-r from-white/5 to-transparent"
@@ -357,7 +357,7 @@ export default function WhoWeArePage() {
 
       {/* ================= WHAT IT MEANS ================= */}
       <SectionWrapper fullBleed>
-        <div className="relative overflow-hidden rounded-4xl border border-white/10 bg-[#070b13] p-8 shadow-[0_28px_90px_rgba(2,6,23,0.55)] md:p-14">
+        <div className="relative overflow-hidden rounded-4xl border border-white/10 bg-(--color-primary) p-8 shadow-[0_28px_90px_rgba(2,6,23,0.55)] md:p-14">
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(80%_55%_at_50%_-10%,rgba(125,168,255,0.2),transparent)]" />
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(45%_45%_at_85%_85%,rgba(249,115,22,0.12),transparent)]" />
           <div className="pointer-events-none absolute inset-0 opacity-[0.045] bg-[linear-gradient(rgba(255,255,255,0.75)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.75)_1px,transparent_1px)] [background-size:76px_76px]" />
@@ -453,8 +453,8 @@ export default function WhoWeArePage() {
                     }}
                     className="flex items-center gap-2"
                   >
-                    <span className="h-2 w-2 rounded-full bg-green-400" />
-                    <span className="text-[11px] uppercase tracking-[0.28em] text-green-300/80">
+                    <span className="h-2 w-2 rounded-full bg-orange-400" />
+                    <span className="text-[11px] uppercase tracking-[0.28em] text-orange-300/95">
                       Active
                     </span>
                   </motion.div>
@@ -466,7 +466,7 @@ export default function WhoWeArePage() {
               <motion.div
                 {...revealUp}
                 transition={{ duration: 0.8, delay: 0.15 }}
-                className="space-y-7 rounded-3xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur-xl md:p-8"
+                className="space-y-7 rounded-3xl border border-white/10 bg-white/3 p-6 backdrop-blur-xl md:p-8"
               >
                 <motion.div
                   initial={{ opacity: 0, x: 18 }}
@@ -490,7 +490,7 @@ export default function WhoWeArePage() {
                       }}
                       viewport={{ once: true }}
                     >
-                      <span className="block text-3xl font-semibold leading-tight tracking-tight text-white md:text-4xl lg:text-[2.5rem]">
+                      <span className="block type-h2 font-semibold leading-tight tracking-tight text-white md:text-4xl lg:text-[2.5rem]">
                         {line}
                       </span>
                     </motion.div>
@@ -516,7 +516,7 @@ export default function WhoWeArePage() {
                       whileHover={{ x: 4, scale: 1.01 }}
                       className="group flex items-start gap-4 rounded-2xl border border-white/10 bg-white/5 px-5 py-4 backdrop-blur transition-all duration-300 hover:border-white/20 hover:bg-white/10"
                     >
-                      <span className="mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-green-400/15 text-green-300 ring-1 ring-green-400/25">
+                      <span className="mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-orange-400/70 text-white ring-1 ring-orange-400/25">
                         <FiCheck className="h-3.5 w-3.5" />
                       </span>
                       <p className="text-sm leading-7 text-white/65 transition-colors duration-300 group-hover:text-white/85">
@@ -538,11 +538,11 @@ export default function WhoWeArePage() {
                       repeat: Infinity,
                       repeatDelay: 1.5,
                     }}
-                    className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-green-400"
+                    className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-orange-400"
                   />
                   <p className="text-sm leading-7 text-white/70">
                     We aim to bring{" "}
-                    <span className="font-medium text-white">
+                    <span className="font-medium text-white italic">
                       steadiness and order
                     </span>{" "}
                     to environments that are often fast moving and complex.
@@ -555,25 +555,434 @@ export default function WhoWeArePage() {
       </SectionWrapper>
 
       <SectionWrapper fullBleed>
-        <ScrollReveal delay={120}>
-          <div className="relative rounded-[28px] bg-linear-to-br from-slate-950 via-slate-900 to-slate-950 p-6 text-white shadow-2xl overflow-hidden md:p-8">
-            {/* Animated background */}
-            <div className="absolute inset-0 opacity-30">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(59,130,246,0.1),transparent_50%)]" />
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(139,92,246,0.1),transparent_50%)]" />
-            </div>
+        <div className="relative overflow-hidden rounded-3xl bg-[linear-gradient(180deg,#85a6d2_0%,#eef5ff_48%,#eccb88_100%)] shadow-[0_30px_100px_rgba(148,163,184,0.18)]">
+          {/* CINEMATIC BACKGROUND */}
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_72%_58%_at_18%_0%,rgba(125,168,255,0.3),transparent_62%)]" />
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_46%_46%_at_100%_88%,rgba(251,146,60,0.18),transparent_60%)]" />
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_42%_34%_at_52%_18%,rgba(255,255,255,0.82),transparent_72%)]" />
+          <div
+            className="pointer-events-none absolute inset-0 opacity-[0.22]"
+            style={{
+              backgroundImage: `linear-gradient(rgba(148,163,184,0.18) 1px, transparent 1px), linear-gradient(90deg, rgba(148,163,184,0.18) 1px, transparent 1px)`,
+              backgroundSize: "72px 72px",
+            }}
+          />
+          <div className="pointer-events-none absolute inset-x-10 top-0 h-px bg-linear-to-r from-transparent via-sky-300/70 to-transparent" />
+          <div className="pointer-events-none absolute inset-x-10 bottom-0 h-px bg-linear-to-r from-transparent via-orange-200/80 to-transparent" />
 
+          {/* FLOATING ORBS */}
+          <motion.div
+            className="pointer-events-none absolute -left-20 top-8 h-72 w-72 rounded-full bg-sky-300/45 blur-[110px]"
+            animate={{ y: [0, -20, 0], x: [0, 10, 0] }}
+            transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.div
+            className="pointer-events-none absolute -right-20 bottom-6 h-80 w-80 rounded-full bg-orange-200/55 blur-[120px]"
+            animate={{ y: [0, 20, 0], x: [0, -10, 0] }}
+            transition={{ duration: 17, repeat: Infinity, ease: "easeInOut" }}
+          />
+
+          <div className="relative px-6 py-16 md:px-10 md:py-20 lg:px-14 lg:py-24">
+            {/* SECTION EYEBROW */}
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="mb-14 flex items-center gap-3"
+            ></motion.div>
+
+            <div className="flex flex-col gap-4 lg:flex-row lg:gap-5">
+              {/* MISSION */}
+              <motion.div
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                whileHover={{ y: -4 }}
+                className="group relative flex-1 lg:flex-[1.4] rounded-2xl border border-white/70 bg-white/58 p-8 md:p-10 backdrop-blur-2xl shadow-[0_18px_50px_rgba(148,163,184,0.14)] transition-all duration-500 hover:border-white hover:bg-white/72 hover:shadow-[0_28px_80px_rgba(148,163,184,0.2)] cursor-default"
+              >
+                {/* CARD GLOW ON HOVER */}
+                <div className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-[radial-gradient(ellipse_at_top_left,rgba(255,255,255,0.82),transparent_62%)]" />
+
+                {/* EYEBROW */}
+                <div className="mb-6 flex items-center gap-3">
+                  <span className="h-px w-5 bg-linear-to-r from-sky-500/75 to-transparent" />
+                  <span className="type-h6 font-medium uppercase tracking-[0.4em] text-sky-700">
+                    Mission
+                  </span>
+                </div>
+
+                {/* HEADLINE */}
+                <div className="overflow-hidden mb-6">
+                  {[
+                    "Supporting clinical",
+                    "research teams with",
+                    "practical ways of working",
+                  ].map((line, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, y: 40, skewY: 2 }}
+                      whileInView={{ opacity: 1, y: 0, skewY: 0 }}
+                      viewport={{ once: true }}
+                      transition={{
+                        duration: 0.65,
+                        delay: 0.1 + i * 0.1,
+                        ease: [0.22, 1, 0.36, 1],
+                      }}
+                    >
+                      <span className="block text-2xl font-semibold leading-snug text-slate-950">
+                        {line}
+                      </span>
+                    </motion.div>
+                  ))}
+                </div>
+
+                <motion.p
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.45 }}
+                  className="mb-6 border-l border-slate-200/90 pl-4 text-sm leading-7 text-slate-600"
+                >
+                  We focus on improving coordination, strengthening visibility,
+                  and supporting consistent execution across studies —
+                  reflecting real world needs.
+                </motion.p>
+
+                {/* POINTS */}
+                <div className="space-y-2 mt-auto">
+                  {missionPoints.map((point, idx) => (
+                    <motion.div
+                      key={idx}
+                      initial={{ opacity: 0, x: 16 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{
+                        duration: 0.45,
+                        delay: 0.5 + idx * 0.07,
+                        ease: [0.22, 1, 0.36, 1],
+                      }}
+                      className="flex items-start gap-3 group/item"
+                    >
+                      <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-slate-300 group-hover/item:bg-sky-400/80 transition-colors" />
+                      <span className="text-sm italic leading-7 text-slate-500 group-hover/item:text-slate-700 transition-colors">
+                        {point}
+                      </span>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+
+              {/* VERTICAL DIVIDER */}
+              <div className="hidden lg:block w-px bg-slate-200/80 mx-1" />
+
+              {/* VISION */}
+              <motion.div
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{
+                  duration: 0.7,
+                  delay: 0.12,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                whileHover={{ y: -4 }}
+                className="group relative flex-1 lg:flex-[1.2] rounded-2xl border border-white/70 bg-white/58 p-8 md:p-10 backdrop-blur-2xl shadow-[0_18px_50px_rgba(148,163,184,0.14)] transition-all duration-500 hover:border-white hover:bg-white/72 hover:shadow-[0_28px_80px_rgba(148,163,184,0.2)] cursor-default"
+              >
+                <div className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-[radial-gradient(ellipse_at_top_left,rgba(255,255,255,0.82),transparent_62%)]" />
+
+                {/* EYEBROW */}
+                <div className="mb-6 flex items-center gap-3">
+                  <span className="h-px w-5 bg-linear-to-r from-orange-500/75 to-transparent" />
+                  <span className="type-h6 font-medium uppercase tracking-[0.4em] text-orange-600">
+                    Vision
+                  </span>
+                </div>
+
+                {/* HEADLINE */}
+                <div className="overflow-hidden mb-6">
+                  {["Clinical research,", "easier to run", "and manage"].map(
+                    (line, i) => (
+                      <motion.div
+                        key={i}
+                        initial={{ opacity: 0, y: 40, skewY: 2 }}
+                        whileInView={{ opacity: 1, y: 0, skewY: 0 }}
+                        viewport={{ once: true }}
+                        transition={{
+                          duration: 0.65,
+                          delay: 0.2 + i * 0.1,
+                          ease: [0.22, 1, 0.36, 1],
+                        }}
+                      >
+                        <span className="block text-2xl font-semibold leading-snug text-slate-950">
+                          {line}
+                        </span>
+                      </motion.div>
+                    ),
+                  )}
+                </div>
+
+                <motion.p
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.55 }}
+                  className="border-l border-slate-200/90 pl-4 text-sm leading-7 text-slate-600"
+                >
+                  Clear information, connected ways of working, and dependable
+                  support so studies move forward with fewer disruptions —
+                  helping research teams{" "}
+                  <span className="font-medium text-slate-900">
+                    focus on progress instead of process.
+                  </span>
+                </motion.p>
+
+                {/* DECORATIVE STAT */}
+                <motion.div
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.7 }}
+                  className="mt-8 flex items-center gap-6 border-t border-slate-200/90 pt-6"
+                >
+                  <div>
+                    <p className="text-2xl font-semibold text-slate-950">
+                      100%
+                    </p>
+                    <p className="mt-0.5 text-[10px] uppercase tracking-[0.3em] text-slate-500">
+                      Research-focused
+                    </p>
+                  </div>
+                  <div className="h-8 w-px bg-slate-200/90" />
+                  <div>
+                    <p className="text-2xl font-semibold text-slate-950">
+                      Global
+                    </p>
+                    <p className="mt-0.5 text-[10px] uppercase tracking-[0.3em] text-slate-500">
+                      Ready
+                    </p>
+                  </div>
+                </motion.div>
+              </motion.div>
+
+              {/* VERTICAL DIVIDER */}
+              <div className="hidden lg:block w-px bg-slate-200/80 mx-1" />
+
+              {/* HOW WE WORK */}
+              <motion.div
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{
+                  duration: 0.7,
+                  delay: 0.24,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                whileHover={{ y: -4 }}
+                className="group relative flex-1 rounded-2xl border border-white/70 bg-white/58 p-8 md:p-10 backdrop-blur-2xl shadow-[0_18px_50px_rgba(148,163,184,0.14)] transition-all duration-500 hover:border-white hover:bg-white/72 hover:shadow-[0_28px_80px_rgba(148,163,184,0.2)] cursor-default"
+              >
+                <div className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-[radial-gradient(ellipse_at_top_left,rgba(255,255,255,0.82),transparent_62%)]" />
+
+                {/* EYEBROW */}
+                <div className="mb-6 flex items-center gap-3">
+                  <span className="h-px w-5 bg-linear-to-r from-emerald-500/75 to-transparent" />
+                  <span className="type-h6 font-medium uppercase tracking-[0.4em] text-emerald-600">
+                    How We Work
+                  </span>
+                </div>
+
+                {/* HEADLINE */}
+                <div className="overflow-hidden mb-8">
+                  {["Structured,", "dependable,", "and consistent"].map(
+                    (line, i) => (
+                      <motion.div
+                        key={i}
+                        initial={{ opacity: 0, y: 40, skewY: 2 }}
+                        whileInView={{ opacity: 1, y: 0, skewY: 0 }}
+                        viewport={{ once: true }}
+                        transition={{
+                          duration: 0.65,
+                          delay: 0.3 + i * 0.1,
+                          ease: [0.22, 1, 0.36, 1],
+                        }}
+                      >
+                        <span className="block text-2xl font-semibold leading-snug text-slate-950">
+                          {line}
+                        </span>
+                      </motion.div>
+                    ),
+                  )}
+                </div>
+
+                {/* POINTS */}
+                <div className="space-y-2">
+                  {howWeWorkPoints.map((point, idx) => (
+                    <motion.div
+                      key={idx}
+                      initial={{ opacity: 0, x: 20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{
+                        duration: 0.45,
+                        delay: 0.55 + idx * 0.07,
+                        ease: [0.22, 1, 0.36, 1],
+                      }}
+                      whileHover={{ x: 4 }}
+                      className="group/item flex items-start gap-3 rounded-xl border border-white/75 bg-white/62 px-4 py-3 transition-all duration-300 hover:border-emerald-200/90 hover:bg-white/85"
+                    >
+                      <span className="mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-500/12 ring-1 ring-emerald-500/20">
+                        <FiCheck className="h-3 w-3 text-emerald-600" />
+                      </span>
+                      <span className="text-sm leading-6 text-slate-600 group-hover/item:text-slate-900 transition-colors">
+                        {point}
+                      </span>
+                    </motion.div>
+                  ))}
+                </div>
+
+                {/* LIVE INDICATOR */}
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.9 }}
+                  className="mt-6 flex items-center gap-2"
+                >
+                  <motion.span
+                    animate={{ scale: [1, 1.4, 1], opacity: [1, 0.5, 1] }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      repeatDelay: 1,
+                    }}
+                    className="h-1.5 w-1.5 rounded-full bg-emerald-500"
+                  />
+                  <span className="text-[10px] uppercase tracking-[0.3em] text-emerald-700/80">
+                    Active approach
+                  </span>
+                </motion.div>
+              </motion.div>
+            </div>
+          </div>
+        </div>
+      </SectionWrapper>
+
+      <SectionWrapper fullBleed>
+        <ScrollReveal delay={120}>
+          <div className="relative overflow-hidden rounded-[28px] bg-[#f4f8fc] p-6 text-slate-950 shadow-[0_28px_80px_rgba(148,163,184,0.16)] md:p-8">
+            {/* Animated background */}
+            <motion.div
+              className="pointer-events-none absolute inset-[-8%] opacity-85"
+              animate={{
+                x: ["0%", "2%", "-1%", "0%"],
+                y: ["0%", "3%", "-2%", "0%"],
+                scale: [1, 1.04, 0.99, 1],
+              }}
+              transition={{
+                duration: 22,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            >
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_24%_18%,rgba(96,165,250,0.14),transparent_48%)]" />
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_82%_78%,rgba(251,146,60,0.12),transparent_44%)]" />
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_52%_36%,rgba(255,255,255,0.5),transparent_34%)]" />
+            </motion.div>
+            <motion.div
+              className="pointer-events-none absolute inset-y-[-4%] right-[-6%] w-[72%] bg-(--primary-color)"
+              style={{
+                clipPath: "polygon(45% 0%, 100% 0%, 100% 100%, 35% 100%)",
+              }}
+              animate={{
+                x: ["0%", "2%", "0%"],
+                scale: [1, 1.015, 1],
+                opacity: [0.92, 0.98, 0.92],
+              }}
+              transition={{
+                duration: 16,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
+            <motion.div
+              className="pointer-events-none absolute -left-[18%] top-[-30%] h-[170%] w-[44%] rotate-[14deg] bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.22),transparent)] blur-3xl"
+              animate={{
+                x: ["0%", "135%", "0%"],
+                opacity: [0, 0.38, 0],
+              }}
+              transition={{
+                duration: 13,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
+            <motion.div
+              className="pointer-events-none absolute right-[10%] top-[14%] h-64 w-64 rounded-full border border-white/14"
+              animate={{
+                scale: [1, 1.08, 1],
+                opacity: [0.2, 0.42, 0.2],
+                rotate: [0, 10, 0],
+              }}
+              transition={{
+                duration: 12,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
+            <motion.div
+              className="pointer-events-none absolute right-[13%] top-[17%] h-48 w-48 rounded-full border border-white/10"
+              animate={{
+                scale: [1, 1.14, 1],
+                opacity: [0.12, 0.28, 0.12],
+              }}
+              transition={{
+                duration: 9,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 0.8,
+              }}
+            />
             {/* Grid pattern */}
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:24px_24px]" />
+            <motion.div
+              className="pointer-events-none absolute inset-[-3%] bg-[linear-gradient(to_right,rgba(148,163,184,0.12)_1px,transparent_1px),linear-gradient(to_bottom,rgba(148,163,184,0.12)_1px,transparent_1px)] bg-[size:24px_24px]"
+              animate={{
+                x: [0, 10, 0],
+                y: [0, -10, 0],
+              }}
+              transition={{
+                duration: 18,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+            />
+            <motion.div
+              className="pointer-events-none absolute inset-x-0 top-[18%] h-px bg-linear-to-r from-transparent via-white/45 to-transparent"
+              animate={{
+                opacity: [0.2, 0.55, 0.2],
+                scaleX: [0.92, 1, 0.92],
+              }}
+              transition={{
+                duration: 7,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
+            <div className="pointer-events-none absolute inset-x-8 top-0 h-px bg-linear-to-r from-transparent via-sky-200/80 to-transparent" />
+            <div className="pointer-events-none absolute inset-x-8 bottom-0 h-px bg-linear-to-r from-transparent via-orange-200/70 to-transparent" />
 
             <div className="relative z-10">
-              <SectionBadge>What We&lsquo;re Known For</SectionBadge>
+              <SectionBadge
+                className="bg-white/70 text-slate-900 shadow-[0_10px_30px_rgba(148,163,184,0.12)] backdrop-blur-sm"
+                borderClassName="border border-orange-300/80"
+              >
+                What We&lsquo;re Known For
+              </SectionBadge>
 
               <div
                 ref={uspsSectionRef}
                 className="relative mt-8"
                 style={{
-                  height: `${Math.min(meaningPoints.length * 35, 100)}vh`,
+                  height: `${Math.min(meaningPoints.length * 30, 80)}vh`,
                 }}
               >
                 <StickyCards iclinrtUsps={meaningPoints} />
@@ -651,317 +1060,13 @@ export default function WhoWeArePage() {
         </div>
       </SectionWrapper>
 
-      <SectionWrapper fullBleed>
-        <div className="relative overflow-hidden rounded-3xl bg-[#080c14] shadow-2xl">
-          {/* CINEMATIC BACKGROUND */}
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_30%_0%,rgba(80,100,160,0.15),transparent)]" />
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_40%_40%_at_90%_90%,rgba(200,80,40,0.08),transparent)]" />
-          <div
-            className="pointer-events-none absolute inset-0 opacity-[0.03]"
-            style={{
-              backgroundImage: `linear-gradient(rgba(255,255,255,0.8) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.8) 1px, transparent 1px)`,
-              backgroundSize: "60px 60px",
-            }}
-          />
-          <div className="pointer-events-none absolute left-0 top-0 h-px w-full bg-linear-to-r from-transparent via-white/15 to-transparent" />
-          <div className="pointer-events-none absolute bottom-0 left-0 h-px w-full bg-linear-to-r from-transparent via-white/8 to-transparent" />
-
-          {/* FLOATING ORBS */}
-          <motion.div
-            className="pointer-events-none absolute -left-20 top-10 h-72 w-72 rounded-full bg-blue-500/8 blur-[100px]"
-            animate={{ y: [0, -20, 0], x: [0, 10, 0] }}
-            transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
-          />
-          <motion.div
-            className="pointer-events-none absolute -right-20 bottom-10 h-80 w-80 rounded-full bg-orange-500/6 blur-[100px]"
-            animate={{ y: [0, 20, 0], x: [0, -10, 0] }}
-            transition={{ duration: 17, repeat: Infinity, ease: "easeInOut" }}
-          />
-
-          <div className="relative px-6 py-16 md:px-10 md:py-20 lg:px-14 lg:py-24">
-            {/* SECTION EYEBROW */}
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="mb-14 flex items-center gap-3"
-            ></motion.div>
-
-            <div className="flex flex-col lg:flex-row gap-px">
-              {/* MISSION */}
-              <motion.div
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                whileHover={{ y: -4 }}
-                className="group relative flex-1 lg:flex-[1.4] rounded-2xl border border-white/8 bg-white/4 p-8 md:p-10 backdrop-blur transition-all duration-500 hover:border-white/16 hover:bg-white/6 hover:shadow-[0_0_60px_rgba(255,255,255,0.04)] cursor-default"
-              >
-                {/* CARD GLOW ON HOVER */}
-                <div className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-[radial-gradient(ellipse_at_top_left,rgba(255,255,255,0.04),transparent_60%)]" />
-
-                {/* EYEBROW */}
-                <div className="mb-6 flex items-center gap-3">
-                  <span className="h-px w-5 bg-linear-to-r from-blue-400/60 to-transparent" />
-                  <span className="text-[10px] font-medium uppercase tracking-[0.4em] text-blue-400/70">
-                    Mission
-                  </span>
-                </div>
-
-                {/* HEADLINE */}
-                <div className="overflow-hidden mb-6">
-                  {[
-                    "Supporting clinical",
-                    "research teams with",
-                    "practical ways of working",
-                  ].map((line, i) => (
-                    <motion.div
-                      key={i}
-                      initial={{ opacity: 0, y: 40, skewY: 2 }}
-                      whileInView={{ opacity: 1, y: 0, skewY: 0 }}
-                      viewport={{ once: true }}
-                      transition={{
-                        duration: 0.65,
-                        delay: 0.1 + i * 0.1,
-                        ease: [0.22, 1, 0.36, 1],
-                      }}
-                    >
-                      <span className="block text-2xl font-semibold leading-snug text-white">
-                        {line}
-                      </span>
-                    </motion.div>
-                  ))}
-                </div>
-
-                <motion.p
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: 0.45 }}
-                  className="text-sm leading-7 text-white/45 mb-6 border-l border-white/10 pl-4"
-                >
-                  We focus on improving coordination, strengthening visibility,
-                  and supporting consistent execution across studies —
-                  reflecting real world needs.
-                </motion.p>
-
-                {/* POINTS */}
-                <div className="space-y-2 mt-auto">
-                  {missionPoints.map((point, idx) => (
-                    <motion.div
-                      key={idx}
-                      initial={{ opacity: 0, x: 16 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{
-                        duration: 0.45,
-                        delay: 0.5 + idx * 0.07,
-                        ease: [0.22, 1, 0.36, 1],
-                      }}
-                      className="flex items-start gap-3 group/item"
-                    >
-                      <span className="mt-2.5 h-1 w-1 rounded-full bg-white/30 shrink-0 group-hover/item:bg-white/60 transition-colors" />
-                      <span className="text-sm italic leading-7 text-white/40 group-hover/item:text-white/60 transition-colors">
-                        {point}
-                      </span>
-                    </motion.div>
-                  ))}
-                </div>
-              </motion.div>
-
-              {/* VERTICAL DIVIDER */}
-              <div className="hidden lg:block w-px bg-white/6 mx-1" />
-
-              {/* VISION */}
-              <motion.div
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{
-                  duration: 0.7,
-                  delay: 0.12,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-                whileHover={{ y: -4 }}
-                className="group relative flex-1 lg:flex-[1.2] rounded-2xl border border-white/8 bg-white/4 p-8 md:p-10 backdrop-blur transition-all duration-500 hover:border-white/16 hover:bg-white/6 hover:shadow-[0_0_60px_rgba(255,255,255,0.04)] cursor-default"
-              >
-                <div className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-[radial-gradient(ellipse_at_top_left,rgba(255,255,255,0.04),transparent_60%)]" />
-
-                {/* EYEBROW */}
-                <div className="mb-6 flex items-center gap-3">
-                  <span className="h-px w-5 bg-linear-to-r from-orange-400/60 to-transparent" />
-                  <span className="text-[10px] font-medium uppercase tracking-[0.4em] text-orange-400/70">
-                    Vision
-                  </span>
-                </div>
-
-                {/* HEADLINE */}
-                <div className="overflow-hidden mb-6">
-                  {["Clinical research,", "easier to run", "and manage"].map(
-                    (line, i) => (
-                      <motion.div
-                        key={i}
-                        initial={{ opacity: 0, y: 40, skewY: 2 }}
-                        whileInView={{ opacity: 1, y: 0, skewY: 0 }}
-                        viewport={{ once: true }}
-                        transition={{
-                          duration: 0.65,
-                          delay: 0.2 + i * 0.1,
-                          ease: [0.22, 1, 0.36, 1],
-                        }}
-                      >
-                        <span className="block text-2xl font-semibold leading-snug text-white">
-                          {line}
-                        </span>
-                      </motion.div>
-                    ),
-                  )}
-                </div>
-
-                <motion.p
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: 0.55 }}
-                  className="text-sm leading-7 text-white/45 border-l border-white/10 pl-4"
-                >
-                  Clear information, connected ways of working, and dependable
-                  support so studies move forward with fewer disruptions —
-                  helping research teams{" "}
-                  <span className="text-white/75 font-medium">
-                    focus on progress instead of process.
-                  </span>
-                </motion.p>
-
-                {/* DECORATIVE STAT */}
-                <motion.div
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.7 }}
-                  className="mt-8 pt-6 border-t border-white/6 flex items-center gap-6"
-                >
-                  <div>
-                    <p className="text-2xl font-semibold text-white">100%</p>
-                    <p className="text-[10px] uppercase tracking-[0.3em] text-white/30 mt-0.5">
-                      Research-focused
-                    </p>
-                  </div>
-                  <div className="h-8 w-px bg-white/8" />
-                  <div>
-                    <p className="text-2xl font-semibold text-white">Global</p>
-                    <p className="text-[10px] uppercase tracking-[0.3em] text-white/30 mt-0.5">
-                      Ready
-                    </p>
-                  </div>
-                </motion.div>
-              </motion.div>
-
-              {/* VERTICAL DIVIDER */}
-              <div className="hidden lg:block w-px bg-white/6 mx-1" />
-
-              {/* HOW WE WORK */}
-              <motion.div
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{
-                  duration: 0.7,
-                  delay: 0.24,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-                whileHover={{ y: -4 }}
-                className="group relative flex-1 rounded-2xl border border-white/8 bg-white/4 p-8 md:p-10 backdrop-blur transition-all duration-500 hover:border-white/16 hover:bg-white/6 hover:shadow-[0_0_60px_rgba(255,255,255,0.04)] cursor-default"
-              >
-                <div className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-[radial-gradient(ellipse_at_top_left,rgba(255,255,255,0.04),transparent_60%)]" />
-
-                {/* EYEBROW */}
-                <div className="mb-6 flex items-center gap-3">
-                  <span className="h-px w-5 bg-linear-to-r from-green-400/60 to-transparent" />
-                  <span className="text-[10px] font-medium uppercase tracking-[0.4em] text-green-400/70">
-                    How We Work
-                  </span>
-                </div>
-
-                {/* HEADLINE */}
-                <div className="overflow-hidden mb-8">
-                  {["Structured,", "dependable,", "and consistent"].map(
-                    (line, i) => (
-                      <motion.div
-                        key={i}
-                        initial={{ opacity: 0, y: 40, skewY: 2 }}
-                        whileInView={{ opacity: 1, y: 0, skewY: 0 }}
-                        viewport={{ once: true }}
-                        transition={{
-                          duration: 0.65,
-                          delay: 0.3 + i * 0.1,
-                          ease: [0.22, 1, 0.36, 1],
-                        }}
-                      >
-                        <span className="block text-2xl font-semibold leading-snug text-white">
-                          {line}
-                        </span>
-                      </motion.div>
-                    ),
-                  )}
-                </div>
-
-                {/* POINTS */}
-                <div className="space-y-2">
-                  {howWeWorkPoints.map((point, idx) => (
-                    <motion.div
-                      key={idx}
-                      initial={{ opacity: 0, x: 20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{
-                        duration: 0.45,
-                        delay: 0.55 + idx * 0.07,
-                        ease: [0.22, 1, 0.36, 1],
-                      }}
-                      whileHover={{ x: 4 }}
-                      className="group/item flex items-start gap-3 rounded-xl border border-white/6 bg-white/3 px-4 py-3 transition-all duration-300 hover:border-white/12 hover:bg-white/6"
-                    >
-                      <span className="mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-green-500/15 ring-1 ring-green-500/20">
-                        <FiCheck className="h-3 w-3 text-green-400" />
-                      </span>
-                      <span className="text-sm leading-6 text-white/50 group-hover/item:text-white/70 transition-colors">
-                        {point}
-                      </span>
-                    </motion.div>
-                  ))}
-                </div>
-
-                {/* LIVE INDICATOR */}
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.9 }}
-                  className="mt-6 flex items-center gap-2"
-                >
-                  <motion.span
-                    animate={{ scale: [1, 1.4, 1], opacity: [1, 0.5, 1] }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      repeatDelay: 1,
-                    }}
-                    className="h-1.5 w-1.5 rounded-full bg-green-400"
-                  />
-                  <span className="text-[10px] uppercase tracking-[0.3em] text-green-400/60">
-                    Active approach
-                  </span>
-                </motion.div>
-              </motion.div>
-            </div>
-          </div>
-        </div>
-      </SectionWrapper>
       {/* ================= CULTURE ================= */}
       {/* Replace your existing SectionWrapper content with this */}
       <SectionWrapper id="culture" fullBleed className="scroll-mt-24">
         <div className="bg-linear-to-r from-black to-(--color-primary) text-white rounded-3xl overflow-hidden">
+          <span className="mt-4 p-4">
+            <SectionBadge>Our Culture</SectionBadge>
+          </span>
           <div className="grid lg:grid-cols-2 min-h-150">
             {/* LEFT — sticky graphic panel */}
             <div className="sticky top-24 h-125 lg:h-auto flex flex-col items-center justify-center p-12 border-r border-white/8">
@@ -970,13 +1075,11 @@ export default function WhoWeArePage() {
                 initial={{ opacity: 0, y: -10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="mb-10 flex items-center gap-3 self-start"
-              >
-                <SectionBadge>Our Culture</SectionBadge>
-              </motion.div>
+                className="mb-2 flex items-center gap-3 self-start"
+              ></motion.div>
 
               {/* Dynamic SVG graphic */}
-              <div className="w-64 h-64 lg:w-80 lg:h-80">
+              <div className="w-72 h-72 lg:w-120 lg:h-120">
                 <CultureGraphic index={activeCultureCard} />
               </div>
 

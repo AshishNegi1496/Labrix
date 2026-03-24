@@ -145,8 +145,8 @@ export default function HomePage() {
       </SectionWrapper>
 
       {/* Posters + News */}
-      <SectionWrapper className="py-10">
-        <div className="section-shell">
+      <SectionWrapper fullBleed>
+        <>
           <div className="grid gap-6 items-start lg:grid-cols-[2fr_1fr] lg:items-stretch">
             <div className="relative min-w-0 rounded-3xl shadow-sm lg:h-full">
               <GlassSlider
@@ -217,7 +217,7 @@ export default function HomePage() {
               </div>
             </aside>
           </div>
-        </div>
+        </>
       </SectionWrapper>
 
       {/* key features section */}

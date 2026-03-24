@@ -64,6 +64,8 @@
   --accent-color: var(--color-accent);
   --primary-color: var(--color-primary);
   --muted-color: var(--text-muted);
+  --font-body: "Segoe UI", "Trebuchet MS", "Helvetica Neue", sans-serif;
+  --font-heading: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
   --accent-font: var(--font-body);
 
   --container-max: 1440px;

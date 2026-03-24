@@ -2,17 +2,51 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 
-// Add this component in the same file or import it
 export default function CultureGraphic({ index }: { index: number }) {
+  const ease = [0.22, 1, 0.36, 1] as const;
+  const labelFont = "ui-sans-serif, system-ui, sans-serif";
+  const colors = {
+    white: "#ffffff",
+    ice: "#f8fbff",
+    sky: "#dbeafe",
+    cyan: "#cffafe",
+    mint: "#d1fae5",
+    peach: "#fed7aa",
+    amber: "#fde68a",
+    lilac: "#e9d5ff",
+    rose: "#fbcfe8",
+  } as const;
+
   const graphics = [
-    // Card 0 - Ownership: Bold geometric target/bullseye
     <svg key={0} width="100%" viewBox="0 0 400 400">
       <defs>
-        <radialGradient id="rg0" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="rgba(255,255,255,0.15)" />
-          <stop offset="100%" stopColor="rgba(255,255,255,0)" />
+        <radialGradient id="ownershipGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor={colors.white} stopOpacity="0.96" />
+          <stop offset="38%" stopColor={colors.sky} stopOpacity="0.4" />
+          <stop offset="100%" stopColor={colors.cyan} stopOpacity="0" />
         </radialGradient>
+        <linearGradient id="ownershipStroke" x1="40" y1="40" x2="360" y2="360">
+          <stop offset="0%" stopColor={colors.sky} stopOpacity="0.95" />
+          <stop offset="52%" stopColor={colors.cyan} stopOpacity="0.82" />
+          <stop offset="100%" stopColor={colors.peach} stopOpacity="0.92" />
+        </linearGradient>
       </defs>
+
+      <motion.circle
+        cx="200"
+        cy="200"
+        r="152"
+        fill="url(#ownershipGlow)"
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: [1, 1.05, 1], opacity: [0.42, 0.78, 0.42] }}
+        transition={{
+          duration: 7.5,
+          repeat: Infinity,
+          type: "tween",
+          ease: "easeInOut",
+        }}
+      />
+
       {[160, 120, 80, 40].map((r, i) => (
         <motion.circle
           key={r}
@@ -20,54 +54,111 @@ export default function CultureGraphic({ index }: { index: number }) {
           cy="200"
           r={r}
           fill="none"
-          stroke="rgba(255,255,255,0.15)"
+          stroke="url(#ownershipStroke)"
+          strokeOpacity={0.3 + i * 0.08}
           strokeWidth="1"
-          initial={{ scale: 0, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
+          initial={{ scale: 0.82, opacity: 0 }}
+          animate={{ scale: [1, 1.018, 1], opacity: [0.55, 1, 0.68] }}
           transition={{
             delay: i * 0.12,
-            duration: 0.6,
-            ease: [0.22, 1, 0.36, 1],
+            duration: 4.8,
+            repeat: Infinity,
+            repeatType: "mirror",
+            type: "tween",
+            ease: "easeInOut",
           }}
         />
       ))}
-      <motion.circle
-        cx="200"
-        cy="200"
-        r="20"
-        fill="white"
-        fillOpacity="0.9"
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        transition={{
-          delay: 0.5,
-          duration: 0.5,
-          type: "spring",
-          stiffness: 200,
-        }}
-      />
+
       {[0, 60, 120, 180, 240, 300].map((angle, i) => (
         <motion.line
-          key={angle}
+          key={`spoke-${angle}`}
           x1="200"
           y1="200"
           x2={200 + 170 * Math.cos((angle * Math.PI) / 180)}
           y2={200 + 170 * Math.sin((angle * Math.PI) / 180)}
-          stroke="rgba(255,255,255,0.06)"
+          stroke={colors.white}
+          strokeOpacity={0.16}
           strokeWidth="1"
           initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3 + i * 0.05 }}
+          animate={{ opacity: [0.1, 0.28, 0.1] }}
+          transition={{
+            delay: 0.28 + i * 0.05,
+            duration: 3.6,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
         />
       ))}
+
+      {[
+        { cx: 200, cy: 40, fill: colors.sky },
+        { cx: 338, cy: 120, fill: colors.cyan },
+        { cx: 330, cy: 285, fill: colors.peach },
+        { cx: 70, cy: 285, fill: colors.mint },
+        { cx: 62, cy: 120, fill: colors.lilac },
+      ].map((dot, i) => (
+        <motion.circle
+          key={`orbit-${i}`}
+          cx={dot.cx}
+          cy={dot.cy}
+          r="5"
+          fill={dot.fill}
+          fillOpacity="0.95"
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: [0.82, 1.18, 0.82], opacity: [0.35, 0.95, 0.35] }}
+          transition={{
+            delay: 0.45 + i * 0.12,
+            duration: 2.8 + i * 0.2,
+            repeat: Infinity,
+            type: "tween",
+            ease: "easeInOut",
+          }}
+        />
+      ))}
+
+      <motion.circle
+        cx="200"
+        cy="200"
+        r="32"
+        fill={colors.white}
+        fillOpacity="0.18"
+        initial={{ scale: 0.6, opacity: 0 }}
+        animate={{ scale: [0.9, 1.08, 0.9], opacity: [0.35, 0.6, 0.35] }}
+        transition={{
+          delay: 0.25,
+          duration: 3.2,
+          repeat: Infinity,
+          type: "tween",
+          ease: "easeInOut",
+        }}
+      />
+
+      <motion.circle
+        cx="200"
+        cy="200"
+        r="18"
+        fill={colors.ice}
+        fillOpacity="0.98"
+        initial={{ scale: 0 }}
+        animate={{ scale: [0.9, 1.08, 1] }}
+        transition={{
+          delay: 0.5,
+          duration: 0.8,
+          type: "tween",
+          ease,
+        }}
+      />
+
       <motion.text
         x="200"
         y="340"
         textAnchor="middle"
-        fill="rgba(255,255,255,0.35)"
+        fill={colors.sky}
+        fillOpacity="0.9"
         fontSize="11"
         letterSpacing="4"
-        fontFamily="sans-serif"
+        fontFamily={labelFont}
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.7 }}
@@ -76,62 +167,157 @@ export default function CultureGraphic({ index }: { index: number }) {
       </motion.text>
     </svg>,
 
-    // Card 1 - Clarity: Flowing lines converging to a point
     <svg key={1} width="100%" viewBox="0 0 400 400">
+      <defs>
+        <linearGradient id="clarityLeft" x1="20" y1="60" x2="230" y2="200">
+          <stop offset="0%" stopColor={colors.sky} stopOpacity="0.95" />
+          <stop offset="100%" stopColor={colors.white} stopOpacity="0.9" />
+        </linearGradient>
+        <linearGradient id="clarityRight" x1="380" y1="60" x2="170" y2="200">
+          <stop offset="0%" stopColor={colors.peach} stopOpacity="0.95" />
+          <stop offset="100%" stopColor={colors.white} stopOpacity="0.9" />
+        </linearGradient>
+        <radialGradient id="clarityCore" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor={colors.white} stopOpacity="0.95" />
+          <stop offset="45%" stopColor={colors.cyan} stopOpacity="0.28" />
+          <stop offset="100%" stopColor={colors.cyan} stopOpacity="0" />
+        </radialGradient>
+      </defs>
+
+      <motion.circle
+        cx="200"
+        cy="200"
+        r="104"
+        fill="url(#clarityCore)"
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: [0.96, 1.06, 0.96], opacity: [0.35, 0.72, 0.35] }}
+        transition={{
+          duration: 6.6,
+          repeat: Infinity,
+          type: "tween",
+          ease: "easeInOut",
+        }}
+      />
+
       {[
         { x1: 20, y1: 60, x2: 200, y2: 200 },
         { x1: 20, y1: 130, x2: 200, y2: 200 },
         { x1: 20, y1: 200, x2: 200, y2: 200 },
         { x1: 20, y1: 270, x2: 200, y2: 200 },
         { x1: 20, y1: 340, x2: 200, y2: 200 },
-      ].map((l, i) => (
+      ].map((line, i) => (
         <motion.path
-          key={i}
-          d={`M ${l.x1} ${l.y1} Q ${(l.x1 + l.x2) / 2 + 30} ${(l.y1 + l.y2) / 2} ${l.x2} ${l.y2}`}
+          key={`left-${i}`}
+          d={`M ${line.x1} ${line.y1} Q ${(line.x1 + line.x2) / 2 + 30} ${(line.y1 + line.y2) / 2} ${line.x2} ${line.y2}`}
           fill="none"
-          stroke="rgba(255,255,255,0.2)"
+          stroke="url(#clarityLeft)"
           strokeWidth="1.5"
           initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 1 }}
-          transition={{ delay: i * 0.1, duration: 0.8, ease: "easeOut" }}
+          animate={{ pathLength: 1, opacity: [0.45, 1, 0.8] }}
+          transition={{
+            delay: i * 0.1,
+            duration: 2.8,
+            repeat: Infinity,
+            repeatType: "mirror",
+            ease: "easeInOut",
+          }}
         />
       ))}
+
       {[
         { x1: 380, y1: 60, x2: 200, y2: 200 },
         { x1: 380, y1: 130, x2: 200, y2: 200 },
         { x1: 380, y1: 200, x2: 200, y2: 200 },
         { x1: 380, y1: 270, x2: 200, y2: 200 },
         { x1: 380, y1: 340, x2: 200, y2: 200 },
-      ].map((l, i) => (
+      ].map((line, i) => (
         <motion.path
-          key={`r${i}`}
-          d={`M ${l.x1} ${l.y1} Q ${(l.x1 + l.x2) / 2 - 30} ${(l.y1 + l.y2) / 2} ${l.x2} ${l.y2}`}
+          key={`right-${i}`}
+          d={`M ${line.x1} ${line.y1} Q ${(line.x1 + line.x2) / 2 - 30} ${(line.y1 + line.y2) / 2} ${line.x2} ${line.y2}`}
           fill="none"
-          stroke="rgba(255,255,255,0.2)"
+          stroke="url(#clarityRight)"
           strokeWidth="1.5"
           initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 1 }}
-          transition={{ delay: 0.5 + i * 0.1, duration: 0.8, ease: "easeOut" }}
+          animate={{ pathLength: 1, opacity: [0.45, 1, 0.8] }}
+          transition={{
+            delay: 0.5 + i * 0.1,
+            duration: 2.8,
+            repeat: Infinity,
+            repeatType: "mirror",
+            ease: "easeInOut",
+          }}
         />
       ))}
+
+      {[
+        { cx: 20, cy: 60, fill: colors.sky },
+        { cx: 20, cy: 200, fill: colors.cyan },
+        { cx: 20, cy: 340, fill: colors.lilac },
+        { cx: 380, cy: 60, fill: colors.peach },
+        { cx: 380, cy: 200, fill: colors.rose },
+        { cx: 380, cy: 340, fill: colors.amber },
+      ].map((dot, i) => (
+        <motion.circle
+          key={`clarity-dot-${i}`}
+          cx={dot.cx}
+          cy={dot.cy}
+          r="4.5"
+          fill={dot.fill}
+          fillOpacity="0.96"
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: [0.8, 1.1, 0.8], opacity: [0.3, 0.95, 0.3] }}
+          transition={{
+            delay: 0.2 + i * 0.08,
+            duration: 2.4,
+            repeat: Infinity,
+            type: "tween",
+            ease: "easeInOut",
+          }}
+        />
+      ))}
+
+      <motion.rect
+        x="176"
+        y="176"
+        width="48"
+        height="48"
+        rx="14"
+        fill={colors.white}
+        fillOpacity="0.18"
+        stroke={colors.sky}
+        strokeOpacity="0.35"
+        strokeWidth="1"
+        transform="rotate(45 200 200)"
+        initial={{ scale: 0.85, opacity: 0 }}
+        animate={{ scale: [0.92, 1.06, 0.92], opacity: [0.35, 0.7, 0.35] }}
+        transition={{
+          duration: 3.8,
+          repeat: Infinity,
+          type: "tween",
+          ease: "easeInOut",
+        }}
+      />
+
       <motion.circle
         cx="200"
         cy="200"
-        r="12"
-        fill="white"
-        fillOpacity="0.9"
+        r="11"
+        fill={colors.ice}
+        fillOpacity="1"
         initial={{ scale: 0 }}
-        animate={{ scale: [0, 1.3, 1] }}
-        transition={{ delay: 1, duration: 0.5 }}
+        animate={{ scale: [0.92, 1.26, 1] }}
+        transition={{ delay: 1, duration: 0.7, type: "tween", ease }}
       />
+
       <motion.text
         x="200"
         y="360"
         textAnchor="middle"
-        fill="rgba(255,255,255,0.35)"
+        fill={colors.sky}
+        fillOpacity="0.92"
         fontSize="11"
         letterSpacing="4"
-        fontFamily="sans-serif"
+        fontFamily={labelFont}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.2 }}
@@ -140,78 +326,165 @@ export default function CultureGraphic({ index }: { index: number }) {
       </motion.text>
     </svg>,
 
-    // Card 2 - Trust: Interlocking rings / Venn
     <svg key={2} width="100%" viewBox="0 0 400 400">
+      <defs>
+        <radialGradient id="trustCenterGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor={colors.white} stopOpacity="0.95" />
+          <stop offset="42%" stopColor={colors.cyan} stopOpacity="0.32" />
+          <stop offset="100%" stopColor={colors.cyan} stopOpacity="0" />
+        </radialGradient>
+      </defs>
+
+      <motion.circle
+        cx="200"
+        cy="200"
+        r="76"
+        fill="url(#trustCenterGlow)"
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: [0.95, 1.06, 0.95], opacity: [0.35, 0.8, 0.35] }}
+        transition={{
+          duration: 5.4,
+          repeat: Infinity,
+          type: "tween",
+          ease: "easeInOut",
+        }}
+      />
+
       <motion.circle
         cx="155"
         cy="200"
         r="110"
-        fill="rgba(255,255,255,0.06)"
-        stroke="rgba(255,255,255,0.25)"
+        fill="rgba(219,234,254,0.16)"
+        stroke={colors.sky}
+        strokeOpacity="0.95"
         strokeWidth="1.5"
         initial={{ scale: 0, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        animate={{ scale: [1, 1.02, 1], opacity: [0.65, 1, 0.75] }}
+        transition={{
+          duration: 5,
+          repeat: Infinity,
+          repeatType: "mirror",
+          type: "tween",
+          ease: "easeInOut",
+        }}
       />
+
       <motion.circle
         cx="245"
         cy="200"
         r="110"
-        fill="rgba(255,255,255,0.06)"
-        stroke="rgba(255,255,255,0.25)"
+        fill="rgba(254,215,170,0.15)"
+        stroke={colors.peach}
+        strokeOpacity="0.95"
         strokeWidth="1.5"
         initial={{ scale: 0, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ delay: 0.2, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        animate={{ scale: [1, 1.02, 1], opacity: [0.65, 1, 0.75] }}
+        transition={{
+          delay: 0.2,
+          duration: 5,
+          repeat: Infinity,
+          repeatType: "mirror",
+          type: "tween",
+          ease: "easeInOut",
+        }}
       />
+
+      <motion.circle
+        cx="200"
+        cy="200"
+        r="54"
+        fill={colors.white}
+        fillOpacity="0.22"
+        initial={{ scale: 0, opacity: 0 }}
+        animate={{ scale: [0.9, 1.08, 0.9], opacity: [0.3, 0.72, 0.3] }}
+        transition={{
+          delay: 0.35,
+          duration: 4.4,
+          repeat: Infinity,
+          type: "tween",
+          ease: "easeInOut",
+        }}
+      />
+
+      {[
+        { cx: 110, cy: 112, fill: colors.cyan },
+        { cx: 290, cy: 112, fill: colors.rose },
+        { cx: 110, cy: 288, fill: colors.mint },
+        { cx: 290, cy: 288, fill: colors.amber },
+      ].map((dot, i) => (
+        <motion.circle
+          key={`trust-dot-${i}`}
+          cx={dot.cx}
+          cy={dot.cy}
+          r="5"
+          fill={dot.fill}
+          fillOpacity="0.95"
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: [0.8, 1.14, 0.8], opacity: [0.28, 0.9, 0.28] }}
+          transition={{
+            delay: 0.45 + i * 0.12,
+            duration: 2.6 + i * 0.2,
+            repeat: Infinity,
+            type: "tween",
+            ease: "easeInOut",
+          }}
+        />
+      ))}
+
       <motion.text
         x="120"
         y="205"
         textAnchor="middle"
-        fill="rgba(255,255,255,0.5)"
+        fill={colors.sky}
+        fillOpacity="0.95"
         fontSize="12"
-        fontFamily="sans-serif"
+        fontFamily={labelFont}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.6 }}
       >
         Team
       </motion.text>
+
       <motion.text
         x="280"
         y="205"
         textAnchor="middle"
-        fill="rgba(255,255,255,0.5)"
+        fill={colors.peach}
+        fillOpacity="0.95"
         fontSize="12"
-        fontFamily="sans-serif"
+        fontFamily={labelFont}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.7 }}
       >
         Client
       </motion.text>
+
       <motion.text
         x="200"
         y="200"
         textAnchor="middle"
-        fill="white"
+        fill={colors.white}
         fontSize="13"
         fontWeight="500"
-        fontFamily="sans-serif"
+        fontFamily={labelFont}
         initial={{ opacity: 0, scale: 0 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.9 }}
       >
         Trust
       </motion.text>
+
       <motion.text
         x="200"
         y="360"
         textAnchor="middle"
-        fill="rgba(255,255,255,0.35)"
+        fill={colors.sky}
+        fillOpacity="0.9"
         fontSize="11"
         letterSpacing="4"
-        fontFamily="sans-serif"
+        fontFamily={labelFont}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.1 }}
@@ -228,8 +501,8 @@ export default function CultureGraphic({ index }: { index: number }) {
         initial={{ opacity: 0, scale: 0.92, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 1.05, y: -20 }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className="w-full h-full flex items-center justify-center"
+        transition={{ duration: 0.6, ease }}
+        className="flex h-full w-full items-center justify-center"
       >
         {graphics[index] ?? graphics[0]}
       </motion.div>

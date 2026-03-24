@@ -19,7 +19,7 @@ export default function SectionBadge({
   return (
     <p
       className={cn(
-        "inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm",
+        "inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm mt-2",
         borderClassName ?? "border border-orange-500",
         className,
       )}
