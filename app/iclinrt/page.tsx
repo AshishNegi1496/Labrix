@@ -513,7 +513,7 @@ export default function IclinrtPage() {
                   key={`${item.label}-${index}`}
                   className="flex items-center gap-3 rounded-full border border-white/30 bg-white/10 px-4 py-2 text-xs uppercase tracking-[0.25em] text-white/90"
                 >
-                  {item?.logo ? (
+                  {Boolean(item.logo) ? (
                     <span className="grid h-9 w-9 place-items-center overflow-hidden rounded-full bg-white px-1.5">
                       <Image
                         src={item.logo}
@@ -1010,3 +1010,4 @@ export default function IclinrtPage() {
     </PageTransition>
   );
 }
+

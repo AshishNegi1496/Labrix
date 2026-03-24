@@ -139,10 +139,10 @@ export const iclinrtRegulatoryStandards = deepFreeze([
   { label: "GXP", abbr: "GXP", logo: "/images/gxpw.webp" },
   { label: "HIPAA", abbr: "HIPAA", logo: "/images/hipaa.webp" },
   { label: "GDPR", abbr: "GDPR", logo: "/images/gdprw.webp" },
-  { label: "CDSCO", abbr: "CDSCO", logo: undefined },
+  { label: "CDSCO", abbr: "CDSCO", logo: "/images/cdsco.jpeg" },
   { label: "MedRA", abbr: "MED", logo: "/images/meddra.webp" },
-  { label: "CDISC", abbr: "CDISC", logo: "/images/cdisc.webp" },
-  { label: "EU Annex 11", abbr: "EU", logo: undefined },
+  { label: "CDISC", abbr: "CDISC", logo: "/images/cdisc.jpeg" },
+  { label: "EU Annex 11", abbr: "EU", logo: "/images/eu.jpeg" },
 ] as const);
 
 export const iclinrtPotential = deepFreeze([
