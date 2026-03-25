@@ -46,7 +46,7 @@ export default function HomePage() {
       <section className="relative overflow-hidden min-h-[90vh] sm:min-h-screen lg:min-h-[110vh] flex items-center">
         <video
           className="absolute inset-0 h-full w-full object-cover"
-          src="/videos/home-final.mp4"
+          src="/videos/home-optional.mp4"
           autoPlay
           muted
           loop
@@ -146,57 +146,71 @@ export default function HomePage() {
 
       {/* Posters + News */}
       <SectionWrapper fullBleed>
-        <>
-          <div className="grid gap-6 items-start lg:grid-cols-[2fr_1fr] lg:items-stretch">
-            <div className="relative min-w-0 rounded-3xl shadow-sm lg:h-full">
-              <GlassSlider
-                items={posterItems}
-                ariaLabel="At a glance posters"
-                scrollerClassName="h-full w-full pb-0 pt-0"
-                controlsClassName="pointer-events-none absolute top-1/2 z-10 -translate-y-1/2 justify-between sm:inset-x-4"
-                edgeFadeClassName="from-slate-50/90 via-slate-50/60"
-                pageSize={1}
-                itemClassName="w-full h-full"
-                renderItem={(poster, index) => (
-                  <ScrollReveal delay={index * 80}>
-                    <Link
-                      href={poster.href}
-                      className="group relative block w-full h-full overflow-hidden rounded-2xl bg-white transition-all hover:shadow-xl hover:shadow-slate-200/50"
-                    >
-                      <div className="relative h-full min-h-100 w-full overflow-hidden">
-                        <Image
-                          src={poster.image}
-                          alt={poster.title}
-                          fill
-                          sizes="100vw"
-                          className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                        />
-                        <div className="absolute inset-0 bg-linear-to-t from-slate-950/80 via-transparent to-transparent opacity-60 transition-opacity group-hover:opacity-80" />
-                        <div className="absolute bottom-0 left-0 w-full p-5">
-                          <span className="inline-block rounded-md bg-(--color-orange)/10 px-2 py-1 text-[10px] font-bold uppercase tracking-widest text-white backdrop-blur-md">
-                            {poster.tag}
-                          </span>
-                          <p className="mt-3 type-h4 font-medium leading-snug text-white">
-                            {poster.title}
-                          </p>
-                        </div>
-                      </div>
-                    </Link>
-                  </ScrollReveal>
-                )}
-              />
-            </div>
+        <div className="relative overflow-hidden rounded-4xl border border-slate-200/70 bg-linear-to-br from-orange-50 via-white to-sky-50 p-4 shadow-[0_24px_80px_rgba(15,23,42,0.08)] sm:p-5 lg:p-6">
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(251,146,60,0.16),transparent_34%),radial-gradient(circle_at_bottom_right,rgba(56,189,248,0.14),transparent_32%)]" />
+          <div className="pointer-events-none absolute inset-x-10 top-0 h-px bg-linear-to-r from-transparent via-white/90 to-transparent" />
+          <div className="pointer-events-none absolute inset-x-10 bottom-0 h-px bg-linear-to-r from-transparent via-slate-200/80 to-transparent" />
 
-            <aside className="flex h-full min-h-96 flex-col rounded-3xl border border-slate-200 bg-(--primary-color) p-5 text-black shadow-sm sm:p-6 lg:p-7">
-              <SectionBadge>News & Updates</SectionBadge>
+          <div className="relative grid gap-5 items-start lg:grid-cols-[2fr_1fr] lg:items-stretch">
+            {/* <div className="flex h-full min-h-80 flex-col rounded-[1.75rem] border border-white/80 bg-white/1 p-3 shadow-[0_18px_50px_rgba(15,23,42,0.06)] backdrop-blur-sm sm:p-4"> */}
+            <GlassSlider
+              items={posterItems}
+              ariaLabel="At a glance posters"
+              className="h-full"
+              scrollerClassName="h-full w-full pb-0 pt-0"
+              controlsClassName="pointer-events-none absolute top-1/2 z-10 -translate-y-1/2 justify-between sm:inset-x-4"
+              edgeFadeClassName=""
+              pageSize={1}
+              itemClassName="w-full h-full"
+              renderItem={(poster, index) => (
+                <ScrollReveal delay={index * 80}>
+                  <Link
+                    href={poster.href}
+                    className="group relative block h-full w-full overflow-hidden rounded-2xl bg-white transition-all hover:shadow-xl hover:shadow-slate-200/50"
+                  >
+                    <div className="relative h-full min-h-100 w-full overflow-hidden">
+                      <Image
+                        src={poster.image}
+                        alt={poster.title}
+                        fill
+                        sizes="100vw"
+                        className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-linear-to-t from-slate-950/80 via-transparent to-transparent opacity-60 transition-opacity group-hover:opacity-80" />
+                      <div className="absolute bottom-0 left-0 w-full p-5">
+                        <span className="inline-block rounded-md bg-(--color-orange)/10 px-2 py-1 text-[10px] font-bold uppercase tracking-widest text-white backdrop-blur-md">
+                          {poster.tag}
+                        </span>
+                        <p className="mt-3 type-h4 font-medium leading-snug text-white">
+                          {poster.title}
+                        </p>
+                      </div>
+                    </div>
+                  </Link>
+                </ScrollReveal>
+              )}
+            />
+            {/* </div> */}
+
+            <aside className="flex h-102 min-h-80 flex-col rounded-[1.75rem] border border-orange-400/80 bg-white/72 p-5 text-slate-900 shadow-[0_18px_50px_rgba(15,23,42,0.06)] backdrop-blur-sm sm:p-6 lg:p-7">
+              <SectionBadge
+                className="bg-white/80 text-slate-900"
+                borderClassName="border border-orange-200"
+              >
+                News & Updates
+              </SectionBadge>
+              <p className="mt-4 text-sm leading-6 text-slate-600">
+                Recent product notes, company moments, and clinical operations
+                updates in one feed.
+              </p>
 
               <div className="relative mt-5 min-h-0 flex-1 space-y-3 overflow-y-auto pb-10 pr-2 no-scrollbar sm:mt-6 sm:space-y-4">
                 <div
-                  className="pointer-events-none absolute inset-x-0 bottom-0 h-14 bg-linear-to-t from-(--color-primary) via-(--color-primary)/70 to-transparent"
+                  className="pointer-events-none absolute inset-x-0 bottom-0 h-14 bg-linear-to-t from-white via-white/85 to-transparent"
                   aria-hidden="true"
                 />
                 <div
-                  className="pointer-events-none absolute bottom-3 left-1/2 flex h-8 w-8 -translate-x-1/2 items-center justify-center rounded-full border border-white/20 bg-white/10 text-black/80 backdrop-blur-sm animate-bounce"
+                  className="pointer-events-none absolute bottom-3 left-1/2 flex h-8 w-8 -translate-x-1/2 items-center justify-center rounded-full border border-slate-200 bg-white/95 text-slate-700 shadow-sm animate-bounce"
                   aria-hidden="true"
                 >
                   <FiChevronDown className="h-4 w-4 text-orange-500" />
@@ -204,12 +218,12 @@ export default function HomePage() {
                 {newsItems.map((item) => (
                   <div
                     key={item.title}
-                    className="rounded-2xl border border-white/15 bg-white/5 p-4"
+                    className="rounded-2xl border border-slate-200/80 bg-white/90 p-4 shadow-[0_10px_28px_rgba(15,23,42,0.04)]"
                   >
-                    <p className="text-sm font-semibold text-black">
+                    <p className="text-sm font-semibold text-slate-900">
                       {item.title}
                     </p>
-                    <p className="mt-2 text-xs uppercase tracking-[0.2em] text-black/60">
+                    <p className="mt-2 text-xs uppercase tracking-[0.2em] text-slate-500">
                       {item.date}
                     </p>
                   </div>
@@ -217,7 +231,7 @@ export default function HomePage() {
               </div>
             </aside>
           </div>
-        </>
+        </div>
       </SectionWrapper>
 
       {/* key features section */}
@@ -344,8 +358,11 @@ export default function HomePage() {
 
                     {/* content */}
                     <div>
-                      <p className="type-h6 font-semibold transition-colors duration-300 group-hover:text-(--color-primary)">
+                      <p className="type-h5 font-semibold transition-colors duration-300 group-hover:text-(--color-primary)">
                         {item.title}
+                      </p>
+                      <p className=" text-sm leading-6 text-(--muted-color)">
+                        {item.description}
                       </p>
                     </div>
                   </div>
@@ -388,10 +405,12 @@ export default function HomePage() {
             <GlassSlider
               items={testimonials}
               ariaLabel="Testimonials"
-              scrollerClassName="gap-8"
+              scrollerClassName="gap-8 px-[max(0px,calc((100%-18rem)/2))] sm:px-[max(0px,calc((100%-20rem)/2))] lg:px-[max(0px,calc((100%-24rem)/2))]"
               controlsClassName="mt-4 justify-center"
               edgeFadeClassName="from-[var(--color-primary)]/90 via-[var(--color-primary)]/60"
+              pageSize={1}
               onActiveChange={(i) => setActiveIndex(i)}
+              snapAlign="center"
               renderItem={(item, index) => {
                 const isCenter = index === activeIndex;
                 const isSide = Math.abs(index - activeIndex) === 1;
@@ -399,7 +418,14 @@ export default function HomePage() {
                 return (
                   <ScrollReveal delay={index * 120}>
                     <div
-                      onClick={() => setActiveIndex(index)}
+                      onClick={(event) => {
+                        setActiveIndex(index);
+                        event.currentTarget.parentElement?.scrollIntoView({
+                          behavior: "smooth",
+                          block: "nearest",
+                          inline: "center",
+                        });
+                      }}
                       className={`
                   w-72 shrink-0 rounded-2xl border border-white/10 bg-white/10 p-6 backdrop-blur-md
                   transition-all duration-500 cursor-pointer sm:w-80 lg:w-96

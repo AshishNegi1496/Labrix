@@ -79,7 +79,7 @@ export const iclinrtServices = deepFreeze([
     ],
   },
   {
-    title: "Subject Randomization and Treatment Assignment",
+    title: "Subject Randomization & Treatment Assignment",
     items: [
       "Executes unbiased, protocol-aligned allocation across arms, cohorts, and strata.",
       "Preserves blinding integrity and supports emergency unblinding with full logs.",
@@ -121,12 +121,13 @@ export const iclinrtServices = deepFreeze([
   {
     title: "Clinical Supply & Site Inventory Management",
     items: [
+         "* Auto-reconciliation of dispensing, returns, transfers — no manual logs, fewer errors ",
+      "Controlled movements with monitoring, site transfers, and low/expiry alerts",
+      "Visit-aligned inventory planning with GxP and inspection-ready compliance",
       " An integrated, protocol-ready solution providing end-to-end visibility and control of investigational products (IMP) across the supply chain and investigational sites. End-to-end IMP lifecycle and chain-of-custody management, from packaging and distribution through dispensing, returns, retention, and final disposition ",
       "Real-time global and site-level inventory visibility, showing stock by kit, lot, expiry, and status (available, reserved, quarantined, dispensed)",
       "Cold-chain and temperature-controlled product oversight, including temperature mapping, excursion tracking, and review documentation",
-      "* Automated inventory reconciliation, driven by dispensing, returns, and transfers to reduce manual logs and errors ",
-      "Controlled supply movements and proactive monitoring, enabling approved site transfers and alerts for low or near-expiry inventory.",
-      "Operational supply planning and compliance readiness, aligning inventory with visit schedules while supporting GxP and inspection requirements",
+   
     ],
   },
  

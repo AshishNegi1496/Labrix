@@ -120,7 +120,7 @@ export default function CultureGraphic({ index }: { index: number }) {
       <motion.circle
         cx="200"
         cy="200"
-        r="32"
+        r="36"
         fill={colors.white}
         fillOpacity="0.18"
         initial={{ scale: 0.6, opacity: 0 }}
@@ -155,15 +155,15 @@ export default function CultureGraphic({ index }: { index: number }) {
         y="340"
         textAnchor="middle"
         fill={colors.sky}
-        fillOpacity="0.9"
-        fontSize="11"
+        fillOpacity="1"
+        fontSize="18"
         letterSpacing="4"
         fontFamily={labelFont}
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.7 }}
       >
-        OWNERSHIP
+        INTEGRITY
       </motion.text>
     </svg>,
 
@@ -322,7 +322,7 @@ export default function CultureGraphic({ index }: { index: number }) {
         animate={{ opacity: 1 }}
         transition={{ delay: 1.2 }}
       >
-        CLARITY
+        OWNERSHIP
       </motion.text>
     </svg>,
 
@@ -489,7 +489,7 @@ export default function CultureGraphic({ index }: { index: number }) {
         animate={{ opacity: 1 }}
         transition={{ delay: 1.1 }}
       >
-        FOUNDATION
+        INNOVATION
       </motion.text>
     </svg>,
   ];

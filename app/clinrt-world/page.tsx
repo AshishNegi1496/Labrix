@@ -415,6 +415,10 @@ export default function WhatsNewPage() {
           <ScrollReveal className="max-w-3xl">
             <p className="type-h1 md:text-6xl font-semibold">
               Stay connected with our latest updates, resources, and milestones.
+            </p>
+
+            <p className="type-h4 md:text-6xl font-semibold">
+              {" "}
               Here&apos;s everything happening across ClinRT right now.
             </p>
           </ScrollReveal>

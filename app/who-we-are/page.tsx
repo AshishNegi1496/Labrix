@@ -86,15 +86,15 @@ const StickyCards = ({ iclinrtUsps }: StickyCardsProps) => {
   };
 
   return (
-    <div className="relative w-full py-12">
+    <div className="relative w-full py-8 md:py-12">
       {/* Background gradient orbs */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/4 -left-1/4 h-125 w-125 rounded-full bg-linear-to-r from-sky-200/60 to-cyan-100/45 blur-[110px] animate-pulse" />
-        <div className="absolute bottom-1/4 -right-1/4 h-125 w-125 rounded-full bg-linear-to-r from-orange-200/45 to-amber-100/40 blur-[110px] animate-pulse animation-delay-1000" />
+        <div className="absolute top-1/4 -left-1/4 h-72 w-72 rounded-full bg-linear-to-r from-sky-200/60 to-cyan-100/45 blur-[90px] animate-pulse md:h-125 md:w-125 md:blur-[110px]" />
+        <div className="absolute bottom-1/4 -right-1/4 h-72 w-72 rounded-full bg-linear-to-r from-orange-200/45 to-amber-100/40 blur-[90px] animate-pulse animation-delay-1000 md:h-125 md:w-125 md:blur-[110px]" />
       </div>
 
       {/* Cards Grid */}
-      <div className="relative grid grid-cols-1 md:grid-cols-2 gap-8 max-w-7xl mx-auto px-4">
+      <div className="relative mx-auto grid max-w-7xl grid-cols-1 gap-5 px-0 sm:px-4 md:grid-cols-2 md:gap-8">
         {enhancedPoints.map((point, index) => {
           const Icon = point.icon;
 
@@ -120,7 +120,7 @@ const StickyCards = ({ iclinrtUsps }: StickyCardsProps) => {
                   transition-all duration-300
                 `}
               >
-                <div className="relative rounded-3xl bg-blue-900/90 backdrop-blur-xl p-8 md:p-10 h-full">
+                <div className="relative h-full rounded-3xl bg-blue-900/90 p-6 backdrop-blur-xl sm:p-7 md:p-10">
                   {/* Animated background effect */}
                   <motion.div
                     className="absolute inset-0 bg-linear-to-r from-white/5 to-transparent"
@@ -157,7 +157,7 @@ const StickyCards = ({ iclinrtUsps }: StickyCardsProps) => {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.5, delay: index * 0.1 + 0.4 }}
-                      className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-4"
+                      className="mb-4 text-xl font-bold text-white sm:text-2xl md:text-3xl lg:text-4xl"
                     >
                       {point.title}
                     </motion.p>
@@ -168,7 +168,7 @@ const StickyCards = ({ iclinrtUsps }: StickyCardsProps) => {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.5, delay: index * 0.1 + 0.5 }}
-                      className="text-white/70 text-base md:text-lg leading-relaxed mb-6"
+                      className="mb-6 text-sm leading-relaxed text-white/70 sm:text-base md:text-lg"
                     >
                       {point.description}
                     </motion.p>
@@ -213,10 +213,10 @@ const StickyCards = ({ iclinrtUsps }: StickyCardsProps) => {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: index * 0.1 + 0.8 }}
-                className="absolute -top-4 -right-4 md:-top-6 md:-right-6"
+                className="absolute -right-3 -top-3 sm:-right-4 sm:-top-4 md:-right-6 md:-top-6"
               >
-                <div className="flex items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-full bg-gradient-to-br from-white to-slate-200 shadow-lg">
-                  <span className="text-sm md:text-base font-bold text-slate-900">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-white to-slate-200 shadow-lg sm:h-12 sm:w-12 md:h-14 md:w-14">
+                  <span className="text-xs font-bold text-slate-900 sm:text-sm md:text-base">
                     {String(index + 1).padStart(2, "0")}
                   </span>
                 </div>
@@ -869,10 +869,10 @@ export default function WhoWeArePage() {
 
       <SectionWrapper fullBleed>
         <ScrollReveal delay={120}>
-          <div className="relative overflow-hidden rounded-[28px] bg-[#f4f8fc] p-6 text-slate-950 shadow-[0_28px_80px_rgba(148,163,184,0.16)] md:p-8">
+          <div className="relative overflow-hidden rounded-[24px] bg-[#f4f8fc] p-4 text-slate-950 shadow-[0_28px_80px_rgba(148,163,184,0.16)] sm:p-5 md:rounded-[28px] md:p-8">
             {/* Animated background */}
             <motion.div
-              className="pointer-events-none absolute inset-[-8%] opacity-85"
+              className="pointer-events-none absolute inset-[-10%] opacity-85 sm:inset-[-8%]"
               animate={{
                 x: ["0%", "2%", "-1%", "0%"],
                 y: ["0%", "3%", "-2%", "0%"],
@@ -889,7 +889,7 @@ export default function WhoWeArePage() {
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_52%_36%,rgba(255,255,255,0.5),transparent_34%)]" />
             </motion.div>
             <motion.div
-              className="pointer-events-none absolute inset-y-[-4%] right-[-6%] w-[72%] bg-(--primary-color)"
+              className="pointer-events-none absolute inset-y-[-4%] right-[-14%] w-[96%] bg-(--primary-color) sm:right-[-10%] sm:w-[84%] md:right-[-6%] md:w-[72%]"
               style={{
                 clipPath: "polygon(45% 0%, 100% 0%, 100% 100%, 35% 100%)",
               }}
@@ -905,7 +905,7 @@ export default function WhoWeArePage() {
               }}
             />
             <motion.div
-              className="pointer-events-none absolute -left-[18%] top-[-30%] h-[170%] w-[44%] rotate-[14deg] bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.22),transparent)] blur-3xl"
+              className="pointer-events-none absolute -left-[18%] top-[-30%] hidden h-[170%] w-[44%] rotate-[14deg] bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.22),transparent)] blur-3xl sm:block"
               animate={{
                 x: ["0%", "135%", "0%"],
                 opacity: [0, 0.38, 0],
@@ -917,7 +917,7 @@ export default function WhoWeArePage() {
               }}
             />
             <motion.div
-              className="pointer-events-none absolute right-[10%] top-[14%] h-64 w-64 rounded-full border border-white/14"
+              className="pointer-events-none absolute right-[8%] top-[12%] h-36 w-36 rounded-full border border-white/14 sm:h-48 sm:w-48 md:right-[10%] md:top-[14%] md:h-64 md:w-64"
               animate={{
                 scale: [1, 1.08, 1],
                 opacity: [0.2, 0.42, 0.2],
@@ -930,7 +930,7 @@ export default function WhoWeArePage() {
               }}
             />
             <motion.div
-              className="pointer-events-none absolute right-[13%] top-[17%] h-48 w-48 rounded-full border border-white/10"
+              className="pointer-events-none absolute right-[11%] top-[15%] h-24 w-24 rounded-full border border-white/10 sm:h-36 sm:w-36 md:right-[13%] md:top-[17%] md:h-48 md:w-48"
               animate={{
                 scale: [1, 1.14, 1],
                 opacity: [0.12, 0.28, 0.12],
@@ -944,7 +944,7 @@ export default function WhoWeArePage() {
             />
             {/* Grid pattern */}
             <motion.div
-              className="pointer-events-none absolute inset-[-3%] bg-[linear-gradient(to_right,rgba(148,163,184,0.12)_1px,transparent_1px),linear-gradient(to_bottom,rgba(148,163,184,0.12)_1px,transparent_1px)] bg-[size:24px_24px]"
+              className="pointer-events-none absolute inset-[-3%] bg-[linear-gradient(to_right,rgba(148,163,184,0.12)_1px,transparent_1px),linear-gradient(to_bottom,rgba(148,163,184,0.12)_1px,transparent_1px)] bg-[size:18px_18px] sm:bg-[size:20px_20px] md:bg-[size:24px_24px]"
               animate={{
                 x: [0, 10, 0],
                 y: [0, -10, 0],
@@ -956,7 +956,7 @@ export default function WhoWeArePage() {
               }}
             />
             <motion.div
-              className="pointer-events-none absolute inset-x-0 top-[18%] h-px bg-linear-to-r from-transparent via-white/45 to-transparent"
+              className="pointer-events-none absolute inset-x-0 top-[14%] h-px bg-linear-to-r from-transparent via-white/45 to-transparent md:top-[18%]"
               animate={{
                 opacity: [0.2, 0.55, 0.2],
                 scaleX: [0.92, 1, 0.92],
@@ -967,8 +967,8 @@ export default function WhoWeArePage() {
                 ease: "easeInOut",
               }}
             />
-            <div className="pointer-events-none absolute inset-x-8 top-0 h-px bg-linear-to-r from-transparent via-sky-200/80 to-transparent" />
-            <div className="pointer-events-none absolute inset-x-8 bottom-0 h-px bg-linear-to-r from-transparent via-orange-200/70 to-transparent" />
+            <div className="pointer-events-none absolute inset-x-4 top-0 h-px bg-linear-to-r from-transparent via-sky-200/80 to-transparent sm:inset-x-6 md:inset-x-8" />
+            <div className="pointer-events-none absolute inset-x-4 bottom-0 h-px bg-linear-to-r from-transparent via-orange-200/70 to-transparent sm:inset-x-6 md:inset-x-8" />
 
             <div className="relative z-10">
               <SectionBadge
@@ -980,9 +980,9 @@ export default function WhoWeArePage() {
 
               <div
                 ref={uspsSectionRef}
-                className="relative mt-8"
+                className="relative mt-6 md:mt-8"
                 style={{
-                  height: `${Math.min(meaningPoints.length * 30, 80)}vh`,
+                  minHeight: `${Math.min(meaningPoints.length * 45, 100)}vh`,
                 }}
               >
                 <StickyCards iclinrtUsps={meaningPoints} />
@@ -1064,9 +1064,9 @@ export default function WhoWeArePage() {
       {/* Replace your existing SectionWrapper content with this */}
       <SectionWrapper id="culture" fullBleed className="scroll-mt-24">
         <div className="bg-linear-to-r from-black to-(--color-primary) text-white rounded-3xl overflow-hidden">
-          <span className="mt-4 p-4">
+          <div className="px-8 pt-8 md:px-8 md:pt-8">
             <SectionBadge>Our Culture</SectionBadge>
-          </span>
+          </div>
           <div className="grid lg:grid-cols-2 min-h-150">
             {/* LEFT — sticky graphic panel */}
             <div className="sticky top-24 h-125 lg:h-auto flex flex-col items-center justify-center p-12 border-r border-white/8">
@@ -1079,7 +1079,7 @@ export default function WhoWeArePage() {
               ></motion.div>
 
               {/* Dynamic SVG graphic */}
-              <div className="w-72 h-72 lg:w-120 lg:h-120">
+              <div className="w-full h-full lg:w-full lg:h-full">
                 <CultureGraphic index={activeCultureCard} />
               </div>
 
@@ -1261,7 +1261,7 @@ export default function WhoWeArePage() {
         {/* Text Content Below */}
         <div className=" -mt-72 ">
           <div className="max-w-3xl mx-auto text-center">
-            <p className="text-muted-foreground text-lg leading-relaxed">
+            {/* <p className="text-muted-foreground text-lg leading-relaxed">
               Our team brings together product thinkers, clinical specialists,
               engineers, and operators who care deeply about improving how
               trials run. We work closely across disciplines, combining
@@ -1269,7 +1269,7 @@ export default function WhoWeArePage() {
               that stands up in real world research. Every person here
               contributes to making clinical operations clearer, smoother, and
               more reliable—one workflow at a time.
-            </p>
+            </p> */}
 
             <div className="grid grid-cols-3 gap-6 mt-12">
               {teamStats.map((s) => (

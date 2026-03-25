@@ -2,24 +2,29 @@ import { deepFreeze } from "../utils";
 
 export const homeWhyChoosePoints = deepFreeze([
   {
-    title:
-      "Deep Clinical Domain Expertise Strong experience across clinical trial systems, operational workflows, and regulatory expectations ensuring technology that fits real-world trial execution",
+    title: "Deep Clinical Domain Expertise",
+    description:
+      "Strong experience across clinical trial systems, operational workflows, and regulatory expectations, ensuring technology that fits real-world trial execution.",
   },
   {
-    title:
-      "Reliable, Structured Digital Foundations Protocol-aligned platforms designed for operational stability, continuity, and consistent performance across the full clinical lifecycle",
+    title: "Reliable, Structured Digital Foundations",
+    description:
+      "Protocol-aligned platforms designed for operational stability, continuity, and consistent performance across the full clinical lifecycle.",
   },
   {
-    title:
-      "Integrated and Connected Trial Ecosystems Seamless integration with existing clinical platforms and unified workflows that improve coordination between sponsors, CROs, sites, and partners reducing data silos and fragmentation",
+    title: "Integrated and Connected Trial Ecosystems",
+    description:
+      "Seamless integration with existing clinical platforms and unified workflows that improve coordination between sponsors, CROs, sites, and partners, reducing data silos and fragmentation.",
   },
   {
-    title:
-      "Data Integrity and Compliance by Design Technology built to support clean, consistent, audit-ready data across systems from enrollment through close-out aligned with global research standards",
+    title: "Data Integrity and Compliance by Design",
+    description:
+      "Technology built to support clean, consistent, audit-ready data across systems from enrollment through close-out, aligned with global research standards.",
   },
   {
-    title:
-      "Scalable, Collaborative Global Delivery Flexible systems that adapt to protocol changes, multi-country studies, and evolving needs, delivered through close partnership and global trial experience",
+    title: "Scalable, Collaborative Global Delivery",
+    description:
+      "Flexible systems that adapt to protocol changes, multi-country studies, and evolving needs, delivered through close partnership and global trial experience.",
   },
 ] as const);
 

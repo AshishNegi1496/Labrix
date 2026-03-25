@@ -25,6 +25,7 @@ export type GlassSliderProps<T> = {
   edgeFadeClassName?: string;
   pageSize?: number;
   onActiveChange?: (index: number) => void;
+  snapAlign?: "start" | "center";
 };
 
 export default function GlassSlider<T>({
@@ -41,6 +42,7 @@ export default function GlassSlider<T>({
   edgeFadeClassName,
   pageSize,
   onActiveChange,
+  snapAlign = "start",
 }: GlassSliderProps<T>) {
   const scrollerRef = useRef<HTMLDivElement | null>(null);
   const dragActive = useRef(false);
@@ -202,7 +204,11 @@ export default function GlassSlider<T>({
           {items.map((item, index) => (
             <div
               key={index}
-              className={cn("snap-start shrink-0", itemClassName)}
+              className={cn(
+                snapAlign === "center" ? "snap-center" : "snap-start",
+                "shrink-0",
+                itemClassName,
+              )}
               data-slider-item
             >
               {renderItem(item, index)}
