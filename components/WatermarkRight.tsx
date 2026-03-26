@@ -10,7 +10,6 @@ export default function WatermarkRight() {
         <style>{`
           .node {
             fill: #d1752a;
-            // opacity: .8;
             animation: pulse 4s ease-in-out infinite;
           }
 

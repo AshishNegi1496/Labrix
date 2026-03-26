@@ -8,7 +8,7 @@ import {
 } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState, type RefObject } from "react";
+import { useEffect, useState } from "react";
 import { FullScreenCard } from "@/hooks/FullScreenCard";
 import PageTransition from "@/components/animations/PageTransition";
 import SectionWrapper from "@/components/layout/SectionWrapper";
@@ -17,8 +17,8 @@ import Button from "@/components/ui/Button";
 import GlassCard from "@/components/GlassCard";
 import SectionBadge from "@/components/ui/SectionBadge";
 import { FiActivity, FiArrowRight, FiCheck, FiZap } from "react-icons/fi";
-import { useActiveCard } from "@/hooks/useInView";
 import StudyFlowSvg from "@/components/StudyFlowSvg";
+import { cn } from "@/lib/cn";
 import {
   iclinrtPotential as iclinrtPotential,
   iclinrtPotentialMedia as potentialMedia,
@@ -30,20 +30,32 @@ import {
   iclinrtUsps as iclinrtUsps,
   iclinrtUspIcons as uspIcons,
 } from "@/data";
-// IclinrtUspsSection.tsx
 
 type StickyCardsProps = {
   iclinrtUsps: typeof iclinrtUsps;
-  sectionRef: RefObject<HTMLDivElement | null>;
+  activeIndex: number;
+  onSelect: (index: number) => void;
 };
 
 type StickyCardItem = (typeof iclinrtUsps)[number];
 
-const StickyCards = ({ iclinrtUsps, sectionRef }: StickyCardsProps) => {
-  const activeIndex = useActiveCard(iclinrtUsps.length, sectionRef);
+const StickyCards = ({
+  iclinrtUsps,
+  activeIndex,
+  onSelect,
+}: StickyCardsProps) => {
+  const totalCards = iclinrtUsps.length;
+
+  function handlePrevious() {
+    onSelect((activeIndex - 1 + totalCards) % totalCards);
+  }
+
+  function handleNext() {
+    onSelect((activeIndex + 1) % totalCards);
+  }
 
   return (
-    <div className="sticky top-0 h-screen overflow-hidden rounded-[2rem] border border-white/10 shadow-[0_24px_80px_rgba(4,18,33,0.18)]">
+    <div className="relative min-h-144 overflow-hidden rounded-4xl border border-white/10 shadow-[0_24px_80px_rgba(4,18,33,0.18)] lg:h-[min(42rem,calc(100vh-5.75rem))]">
       <div className="pointer-events-none absolute inset-0">
         <video
           className="absolute inset-0 h-full w-full object-cover"
@@ -58,20 +70,80 @@ const StickyCards = ({ iclinrtUsps, sectionRef }: StickyCardsProps) => {
         <div className="absolute -right-10 bottom-4 h-64 w-64 rounded-full bg-orange-300/16 blur-3xl" />
       </div>
 
-      <div className="relative h-full">
-        {iclinrtUsps.map((item: StickyCardItem, index: number) => {
-          const Icon = uspIcons[index % uspIcons.length] || FiZap;
+      <div className="relative grid h-full gap-4 p-3 sm:p-4 lg:grid-cols-[minmax(0,1fr)_18rem] lg:gap-5 lg:p-5">
+        <div className="relative min-h-88 lg:min-h-0">
+          {iclinrtUsps.map((item: StickyCardItem, index: number) => {
+            const Icon = uspIcons[index % uspIcons.length] || FiZap;
 
-          return (
-            <FullScreenCard
-              key={item.title}
-              item={item}
-              index={index}
-              activeIndex={activeIndex}
-              Icon={Icon}
-            />
-          );
-        })}
+            return (
+              <FullScreenCard
+                key={item.title}
+                item={item}
+                index={index}
+                activeIndex={activeIndex}
+                Icon={Icon}
+              />
+            );
+          })}
+        </div>
+
+        <div className="relative rounded-[1.6rem] border border-white/12 bg-white/8 p-3 backdrop-blur md:p-4">
+          <div className="flex items-start justify-between gap-3">
+            <div>
+              <SectionBadge>
+                <span className="text-white">USP</span>
+              </SectionBadge>
+              <p className="mt-2 text-lg font-semibold text-white">
+                {String(activeIndex + 1).padStart(2, "0")} /{" "}
+                {String(totalCards).padStart(2, "0")}
+              </p>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={handlePrevious}
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white/80 transition hover:bg-white/16"
+                aria-label="Show previous USP"
+              >
+                <FiArrowRight className="h-4 w-4 rotate-180" />
+              </button>
+              <button
+                type="button"
+                onClick={handleNext}
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white/80 transition hover:bg-white/16"
+                aria-label="Show next USP"
+              >
+                <FiArrowRight className="h-4 w-4" />
+              </button>
+            </div>
+          </div>
+
+          <div className="mt-4 grid grid-cols-2 gap-2">
+            {iclinrtUsps.map((item, index) => (
+              <button
+                key={item.title}
+                type="button"
+                onClick={() => onSelect(index)}
+                onMouseEnter={() => onSelect(index)}
+                className={cn(
+                  "min-h-[4rem] rounded-2xl border px-2.5 py-2.5 text-left transition duration-300",
+                  activeIndex === index
+                    ? "border-white/28 bg-white/18 text-white shadow-[0_16px_36px_rgba(4,18,33,0.18)]"
+                    : "border-white/10 bg-white/6 text-white/72 hover:border-white/18 hover:bg-white/10",
+                )}
+                aria-pressed={activeIndex === index}
+              >
+                <span className="block text-[10px] font-semibold uppercase tracking-[0.28em] text-white/45">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <span className="mt-1 block text-[11px] font-medium leading-[1.125rem] sm:text-[13px] sm:leading-5">
+                  {item.title}
+                </span>
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -199,13 +271,13 @@ function IclinrtMedia({ reduceMotion }: { reduceMotion: boolean }) {
 
 export default function IclinrtPage() {
   const reduceMotion = useReducedMotion();
-  const uspsSectionRef = useRef<HTMLDivElement | null>(null);
   const regulatoryTrack = [...regulatoryStandards, ...regulatoryStandards];
   const problemTrack = [...problemSolutions, ...problemSolutions];
   const [activeServiceIndex, setActiveServiceIndex] = useState<number | null>(
     null,
   );
   const [selectedPotentialIndex, setSelectedPotentialIndex] = useState(0);
+  const [activeUspIndex, setActiveUspIndex] = useState(0);
 
   const activeService =
     activeServiceIndex !== null ? iclinrtServices[activeServiceIndex] : null;
@@ -896,16 +968,17 @@ export default function IclinrtPage() {
         </ScrollReveal>
       </SectionWrapper>
 
-      <SectionWrapper fullBleed id="iclinrt-usps">
-        {/* <div className="relative bg-(--primary-color) text-white"> */}
-        <div
-          ref={uspsSectionRef}
-          className="relative"
-          style={{ height: `${iclinrtUsps.length * 100}vh` }}
-        >
-          <SectionBadge>USP</SectionBadge>
-          <StickyCards iclinrtUsps={iclinrtUsps} sectionRef={uspsSectionRef} />
-          {/* </div> */}
+      <SectionWrapper
+        fullBleed
+        id="iclinrt-usps"
+        className="py-1 sm:py-3 md:py-4 lg:py-5"
+      >
+        <div className="relative space-y-4">
+          <StickyCards
+            iclinrtUsps={iclinrtUsps}
+            activeIndex={activeUspIndex}
+            onSelect={setActiveUspIndex}
+          />
         </div>
       </SectionWrapper>
 

@@ -168,50 +168,6 @@ export default async function BrochurePage({ params }: BrochurePageProps) {
           </div>
         </SectionWrapper>
       </section>
-
-      {/* <SectionWrapper fullBleed className="pb-12 md:pb-16">
-        <div className="rounded-[2.3rem] border border-slate-200 bg-white p-4 shadow-[0_30px_120px_rgba(15,36,58,0.08)] md:p-6">
-          <div className="flex flex-col gap-4 border-b border-slate-200 pb-5 md:flex-row md:items-center md:justify-between">
-            <div>
-              <p className="text-[11px] uppercase tracking-[0.3em] text-slate-500">
-                Full Brochure Preview
-              </p>
-              <h2 className="mt-2 text-2xl font-semibold text-[#0f243a] md:text-3xl">
-                Read the complete document in-browser
-              </h2>
-              <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-600">
-                This preview keeps the experience inside the site while still
-                giving users the complete brochure. Download remains available
-                through the community flow above.
-              </p>
-            </div>
-
-            <div className="flex flex-wrap gap-3">
-              <Button
-                href={downloadGateHref}
-                label="Unlock Download"
-                icon={FiDownload}
-                size="sm"
-              />
-              <Button
-                href="/clinrt-world?tab=Brochures"
-                label="Back to Library"
-                icon={FiArrowLeft}
-                size="sm"
-                className="bg-slate-100 text-[#0f243a] hover:bg-slate-200"
-              />
-            </div>
-          </div>
-
-          <div className="mt-6 overflow-hidden rounded-[1.8rem] border border-slate-200 bg-slate-100">
-            <iframe
-              src={browserPreviewSrc}
-              title={`${brochure.title} brochure preview`}
-              className="h-[78vh] w-full bg-white"
-            />
-          </div>
-        </div>
-      </SectionWrapper> */}
     </PageTransition>
   );
 }

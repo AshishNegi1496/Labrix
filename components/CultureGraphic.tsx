@@ -18,7 +18,7 @@ export default function CultureGraphic({ index }: { index: number }) {
   } as const;
 
   const graphics = [
-    <svg key={0} width="100%" viewBox="0 0 400 400">
+    <svg key={0} width="60%" viewBox="0 0 400 400">
       <defs>
         <radialGradient id="ownershipGlow" cx="50%" cy="50%" r="50%">
           <stop offset="0%" stopColor={colors.white} stopOpacity="0.96" />
@@ -167,7 +167,7 @@ export default function CultureGraphic({ index }: { index: number }) {
       </motion.text>
     </svg>,
 
-    <svg key={1} width="100%" viewBox="0 0 400 400">
+    <svg key={1} width="60%" viewBox="0 0 400 400">
       <defs>
         <linearGradient id="clarityLeft" x1="20" y1="60" x2="230" y2="200">
           <stop offset="0%" stopColor={colors.sky} stopOpacity="0.95" />
@@ -326,7 +326,7 @@ export default function CultureGraphic({ index }: { index: number }) {
       </motion.text>
     </svg>,
 
-    <svg key={2} width="100%" viewBox="0 0 400 400">
+    <svg key={2} width="60%" viewBox="0 0 400 400">
       <defs>
         <radialGradient id="trustCenterGlow" cx="50%" cy="50%" r="50%">
           <stop offset="0%" stopColor={colors.white} stopOpacity="0.95" />
@@ -493,7 +493,7 @@ export default function CultureGraphic({ index }: { index: number }) {
       </motion.text>
     </svg>,
 
-    <svg key={3} width="100%" viewBox="0 0 400 400">
+    <svg key={3} width="60%" viewBox="0 0 400 400">
       <defs>
         <radialGradient id="collaborationGlow" cx="50%" cy="50%" r="50%">
           <stop offset="0%" stopColor={colors.white} stopOpacity="0.94" />
@@ -511,13 +511,7 @@ export default function CultureGraphic({ index }: { index: number }) {
           <stop offset="48%" stopColor={colors.cyan} stopOpacity="0.85" />
           <stop offset="100%" stopColor={colors.mint} stopOpacity="0.9" />
         </linearGradient>
-        <linearGradient
-          id="collaborationNode"
-          x1="0"
-          y1="0"
-          x2="1"
-          y2="1"
-        >
+        <linearGradient id="collaborationNode" x1="0" y1="0" x2="1" y2="1">
           <stop offset="0%" stopColor={colors.white} stopOpacity="0.94" />
           <stop offset="100%" stopColor={colors.sky} stopOpacity="0.82" />
         </linearGradient>
@@ -680,7 +674,7 @@ export default function CultureGraphic({ index }: { index: number }) {
       </motion.text>
     </svg>,
 
-    <svg key={4} width="100%" viewBox="0 0 400 400">
+    <svg key={4} width="60%" viewBox="0 0 400 400">
       <defs>
         <radialGradient id="impactCenter" cx="50%" cy="50%" r="50%">
           <stop offset="0%" stopColor={colors.white} stopOpacity="0.96" />

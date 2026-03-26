@@ -206,10 +206,6 @@ export default function HomePage() {
               >
                 News & Updates
               </SectionBadge>
-              <p className="mt-4 text-sm leading-6 text-slate-600">
-                Recent product notes, company moments, and clinical operations
-                updates in one feed.
-              </p>
 
               <div className="relative mt-5 min-h-0 flex-1 space-y-3 overflow-y-auto pb-10 pr-2 no-scrollbar sm:mt-6 sm:space-y-4">
                 <div
@@ -473,16 +469,15 @@ export default function HomePage() {
       </SectionWrapper>
 
       {/* Testimonials section */}
-      <SectionWrapper fullBleed>
+
+      {/* <SectionWrapper fullBleed>
         <section className="relative overflow-hidden bg-(--primary-color) rounded-3xl text-white">
-          {/* PARALLAX BACKGROUND */}
           <div
             className="absolute inset-0 opacity-20 bg-cover bg-center bg-fixed"
             style={{ backgroundImage: "url('/images/pattern-bg.jpg')" }}
           />
 
           <div className="relative mx-auto max-w-7xl px-6 py-20 md:px-10">
-            {/* HEADING */}
             <div className="text-center max-w-3xl mx-auto">
               <ScrollReveal>
                 <SectionBadge>Our Testimonials</SectionBadge>
@@ -493,7 +488,6 @@ export default function HomePage() {
               </ScrollReveal>
             </div>
 
-            {/* SLIDER */}
             <GlassSlider
               items={testimonials}
               ariaLabel="Testimonials"
@@ -527,7 +521,6 @@ export default function HomePage() {
                   hover:bg-white/15
                 `}
                     >
-                      {/* IMAGE */}
                       <div className="relative mb-6 h-20 w-20">
                         <Image
                           width={140}
@@ -536,18 +529,15 @@ export default function HomePage() {
                           alt={item.name}
                           className="rounded-full object-cover"
                         />
-                        {/* PLAY BUTTON */}
                         <div className="absolute -bottom-1 -right-1 flex h-8 w-8 items-center justify-center rounded-full bg-(--color-orange)">
                           ▶
                         </div>
                       </div>
 
-                      {/* QUOTE */}
-                      <p className="min-h-[5.5rem] text-sm leading-relaxed text-white/80">
+                      <p className="min-h-22 text-sm leading-relaxed text-white/80">
                         {item.text}
                       </p>
 
-                      {/* AUTHOR */}
                       <div className="mt-6 flex items-end justify-between gap-4 border-t border-white/10 pt-5">
                         <div>
                           <p className="font-semibold">{item.name}</p>
@@ -575,9 +565,9 @@ export default function HomePage() {
             />
           </div>
         </section>
-      </SectionWrapper>
+      </SectionWrapper> */}
 
-      <AnimatePresence initial={false} mode="wait">
+      {/* <AnimatePresence initial={false} mode="wait">
         {activeTestimonial ? (
           <TestimonialModal
             key={`${activeTestimonial.name}-${activeTestimonial.role}`}
@@ -585,7 +575,7 @@ export default function HomePage() {
             onClose={() => setActiveTestimonial(null)}
           />
         ) : null}
-      </AnimatePresence>
+      </AnimatePresence> */}
 
       {/* FAQs section  */}
 
@@ -631,11 +621,7 @@ export default function HomePage() {
 
         <AnimatePresence>
           {isFaqModalOpen && (
-            <FaqModal
-              isOpen={isFaqModalOpen}
-              onClose={() => setIsFaqModalOpen(false)}
-              allFaqs={faqs}
-            />
+            <FaqModal onClose={() => setIsFaqModalOpen(false)} allFaqs={faqs} />
           )}
         </AnimatePresence>
       </SectionWrapper>

@@ -86,15 +86,15 @@ const StickyCards = ({ iclinrtUsps }: StickyCardsProps) => {
   };
 
   return (
-    <div className="relative w-full py-8 md:py-12">
+    <div className="relative w-full py-3 sm:py-4 md:py-5">
       {/* Background gradient orbs */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/4 -left-1/4 h-72 w-72 rounded-full bg-linear-to-r from-sky-200/60 to-cyan-100/45 blur-[90px] animate-pulse md:h-125 md:w-125 md:blur-[110px]" />
-        <div className="absolute bottom-1/4 -right-1/4 h-72 w-72 rounded-full bg-linear-to-r from-orange-200/45 to-amber-100/40 blur-[90px] animate-pulse animation-delay-1000 md:h-125 md:w-125 md:blur-[110px]" />
+        <div className="absolute top-1/4 -left-1/4 h-56 w-56 rounded-full bg-linear-to-r from-sky-200/60 to-cyan-100/45 blur-[80px] animate-pulse md:h-[22rem] md:w-[22rem] md:blur-[95px]" />
+        <div className="absolute bottom-1/4 -right-1/4 h-56 w-56 rounded-full bg-linear-to-r from-orange-200/45 to-amber-100/40 blur-[80px] animate-pulse animation-delay-1000 md:h-[22rem] md:w-[22rem] md:blur-[95px]" />
       </div>
 
       {/* Cards Grid */}
-      <div className="relative mx-auto grid max-w-7xl grid-cols-1 gap-5 px-0 sm:px-4 md:grid-cols-2 md:gap-8">
+      <div className="relative mx-auto grid max-w-6xl grid-cols-1 gap-3 px-0 sm:gap-4 sm:px-3 md:grid-cols-2 md:gap-5">
         {enhancedPoints.map((point, index) => {
           const Icon = point.icon;
 
@@ -109,7 +109,7 @@ const StickyCards = ({ iclinrtUsps }: StickyCardsProps) => {
                 delay: index * 0.1,
                 ease: [0.16, 1, 0.3, 1],
               }}
-              whileHover={{ y: -8, transition: { duration: 0.2 } }}
+              whileHover={{ y: -6, transition: { duration: 0.2 } }}
               className="relative"
             >
               <div
@@ -120,7 +120,7 @@ const StickyCards = ({ iclinrtUsps }: StickyCardsProps) => {
                   transition-all duration-300
                 `}
               >
-                <div className="relative h-full rounded-3xl bg-blue-800/40 p-6 backdrop-blur-xl sm:p-7 md:p-10">
+                <div className="relative h-full rounded-3xl bg-blue-800/40 p-4 backdrop-blur-xl sm:p-5 md:p-6">
                   {/* Animated background effect */}
                   <motion.div
                     className="absolute inset-0 bg-linear-to-r from-white/5 to-transparent"
@@ -136,18 +136,18 @@ const StickyCards = ({ iclinrtUsps }: StickyCardsProps) => {
 
                   <div className="relative z-10">
                     {/* Header with icon and badge */}
-                    <div className="flex items-start justify-between mb-6">
+                    <div className="mb-4 flex items-start justify-between">
                       <motion.div
                         initial={{ scale: 0, rotate: -180 }}
                         whileInView={{ scale: 1, rotate: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.5, delay: index * 0.1 + 0.2 }}
                         className={`
-                          p-3 rounded-2xl bg-linear-to-br ${point.color}
+                          rounded-2xl bg-linear-to-br p-2.5 ${point.color}
                           shadow-lg
                         `}
                       >
-                        <Icon className="w-6 h-6 text-white" />
+                        <Icon className="h-5 w-5 text-white" />
                       </motion.div>
                     </div>
 
@@ -157,7 +157,7 @@ const StickyCards = ({ iclinrtUsps }: StickyCardsProps) => {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.5, delay: index * 0.1 + 0.4 }}
-                      className="mb-4 text-xl font-bold text-white sm:text-2xl md:text-3xl lg:text-4xl"
+                      className="mb-2.5 text-lg font-bold text-white sm:text-xl md:text-2xl xl:text-[1.7rem]"
                     >
                       {point.title}
                     </motion.p>
@@ -168,7 +168,7 @@ const StickyCards = ({ iclinrtUsps }: StickyCardsProps) => {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.5, delay: index * 0.1 + 0.5 }}
-                      className="mb-6 text-sm leading-relaxed text-white/70 sm:text-base md:text-lg"
+                      className="mb-4 text-xs leading-[1.35rem] text-white/72 sm:text-sm sm:leading-6 md:text-[0.95rem]"
                     >
                       {point.description}
                     </motion.p>
@@ -213,10 +213,10 @@ const StickyCards = ({ iclinrtUsps }: StickyCardsProps) => {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: index * 0.1 + 0.8 }}
-                className="absolute -right-3 -top-3 sm:-right-4 sm:-top-4 md:-right-6 md:-top-6"
+                className="absolute -right-2.5 -top-2.5 sm:-right-3 sm:-top-3 md:-right-4 md:-top-4"
               >
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-linear-to-br from-white to-slate-200 shadow-lg sm:h-12 sm:w-12 md:h-14 md:w-14">
-                  <span className="text-xs font-bold text-slate-900 sm:text-sm md:text-base">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-linear-to-br from-white to-slate-200 shadow-lg sm:h-10 sm:w-10 md:h-11 md:w-11">
+                  <span className="text-[11px] font-bold text-slate-900 sm:text-xs md:text-sm">
                     {String(index + 1).padStart(2, "0")}
                   </span>
                 </div>
@@ -864,9 +864,9 @@ export default function WhoWeArePage() {
         </div>
       </SectionWrapper>
 
-      <SectionWrapper fullBleed>
+      <SectionWrapper fullBleed className="py-1 sm:py-3 md:py-4 lg:py-5">
         <ScrollReveal delay={120}>
-          <div className="relative overflow-hidden rounded-3xl bg-[#f4f8fc] p-4 text-slate-950 shadow-[0_28px_80px_rgba(148,163,184,0.16)] sm:p-5 md:rounded-[28px] md:p-8">
+          <div className="relative overflow-hidden rounded-3xl bg-[#f4f8fc] p-3 text-slate-950 shadow-[0_28px_80px_rgba(148,163,184,0.16)] sm:p-4 md:rounded-[28px] md:p-5 lg:p-6">
             {/* Animated background */}
             <motion.div
               className="pointer-events-none absolute inset-[-10%] opacity-85 sm:inset-[-8%]"
@@ -977,10 +977,7 @@ export default function WhoWeArePage() {
 
               <div
                 ref={uspsSectionRef}
-                className="relative mt-6 md:mt-8"
-                style={{
-                  minHeight: `${Math.min(meaningPoints.length * 45, 100)}vh`,
-                }}
+                className="relative mt-4 md:mt-5"
               >
                 <StickyCards iclinrtUsps={meaningPoints} />
               </div>
@@ -1059,20 +1056,25 @@ export default function WhoWeArePage() {
 
       {/* ================= CULTURE ================= */}
       {/* Replace your existing SectionWrapper content with this */}
-      <SectionWrapper id="culture" fullBleed className="scroll-mt-24">
+      <SectionWrapper
+        id="culture"
+        fullBleed
+        className="py-1 sm:py-3 md:py-2 lg:py-2"
+        innerClassName="overflow-visible"
+      >
         <div className="bg-linear-to-r from-black to-blue-200 text-white rounded-3xl overflow-hidden">
-          <div className="px-8 pt-8 md:px-8 md:pt-8">
+          <div className="px-5 pt-5 sm:px-6 sm:pt-6 lg:px-6 lg:pt-5 xl:px-7 xl:pt-6">
             <SectionBadge>Our Culture</SectionBadge>
           </div>
-          <div className="grid lg:grid-cols-2 min-h-150">
+          <div className="grid min-h-136 lg:h-[min(40rem,calc(100vh-4.5rem))] lg:grid-cols-[0.92fr_1.08fr] xl:h-[min(42rem,calc(100vh-5.5rem))]">
             {/* LEFT — sticky graphic panel */}
-            <div className="sticky top-24 h-125 lg:h-auto flex flex-col items-center justify-center p-2 border-r border-white/8">
+            <div className="sticky top-10 flex h-80 flex-col items-center justify-center border-r border-white/8 p-2 sm:h-104 lg:h-full  xl:top-10">
               {/* Eyebrow */}
               <motion.div
                 initial={{ opacity: 0, y: -10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="flex items-center gap-3 self-start"
+                className="flex items-center gap-2 self-start"
               ></motion.div>
 
               {/* Dynamic SVG graphic */}
@@ -1081,7 +1083,7 @@ export default function WhoWeArePage() {
               </div>
 
               {/* Dot nav */}
-              <div className="mt-10 flex items-center gap-2">
+              <div className="mt-4 flex items-center gap-2 lg:mt-2">
                 {culture.map((_, i) => (
                   <button
                     key={i}
@@ -1097,13 +1099,13 @@ export default function WhoWeArePage() {
             </div>
 
             {/* RIGHT — stacked scroll cards */}
-            <div className="py-12 px-8 lg:px-12 space-y-4">
+            <div className="space-y-1 px-5  sm:px-6 sm:py-6 lg:px-7 lg:py-2 xl:px-8 xl:py-1">
               {/* Heading */}
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="mb-10"
+                className="mb-4 lg:mb-5"
               >
                 <p className="type-h2 font-semibold leading-tight">
                   Principles that shape how we work
@@ -1125,13 +1127,13 @@ export default function WhoWeArePage() {
                   }}
                   whileHover={{ x: 6 }}
                   onClick={() => setActiveCultureCard(i)}
-                  className={`group cursor-pointer rounded-2xl border p-6 transition-all duration-500 ${
+                  className={`group cursor-pointer rounded-2xl border p-3.5 sm:p-4 transition-all duration-500 ${
                     activeCultureCard === i
                       ? "border-white/30 bg-white/12 shadow-[0_0_40px_rgba(255,255,255,0.06)]"
                       : "border-white/8 bg-white/4 hover:border-white/15 hover:bg-white/8"
                   }`}
                 >
-                  <div className="flex items-start gap-4">
+                  <div className="flex items-start gap-3">
                     {/* Number */}
                     <span
                       className={`text-[10px] font-medium uppercase tracking-[0.3em] mt-1 transition-colors duration-300 ${
@@ -1159,7 +1161,7 @@ export default function WhoWeArePage() {
                           opacity: activeCultureCard === i ? 1 : 0,
                         }}
                         transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                        className="overflow-hidden type-h6 text-white leading-relaxed "
+                        className="overflow-hidden type-h6 leading-6 text-white"
                       >
                         <span className="block mt-2">{c.text}</span>
                       </motion.p>
@@ -1172,16 +1174,16 @@ export default function WhoWeArePage() {
               <ScrollReveal delay={180}>
                 <motion.div
                   whileHover={{ y: -4 }}
-                  className="mt-6 grid gap-6 rounded-[30px] border border-white/12 bg-white/6 p-6 backdrop-blur md:grid-cols-[1.1fr_auto] md:items-center"
+                  className=" grid gap-2 rounded-[30px] border border-white/12 bg-white/6 p-2 backdrop-blur sm:p-4.5 md:mt-4 md:grid-cols-[1.1fr_auto] md:items-center"
                 >
                   <div>
-                    <p className="text-xs font-semibold uppercase tracking-[0.35em] text-white/55">
+                    <p className="text-xs font-semibold uppercase tracking-[0.35em] text-white/75">
                       Shared Moments
                     </p>
-                    <p className="mt-3 max-w-2xl text-2xl font-semibold leading-tight text-white">
+                    <p className="mt-2 max-w-2xl text-2xl font-semibold leading-tight text-white">
                       Our culture comes alive through shared moments.
                     </p>
-                    <p className="mt-3 max-w-2xl text-sm leading-7 text-white/70">
+                    <p className="mt-2 max-w-2xl text-sm leading-7 text-white/70">
                       Explore the events, celebrations, and team experiences
                       that shape how we work together across ClinRT.
                     </p>

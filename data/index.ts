@@ -6,8 +6,6 @@ export * from "./i18n";
 export * from "./ticker";
 export * from "./ui";
 export * from "./getters";
-export * from "./registry";
-export * from "./pages/home";
 export * from "./pages/about";
 export * from "./pages/services";
 export * from "./pages/blog";

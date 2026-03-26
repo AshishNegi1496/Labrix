@@ -149,26 +149,6 @@ export type NavigationData = Readonly<{
   brandLabel: string;
 }>;
 
-/** Hero stat line item. */
-export type HeroStat = Readonly<{
-  value: number;
-  suffix: string;
-  label: string;
-}>;
-
-/** Home page hero configuration. */
-export type HomeHero = Readonly<{
-  eyebrow: string;
-  title: string;
-  description: string;
-  primaryCta: LinkItem;
-  secondaryCta: LinkItem;
-  videoSrc: string;
-  videoUrl: string;
-  stats: ReadonlyArray<HeroStat>;
-  statsSeparator: string;
-}>;
-
 /** Contact details. */
 export type ContactDetails = Readonly<{
   email: string;

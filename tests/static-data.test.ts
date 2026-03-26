@@ -9,22 +9,22 @@ import {
   aboutStoryCards,
   blogHero,
   blogPosts,
-  caseStudies,
+  brochures,
   galleryCategories,
   galleryCopy,
   galleryItems,
   contactDetails,
   contactHero,
-  faqs,
-  featureCards,
-  homeImages,
-  researchFields,
-  teamMembers,
+  homeFaqItems,
+  homeMovingWords,
+  homeNewsItems,
+  homePageTestimonials,
+  homePosterItems,
+  homeResearchFields,
+  homeWhyChoosePoints,
   servicesHero,
   servicesList,
   servicesStats,
-  testimonials,
-  whatWeDoData,
 } from "../data";
 
 test("app config has a valid environment", () => {
@@ -48,21 +48,21 @@ test("page data collections are populated", () => {
   assert.ok(aboutStoryCards.length > 0);
   assert.ok(blogHero.title.length > 0);
   assert.ok(blogPosts.length > 0);
+  assert.ok(brochures.length > 0);
   assert.ok(contactHero.punchline.length > 0);
-  assert.ok(featureCards.length > 0);
-  assert.ok(researchFields.length > 0);
-  assert.ok(caseStudies.length > 0);
-  assert.ok(faqs.length > 0);
-  assert.ok(testimonials.length > 0);
+  assert.ok(homeFaqItems.length > 0);
+  assert.ok(homeMovingWords.length > 0);
+  assert.ok(homeNewsItems.length > 0);
+  assert.ok(homePageTestimonials.length > 0);
+  assert.ok(homePosterItems.length > 0);
+  assert.ok(homeResearchFields.length > 0);
+  assert.ok(homeWhyChoosePoints.length > 0);
   assert.ok(servicesHero.title.length > 0);
   assert.ok(servicesList.length > 0);
   assert.ok(servicesStats.length > 0);
-  assert.ok(whatWeDoData.items.length > 0);
-  assert.ok(teamMembers.length > 0);
   assert.ok(galleryCategories.length > 0);
   assert.ok(galleryItems.length > 0);
   assert.ok(galleryCopy.emptyState.length > 0);
-  assert.ok(homeImages.hero.length > 0);
 });
 
 test("contact details are consistent", () => {

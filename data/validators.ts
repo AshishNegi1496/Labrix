@@ -6,7 +6,6 @@ import type {
   FooterData,
   GalleryItem,
   HeroContent,
-  HomeHero,
   ImageCard,
   NavigationData,
   ResearchField,
@@ -47,26 +46,6 @@ export function validateHero(hero: HeroContent): ValidatorResult<HeroContent> {
   assertNonEmptyString(hero.title, "hero.title");
   assertNonEmptyString(hero.breadcrumb, "hero.breadcrumb");
   assertNonEmptyString(hero.image, "hero.image");
-  return hero;
-}
-
-/** Validate home hero content. */
-export function validateHomeHero(hero: HomeHero): ValidatorResult<HomeHero> {
-  assertNonEmptyString(hero.eyebrow, "homeHero.eyebrow");
-  assertNonEmptyString(hero.title, "homeHero.title");
-  assertNonEmptyString(hero.description, "homeHero.description");
-  assertNonEmptyString(hero.primaryCta.href, "homeHero.primaryCta.href");
-  assertNonEmptyString(hero.primaryCta.label, "homeHero.primaryCta.label");
-  assertNonEmptyString(hero.secondaryCta.href, "homeHero.secondaryCta.href");
-  assertNonEmptyString(hero.secondaryCta.label, "homeHero.secondaryCta.label");
-  assertNonEmptyString(hero.videoSrc, "homeHero.videoSrc");
-  assertNonEmptyString(hero.videoUrl, "homeHero.videoUrl");
-  assertNonEmptyString(hero.statsSeparator, "homeHero.statsSeparator");
-  assertArray(hero.stats, "homeHero.stats");
-  hero.stats.forEach((stat, index) => {
-    assertNonEmptyString(stat.label, `homeHero.stats[${index}].label`);
-    assertNonEmptyString(stat.suffix, `homeHero.stats[${index}].suffix`);
-  });
   return hero;
 }
 

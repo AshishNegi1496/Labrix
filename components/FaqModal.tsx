@@ -4,9 +4,7 @@ import { FiX } from "react-icons/fi";
 import { FaqItem } from "./FaqItem";
 
 type ModalProps = {
-  isOpen: boolean;
   onClose: () => void;
-  // Add 'readonly' here to match your data structure
   allFaqs: readonly { q: string; a: string }[];
 };
 export const FaqModal = ({ onClose, allFaqs }: ModalProps) => {
