@@ -32,37 +32,37 @@ export const homeResearchFields = deepFreeze([
   {
     title: "Precision Randomization & Treatment Control",
     description:
-      "Balanced allocation across arms and cohorts, with safeguarded emergency unblinding",
+      "Balanced allocation across arms and cohorts, with safeguarded emergency unblinding.",
     image: "/images/treatment.avif",
   },
   {
     title: "Integrated IP Supply & Kit Operations",
     description:
-      "Unified oversight of inventory, resupply, kit assignment, barcoding, expiry, transfers, and temperature mapping",
+      "Unified oversight of inventory, resupply, kit assignment, expiry, transfers, and temperature mapping.",
     image: "/images/kit-ops.avif",
   },
   {
     title: "Full Chain of Custody Accountability",
     description:
-      "Complete traceability of every kit from creation to final reconciliation and destruction",
+      "Complete traceability of every kit from creation to final reconciliation and destruction.",
     image: "/images/custody.avif",
   },
   {
     title: " Streamlined Participant & Visit Workflow",
     description:
-      "Protocol aligned configuration for screening, enrolment, and visit execution across all sites",
+      "Protocol aligned configuration for screening, enrolment, and visit execution across all sites.",
     image: "/images/workflow.avif",
   },
   {
     title: "Real Time Operational Intelligence",
     description:
-      "Dynamic dashboards, detailed reports, and event driven alerts for confident oversight",
+      "Dynamic dashboards, detailed reports, and event driven alerts for confident oversight.",
     image: "/images/operations.avif",
   },
   {
     title: "Compliance Ready, Connected, and Scalable",
     description:
-      "Aligned with global regulations and seamlessly integrated with CTMS/EDC for multi region, multi phase trials",
+      "Aligned with global regulations and seamlessly integrated with CTMS/EDC for multi region, multi phase trials.",
     image: "/images/complaince.avif",
   },
 ] as const);

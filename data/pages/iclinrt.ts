@@ -93,7 +93,6 @@ export const iclinrtServices = deepFreeze([
     items: [
       "Tracks kit creation, status, and location (depot to site to subject).",
       "Matches the right kit to the right subject and visit per protocol.",
-      "Uses barcode verification to prevent dispensing errors.",
       "Supports returns, quarantines, replacements, and status changes.",
       "Maintains full traceability for accountability and audits.",
     ],
@@ -112,7 +111,7 @@ export const iclinrtServices = deepFreeze([
     title: "Kit Expiry Date Management",
     items: [
       "Monitors expiry per kit or lot and flags early warning windows.",
-      "Supports safe dispense rules (do not assign within X days of expiry).",
+      "Supports safe dispense rules - does not assign within X days of expiry.",
       "Guides redistribution and replacement to reduce wastage.",
       "Captures expiry-related actions (quarantine, destroy) with documentation.",
       "Surfaces site-level views of usable vs near-expiry inventory.",
@@ -176,7 +175,6 @@ export const iclinrtPotential = deepFreeze([
     items: [
       "Ensures the correct physical kit is given to the right participant.",
       "Checks kit status (available, reserved, expired, returned).",
-      "Uses barcode scanning for quick, error-free verification.",
       "Matches kits to visit schedules in real time.",
       "Minimizes dispensing mistakes at sites.",
     ],
@@ -197,14 +195,7 @@ export const iclinrtPotential = deepFreeze([
       "Maintains inspection-ready records.",
     ],
   },
-  {
-    title: "Barcode-Enabled Tracking",
-    items: [
-      "Supports barcode scanning at sites and depots.",
-      "Reduces manual errors in kit selection and handling.",
-      "Speeds up dispensing, returns, and accountability workflows.",
-    ],
-  },
+
   {
     title: "Controlled Unblinding - For True Emergencies Only",
     items: [
@@ -296,50 +287,51 @@ export const iclinrtStudyTypes = deepFreeze([
     detail: "Adaptive cohorts, stratified randomization, and dose changes.",
     icon: FiActivity,
     dotClass: "bg-(--color-accent)",
-    position: "lg:left-0 lg:top-8",
+    position: "2xl:left-0 2xl:top-8",
   },
   {
     label: "Rare Diseases",
     detail: "Tight supply planning for low-volume, high-value populations.",
     icon: FiEye,
     dotClass: "bg-(--color-orange)",
-    position: "lg:right-10 lg:top-0",
+    position: "2xl:right-8 2xl:top-2",
   },
   {
     label: "Biologics",
     detail: "Cold-chain oversight with precise kit and expiry controls.",
     icon: FiLayers,
     dotClass: "bg-emerald-500",
-    position: "lg:left-10 lg:top-44",
+    position: "2xl:left-8 2xl:top-48",
   },
   {
     label: "Vaccine Trials",
     detail: "High-throughput regional rollout with fast site readiness.",
     icon: FiShield,
     dotClass: "bg-sky-500",
-    position: "lg:right-0 lg:top-40",
+    position: "2xl:right-0 2xl:top-46",
   },
   {
     label: "Medical Device Trials",
     detail: "Traceability across serials, lots, returns, and accountability.",
     icon: FiCheck,
     dotClass: "bg-violet-500",
-    position: "lg:left-0 lg:bottom-12",
+    position: "2xl:left-0 2xl:bottom-24",
   },
   {
-    label: "Early to Late Phase",
+    label: "Early to Late Phase Trials",
     detail: "Designed to scale from first-patient-in to global expansion.",
     icon: FiGitMerge,
     dotClass: "bg-amber-500",
-    position: "lg:right-14 lg:bottom-20",
+    position: "2xl:right-4 2xl:bottom-26",
   },
   {
     label: "Complex Global Programs",
     detail: "Multi-country coordination with protocol control and compliance.",
     icon: FiCompass,
     dotClass: "bg-rose-500",
-    position: "lg:left-1/2 lg:bottom-0 lg:-translate-x-1/2",
+    position: "2xl:left-1/2 2xl:bottom-4 2xl:-translate-x-1/2",
   },
+
 ] as const);
 
 export const iclinrtUsps = deepFreeze([

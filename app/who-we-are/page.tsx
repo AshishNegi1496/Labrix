@@ -120,7 +120,7 @@ const StickyCards = ({ iclinrtUsps }: StickyCardsProps) => {
                   transition-all duration-300
                 `}
               >
-                <div className="relative h-full rounded-3xl bg-blue-900/90 p-6 backdrop-blur-xl sm:p-7 md:p-10">
+                <div className="relative h-full rounded-3xl bg-blue-800/40 p-6 backdrop-blur-xl sm:p-7 md:p-10">
                   {/* Animated background effect */}
                   <motion.div
                     className="absolute inset-0 bg-linear-to-r from-white/5 to-transparent"
@@ -215,7 +215,7 @@ const StickyCards = ({ iclinrtUsps }: StickyCardsProps) => {
                 transition={{ duration: 0.4, delay: index * 0.1 + 0.8 }}
                 className="absolute -right-3 -top-3 sm:-right-4 sm:-top-4 md:-right-6 md:-top-6"
               >
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-white to-slate-200 shadow-lg sm:h-12 sm:w-12 md:h-14 md:w-14">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-linear-to-br from-white to-slate-200 shadow-lg sm:h-12 sm:w-12 md:h-14 md:w-14">
                   <span className="text-xs font-bold text-slate-900 sm:text-sm md:text-base">
                     {String(index + 1).padStart(2, "0")}
                   </span>
@@ -293,10 +293,7 @@ export default function WhoWeArePage() {
     "clinical research teams",
   ];
   const impactLines = ["Our experience", "helps research", "teams thrive"];
-  const overviewStats = [
-    { value: "10+", label: "Years in clinical ops" },
-    { value: "3", label: "Disciplines united" },
-  ];
+  const overviewStats = [{ value: "40+", label: "Years in clinical ops" }];
 
   return (
     <PageTransition>
@@ -793,7 +790,7 @@ export default function WhoWeArePage() {
 
                 {/* HEADLINE */}
                 <div className="overflow-hidden mb-8">
-                  {["Structured,", "dependable,", "and consistent"].map(
+                  {["Structured", "approach", "and consistent"].map(
                     (line, i) => (
                       <motion.div
                         key={i}
@@ -869,7 +866,7 @@ export default function WhoWeArePage() {
 
       <SectionWrapper fullBleed>
         <ScrollReveal delay={120}>
-          <div className="relative overflow-hidden rounded-[24px] bg-[#f4f8fc] p-4 text-slate-950 shadow-[0_28px_80px_rgba(148,163,184,0.16)] sm:p-5 md:rounded-[28px] md:p-8">
+          <div className="relative overflow-hidden rounded-3xl bg-[#f4f8fc] p-4 text-slate-950 shadow-[0_28px_80px_rgba(148,163,184,0.16)] sm:p-5 md:rounded-[28px] md:p-8">
             {/* Animated background */}
             <motion.div
               className="pointer-events-none absolute inset-[-10%] opacity-85 sm:inset-[-8%]"
@@ -1063,19 +1060,19 @@ export default function WhoWeArePage() {
       {/* ================= CULTURE ================= */}
       {/* Replace your existing SectionWrapper content with this */}
       <SectionWrapper id="culture" fullBleed className="scroll-mt-24">
-        <div className="bg-linear-to-r from-black to-(--color-primary) text-white rounded-3xl overflow-hidden">
+        <div className="bg-linear-to-r from-black to-blue-200 text-white rounded-3xl overflow-hidden">
           <div className="px-8 pt-8 md:px-8 md:pt-8">
             <SectionBadge>Our Culture</SectionBadge>
           </div>
           <div className="grid lg:grid-cols-2 min-h-150">
             {/* LEFT — sticky graphic panel */}
-            <div className="sticky top-24 h-125 lg:h-auto flex flex-col items-center justify-center p-12 border-r border-white/8">
+            <div className="sticky top-24 h-125 lg:h-auto flex flex-col items-center justify-center p-2 border-r border-white/8">
               {/* Eyebrow */}
               <motion.div
                 initial={{ opacity: 0, y: -10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="mb-2 flex items-center gap-3 self-start"
+                className="flex items-center gap-3 self-start"
               ></motion.div>
 
               {/* Dynamic SVG graphic */}
@@ -1139,8 +1136,8 @@ export default function WhoWeArePage() {
                     <span
                       className={`text-[10px] font-medium uppercase tracking-[0.3em] mt-1 transition-colors duration-300 ${
                         activeCultureCard === i
-                          ? "text-white/60"
-                          : "text-white/25"
+                          ? "text-white/80"
+                          : "text-white/50"
                       }`}
                     >
                       {String(i + 1).padStart(2, "0")}
@@ -1148,12 +1145,12 @@ export default function WhoWeArePage() {
 
                     <div className="flex-1">
                       <div className="flex items-center justify-between">
-                        <p className="font-semibold type-h4">{c.title}</p>
+                        <p className="font-semibold type-h4 ">{c.title}</p>
                         {/* Active indicator */}
                         <motion.div
                           animate={{ scale: activeCultureCard === i ? 1 : 0 }}
                           transition={{ duration: 0.3 }}
-                          className="h-1.5 w-1.5 rounded-full bg-white/60"
+                          className="h-1.5 w-1.5 rounded-full bg-orange-500 "
                         />
                       </div>
                       <motion.p
@@ -1162,7 +1159,7 @@ export default function WhoWeArePage() {
                           opacity: activeCultureCard === i ? 1 : 0,
                         }}
                         transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                        className="overflow-hidden type-h6 text-white/60 leading-relaxed"
+                        className="overflow-hidden type-h6 text-white leading-relaxed "
                       >
                         <span className="block mt-2">{c.text}</span>
                       </motion.p>

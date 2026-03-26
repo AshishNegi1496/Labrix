@@ -15,6 +15,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence } from "framer-motion";
 import { FaqModal } from "@/components/FaqModal";
+import { TestimonialModal } from "@/components/TestimonialModal";
 import { FiArrowRight, FiChevronDown } from "react-icons/fi";
 import {
   FaFlask,
@@ -37,7 +38,10 @@ const movingTrack = [...homeMovingWords, ...homeMovingWords];
 
 export default function HomePage() {
   const [activeIndex, setActiveIndex] = useState(1);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isFaqModalOpen, setIsFaqModalOpen] = useState(false);
+  const [activeTestimonial, setActiveTestimonial] = useState<
+    (typeof testimonials)[number] | null
+  >(null);
   const PREVIEW_COUNT = 5;
   const previewFaqs = faqs.slice(0, PREVIEW_COUNT);
 
@@ -46,7 +50,7 @@ export default function HomePage() {
       <section className="relative overflow-hidden min-h-[90vh] sm:min-h-screen lg:min-h-[110vh] flex items-center">
         <video
           className="absolute inset-0 h-full w-full object-cover"
-          src="/videos/home-optional.mp4"
+          src="/videos/home-latest.mp4"
           autoPlay
           muted
           loop
@@ -350,8 +354,8 @@ export default function HomePage() {
                       <div className="transition-transform duration-300 group-hover:scale-125">
                         {index === 0 && <FaFlask size={50} />}
                         {index === 1 && <FaCogs size={50} />}
-                        {index === 2 && <FaShieldAlt size={50} />}
-                        {index === 3 && <FaHandshake size={50} />}
+                        {index === 2 && <FaHandshake size={50} />}
+                        {index === 3 && <FaShieldAlt size={50} />}
                         {index === 4 && <FaGlobeAmericas size={50} />}
                       </div>
                     </div>
@@ -440,7 +444,7 @@ export default function HomePage() {
                         <Image
                           width={140}
                           height={120}
-                          src={item.image}
+                          src={item.image ?? "/images/default-avatar.jpg"}
                           alt={item.name}
                           className="rounded-full object-cover"
                         />
@@ -451,14 +455,30 @@ export default function HomePage() {
                       </div>
 
                       {/* QUOTE */}
-                      <p className="text-white/80 text-sm leading-relaxed">
+                      <p className="min-h-[5.5rem] text-sm leading-relaxed text-white/80">
                         {item.text}
                       </p>
 
                       {/* AUTHOR */}
-                      <div className="mt-6">
-                        <p className="font-semibold">{item.name}</p>
-                        <p className="text-sm text-white/60">{item.role}</p>
+                      <div className="mt-6 flex items-end justify-between gap-4 border-t border-white/10 pt-5">
+                        <div>
+                          <p className="font-semibold">{item.name}</p>
+                          <p className="text-sm text-white/60">{item.role}</p>
+                        </div>
+
+                        <button
+                          type="button"
+                          onPointerDown={(event) => event.stopPropagation()}
+                          onClick={(event) => {
+                            event.stopPropagation();
+                            setActiveIndex(index);
+                            setActiveTestimonial(item);
+                          }}
+                          className="group inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-medium text-white transition-all duration-300 hover:-translate-y-0.5 hover:border-white/30 hover:bg-white/20"
+                        >
+                          Read more
+                          <FiArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                        </button>
                       </div>
                     </div>
                   </ScrollReveal>
@@ -468,6 +488,16 @@ export default function HomePage() {
           </div>
         </section>
       </SectionWrapper>
+
+      <AnimatePresence initial={false} mode="wait">
+        {activeTestimonial ? (
+          <TestimonialModal
+            key={`${activeTestimonial.name}-${activeTestimonial.role}`}
+            testimonial={activeTestimonial}
+            onClose={() => setActiveTestimonial(null)}
+          />
+        ) : null}
+      </AnimatePresence>
 
       {/* FAQs section  */}
 
@@ -483,7 +513,7 @@ export default function HomePage() {
             <div className="mt-6">
               <Button
                 label={`Read More`}
-                onClick={() => setIsModalOpen(true)}
+                onClick={() => setIsFaqModalOpen(true)}
                 size="md"
                 icon={FiArrowRight} // Swapping default icon if you want a horizontal arrow
                 className="bg-transparent text-[#0f243a] border border-[#0f243a]/20 hover:bg-[#0f243a] hover:text-white transition-all duration-300"
@@ -501,7 +531,7 @@ export default function HomePage() {
             {faqs.length > PREVIEW_COUNT && (
               <div className="pt-4 text-center">
                 <button
-                  onClick={() => setIsModalOpen(true)}
+                  onClick={() => setIsFaqModalOpen(true)}
                   className="text-sm font-medium text-[#0f243a]/60 hover:text-[#0f243a] transition-colors"
                 >
                   + Show {faqs.length - PREVIEW_COUNT} more
@@ -512,10 +542,10 @@ export default function HomePage() {
         </div>
 
         <AnimatePresence>
-          {isModalOpen && (
+          {isFaqModalOpen && (
             <FaqModal
-              isOpen={isModalOpen}
-              onClose={() => setIsModalOpen(false)}
+              isOpen={isFaqModalOpen}
+              onClose={() => setIsFaqModalOpen(false)}
               allFaqs={faqs}
             />
           )}

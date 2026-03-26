@@ -793,7 +793,7 @@ export default function IclinrtPage() {
               </div>
 
               {/* RIGHT CONTENT - white text on dark bg */}
-              <div className="relative overflow-hidden rounded-[1.75rem] border border-white/20 bg-transparent p-4 sm:p-5 lg:min-h-130">
+              <div className="relative overflow-hidden rounded-[1.75rem] border border-white/20 bg-transparent p-4 sm:p-5 2xl:min-h-[47rem]">
                 <div className="pointer-events-none absolute inset-4 rounded-3xl border border-white/20" />
                 <div className="pointer-events-none absolute left-1/2 top-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/10" />
                 <motion.div
@@ -807,7 +807,7 @@ export default function IclinrtPage() {
                 />
 
                 <motion.div
-                  className="relative z-10 mx-auto flex h-40 w-full max-w-[18rem] flex-col justify-center rounded-[1.75rem] border border-white/20 bg-white/10 px-6 py-5 text-center shadow-lg backdrop-blur lg:absolute lg:left-1/2 lg:top-1/2 lg:mb-0 lg:h-48 lg:w-48 lg:-translate-x-1/2 lg:-translate-y-1/2"
+                  className="relative z-10 mx-auto flex h-40 w-full max-w-[18rem] flex-col justify-center rounded-[1.75rem] border border-white/20 bg-white/10 px-6 py-5 text-center shadow-lg backdrop-blur 2xl:absolute 2xl:left-1/2 2xl:top-1/2 2xl:mb-0 2xl:h-48 2xl:w-48 2xl:-translate-x-1/2 2xl:-translate-y-1/2"
                   animate={
                     reduceMotion
                       ? undefined
@@ -831,13 +831,13 @@ export default function IclinrtPage() {
                   </p>
                 </motion.div>
 
-                <div className="relative z-10 mt-4 grid gap-3 sm:grid-cols-2 lg:mt-0 lg:block">
+                <div className="relative z-10 mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-3 2xl:absolute 2xl:inset-0 2xl:mt-0 2xl:block">
                   {studyTypes.map((type, index) => {
                     const Icon = type.icon;
                     return (
                       <motion.div
                         key={type.label}
-                        className={`rounded-3xl border border-white/20 bg-white/10 p-4 shadow-lg backdrop-blur transition-transform duration-300 hover:-translate-y-1.5 lg:absolute lg:w-[215px] ${type.position}`}
+                        className={`rounded-3xl border border-white/25 bg-white/12 p-5 shadow-lg backdrop-blur transition-transform duration-300 hover:-translate-y-1.5 2xl:absolute 2xl:min-h-[10.5rem] 2xl:w-[220px] ${type.position}`}
                         initial={{ opacity: 0, y: 24 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, amount: 0.35 }}
@@ -876,15 +876,15 @@ export default function IclinrtPage() {
                               {(index + 1).toString().padStart(2, "0")}
                             </span>
                           </div>
-                          <div className="mt-4 flex items-center gap-2">
+                          <div className="mt-4 flex items-start gap-2">
                             <span
-                              className={`h-2.5 w-2.5 rounded-full ${type.dotClass}`}
+                              className={`mt-1 h-2.5 w-2.5 shrink-0 rounded-full ${type.dotClass}`}
                             />
-                            <p className="text-sm font-semibold text-white">
+                            <p className="text-base leading-snug font-semibold text-white">
                               {type.label}
                             </p>
                           </div>
-                          <p className="mt-2 text-sm leading-6 text-white/70">
+                          <p className="mt-2 text-sm leading-6 text-white/80">
                             {type.detail}
                           </p>
                         </motion.div>
@@ -1010,3 +1010,6 @@ export default function IclinrtPage() {
     </PageTransition>
   );
 }
+
+
+

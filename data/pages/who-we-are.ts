@@ -76,23 +76,23 @@ export const whoWeAreHowWeWorkPoints = deepFreeze([
 export const whoWeAreCulture = deepFreeze([
   {
     title: "Integrity",
-    text: "Every decision, workflow, and dataset meets the highest standards of compliance and accuracy.",
+    text: "We operate with unwavering integrity because clinical research demands nothing less.Every decision, workflow, and line of data must meet the highest standards of accuracy and compliance.",
   },
   {
     title: "Ownership",
-    text: "We take accountability across every layer, ensuring reliability and trust.",
+    text: "We believe in accountability at every level.Each team member takes responsibility for outcomes, delivers with purpose, and follows through with discipline.Ownership fuels reliability — ensuring our partners can trust the systems and solutions we build.",
   },
   {
     title: "Innovation",
-    text: "We challenge legacy systems and build modern, scalable clinical platforms.",
+    text: "Innovation isn’t an initiative — it’s our mindset.We challenge legacy processes, embrace modern architectures, and continuously evolve to meet the complexity of today’s trials.Our teams push boundaries to build technology that is not only functional, but transformative for clinical operations.",
   },
   {
     title: "Collaboration",
-    text: "We operate cross-functionally to deliver intuitive and stable systems.",
+    text: "Cross functional teamwork is at the heart of everything we do.We work as one; engineering, product, clinical, operations, and delivery, moving in sync to create solutions that are intuitive, stable, and aligned with real world research needs.",
   },
   {
     title: "Impact",
-    text: "Everything we build ultimately contributes to better patient outcomes.",
+    text: "Our work ultimately supports the people who need it most — patients.Every workflow we streamline, every dataset we protect, and every system we strengthen contributes to better research outcomes and faster medical advancements.",
   },
 ] as const);
 

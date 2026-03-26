@@ -16,16 +16,16 @@ export const footerData: FooterData = validateFooter(
     hoursLabel: "Working Hours",
     quickLinks: [
       { href: "/", label: "Home" },
-      { href: "/who-we-are", label: "Who We Are" },
-      { href: "/what-we-build", label: "What We Build" },
-      { href: "/clinrt-world", label: "What's New" },
+      { href: "/who-we-are", label: "About iClinRT" },
+      { href: "/what-we-build", label: "iClinRT" },
+      { href: "/clinrt-world", label: "iClinRT World" },
       { href: "/contact", label: "Contact Us" },
     ],
     services: [
+      "About iClinRT",
       "iClinRT",
-      "EDC (Coming Soon)",
-      "CTMS (Coming Soon)",
-      "eCOA (Coming Soon)",
+      "iClinRT World",
+      "Contact Us",
     ],
     hours: [
       { label: "Mon - Fri", value: "10:00AM - 07:00PM" },

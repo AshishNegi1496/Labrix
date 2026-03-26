@@ -30,7 +30,7 @@ export type ContactChannel = Readonly<{
 
 export const contactHero = deepFreeze({
   eyebrow: "Contact ClinRT",
-  punchline: "Let’s make clinical operations feel effortless.",
+  punchline: "Let's start a conversation",
   image: "/images/operations.avif",
 });
 
