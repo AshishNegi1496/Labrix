@@ -382,7 +382,7 @@ export default function HomePage() {
           <ScrollReveal>
             <div className="relative">
               <Image
-                src="/images/why-choose-us.avif"
+                src="/images/wgy-choose-us.webp"
                 alt=" 	Why ClinRT"
                 width={520}
                 height={920}

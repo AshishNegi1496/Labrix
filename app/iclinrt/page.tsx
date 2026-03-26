@@ -16,7 +16,7 @@ import ScrollReveal from "@/components/animations/ScrollReveal";
 import Button from "@/components/ui/Button";
 import GlassCard from "@/components/GlassCard";
 import SectionBadge from "@/components/ui/SectionBadge";
-import { FiActivity, FiCheck, FiZap } from "react-icons/fi";
+import { FiActivity, FiArrowRight, FiCheck, FiZap } from "react-icons/fi";
 import { useActiveCard } from "@/hooks/useInView";
 import StudyFlowSvg from "@/components/StudyFlowSvg";
 import {
@@ -43,20 +43,36 @@ const StickyCards = ({ iclinrtUsps, sectionRef }: StickyCardsProps) => {
   const activeIndex = useActiveCard(iclinrtUsps.length, sectionRef);
 
   return (
-    <div className="sticky top-0 h-screen overflow-hidden">
-      {iclinrtUsps.map((item: StickyCardItem, index: number) => {
-        const Icon = uspIcons[index % uspIcons.length] || FiZap;
+    <div className="sticky top-0 h-screen overflow-hidden rounded-[2rem] border border-white/10 shadow-[0_24px_80px_rgba(4,18,33,0.18)]">
+      <div className="pointer-events-none absolute inset-0">
+        <video
+          className="absolute inset-0 h-full w-full object-cover"
+          src="/images/usp-video.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,27,46,0.8)_0%,rgba(8,27,46,0.5)_40%,rgba(8,27,46,0.82)_100%)]" />
+        <div className="absolute -left-16 top-10 h-52 w-52 rounded-full bg-sky-300/18 blur-3xl" />
+        <div className="absolute -right-10 bottom-4 h-64 w-64 rounded-full bg-orange-300/16 blur-3xl" />
+      </div>
 
-        return (
-          <FullScreenCard
-            key={item.title}
-            item={item}
-            index={index}
-            activeIndex={activeIndex}
-            Icon={Icon}
-          />
-        );
-      })}
+      <div className="relative h-full">
+        {iclinrtUsps.map((item: StickyCardItem, index: number) => {
+          const Icon = uspIcons[index % uspIcons.length] || FiZap;
+
+          return (
+            <FullScreenCard
+              key={item.title}
+              item={item}
+              index={index}
+              activeIndex={activeIndex}
+              Icon={Icon}
+            />
+          );
+        })}
+      </div>
     </div>
   );
 };
@@ -224,13 +240,21 @@ export default function IclinrtPage() {
   return (
     <PageTransition>
       <section className="relative overflow-hidden min-h-[90vh] sm:min-h-screen lg:min-h-[110vh] flex items-center">
-        <video
+        {/* <video
           className="absolute inset-0 h-full w-full object-cover"
           src="/videos/homePageVideo.mp4"
           autoPlay
           muted
           loop
           playsInline
+        /> */}
+        <Image
+          src="/images/iclinrt-baner.avif"
+          alt="Background"
+          fill
+          className="object-cover scale-105"
+          priority // Add if this is above the fold
+          sizes="100vw" // Helps with responsive loading
         />
         <div className="absolute inset-0 bg-linear-to-b from-black/65 via-black/45 to-black/70" />
         <div className="relative z-10 section-shell flex min-h-[70vh] flex-col justify-center gap-8 px-6 py-20 md:px-10">
@@ -361,51 +385,25 @@ export default function IclinrtPage() {
               "
                   >
                     {/* SERVICE NUMBER */}
-                    <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.3em] text-white/50">
+                    <div className="flex items-center justify-between text-[10px]  tracking-[0.3em] text-white/80">
                       <span>{`${String(index + 1).padStart(2, "0")}`}</span>
                       <span className="rounded-full bg-white/10 px-2 py-1 text-[10px] backdrop-blur-sm border border-white/10">
                         iClinRT
                       </span>
                     </div>
-
                     {/* TITLE */}
-                    <p className="mt-3 type-h4 font-semibold text-white leading-snug">
-                      {service.title}
-                    </p>
-
-                    {/* ITEMS PREVIEW */}
-                    <div className="mt-4 space-y-1.5 opacity-0 translate-y-4 transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0">
-                      {service.items.slice(0, 3).map((item) => (
-                        <div
-                          key={item}
-                          className="flex items-start gap-2 text-xs text-white/80"
-                        >
-                          <span className="mt-1.5 h-1 w-1 rounded-full bg-white/60 shrink-0" />
-                          <span>{item}</span>
-                        </div>
-                      ))}
-                      {service.items.length > 3 && (
-                        <p className="text-xs text-white/40 mt-1">
-                          +{service.items.length - 3} more
-                        </p>
-                      )}
+                    <div className="flex flex-3 items-center justify-center">
+                      <p className="type-h4 max-w-100 text-center font-semibold leading-snug text-white">
+                        {service.title}
+                      </p>
                     </div>
 
-                    {/* ARROW CTA */}
-                    <div className="absolute bottom-6 right-6 h-8 w-8 rounded-full bg-white/10 border border-white/20 flex items-center justify-center opacity-0 translate-x-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0 backdrop-blur-sm">
-                      <svg
-                        viewBox="0 0 24 24"
-                        className="h-4 w-4 text-white"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                      >
-                        <path
-                          d="M7 17L17 7M17 7H7M17 7v10"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
+                    {/* READ MORE CTA */}
+                    <div className="mt-6 flex justify-end">
+                      <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-medium uppercase tracking-[0.24em] text-white opacity-0 translate-y-3 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 backdrop-blur-sm">
+                        Read More
+                        <FiArrowRight className="h-3.5 w-3.5" />
+                      </span>
                     </div>
 
                     {/* GLOW */}
@@ -473,8 +471,8 @@ export default function IclinrtPage() {
                       {activeService.title}
                     </p>
                     <p className="mt-2 text-sm text-white">
-                      Full operational detail and protocol-ready execution for
-                      your clinical teams.
+                      Every workflow, rule, and operational detail for this
+                      service is listed below in full.
                     </p>
                     <div className="mt-6 max-h-[40vh] overflow-y-auto pr-2 no-scrollbar">
                       <ul className="space-y-3 type-h4 text-white/90">
@@ -898,7 +896,7 @@ export default function IclinrtPage() {
         </ScrollReveal>
       </SectionWrapper>
 
-      <SectionWrapper id="iclinrt-usps">
+      <SectionWrapper fullBleed id="iclinrt-usps">
         {/* <div className="relative bg-(--primary-color) text-white"> */}
         <div
           ref={uspsSectionRef}
@@ -1010,6 +1008,3 @@ export default function IclinrtPage() {
     </PageTransition>
   );
 }
-
-
-

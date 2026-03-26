@@ -25,13 +25,13 @@ export const iclinrtPhases = deepFreeze([
 ] as const);
 
 export const iclinrtServiceMedia = deepFreeze([
-  "/images/service1.png",
-  "/images/service2.png",
-  "/images/service3.png",
-  "/images/service4.png",
-  "/images/service5.png",
+  "/images/subject-management.avif",
+  "/images/subject-randomisation-treatment.avif",
+  "/images/kit-manage.avif",
+  "/images/trigger-auto-ship.avif",
+  "/images/kit-expiry.avif",
   "/images/service6.png",
-  "/images/service-1.jpg",
+  "/images/supply-site-inventory.avif",
 ] as const);
 
 export const iclinrtPotentialMedia = deepFreeze([

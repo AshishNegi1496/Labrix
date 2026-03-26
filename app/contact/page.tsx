@@ -3,6 +3,8 @@
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import { AnimatePresence, motion } from "framer-motion";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import type {
   FormEvent,
   InputHTMLAttributes,
@@ -10,7 +12,7 @@ import type {
   SelectHTMLAttributes,
   TextareaHTMLAttributes,
 } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FiArrowRight, FiShield } from "react-icons/fi";
 import PageTransition from "@/components/animations/PageTransition";
 import SectionWrapper from "@/components/layout/SectionWrapper";
@@ -27,6 +29,9 @@ import {
   contactHero,
   contactInfoBlock,
   contactMapBlock,
+  getBrochureBySlug,
+  getBrochureHref,
+  getBrochureSuccessPath,
   type ContactFormType,
 } from "@/data";
 import { appConfig } from "@/config/app-config";
@@ -85,12 +90,45 @@ const CheckboxRow = ({ label }: { label: string }) => (
   </label>
 );
 
+function resolveRequestedForm(
+  requestedForm: string | null,
+  hasBrochureRequest: boolean,
+): ContactFormType {
+  if (
+    requestedForm === "demo" ||
+    requestedForm === "touch" ||
+    requestedForm === "community"
+  ) {
+    return requestedForm;
+  }
+
+  if (hasBrochureRequest) {
+    return "community";
+  }
+
+  return "demo";
+}
+
 export default function Contact() {
-  const [activeForm, setActiveForm] = useState<ContactFormType>("demo");
+  const searchParams = useSearchParams();
+  const brochure = getBrochureBySlug(searchParams.get("brochure"));
+  const requestedForm = resolveRequestedForm(searchParams.get("form"), !!brochure);
+  const [activeForm, setActiveForm] = useState<ContactFormType>(requestedForm);
   const activeOption =
     contactFormOptions.find((option) => option.id === activeForm) ??
     contactFormOptions[0];
-  const successRedirectUrl = `${appConfig.siteUrl}${contactFormSuccessPath}`;
+  const defaultSuccessRedirectUrl = `${appConfig.siteUrl}${contactFormSuccessPath}`;
+  const brochureSuccessRedirectUrl = brochure
+    ? `${appConfig.siteUrl}${getBrochureSuccessPath(brochure.slug)}`
+    : defaultSuccessRedirectUrl;
+  const activeFormHelper =
+    brochure && activeForm === "community"
+      ? `Complete this short signup to unlock the ${brochure.title} PDF. Once you submit, the download starts automatically on the confirmation page.`
+      : activeOption.helper;
+
+  useEffect(() => {
+    setActiveForm(requestedForm);
+  }, [requestedForm]);
 
   function handleFormSubmit(event: FormEvent<HTMLFormElement>) {
     const form = event.currentTarget;
@@ -270,7 +308,7 @@ export default function Contact() {
                     {activeOption.title}
                   </h2>
                   <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-600">
-                    {activeOption.helper}
+                    {activeFormHelper}
                   </p>
                 </div>
                 <span className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-[11px] uppercase tracking-[0.22em] text-emerald-700">
@@ -278,6 +316,43 @@ export default function Contact() {
                   Secure Form
                 </span>
               </div>
+
+              {brochure && (
+                <div className="mt-6 rounded-[1.75rem] border border-amber-200 bg-[linear-gradient(135deg,rgba(255,251,235,0.98)_0%,rgba(255,247,237,0.98)_100%)] p-5 shadow-[0_18px_50px_rgba(15,36,58,0.08)]">
+                  <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+                    <div>
+                      <p className="text-[11px] uppercase tracking-[0.28em] text-amber-700/75">
+                        Brochure Access Request
+                      </p>
+                      <h3 className="mt-2 text-xl font-semibold text-[#0f243a]">
+                        {brochure.title}
+                      </h3>
+                      <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-600">
+                        Submit the Join Our Community form to unlock the gated
+                        PDF download. After submission, we will return you to a
+                        confirmation screen and start the download automatically.
+                      </p>
+                    </div>
+
+                    <Link
+                      href={getBrochureHref(brochure.slug)}
+                      className="inline-flex items-center gap-2 text-sm font-medium text-[#0f243a] transition hover:text-[#163451]"
+                    >
+                      Preview brochure first
+                      <FiArrowRight className="h-4 w-4" />
+                    </Link>
+                  </div>
+
+                  <div className="mt-5 flex flex-wrap gap-3 text-[11px] uppercase tracking-[0.24em]">
+                    <span className="rounded-full border border-amber-200 bg-white/80 px-4 py-2 text-amber-700">
+                      Community signup required
+                    </span>
+                    <span className="rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 text-emerald-700">
+                      Instant download after submit
+                    </span>
+                  </div>
+                </div>
+              )}
 
               {activeForm === "demo" && (
                 <form
@@ -303,7 +378,11 @@ export default function Contact() {
                     name="_template"
                     value={contactFormTemplate}
                   />
-                  <input type="hidden" name="_next" value={successRedirectUrl} />
+                  <input
+                    type="hidden"
+                    name="_next"
+                    value={defaultSuccessRedirectUrl}
+                  />
                   <input type="hidden" name="formType" value="Request a Demo" />
                   <input type="hidden" name="sourcePage" value="Contact Page" />
                   <input type="hidden" name="_captcha" value="false" />
@@ -445,7 +524,11 @@ export default function Contact() {
                     name="_template"
                     value={contactFormTemplate}
                   />
-                  <input type="hidden" name="_next" value={successRedirectUrl} />
+                  <input
+                    type="hidden"
+                    name="_next"
+                    value={defaultSuccessRedirectUrl}
+                  />
                   <input type="hidden" name="formType" value="Get in Touch" />
                   <input type="hidden" name="sourcePage" value="Contact Page" />
                   <input type="hidden" name="_captcha" value="false" />
@@ -575,21 +658,55 @@ export default function Contact() {
                   <input
                     type="hidden"
                     name="_subject"
-                    value="Join Our Community - ClinRT website"
+                    value={
+                      brochure
+                        ? `Brochure Download - ${brochure.title} - ClinRT website`
+                        : "Join Our Community - ClinRT website"
+                    }
                   />
                   <input
                     type="hidden"
                     name="_template"
                     value={contactFormTemplate}
                   />
-                  <input type="hidden" name="_next" value={successRedirectUrl} />
+                  <input
+                    type="hidden"
+                    name="_next"
+                    value={brochureSuccessRedirectUrl}
+                  />
                   <input
                     type="hidden"
                     name="formType"
-                    value="Join Our Community"
+                    value={
+                      brochure
+                        ? "Join Our Community - Brochure Download"
+                        : "Join Our Community"
+                    }
                   />
-                  <input type="hidden" name="sourcePage" value="Contact Page" />
+                  <input
+                    type="hidden"
+                    name="sourcePage"
+                    value={
+                      brochure
+                        ? `Brochure Download (${brochure.slug})`
+                        : "Contact Page"
+                    }
+                  />
                   <input type="hidden" name="_captcha" value="false" />
+                  {brochure && (
+                    <>
+                      <input
+                        type="hidden"
+                        name="requestedBrochure"
+                        value={brochure.title}
+                      />
+                      <input
+                        type="hidden"
+                        name="brochureSlug"
+                        value={brochure.slug}
+                      />
+                    </>
+                  )}
 
                   <div className="grid gap-4 sm:grid-cols-2">
                     <FieldShell label="First Name">
@@ -670,10 +787,18 @@ export default function Contact() {
                   <CheckboxRow label="I agree to receive community communications from ClinRT and accept the privacy policy." />
 
                   <div className="flex flex-wrap items-center gap-4">
-                    <Button label="Join Community" type="submit" />
+                    <Button
+                      label={
+                        brochure
+                          ? "Join Community & Download"
+                          : "Join Community"
+                      }
+                      type="submit"
+                    />
                     <p className="text-sm text-slate-500">
-                      Expect occasional, relevant updates rather than noisy
-                      inbox traffic.
+                      {brochure
+                        ? "After you submit, the brochure download starts automatically on the confirmation page."
+                        : "Expect occasional, relevant updates rather than noisy inbox traffic."}
                     </p>
                   </div>
                 </form>

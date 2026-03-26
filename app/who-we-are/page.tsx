@@ -307,7 +307,7 @@ export default function WhoWeArePage() {
           loop
         /> */}
         <Image
-          src="/images/about-clinrt.avif"
+          src="/images/about-baner.avif"
           alt="Background"
           fill
           className="object-cover scale-105"

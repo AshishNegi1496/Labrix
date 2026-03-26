@@ -2,6 +2,7 @@
 
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import {
   useDeferredValue,
@@ -14,6 +15,9 @@ import {
   FiArrowRight,
   FiBookOpen,
   FiCamera,
+  FiCheckCircle,
+  FiDownload,
+  FiEye,
   FiFileText,
   FiLayers,
   FiMonitor,
@@ -24,11 +28,12 @@ import PageTransition from "@/components/animations/PageTransition";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import SectionWrapper from "@/components/layout/SectionWrapper";
 import Button from "@/components/ui/Button";
+import { brochures, getBrochureHref } from "@/data";
 import { cn } from "@/lib/cn";
 
 const tabs = [
   "News",
-  "Webinars",
+  "Events",
   "Moments",
   "Case Studies",
   "Blogs",
@@ -46,6 +51,8 @@ type ResourceItem = {
   meta: string;
   image?: string;
   featured?: boolean;
+  href?: string;
+  highlights?: readonly string[];
 };
 
 type TabContent = {
@@ -58,6 +65,18 @@ type TabContent = {
   };
   items: readonly ResourceItem[];
 };
+
+const brochureItems: readonly ResourceItem[] = brochures.map(
+  (brochure, index) => ({
+    eyebrow: brochure.eyebrow,
+    title: brochure.title,
+    summary: brochure.summary,
+    meta: brochure.meta,
+    featured: index === 0,
+    href: getBrochureHref(brochure.slug),
+    highlights: brochure.highlights,
+  }),
+);
 
 const contentByTab: Record<Tab, TabContent> = {
   News: {
@@ -160,8 +179,8 @@ const contentByTab: Record<Tab, TabContent> = {
       },
     ],
   },
-  Webinars: {
-    title: "Upcoming Webinars",
+  Events: {
+    title: "Upcoming Events",
     description:
       "Designed to scale well as the library grows, with clear structure for sessions, topics, and follow-up resources.",
     icon: FiMonitor,
@@ -327,43 +346,9 @@ const contentByTab: Record<Tab, TabContent> = {
   Brochures: {
     title: "Brochures",
     description:
-      "Product and service overviews presented as a clear catalog, ready for larger document collections.",
+      "Open the full brochure in-browser, explore the entire document, and unlock the PDF download through a short community signup.",
     icon: FiFileText,
-    cta: {
-      href: "/contact",
-      label: "Request Brochure Pack",
-    },
-    items: [
-      {
-        eyebrow: "Overview",
-        title: "ClinRT platform overview",
-        summary:
-          "A high-level introduction to platform capabilities, delivery model, and operational value.",
-        meta: "Platform brochure",
-        featured: true,
-      },
-      {
-        eyebrow: "IRT",
-        title: "Randomization and trial supply brochure",
-        summary:
-          "A concise guide to allocation logic, kit flows, and supply visibility across studies.",
-        meta: "Solution brochure",
-      },
-      {
-        eyebrow: "Delivery",
-        title: "Global implementation model",
-        summary:
-          "How programs move from planning to go-live with speed, clarity, and governance.",
-        meta: "Delivery brochure",
-      },
-      {
-        eyebrow: "Quality",
-        title: "Validation and compliance overview",
-        summary:
-          "A summary of control frameworks, documentation readiness, and quality practices.",
-        meta: "Quality brochure",
-      },
-    ],
+    items: brochureItems,
   },
 };
 
@@ -409,7 +394,7 @@ export default function WhatsNewPage() {
     <PageTransition>
       <section className="relative h-screen overflow-hidden">
         <Image
-          src="/images/why-choose-image.jpg"
+          src="/images/iclinrt-world-baner.avif"
           alt="What's new"
           fill
           priority
@@ -561,6 +546,8 @@ export default function WhatsNewPage() {
                   className={cn(
                     "grid gap-5 md:grid-cols-2 xl:grid-cols-3",
                     activeTab === "Moments" && "xl:auto-rows-[19rem]",
+                    activeTab === "Brochures" &&
+                      "grid-cols-1 md:grid-cols-1 xl:grid-cols-1",
                   )}
                 >
                   {visibleItems.length > 0 ? (
@@ -680,6 +667,10 @@ type ResourceCardProps = {
 function ResourceCard({ item, tab, index }: ResourceCardProps) {
   const reduceMotion = useReducedMotion();
 
+  if (tab === "Brochures" && item.href) {
+    return <BrochureCard item={{ ...item, href: item.href }} index={index} />;
+  }
+
   if (tab === "Moments" && item.image) {
     return (
       <motion.article
@@ -758,5 +749,148 @@ function ResourceCard({ item, tab, index }: ResourceCardProps) {
         </div>
       </div>
     </motion.article>
+  );
+}
+
+function BrochureCard({
+  item,
+  index,
+}: {
+  item: ResourceItem & { href: string };
+  index: number;
+}) {
+  const reduceMotion = useReducedMotion();
+
+  return (
+    <motion.div
+      initial={reduceMotion ? undefined : { opacity: 0, y: 18 }}
+      animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+      transition={{
+        duration: 0.35,
+        delay: reduceMotion ? 0 : index * 0.05,
+      }}
+      whileHover={reduceMotion ? undefined : { y: -4 }}
+    >
+      <Link
+        href={item.href}
+        className="group relative block overflow-hidden rounded-[2rem] border border-black/8 bg-white/90 p-6 shadow-[0_24px_80px_rgba(15,36,58,0.1)] transition duration-300 hover:border-black/14 hover:shadow-[0_30px_90px_rgba(15,36,58,0.14)] md:p-8"
+      >
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(15,36,58,0.08),transparent_34%),radial-gradient(circle_at_bottom_right,rgba(243,123,33,0.14),transparent_28%),linear-gradient(180deg,rgba(255,255,255,0.98)_0%,rgba(248,250,252,0.98)_100%)]" />
+        <div className="pointer-events-none absolute right-8 top-7 hidden w-36 rotate-6 rounded-[1.6rem] border border-slate-200 bg-white/90 p-4 shadow-[0_18px_40px_rgba(15,36,58,0.12)] lg:block">
+          <div className="rounded-[1.1rem] bg-[#0f243a] px-4 py-5 text-white">
+            <p className="text-[10px] uppercase tracking-[0.28em] text-white/55">
+              ClinRT
+            </p>
+            <p className="mt-3 text-lg font-semibold leading-tight">iClinRT</p>
+            <p className="mt-2 text-xs leading-5 text-white/72">
+              Platform overview brochure
+            </p>
+          </div>
+          <div className="mt-4 space-y-2">
+            <div className="h-2 rounded-full bg-slate-200" />
+            <div className="h-2 w-4/5 rounded-full bg-slate-200" />
+            <div className="h-2 w-3/5 rounded-full bg-slate-200" />
+          </div>
+        </div>
+
+        <div className="relative flex h-full flex-col gap-8">
+          <div className="max-w-4xl">
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="inline-flex rounded-full border border-black/8 bg-white/90 px-3 py-1 text-[11px] uppercase tracking-[0.32em] text-black/50">
+                {item.eyebrow}
+              </span>
+              <span className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-[11px] uppercase tracking-[0.26em] text-emerald-700">
+                <FiDownload className="h-3.5 w-3.5" />
+                Gated download
+              </span>
+            </div>
+
+            <p className="mt-6 max-w-3xl text-3xl font-semibold leading-tight text-black md:text-4xl">
+              {item.title}
+            </p>
+            <p className="mt-4 max-w-3xl text-sm leading-7 text-black/65 md:text-base">
+              {item.summary}
+            </p>
+          </div>
+
+          <div className="grid gap-5 xl:grid-cols-[1.2fr_0.8fr]">
+            <div className="grid gap-3">
+              {item.highlights?.map((highlight) => (
+                <div
+                  key={highlight}
+                  className="flex items-start gap-3 rounded-[1.35rem] border border-black/8 bg-white/78 px-4 py-4 shadow-sm"
+                >
+                  <span className="mt-0.5 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-2xl bg-[#0f243a] text-white">
+                    <FiCheckCircle className="h-4 w-4" />
+                  </span>
+                  <p className="text-sm leading-6 text-black/70">{highlight}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="rounded-[1.6rem] border border-black/8 bg-white/82 p-5 shadow-sm">
+              <p className="text-[11px] uppercase tracking-[0.3em] text-black/45">
+                Access Flow
+              </p>
+              <div className="mt-5 grid gap-3">
+                <FlowStep
+                  icon={FiEye}
+                  title="Open full brochure"
+                  summary="Read the complete PDF inside a polished browser preview."
+                />
+                <FlowStep
+                  icon={FiDownload}
+                  title="Unlock download"
+                  summary="Join the ClinRT community once before the file download starts."
+                />
+                <FlowStep
+                  icon={FiCheckCircle}
+                  title="Instant handoff"
+                  summary="After the form is submitted, the PDF download begins automatically."
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-4 border-t border-black/8 pt-5 md:flex-row md:items-center md:justify-between">
+            <div className="flex flex-wrap items-center gap-3 text-[11px] uppercase tracking-[0.28em] text-black/45">
+              <span className="rounded-full border border-black/8 bg-slate-50 px-4 py-2">
+                {item.meta}
+              </span>
+              <span className="rounded-full border border-orange-200 bg-orange-50 px-4 py-2 text-orange-700">
+                Industry-style brochure preview
+              </span>
+            </div>
+
+            <span className="inline-flex items-center gap-3 rounded-full bg-(--color-primary) px-5 py-3 text-sm font-medium text-white shadow-lg transition duration-300 group-hover:translate-x-1">
+              Preview brochure
+              <FiArrowRight className="h-4 w-4" />
+            </span>
+          </div>
+        </div>
+      </Link>
+    </motion.div>
+  );
+}
+
+function FlowStep({
+  icon: Icon,
+  title,
+  summary,
+}: {
+  icon: IconType;
+  title: string;
+  summary: string;
+}) {
+  return (
+    <div className="flex items-start gap-3 rounded-[1.25rem] border border-black/8 bg-slate-50/85 px-4 py-3">
+      <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl border border-black/8 bg-white text-[#0f243a]">
+        <Icon className="h-4 w-4" />
+      </span>
+      <div>
+        <p className="text-sm font-semibold text-black">{title}</p>
+        <p className="mt-1 text-sm leading-6 text-black/60">{summary}</p>
+      </div>
+    </div>
   );
 }
