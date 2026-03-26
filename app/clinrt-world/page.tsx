@@ -67,12 +67,19 @@ const contentByTab: Record<Tab, TabContent> = {
     icon: FiRadio,
     items: [
       {
+        eyebrow: "Launch",
+        title: "iClinRT is now live",
+        summary:
+          "ClinRT's Interactive Response Technology platform is now live, bringing configurable trial execution, supply oversight, and operational visibility into one system.",
+        meta: "Launch update",
+        featured: true,
+      },
+      {
         eyebrow: "Event",
         title: "ClinRT at Global Clinical Tech Forum 2026",
         summary:
           "Highlights from our presence, conversations with operations leaders, and what teams asked for most.",
         meta: "Conference update",
-        featured: true,
       },
       {
         eyebrow: "Media",

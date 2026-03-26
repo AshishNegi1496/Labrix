@@ -13,7 +13,7 @@ import SectionBadge from "@/components/ui/SectionBadge";
 
 import Image from "next/image";
 import Link from "next/link";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { FaqModal } from "@/components/FaqModal";
 import { TestimonialModal } from "@/components/TestimonialModal";
 import { FiArrowRight, FiChevronDown } from "react-icons/fi";
@@ -42,8 +42,11 @@ export default function HomePage() {
   const [activeTestimonial, setActiveTestimonial] = useState<
     (typeof testimonials)[number] | null
   >(null);
+  const [activeNewsIndex, setActiveNewsIndex] = useState<number | null>(null);
+  const [hoveredNewsIndex, setHoveredNewsIndex] = useState<number | null>(null);
   const PREVIEW_COUNT = 5;
   const previewFaqs = faqs.slice(0, PREVIEW_COUNT);
+  const previewNewsIndex = hoveredNewsIndex ?? activeNewsIndex;
 
   return (
     <PageTransition>
@@ -219,19 +222,104 @@ export default function HomePage() {
                 >
                   <FiChevronDown className="h-4 w-4 text-orange-500" />
                 </div>
-                {newsItems.map((item) => (
-                  <div
-                    key={item.title}
-                    className="rounded-2xl border border-slate-200/80 bg-white/90 p-4 shadow-[0_10px_28px_rgba(15,23,42,0.04)]"
-                  >
-                    <p className="text-sm font-semibold text-slate-900">
-                      {item.title}
-                    </p>
-                    <p className="mt-2 text-xs uppercase tracking-[0.2em] text-slate-500">
-                      {item.date}
-                    </p>
-                  </div>
-                ))}
+                {newsItems.map((item, index) => {
+                  const isOpen = previewNewsIndex === index;
+
+                  return (
+                    <div
+                      key={item.title}
+                      onMouseEnter={() => setHoveredNewsIndex(index)}
+                      onMouseLeave={() =>
+                        setHoveredNewsIndex((current) =>
+                          current === index ? null : current,
+                        )
+                      }
+                      onFocusCapture={() => setHoveredNewsIndex(index)}
+                      onBlurCapture={(event) => {
+                        const nextTarget = event.relatedTarget;
+
+                        if (
+                          !(nextTarget instanceof Node) ||
+                          !event.currentTarget.contains(nextTarget)
+                        ) {
+                          setHoveredNewsIndex((current) =>
+                            current === index ? null : current,
+                          );
+                        }
+                      }}
+                      className={`rounded-2xl border p-4 shadow-[0_10px_28px_rgba(15,23,42,0.04)] transition-all duration-300 ${
+                        isOpen
+                          ? "border-orange-200 bg-white shadow-[0_18px_40px_rgba(249,115,22,0.12)]"
+                          : "border-slate-200/80 bg-white/90"
+                      }`}
+                    >
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setActiveNewsIndex((current) =>
+                            current === index ? null : index,
+                          )
+                        }
+                        aria-expanded={isOpen}
+                        className="w-full text-left"
+                      >
+                        <div className="flex items-start justify-between gap-4">
+                          <div>
+                            <p className="text-sm font-semibold text-slate-900">
+                              {item.title}
+                            </p>
+                            <p className="mt-2 text-xs uppercase tracking-[0.2em] text-slate-500">
+                              {item.date}
+                            </p>
+                          </div>
+                          <span
+                            className={`inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border transition-all duration-300 ${
+                              isOpen
+                                ? "rotate-45 border-orange-200 bg-orange-50 text-orange-500"
+                                : "border-slate-200 bg-slate-50 text-slate-500"
+                            }`}
+                            aria-hidden="true"
+                          >
+                            <FiArrowRight className="h-4 w-4" />
+                          </span>
+                        </div>
+                      </button>
+
+                      <AnimatePresence initial={false}>
+                        {isOpen ? (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{
+                              duration: 0.24,
+                              ease: [0.22, 1, 0.36, 1],
+                            }}
+                            className="overflow-hidden"
+                          >
+                            <div className="mt-4 border-t border-slate-200/80 pt-4">
+                              <p className="text-sm leading-6 text-slate-600">
+                                {item.description}
+                              </p>
+                              <div className="mt-4 flex flex-wrap gap-3">
+                                {item.ctas.map((cta) => (
+                                  <Link
+                                    key={cta.label}
+                                    href={cta.href}
+                                    className="inline-flex items-center gap-2 text-sm font-semibold text-orange-600 transition hover:text-orange-700"
+                                  >
+                                    <span>{cta.label}</span>
+                                    <FiArrowRight className="h-4 w-4" />
+                                  </Link>
+                                ))}
+                              </div>
+                            </div>
+                          </motion.div>
+                        ) : null}
+                      </AnimatePresence>
+                    </div>
+                  );
+                })}
               </div>
             </aside>
           </div>

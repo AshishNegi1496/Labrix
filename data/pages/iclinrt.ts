@@ -120,12 +120,12 @@ export const iclinrtServices = deepFreeze([
   {
     title: "Clinical Supply & Site Inventory Management",
     items: [
-         "* Auto-reconciliation of dispensing, returns, transfers — no manual logs, fewer errors ",
-      "Controlled movements with monitoring, site transfers, and low/expiry alerts",
-      "Visit-aligned inventory planning with GxP and inspection-ready compliance",
-      " An integrated, protocol-ready solution providing end-to-end visibility and control of investigational products (IMP) across the supply chain and investigational sites. End-to-end IMP lifecycle and chain-of-custody management, from packaging and distribution through dispensing, returns, retention, and final disposition ",
-      "Real-time global and site-level inventory visibility, showing stock by kit, lot, expiry, and status (available, reserved, quarantined, dispensed)",
-      "Cold-chain and temperature-controlled product oversight, including temperature mapping, excursion tracking, and review documentation",
+         "End-to-end IMP lifecycle and chain-of-custody management, from packaging to final disposition ",
+      "Real-time global and site-level inventory visibility by kit, lot, expiry, and status",
+      "Supply planning & compliance readiness, aligning inventory with visit schedules & GxP/inspection needs",
+      "Cold-chain and temperature-controlled oversight, including mapping, excursion tracking, & documentation",
+"      Automated inventory reconciliation using dispensing, returns, and transfers to reduce manual effort and errors",
+      "Controlled supply movements with proactive monitoring, approved site transfers, and expiry or low-stock alerts",
    
     ],
   },

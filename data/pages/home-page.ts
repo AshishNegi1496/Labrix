@@ -158,9 +158,21 @@ export const homePosterItems = deepFreeze([
 
 export const homeNewsItems = deepFreeze([
   {
-    title: "Adaptive randomization workflows now supported across cohorts.",
+    title: "iClinRT is now live",
     date: "Mar 2026",
+    description: "ClinRT's Interactive Response Technology platform.",
+    ctas: [
+      {
+        label: "Read launch update",
+        href: "/whats-new?tab=News#content-hub",
+      },
+      {
+        label: "Explore iClinRT",
+        href: "/iclinrt",
+      },
+    ],
   },
+
 ] as const);
 
 export const homeFaqItems = deepFreeze([
