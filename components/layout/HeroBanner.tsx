@@ -23,7 +23,7 @@ export default function HeroBanner({
       <div className="hero-bg" style={{ backgroundImage: `url(${image})` }} />
       <div className="hero-overlay" />
       <Container
-        className={`hero-content flex flex-col ${alignment} py-20 sm:py-24 md:py-32`}
+        className={`hero-content hero-content-lift flex flex-col ${alignment} py-20 sm:py-24 md:py-32`}
       >
         <p className="text-xs uppercase tracking-[0.45em] text-black/70">
           {breadcrumb}
@@ -40,3 +40,4 @@ export default function HeroBanner({
     </section>
   );
 }
+

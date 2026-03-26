@@ -325,13 +325,13 @@ export default function WhoWeArePage() {
           transition={{ duration: 10, repeat: Infinity }}
         />
         <motion.div
-          className="absolute bottom-10 right-10 w-80 h-80 bg-blue-500/20 blur-3xl rounded-full"
+          className="absolute bottom-20 right-10 w-80 h-80 bg-blue-500/20 blur-3xl rounded-full"
           animate={{ y: [0, 30, 0] }}
           transition={{ duration: 12, repeat: Infinity }}
         />
 
-        <div className="relative z-10 h-full flex items-center section-shell text-white">
-          <ScrollReveal>
+        <div className="hero-content-lift relative z-10 flex h-full items-end section-shell pb-16 text-white mb-16 md:pb-20 lg:pb-24">
+          <ScrollReveal className="max-w-3xl">
             <p className="mt-6 text-5xl md:text-6xl font-semibold leading-tight max-w-3xl">
               Experienced people.
               <br />
@@ -373,7 +373,7 @@ export default function WhoWeArePage() {
           />
 
           <div className="relative grid gap-14 text-white lg:grid-cols-2 lg:items-start">
-            <ScrollReveal>
+            <ScrollReveal className="max-w-3xl">
               <motion.div
                 {...revealUp}
                 transition={{ duration: 0.8 }}
@@ -459,7 +459,7 @@ export default function WhoWeArePage() {
               </motion.div>
             </ScrollReveal>
 
-            <ScrollReveal>
+            <ScrollReveal className="max-w-3xl">
               <motion.div
                 {...revealUp}
                 transition={{ duration: 0.8, delay: 0.15 }}
@@ -975,10 +975,7 @@ export default function WhoWeArePage() {
                 What We&lsquo;re Known For
               </SectionBadge>
 
-              <div
-                ref={uspsSectionRef}
-                className="relative mt-4 md:mt-5"
-              >
+              <div ref={uspsSectionRef} className="relative mt-4 md:mt-5">
                 <StickyCards iclinrtUsps={meaningPoints} />
               </div>
             </div>
@@ -993,7 +990,7 @@ export default function WhoWeArePage() {
 
           <div className="relative">
             <div className="grid gap-8 xl:grid-cols-[1.08fr_0.92fr] xl:items-start">
-              <ScrollReveal>
+              <ScrollReveal className="max-w-3xl">
                 <div className="max-w-3xl">
                   <SectionBadge>Our Leadership</SectionBadge>
                   <p className="mt-5 text-3xl font-semibold leading-tight text-black md:text-5xl">
@@ -1066,6 +1063,9 @@ export default function WhoWeArePage() {
           <div className="px-5 pt-5 sm:px-6 sm:pt-6 lg:px-6 lg:pt-5 xl:px-7 xl:pt-6">
             <SectionBadge>Our Culture</SectionBadge>
           </div>
+          <p className="px-7 type-h2 font-semibold leading-tight">
+            Principles that shape how we work
+          </p>
           <div className="grid min-h-136 lg:h-[min(40rem,calc(100vh-4.5rem))] lg:grid-cols-[0.92fr_1.08fr] xl:h-[min(42rem,calc(100vh-5.5rem))]">
             {/* LEFT — sticky graphic panel */}
             <div className="sticky top-10 flex h-80 flex-col items-center justify-center border-r border-white/8 p-2 sm:h-104 lg:h-full  xl:top-10">
@@ -1101,16 +1101,6 @@ export default function WhoWeArePage() {
             {/* RIGHT — stacked scroll cards */}
             <div className="space-y-1 px-5  sm:px-6 sm:py-6 lg:px-7 lg:py-2 xl:px-8 xl:py-1">
               {/* Heading */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="mb-4 lg:mb-5"
-              >
-                <p className="type-h2 font-semibold leading-tight">
-                  Principles that shape how we work
-                </p>
-              </motion.div>
 
               {/* Cards */}
               {culture.map((c, i) => (

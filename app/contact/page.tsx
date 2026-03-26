@@ -112,7 +112,10 @@ function resolveRequestedForm(
 export default function Contact() {
   const searchParams = useSearchParams();
   const brochure = getBrochureBySlug(searchParams.get("brochure"));
-  const requestedForm = resolveRequestedForm(searchParams.get("form"), !!brochure);
+  const requestedForm = resolveRequestedForm(
+    searchParams.get("form"),
+    !!brochure,
+  );
   const [activeForm, setActiveForm] = useState<ContactFormType>(requestedForm);
   const activeOption =
     contactFormOptions.find((option) => option.id === activeForm) ??
@@ -132,7 +135,9 @@ export default function Contact() {
 
   function handleFormSubmit(event: FormEvent<HTMLFormElement>) {
     const form = event.currentTarget;
-    const textFields = form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>(
+    const textFields = form.querySelectorAll<
+      HTMLInputElement | HTMLTextAreaElement
+    >(
       "input:not([type='hidden']):not([type='checkbox']):not([type='file']), textarea",
     );
 
@@ -193,18 +198,22 @@ export default function Contact() {
 
         <div className="absolute inset-0 bg-linear-to-b from-black/10 via-black/40 to-black/65" />
 
-        <div className="relative z-10 h-full flex items-center section-shell pb-20 text-white">
+        <div className="hero-content-lift relative z-10 flex h-full items-end section-shell mb-4 pb-16 text-white md:pb-20 lg:p-24">
           <ScrollReveal className="max-w-3xl">
             <p className="type-h1 md:text-6xl font-semibold">
               {contactHero.punchline}
             </p>
+
+            <div className="mt-8 flex flex-wrap gap-4">
+              <Button href="#contact-forms" label="Start a Conversation" />
+            </div>
           </ScrollReveal>
         </div>
       </section>
 
       {/* ---------------- CONTACT FORMS ---------------- */}
 
-      <SectionWrapper fullBleed>
+      <SectionWrapper fullBleed id="contact-forms">
         <div className="relative mt-20 grid gap-10 overflow-hidden rounded-[2.5rem] border border-slate-200 bg-[#0f243a] px-6 py-8 shadow-[0_35px_120px_rgba(15,36,58,0.2)] md:px-8 md:py-10 lg:grid-cols-[0.95fr_1.05fr] lg:px-10 lg:py-12">
           <Image
             src="/images/operations.avif"
@@ -330,7 +339,8 @@ export default function Contact() {
                       <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-600">
                         Submit the Join Our Community form to unlock the gated
                         PDF download. After submission, we will return you to a
-                        confirmation screen and start the download automatically.
+                        confirmation screen and start the download
+                        automatically.
                       </p>
                     </div>
 
@@ -882,7 +892,7 @@ export default function Contact() {
                 </span>
               </div>
 
-              <div className="mt-5 h-[420px] w-full overflow-hidden rounded-[1.5rem]">
+              <div className="mt-5 h-105 w-full overflow-hidden rounded-3xl">
                 <ContactMap />
               </div>
             </div>
@@ -892,3 +902,4 @@ export default function Contact() {
     </PageTransition>
   );
 }
+

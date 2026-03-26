@@ -1,4 +1,4 @@
-import { contactFormSuccessPath } from "./contact";
+import { contactFormSuccessPath, getContactFormHref } from "./contact";
 import { deepFreeze } from "../utils";
 
 export const brochures = deepFreeze([
@@ -32,12 +32,7 @@ export function getBrochureHref(slug: string) {
 }
 
 export function getBrochureGateHref(slug: string) {
-  const params = new URLSearchParams({
-    form: "community",
-    brochure: slug,
-  });
-
-  return `/contact?${params.toString()}`;
+  return getContactFormHref("community", { brochure: slug });
 }
 
 export function getBrochureSuccessPath(slug: string) {

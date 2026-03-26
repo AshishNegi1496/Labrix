@@ -25,6 +25,7 @@ import {
   FaGlobeAmericas,
 } from "react-icons/fa";
 import {
+  getContactFormHref,
   homeFaqItems as faqs,
   homeMovingWords,
   homeNewsItems as newsItems,
@@ -50,10 +51,10 @@ export default function HomePage() {
 
   return (
     <PageTransition>
-      <section className="relative overflow-hidden min-h-[90vh] sm:min-h-screen lg:min-h-[110vh] flex items-center">
+      <section className="relative flex min-h-[90vh] items-end overflow-hidden sm:min-h-screen lg:min-h-[110vh]">
         <video
           className="absolute inset-0 h-full w-full object-cover"
-          src="/videos/home-latest.mp4"
+          src="/videos/home-final.mp4"
           autoPlay
           muted
           loop
@@ -63,8 +64,8 @@ export default function HomePage() {
         {/* Dark overlay */}
         {/* <div className="absolute inset-0 bg-linear-to-b from-black/70 via-black/70 to-black/90" /> */}
 
-        <div className="relative z-10 section-shell py-28 md:py-40 text-white">
-          <div className="grid lg:grid-cols-2 gap-10 md:gap-14 lg:gap-16 items-center">
+        <div className="hero-content-lift relative z-10 section-shell w-full pb-14 pt-28 text-white md:pb-20 md:pt-36 lg:pb-24">
+          <div className="grid items-end gap-10 md:gap-14 lg:grid-cols-2 lg:gap-1">
             {/* LEFT CONTENT */}
             <ScrollReveal variant="left" className="max-w-3xl mb-1">
               <p className="mt-12 type-h2 md:text-4xl leading-tight font-semibold">
@@ -365,7 +366,7 @@ export default function HomePage() {
           {/* CTA Button */}
           <ScrollReveal delay={300}>
             <div className="mt-14 flex justify-center">
-              <Button href="/what-we-build" label="See What We Build" />
+              <Button href="/iclinrt" label="See What We Build" />
             </div>
           </ScrollReveal>
         </div>
@@ -461,7 +462,7 @@ export default function HomePage() {
             {/* BUTTON */}
             <ScrollReveal delay={300}>
               <div className="mt-10">
-                <Button href="/contact" label="Contact Us" />
+                <Button href={getContactFormHref("touch")} label="Contact Us" />
               </div>
             </ScrollReveal>
           </div>

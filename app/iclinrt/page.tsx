@@ -19,6 +19,7 @@ import SectionBadge from "@/components/ui/SectionBadge";
 import { FiActivity, FiArrowRight, FiCheck, FiZap } from "react-icons/fi";
 import StudyFlowSvg from "@/components/StudyFlowSvg";
 import { cn } from "@/lib/cn";
+import { getContactFormHref } from "@/data";
 import {
   iclinrtPotential as iclinrtPotential,
   iclinrtPotentialMedia as potentialMedia,
@@ -311,7 +312,7 @@ export default function IclinrtPage() {
   }, [activeServiceIndex]);
   return (
     <PageTransition>
-      <section className="relative overflow-hidden min-h-[90vh] sm:min-h-screen lg:min-h-[110vh] flex items-center">
+      <section className="relative flex min-h-[90vh] items-end overflow-hidden sm:min-h-screen lg:min-h-[110vh]">
         {/* <video
           className="absolute inset-0 h-full w-full object-cover"
           src="/videos/homePageVideo.mp4"
@@ -329,7 +330,7 @@ export default function IclinrtPage() {
           sizes="100vw" // Helps with responsive loading
         />
         <div className="absolute inset-0 bg-linear-to-b from-black/65 via-black/45 to-black/70" />
-        <div className="relative z-10 section-shell flex min-h-[70vh] flex-col justify-center gap-8 px-6 py-20 md:px-10">
+        <div className="hero-content-lift relative z-10 section-shell w-full pb-16 pt-28 text-white md:pb-20 md:pt-36 lg:pb-24">
           <ScrollReveal className="max-w-3xl text-white">
             <Image
               src="/images/product-logo.png"
@@ -345,7 +346,7 @@ export default function IclinrtPage() {
               Your Trial&apos;s Operational Control Center.
             </p>
             <div className="mt-6 flex flex-wrap gap-4">
-              <Button href="/contact" label="Contact Us" />
+              <Button href={getContactFormHref("touch")} label="Contact Us" />
             </div>
           </ScrollReveal>
         </div>
@@ -379,7 +380,7 @@ export default function IclinrtPage() {
                 visibility, and compliance.
               </p>
               <div className="mt-6 flex flex-wrap gap-4">
-                <Button href="/contact" label="Contact Us" />
+                <Button href={getContactFormHref("touch")} label="Contact Us" />
               </div>
               <Link className="link text-sm" href="/contact">
                 Your Trial&apos;s Operational Control Center.
@@ -727,7 +728,7 @@ export default function IclinrtPage() {
                           ))}
                         </div>
                         <div className="mt-8 flex flex-wrap gap-3">
-                          <Button href="/contact" label="Request a Demo" />
+                          <Button href={getContactFormHref("demo")} label="Request a Demo" />
                           <Button
                             href="/coming-soon"
                             label="View Factsheets"
@@ -1081,3 +1082,8 @@ export default function IclinrtPage() {
     </PageTransition>
   );
 }
+
+
+
+
+

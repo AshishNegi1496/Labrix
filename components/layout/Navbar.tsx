@@ -48,7 +48,7 @@ export default function Navbar() {
     <>
       <header
         className={`
-          fixed inset-x-0 top-0 z-50 backdrop-blur-sm bg-[#070b13] border-b border-white/10
+          fixed inset-x-0 top-0 z-50 backdrop-blur-sm bg-[#ececec] border-b border-white/10
           transition-transform duration-300 ease-in-out will-change-transform
           ${isVisible ? "translate-y-0" : "-translate-y-full"}
         `}
@@ -65,7 +65,7 @@ export default function Navbar() {
           </Link>
 
           <nav
-            className="hidden items-center gap-8 type-h6 text-white lg:flex"
+            className="hidden items-center gap-8 type-h6 text-black lg:flex"
             aria-label="Primary"
           >
             {navigation.items.map((item) => {
@@ -78,7 +78,7 @@ export default function Navbar() {
                   aria-current={isActive ? "page" : undefined}
                   className={`transition ${
                     isActive
-                      ? "border-(--color-orange) pb-1 text-white border-b-2"
+                      ? "border-(--color-orange) pb-1 text-black border-b-2"
                       : "text-white/70 hover:text-white"
                   }`}
                 >
@@ -95,7 +95,7 @@ export default function Navbar() {
           />
 
           <button
-            className="z-50 p-2 lg:hidden text-white"
+            className="z-50 p-2 lg:hidden text-black"
             onClick={() => setIsOpen(!isOpen)}
             aria-label={uiLabels.toggleMenu}
             aria-expanded={isOpen}
@@ -109,12 +109,12 @@ export default function Navbar() {
       <div
         id="mobile-menu"
         className={`
-          fixed inset-0 z-40 flex flex-col bg-[#0B1E33] p-8 pt-32 transition-transform duration-300 lg:hidden
+          fixed inset-0 z-40 flex flex-col bg-white p-8 pt-32 transition-transform duration-300 lg:hidden
           ${isOpen ? "translate-x-0" : "translate-x-full"}
         `}
       >
         <nav
-          className="flex flex-col gap-8 text-2xl font-semibold text-white"
+          className="flex flex-col gap-8 text-2xl font-semibold text-black"
           aria-label="Mobile"
         >
           {navigation.items.map((item) => {
@@ -139,7 +139,7 @@ export default function Navbar() {
             href={navigation.cta.href}
             label={navigation.cta.label}
             onClick={() => setIsOpen(false)}
-            className="w-full bg-white text-[#0B1E33] hover:bg-white"
+            className="w-full uppercase bg-white text-[#0B1E33] hover:bg-white"
           />
         </nav>
       </div>

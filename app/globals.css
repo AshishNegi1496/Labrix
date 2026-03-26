@@ -196,6 +196,10 @@ video {
   z-index: 1;
 }
 
+.hero-content-lift {
+  transform: translate3d(0, clamp(-1.5rem, -2vw, -0.75rem), 0);
+}
+
 .ticker {
   background: var(--color-accent);
   color: var(--color-primary);

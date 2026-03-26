@@ -1,6 +1,7 @@
 import { deepFreeze } from "./utils";
 import type { NavigationData } from "./types";
 import { validateNavigation } from "./validators";
+import { getContactFormHref } from "./pages/contact";
 
 /** Primary navigation configuration. */
 export const navigation: NavigationData = validateNavigation(
@@ -13,6 +14,6 @@ export const navigation: NavigationData = validateNavigation(
       { href: "/clinrt-world", label: "ClinRT World" },
       { href: "/contact", label: "Contact Us" },
     ],
-    cta: { href: "/contact", label: "Request a Demo" },
+    cta: { href: getContactFormHref("demo"), label: "REQUEST A DEMO" },
   }),
 );

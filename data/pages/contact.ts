@@ -41,6 +41,7 @@ export const contactFormAction = `https://formsubmit.co/${contactFormRecipient}`
 export const contactFormTemplate = "table";
 
 export const contactFormSuccessPath = "/contact/success";
+export const contactFormsSectionId = "contact-forms";
 
 export const contactFileConstraints = deepFreeze({
   accept: ".pdf,.doc,.docx,.png,.jpg,.jpeg,.webp",
@@ -135,3 +136,15 @@ export const contactMapBlock = deepFreeze({
   title: "Pune office location",
   badge: "On-site and remote support",
 });
+
+export function getContactFormHref(
+  form: ContactFormType,
+  extraParams?: Record<string, string>,
+) {
+  const params = new URLSearchParams({
+    form,
+    ...(extraParams ?? {}),
+  });
+
+  return `/contact?${params.toString()}#${contactFormsSectionId}`;
+}

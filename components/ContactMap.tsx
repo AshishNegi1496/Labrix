@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import maplibregl, { type StyleSpecification } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 
-const LOCATION: [number, number] = [73.802571, 18.625874];
+const LOCATION: [number, number] = [73.799194, 18.634847];
 const MAP_STYLE: StyleSpecification = {
   version: 8,
   sources: {

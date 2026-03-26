@@ -31,14 +31,7 @@ import Button from "@/components/ui/Button";
 import { brochures, getBrochureHref } from "@/data";
 import { cn } from "@/lib/cn";
 
-const tabs = [
-  "News",
-  "Events",
-  "Moments",
-  "Case Studies",
-  "Blogs",
-  "Brochures",
-] as const;
+const tabs = ["News", "Events", "Moments", "Blogs", "Brochures"] as const;
 
 const INITIAL_VISIBLE = 6;
 
@@ -92,90 +85,6 @@ const contentByTab: Record<Tab, TabContent> = {
           "ClinRT's Interactive Response Technology platform is now live, bringing configurable trial execution, supply oversight, and operational visibility into one system.",
         meta: "Launch update",
         featured: true,
-      },
-      {
-        eyebrow: "Event",
-        title: "ClinRT at Global Clinical Tech Forum 2026",
-        summary:
-          "Highlights from our presence, conversations with operations leaders, and what teams asked for most.",
-        meta: "Conference update",
-      },
-      {
-        eyebrow: "Media",
-        title: "Featured in Clinical Innovation Review",
-        summary:
-          "A closer look at how modern operational design is reshaping trial delivery across regions.",
-        meta: "Press coverage",
-      },
-      {
-        eyebrow: "Release",
-        title: "New monitoring capabilities now available",
-        summary:
-          "Expanded live oversight and faster issue visibility for teams managing complex execution.",
-        meta: "Product release",
-      },
-      {
-        eyebrow: "Update",
-        title: "Operational dashboard refresh for sponsor teams",
-        summary:
-          "Sharper summaries, cleaner trend views, and faster access to day-to-day study signals.",
-        meta: "Platform update",
-      },
-      {
-        eyebrow: "xyz",
-        title: "r sponsor teams",
-        summary:
-          "Sharper summaries, asdas fasfascleaner trend views, and faster access to day-to-day study signalsasdasd fasa.",
-        meta: "Platform update xyz",
-      },
-      {
-        eyebrow: "xyawerwfasz",
-        title: "r spdasdonsor wrer",
-        summary:
-          "Sharper re, asdas fasfascleaner trend views, andsdasdasd faster access to day-to-day study signalsasdasd fasa.",
-        meta: "Platformasdsda updatwrwee xyz",
-      },
-      {
-        eyebrow: "xyzsdas",
-        title: "r spasdasdonsor tewerweams",
-        summary:
-          "Sharper suasdasdmmaries, asdas fasfascleaner trend views,werwer and faster access to day-to-day study signalsasdasd fasa.",
-        meta: "Platfoasdasrm werwer xyz",
-      },
-      {
-        eyebrow: "xyzsdawerws",
-        title: "r spasdasasfdonsor teawerms",
-        summary:
-          "Sharper suasdasdmmaries, asdas fasfascleaner trend views, andwertwt faster access to day-to-day study signalsasdasd fasa.",
-        meta: "Platfoasdasrm updasdaate xyz",
-      },
-      {
-        eyebrow: "xywtertwzsdas",
-        title: "r spasdasdsdfsonsor teams",
-        summary:
-          "Sharper suassdfsdasdmmaries, asdas fasfascleaner trend views, and faster access to day-to-day study signalsasdasd fasa.",
-        meta: "Platfoasdasdfsrm update xyz",
-      },
-      {
-        eyebrow: "xyzsdreteras",
-        title: "r tert teams",
-        summary:
-          "Sharper suasdasdmmaries, asdas fasfascleaner trend views, and faster accesfgjhfgs to day-to-day study signalsasdasd fasa.",
-        meta: "Platfoasdasrm update xyz",
-      },
-      {
-        eyebrow: "xyzwerwesdas",
-        title: "r spasdwerwasdonsor teams",
-        summary:
-          "Sharper suasdasdmmaries, asdas fasfasclewterwtaner trend views, and faster access to day-to-day study signalsasdasd fasa.",
-        meta: "Platfoasdasrm werweupdate xyz",
-      },
-      {
-        eyebrow: "xyzstwtsdas",
-        title: "r spaswtdasdonsor teams",
-        summary:
-          "Sharper suasdasdmmaries, asdas fasfascleaner trend sasfafdafviews, and faster access to day-to-day study signalsasdasd fasa.",
-        meta: "Platfoasdasrm updafasgate xyz",
       },
     ],
   },
@@ -269,43 +178,7 @@ const contentByTab: Record<Tab, TabContent> = {
       },
     ],
   },
-  "Case Studies": {
-    title: "Case Studies",
-    description:
-      "Outcome-led stories organized in a way that stays readable even with a larger and growing library.",
-    icon: FiLayers,
-    items: [
-      {
-        eyebrow: "Oncology",
-        title: "Multi-country acceleration across oncology sites",
-        summary:
-          "How cleaner coordination and stronger operational visibility reduced friction across regions.",
-        meta: "Global program",
-        featured: true,
-      },
-      {
-        eyebrow: "Rare Disease",
-        title: "Workflow redesign for a rare disease study",
-        summary:
-          "A focused redesign that improved team clarity while protecting protocol discipline.",
-        meta: "Process redesign",
-      },
-      {
-        eyebrow: "Supply",
-        title: "Regional IMP visibility across site networks",
-        summary:
-          "Improved accountability, faster reactions, and clearer oversight for distributed supply teams.",
-        meta: "Supply operations",
-      },
-      {
-        eyebrow: "Inventory",
-        title: "Standardizing site-level inventory execution",
-        summary:
-          "Reducing manual work while strengthening operational confidence at the site layer.",
-        meta: "Operational control",
-      },
-    ],
-  },
+
   Blogs: {
     title: "Insights and Blogs",
     description:
@@ -403,7 +276,7 @@ export default function WhatsNewPage() {
 
         <div className="absolute inset-0 bg-linear-to-b from-black/10 via-black/40 to-black/65" />
 
-        <div className="relative z-10 h-full flex items-center section-shell pb-20 text-white">
+        <div className="hero-content-lift relative z-10 flex h-full items-end section-shell pb-14 pt-28 text-white md:pb-20 md:pt-36 lg:pb-24">
           <ScrollReveal className="max-w-3xl">
             <p className="type-h1 md:text-6xl font-semibold">
               Stay connected with our latest updates, resources, and milestones.
@@ -413,6 +286,10 @@ export default function WhatsNewPage() {
               {" "}
               Here&apos;s everything happening across ClinRT right now.
             </p>
+
+            <div className="mt-8 flex flex-wrap gap-4">
+              <Button href="#content-hub" label="Explore Content Hub" />
+            </div>
           </ScrollReveal>
         </div>
       </section>
@@ -894,3 +771,4 @@ function FlowStep({
     </div>
   );
 }
+

@@ -30,7 +30,7 @@ export default function Button(props: ButtonProps) {
     label,
     icon: Icon = FiArrowUpRight,
     size = "md",
-    className,
+    className = "uppercase",
     ...rest
   } = props;
 

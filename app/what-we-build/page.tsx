@@ -10,6 +10,7 @@ import GlassCard from "@/components/GlassCard";
 import CountUpOnView from "@/components/CountUpOnView";
 import SectionBadge from "@/components/ui/SectionBadge";
 import {
+  getContactFormHref,
   whatWeBuildSolutionCards as solutionCards,
   whatWeBuildSupportAreas as supportAreas,
 } from "@/data";
@@ -27,7 +28,7 @@ export default function WhatWeBuildPage() {
           playsInline
         />
         <div className="absolute inset-0 bg-linear-to-b from-black/65 via-black/45 to-black/70" />
-        <div className="relative z-10 section-shell flex min-h-screen flex-col justify-center gap-10 px-6 py-20 md:px-10">
+        <div className="hero-content-lift relative z-10 section-shell flex min-h-screen flex-col justify-center gap-10 px-6 py-20 md:px-10">
           <ScrollReveal className="max-w-3xl text-white">
             {/* <SectionBadge>Our Solutions</SectionBadge> */}
             <p className="mt-10 type-h1 font-semibold text-white">
@@ -35,7 +36,7 @@ export default function WhatWeBuildPage() {
             </p>
 
             <div className="mt-6 flex flex-wrap gap-4">
-              <Button href="/contact" label="Request a Demo" />
+              <Button href={getContactFormHref("demo")} label="Request a Demo" />
             </div>
           </ScrollReveal>
 
@@ -181,7 +182,7 @@ export default function WhatWeBuildPage() {
             </p>
 
             <div className="flex justify-center">
-              <Button href="/contact" label="Request a Demo" />
+              <Button href={getContactFormHref("demo")} label="Request a Demo" />
             </div>
           </ScrollReveal>
         </div>
@@ -189,3 +190,4 @@ export default function WhatWeBuildPage() {
     </PageTransition>
   );
 }
+

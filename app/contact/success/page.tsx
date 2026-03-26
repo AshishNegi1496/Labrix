@@ -19,7 +19,7 @@ export default function ContactSuccessPage() {
         <div className="absolute -left-16 top-20 h-64 w-64 rounded-full bg-[#f59e0b]/20 blur-3xl" />
         <div className="absolute -right-10 bottom-10 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
 
-        <SectionWrapper className="relative z-10 flex min-h-screen items-center py-12">
+        <SectionWrapper className="hero-content-lift relative z-10 flex min-h-screen items-center py-12">
           <div className="mx-auto w-full max-w-3xl rounded-[2.2rem] border border-white/15 bg-white/10 p-8 text-center shadow-[0_35px_120px_rgba(4,18,33,0.28)] backdrop-blur-2xl md:p-12">
             <div className="mx-auto flex h-18 w-18 items-center justify-center rounded-full border border-emerald-300/30 bg-emerald-400/15 text-emerald-300">
               <FiCheckCircle className="h-9 w-9" />
@@ -73,3 +73,4 @@ export default function ContactSuccessPage() {
     </PageTransition>
   );
 }
+

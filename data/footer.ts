@@ -1,6 +1,7 @@
 import { deepFreeze } from "./utils";
 import type { FooterData } from "./types";
 import { validateFooter } from "./validators";
+import { getContactFormHref } from "./pages/contact";
 
 /** Footer content and links. */
 export const footerData: FooterData = validateFooter(
@@ -12,20 +13,20 @@ export const footerData: FooterData = validateFooter(
     newsletterCta: "Join",
     newsletterAgreement: "I agree to the privacy policy.",
     quickLinksLabel: "Quick Links",
-    servicesLabel: "Our Services",
+    servicesLabel: "Social Platforms",
     hoursLabel: "Working Hours",
     quickLinks: [
       { href: "/", label: "Home" },
-      { href: "/who-we-are", label: "About iClinRT" },
-      { href: "/what-we-build", label: "iClinRT" },
-      { href: "/clinrt-world", label: "iClinRT World" },
-      { href: "/contact", label: "Contact Us" },
+      { href: "/who-we-are", label: "About ClinRT" },
+      { href: "/iclinrt", label: "iClinRT" },
+      { href: "/clinrt-world", label: "ClinRT World" },
+      { href: getContactFormHref("touch"), label: "Contact Us" },
     ],
     services: [
-      "About iClinRT",
-      "iClinRT",
-      "iClinRT World",
-      "Contact Us",
+      "Linkedin",
+      "Instagram",
+      "Facebook",
+      "Youtube",
     ],
     hours: [
       { label: "Mon - Fri", value: "10:00AM - 07:00PM" },

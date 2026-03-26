@@ -9,6 +9,7 @@ import HeroBanner from "@/components/layout/HeroBanner";
 import { Panel } from "@/components/ui/Panel";
 import Button from "@/components/ui/Button";
 import SectionBadge from "@/components/ui/SectionBadge";
+import { getContactFormHref } from "@/data";
 // Types
 type Job = {
   id: string;
@@ -212,7 +213,11 @@ export default function Careers() {
             resume and we&apos;ll keep you in mind for future opportunities.
           </p>
           <div className="mt-8">
-            <Button href="/contact" label="Get in Touch" size="lg" />
+            <Button
+              href={getContactFormHref("touch")}
+              label="Get in Touch"
+              size="lg"
+            />
           </div>
         </div>
       </SectionWrapper>
