@@ -29,11 +29,7 @@ import { BlogArticleModal } from "@/components/BlogArticleModal";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import SectionWrapper from "@/components/layout/SectionWrapper";
 import Button from "@/components/ui/Button";
-import {
-  brochures,
-  clinrtWorldBlogArticles,
-  getBrochureHref,
-} from "@/data";
+import { brochures, clinrtWorldBlogArticles, getBrochureHref } from "@/data";
 import { cn } from "@/lib/cn";
 
 const tabs = ["News", "Events", "Moments", "Blogs", "Brochures"] as const;
@@ -134,45 +130,37 @@ const contentByTab: Record<Tab, TabContent> = {
     icon: FiCamera,
     items: [
       {
-        eyebrow: "Workshop",
-        title: "Hands-on product workshop",
+        eyebrow: "",
+        title: "Women’s Day Celebration",
         summary:
-          "Teams came together to map workflows, refine ideas, and pressure-test product directions.",
-        meta: "Internal collaboration",
-        image: "/images/case-study-1.jpg",
+          " A heartfelt celebration recognizing the strength, contributions, and achievements of women at ClinRT, reflecting our commitment to inclusion and appreciation",
+        meta: "",
+        image: "/images/moment4.jpg",
         featured: true,
       },
       {
         eyebrow: "Client Day",
         title: "Celebrating partnership milestones",
         summary:
-          "Snapshots from a day focused on long-term relationships, feedback, and shared wins.",
-        meta: "Customer moments",
-        image: "/images/case-study-2.jpg",
+          "Snapshots from a day focused on long-term relationships, feedback, and shared wins",
+        meta: "",
+        image: "/images/moment2.jpg",
       },
       {
-        eyebrow: "Launch Event",
-        title: "A new phase for the platform",
+        eyebrow: " ",
+        title: "Christmas Celebration ",
         summary:
-          "Key moments from a launch that marked stronger visibility, coordination, and readiness.",
-        meta: "Product milestone",
-        image: "/images/case-study-3.jpg",
+          "  A cheerful moment where colleagues came together to celebrate the season, strengthening bonds and creating memorable experiences at ClinRT",
+        meta: "",
+        image: "/images/moment3.jpg",
       },
       {
         eyebrow: "Team",
         title: "Cross-functional planning sprint",
         summary:
-          "Engineers, delivery teams, and domain experts aligning around execution priorities.",
-        meta: "Team culture",
-        image: "/images/operations.avif",
-      },
-      {
-        eyebrow: "Showcase",
-        title: "Clinical workflow demo day",
-        summary:
-          "A closer look at real operating scenarios, decision flows, and platform capability in action.",
-        meta: "Experience session",
-        image: "/images/workflow.avif",
+          "Engineers, delivery teams, and domain experts aligning around execution priorities",
+        meta: "",
+        image: "/images/moment1.jpg",
       },
     ],
   },
@@ -282,7 +270,7 @@ export default function WhatsNewPage() {
       </section>
 
       <SectionWrapper fullBleed id="content-hub">
-        <div className="relative overflow-hidden rounded-[2rem] border border-black/8 bg-[radial-gradient(circle_at_top_left,rgba(15,36,58,0.08),transparent_34%),radial-gradient(circle_at_bottom_right,rgba(243,123,33,0.14),transparent_32%),linear-gradient(180deg,#ffffff_0%,#f8fafc_100%)] p-3 shadow-[0_28px_120px_rgba(15,36,58,0.08)] sm:p-4 lg:p-6 xl:p-8">
+        <div className="relative overflow-hidden rounded-4xl border border-black/8 bg-[radial-gradient(circle_at_top_left,rgba(15,36,58,0.08),transparent_34%),radial-gradient(circle_at_bottom_right,rgba(243,123,33,0.14),transparent_32%),linear-gradient(180deg,#ffffff_0%,#f8fafc_100%)] p-3 shadow-[0_28px_120px_rgba(15,36,58,0.08)] sm:p-4 lg:p-6 xl:p-8">
           <motion.div
             className="pointer-events-none absolute -left-14 top-12 h-44 w-44 rounded-full bg-sky-200/35 blur-3xl"
             animate={{ y: [0, -16, 0] }}
@@ -488,7 +476,7 @@ function TabButton({
       type="button"
       onClick={onClick}
       className={cn(
-        "group min-w-[13rem] rounded-2xl border px-4 py-3.5 text-left transition duration-300 sm:min-w-55 sm:py-4 lg:min-w-0",
+        "group min-w-52 rounded-2xl border px-4 py-3.5 text-left transition duration-300 sm:min-w-55 sm:py-4 lg:min-w-0",
         isActive
           ? " bg-(--color-primary) text-white shadow-lg"
           : "border-black/8 bg-white/75 text-black hover:-translate-y-0.5 hover:border-black/18 hover:bg-white",
@@ -550,7 +538,11 @@ function ResourceCard({ item, tab, index, onOpenBlog }: ResourceCardProps) {
     const article = item.blog;
 
     return (
-      <BlogCard item={{ ...item, blog: article }} index={index} onOpen={() => onOpenBlog(article)} />
+      <BlogCard
+        item={{ ...item, blog: article }}
+        index={index}
+        onOpen={() => onOpenBlog(article)}
+      />
     );
   }
 
@@ -568,7 +560,7 @@ function ResourceCard({ item, tab, index, onOpenBlog }: ResourceCardProps) {
           item.featured && "md:col-span-2 2xl:row-span-2",
         )}
       >
-        <div className="absolute inset-0">
+        <div className="py-2 absolute inset-0">
           <Image
             src={item.image}
             alt={item.title}
@@ -583,7 +575,7 @@ function ResourceCard({ item, tab, index, onOpenBlog }: ResourceCardProps) {
             {item.eyebrow}
           </span>
           <div>
-            <p className="text-xl font-semibold leading-tight sm:text-2xl">
+            <p className="text-xl mt-2 font-semibold leading-tight sm:text-2xl">
               {item.title}
             </p>
             <p className="mt-3 max-w-xl text-sm leading-7 text-white/75">

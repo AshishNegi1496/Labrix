@@ -16,11 +16,11 @@ export const footerData: FooterData = validateFooter(
     servicesLabel: "Social Platforms",
     hoursLabel: "Working Hours",
     quickLinks: [
-      { href: "/", label: "Home" },
-      { href: "/who-we-are", label: "About ClinRT" },
-      { href: "/iclinrt", label: "iClinRT" },
-      { href: "/clinrt-world", label: "ClinRT World" },
-      { href: getContactFormHref("touch"), label: "Contact Us" },
+      { href: "/who-we-are#culture", label: "Our Culture" },
+      { href: "/iclinrt#iclinrt-services", label: "iClinRT Services" },
+      { href: "/iclinrt#iclinrt-usps", label: "USPs" },
+      { href: getContactFormHref("touch"), label: "Careers" },
+      { href: "/clinrt-world?tab=Blogs#content-hub", label: "Insights" },
     ],
     services: [
       "Linkedin",
@@ -36,3 +36,4 @@ export const footerData: FooterData = validateFooter(
     copyright: "Copyright 2026 ClinRT. All Rights Reserved.",
   }),
 );
+

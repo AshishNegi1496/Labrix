@@ -23,8 +23,10 @@ export default function Clients({
   size = 38,
   className,
 }: ClientsProps) {
+  const hasText = Boolean(label || title);
+
   return (
-    <div className={cn("flex items-center gap-8", className)}>
+    <div className={cn("flex items-center gap-8", !hasText && "gap-0", className)}>
       {/* Avatar stack */}
       <div className="flex -space-x-3">
         {avatars.map((avatar, index) => (
@@ -39,11 +41,12 @@ export default function Clients({
         ))}
       </div>
 
-      {/* Text */}
-      <div>
-        <p className="type-h6 text-white/70">{label}</p>
-        <p className="type-h4 font-semibold">{title}</p>
-      </div>
+      {hasText ? (
+        <div>
+          <p className="type-h6 text-white/70">{label}</p>
+          <p className="type-h4 font-semibold">{title}</p>
+        </div>
+      ) : null}
     </div>
   );
 }

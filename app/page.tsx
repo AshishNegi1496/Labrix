@@ -90,24 +90,25 @@ export default function HomePage() {
                 </div>
 
                 {/* Client avatars */}
-                <Clients
-                  avatars={[
-                    { src: "/images/author-1.jpg" },
-                    { src: "/images/author-2.jpg" },
-                    { src: "/images/author-3.jpg" },
-                    { src: "/images/author-2.jpg" },
-                  ]}
-                  label=""
-                  // title="5000+ Clients Worldwide"
-                  className="ml-6"
-                />
-                <div className=" flex flex-row gap-2">
-                  <CountUpOnView
-                    to={500}
-                    suffix="+"
-                    className="text-4xl font-semibold text-white"
+                <div className="flex items-center gap-3 sm:gap-4">
+                  <Clients
+                    avatars={[
+                      { src: "/images/author-1.jpg" },
+                      { src: "/images/author-2.jpg" },
+                      { src: "/images/author-3.jpg" },
+                      { src: "/images/author-2.jpg" },
+                    ]}
+                    label=""
+                    // title="5000+ Clients Worldwide"
                   />
-                  <p className="type-h6 mt-3 text-white/70">Clients</p>
+                  <div className="flex flex-row gap-2">
+                    <CountUpOnView
+                      to={500}
+                      suffix="+"
+                      className="text-4xl font-semibold text-white"
+                    />
+                    <p className="type-h6 text-white/70">Clients</p>
+                  </div>
                 </div>
               </div>
               <div className="mt-8 ">
@@ -167,7 +168,7 @@ export default function HomePage() {
             <GlassSlider
               items={posterItems}
               ariaLabel="At a glance posters"
-              className="h-full"
+              className="h-80"
               scrollerClassName="h-full w-full pb-0 pt-0"
               controlsClassName="pointer-events-none absolute top-1/2 z-10 -translate-y-1/2 justify-between sm:inset-x-4"
               edgeFadeClassName=""

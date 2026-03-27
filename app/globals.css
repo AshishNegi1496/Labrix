@@ -57,7 +57,7 @@
   --h4-size: clamp(1.25rem, 1.4vw + 0.9rem, 1.5rem);
   --h5-size: clamp(1.05rem, 1vw + 0.8rem, 1.25rem);
   --h6-size: clamp(0.95rem, 0.6vw + 0.7rem, 1rem);
-  --page-banner-title-size: clamp(2.25rem, 2.8vw + 1.55rem, 3.75rem);
+  --page-banner-title-size: clamp(2rem, 2.3vw + 1.55rem, 3.25rem);
   --section-padding-x: clamp(16px, 3vw, 24px);
 
   --background: var(--bg-page);
