@@ -27,11 +27,11 @@ export default function WhatWeBuildPage() {
           loop
           playsInline
         />
-        <div className="absolute inset-0 bg-linear-to-b from-black/65 via-black/45 to-black/70" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(224,242,254,0.2)_0%,rgba(167,243,208,0.16)_22%,rgba(14,116,144,0.4)_52%,rgba(15,23,42,0.84)_100%)]" />
         <div className="hero-content-lift relative z-10 section-shell flex min-h-screen flex-col justify-center gap-10 px-6 py-20 md:px-10">
           <ScrollReveal className="max-w-3xl text-white">
             {/* <SectionBadge>Our Solutions</SectionBadge> */}
-            <p className="mt-10 type-h1 font-semibold text-white">
+            <p className="mt-10 page-banner-title font-semibold text-white">
               Precision That Powers Every Trial
             </p>
 
@@ -85,9 +85,9 @@ export default function WhatWeBuildPage() {
                 ClinRT delivers a growing suite of purpose-built solutions
                 designed to strengthen the operational, logistical, and
                 data-driven foundations of clinical research. Our products
-                support core study functions — from randomization and treatment
+                support core study functions â€” from randomization and treatment
                 workflows to data capture, outcome reporting, and site
-                operations — ensuring structure, precision, and clarity across
+                operations â€” ensuring structure, precision, and clarity across
                 every stage of the trial lifecycle.
               </p>
             </ScrollReveal>
@@ -190,4 +190,5 @@ export default function WhatWeBuildPage() {
     </PageTransition>
   );
 }
+
 

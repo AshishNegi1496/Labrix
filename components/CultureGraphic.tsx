@@ -169,165 +169,6 @@ export default function CultureGraphic({ index }: { index: number }) {
 
     <svg key={1} width="60%" viewBox="0 0 400 400">
       <defs>
-        <linearGradient id="clarityLeft" x1="20" y1="60" x2="230" y2="200">
-          <stop offset="0%" stopColor={colors.sky} stopOpacity="0.95" />
-          <stop offset="100%" stopColor={colors.white} stopOpacity="0.9" />
-        </linearGradient>
-        <linearGradient id="clarityRight" x1="380" y1="60" x2="170" y2="200">
-          <stop offset="0%" stopColor={colors.peach} stopOpacity="0.95" />
-          <stop offset="100%" stopColor={colors.white} stopOpacity="0.9" />
-        </linearGradient>
-        <radialGradient id="clarityCore" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor={colors.white} stopOpacity="0.95" />
-          <stop offset="45%" stopColor={colors.cyan} stopOpacity="0.28" />
-          <stop offset="100%" stopColor={colors.cyan} stopOpacity="0" />
-        </radialGradient>
-      </defs>
-
-      <motion.circle
-        cx="200"
-        cy="200"
-        r="104"
-        fill="url(#clarityCore)"
-        initial={{ scale: 0.9, opacity: 0 }}
-        animate={{ scale: [0.96, 1.06, 0.96], opacity: [0.35, 0.72, 0.35] }}
-        transition={{
-          duration: 6.6,
-          repeat: Infinity,
-          type: "tween",
-          ease: "easeInOut",
-        }}
-      />
-
-      {[
-        { x1: 20, y1: 60, x2: 200, y2: 200 },
-        { x1: 20, y1: 130, x2: 200, y2: 200 },
-        { x1: 20, y1: 200, x2: 200, y2: 200 },
-        { x1: 20, y1: 270, x2: 200, y2: 200 },
-        { x1: 20, y1: 340, x2: 200, y2: 200 },
-      ].map((line, i) => (
-        <motion.path
-          key={`left-${i}`}
-          d={`M ${line.x1} ${line.y1} Q ${(line.x1 + line.x2) / 2 + 30} ${(line.y1 + line.y2) / 2} ${line.x2} ${line.y2}`}
-          fill="none"
-          stroke="url(#clarityLeft)"
-          strokeWidth="1.5"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: [0.45, 1, 0.8] }}
-          transition={{
-            delay: i * 0.1,
-            duration: 2.8,
-            repeat: Infinity,
-            repeatType: "mirror",
-            ease: "easeInOut",
-          }}
-        />
-      ))}
-
-      {[
-        { x1: 380, y1: 60, x2: 200, y2: 200 },
-        { x1: 380, y1: 130, x2: 200, y2: 200 },
-        { x1: 380, y1: 200, x2: 200, y2: 200 },
-        { x1: 380, y1: 270, x2: 200, y2: 200 },
-        { x1: 380, y1: 340, x2: 200, y2: 200 },
-      ].map((line, i) => (
-        <motion.path
-          key={`right-${i}`}
-          d={`M ${line.x1} ${line.y1} Q ${(line.x1 + line.x2) / 2 - 30} ${(line.y1 + line.y2) / 2} ${line.x2} ${line.y2}`}
-          fill="none"
-          stroke="url(#clarityRight)"
-          strokeWidth="1.5"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: [0.45, 1, 0.8] }}
-          transition={{
-            delay: 0.5 + i * 0.1,
-            duration: 2.8,
-            repeat: Infinity,
-            repeatType: "mirror",
-            ease: "easeInOut",
-          }}
-        />
-      ))}
-
-      {[
-        { cx: 20, cy: 60, fill: colors.sky },
-        { cx: 20, cy: 200, fill: colors.cyan },
-        { cx: 20, cy: 340, fill: colors.lilac },
-        { cx: 380, cy: 60, fill: colors.peach },
-        { cx: 380, cy: 200, fill: colors.rose },
-        { cx: 380, cy: 340, fill: colors.amber },
-      ].map((dot, i) => (
-        <motion.circle
-          key={`clarity-dot-${i}`}
-          cx={dot.cx}
-          cy={dot.cy}
-          r="4.5"
-          fill={dot.fill}
-          fillOpacity="0.96"
-          initial={{ scale: 0, opacity: 0 }}
-          animate={{ scale: [0.8, 1.1, 0.8], opacity: [0.3, 0.95, 0.3] }}
-          transition={{
-            delay: 0.2 + i * 0.08,
-            duration: 2.4,
-            repeat: Infinity,
-            type: "tween",
-            ease: "easeInOut",
-          }}
-        />
-      ))}
-
-      <motion.rect
-        x="176"
-        y="176"
-        width="48"
-        height="48"
-        rx="14"
-        fill={colors.white}
-        fillOpacity="0.18"
-        stroke={colors.sky}
-        strokeOpacity="0.35"
-        strokeWidth="1"
-        transform="rotate(45 200 200)"
-        initial={{ scale: 0.85, opacity: 0 }}
-        animate={{ scale: [0.92, 1.06, 0.92], opacity: [0.35, 0.7, 0.35] }}
-        transition={{
-          duration: 3.8,
-          repeat: Infinity,
-          type: "tween",
-          ease: "easeInOut",
-        }}
-      />
-
-      <motion.circle
-        cx="200"
-        cy="200"
-        r="11"
-        fill={colors.ice}
-        fillOpacity="1"
-        initial={{ scale: 0 }}
-        animate={{ scale: [0.92, 1.26, 1] }}
-        transition={{ delay: 1, duration: 0.7, type: "tween", ease }}
-      />
-
-      <motion.text
-        x="200"
-        y="360"
-        textAnchor="middle"
-        fill={colors.sky}
-        fillOpacity="0.92"
-        fontSize="11"
-        letterSpacing="4"
-        fontFamily={labelFont}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.2 }}
-      >
-        OWNERSHIP
-      </motion.text>
-    </svg>,
-
-    <svg key={2} width="60%" viewBox="0 0 400 400">
-      <defs>
         <radialGradient id="trustCenterGlow" cx="50%" cy="50%" r="50%">
           <stop offset="0%" stopColor={colors.white} stopOpacity="0.95" />
           <stop offset="42%" stopColor={colors.cyan} stopOpacity="0.32" />
@@ -489,6 +330,167 @@ export default function CultureGraphic({ index }: { index: number }) {
         animate={{ opacity: 1 }}
         transition={{ delay: 1.1 }}
       >
+        {/* INNOVATION */}
+        OWNERSHIP
+      </motion.text>
+    </svg>,
+
+    <svg key={2} width="60%" viewBox="0 0 400 400">
+      <defs>
+        <linearGradient id="clarityLeft" x1="20" y1="60" x2="230" y2="200">
+          <stop offset="0%" stopColor={colors.sky} stopOpacity="0.95" />
+          <stop offset="100%" stopColor={colors.white} stopOpacity="0.9" />
+        </linearGradient>
+        <linearGradient id="clarityRight" x1="380" y1="60" x2="170" y2="200">
+          <stop offset="0%" stopColor={colors.peach} stopOpacity="0.95" />
+          <stop offset="100%" stopColor={colors.white} stopOpacity="0.9" />
+        </linearGradient>
+        <radialGradient id="clarityCore" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor={colors.white} stopOpacity="0.95" />
+          <stop offset="45%" stopColor={colors.cyan} stopOpacity="0.28" />
+          <stop offset="100%" stopColor={colors.cyan} stopOpacity="0" />
+        </radialGradient>
+      </defs>
+
+      <motion.circle
+        cx="200"
+        cy="200"
+        r="104"
+        fill="url(#clarityCore)"
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: [0.96, 1.06, 0.96], opacity: [0.35, 0.72, 0.35] }}
+        transition={{
+          duration: 6.6,
+          repeat: Infinity,
+          type: "tween",
+          ease: "easeInOut",
+        }}
+      />
+
+      {[
+        { x1: 20, y1: 60, x2: 200, y2: 200 },
+        { x1: 20, y1: 130, x2: 200, y2: 200 },
+        { x1: 20, y1: 200, x2: 200, y2: 200 },
+        { x1: 20, y1: 270, x2: 200, y2: 200 },
+        { x1: 20, y1: 340, x2: 200, y2: 200 },
+      ].map((line, i) => (
+        <motion.path
+          key={`left-${i}`}
+          d={`M ${line.x1} ${line.y1} Q ${(line.x1 + line.x2) / 2 + 30} ${(line.y1 + line.y2) / 2} ${line.x2} ${line.y2}`}
+          fill="none"
+          stroke="url(#clarityLeft)"
+          strokeWidth="1.5"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{ pathLength: 1, opacity: [0.45, 1, 0.8] }}
+          transition={{
+            delay: i * 0.1,
+            duration: 2.8,
+            repeat: Infinity,
+            repeatType: "mirror",
+            ease: "easeInOut",
+          }}
+        />
+      ))}
+
+      {[
+        { x1: 380, y1: 60, x2: 200, y2: 200 },
+        { x1: 380, y1: 130, x2: 200, y2: 200 },
+        { x1: 380, y1: 200, x2: 200, y2: 200 },
+        { x1: 380, y1: 270, x2: 200, y2: 200 },
+        { x1: 380, y1: 340, x2: 200, y2: 200 },
+      ].map((line, i) => (
+        <motion.path
+          key={`right-${i}`}
+          d={`M ${line.x1} ${line.y1} Q ${(line.x1 + line.x2) / 2 - 30} ${(line.y1 + line.y2) / 2} ${line.x2} ${line.y2}`}
+          fill="none"
+          stroke="url(#clarityRight)"
+          strokeWidth="1.5"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{ pathLength: 1, opacity: [0.45, 1, 0.8] }}
+          transition={{
+            delay: 0.5 + i * 0.1,
+            duration: 2.8,
+            repeat: Infinity,
+            repeatType: "mirror",
+            ease: "easeInOut",
+          }}
+        />
+      ))}
+
+      {[
+        { cx: 20, cy: 60, fill: colors.sky },
+        { cx: 20, cy: 200, fill: colors.cyan },
+        { cx: 20, cy: 340, fill: colors.lilac },
+        { cx: 380, cy: 60, fill: colors.peach },
+        { cx: 380, cy: 200, fill: colors.rose },
+        { cx: 380, cy: 340, fill: colors.amber },
+      ].map((dot, i) => (
+        <motion.circle
+          key={`clarity-dot-${i}`}
+          cx={dot.cx}
+          cy={dot.cy}
+          r="4.5"
+          fill={dot.fill}
+          fillOpacity="0.96"
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: [0.8, 1.1, 0.8], opacity: [0.3, 0.95, 0.3] }}
+          transition={{
+            delay: 0.2 + i * 0.08,
+            duration: 2.4,
+            repeat: Infinity,
+            type: "tween",
+            ease: "easeInOut",
+          }}
+        />
+      ))}
+
+      <motion.rect
+        x="176"
+        y="176"
+        width="48"
+        height="48"
+        rx="14"
+        fill={colors.white}
+        fillOpacity="0.18"
+        stroke={colors.sky}
+        strokeOpacity="0.35"
+        strokeWidth="1"
+        transform="rotate(45 200 200)"
+        initial={{ scale: 0.85, opacity: 0 }}
+        animate={{ scale: [0.92, 1.06, 0.92], opacity: [0.35, 0.7, 0.35] }}
+        transition={{
+          duration: 3.8,
+          repeat: Infinity,
+          type: "tween",
+          ease: "easeInOut",
+        }}
+      />
+
+      <motion.circle
+        cx="200"
+        cy="200"
+        r="11"
+        fill={colors.ice}
+        fillOpacity="1"
+        initial={{ scale: 0 }}
+        animate={{ scale: [0.92, 1.26, 1] }}
+        transition={{ delay: 1, duration: 0.7, type: "tween", ease }}
+      />
+
+      <motion.text
+        x="200"
+        y="360"
+        textAnchor="middle"
+        fill={colors.sky}
+        fillOpacity="0.92"
+        fontSize="11"
+        letterSpacing="4"
+        fontFamily={labelFont}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.2 }}
+      >
+        {/* OWNERSHIP */}
         INNOVATION
       </motion.text>
     </svg>,
@@ -564,51 +566,103 @@ export default function CultureGraphic({ index }: { index: number }) {
       ))}
 
       {[
-        { x: 98, y: 78, w: 44, h: 36, label: "ENG" },
-        { x: 258, y: 78, w: 44, h: 36, label: "OPS" },
-        { x: 70, y: 196, w: 44, h: 36, label: "QA" },
-        { x: 286, y: 196, w: 44, h: 36, label: "DEL" },
-        { x: 122, y: 286, w: 44, h: 36, label: "DATA" },
-        { x: 234, y: 286, w: 44, h: 36, label: "SITE" },
-      ].map((node, i) => (
-        <motion.g
-          key={`collab-node-${i}`}
-          initial={{ opacity: 0, scale: 0.85 }}
-          animate={{
-            opacity: 1,
-            scale: [0.96, 1.03, 0.96],
-            y: [0, i % 2 === 0 ? -4 : 4, 0],
-          }}
-          transition={{
-            delay: 0.3 + i * 0.08,
-            duration: 4.4 + i * 0.18,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        >
-          <rect
-            x={node.x}
-            y={node.y}
-            width={node.w}
-            height={node.h}
-            rx="12"
-            fill="rgba(255,255,255,0.08)"
-            stroke="url(#collaborationNode)"
-            strokeOpacity="0.7"
-          />
-          <text
-            x={node.x + node.w / 2}
-            y={node.y + 22}
-            textAnchor="middle"
-            fill={colors.white}
-            fontSize="10"
-            letterSpacing="1.8"
-            fontFamily={labelFont}
+        {
+          x: 34,
+          y: 66,
+          w: 122,
+          h: 56,
+          lines: ["Project Management", "and BD"],
+        },
+        {
+          x: 244,
+          y: 66,
+          w: 122,
+          h: 56,
+          lines: ["Quality", "Assurance"],
+        },
+        {
+          x: 12,
+          y: 184,
+          w: 126,
+          h: 56,
+          lines: ["Testing and", "Validation"],
+        },
+        {
+          x: 262,
+          y: 184,
+          w: 126,
+          h: 56,
+          lines: ["Product", "Development"],
+        },
+        {
+          x: 74,
+          y: 280,
+          w: 124,
+          h: 56,
+          lines: ["Information", "Technology"],
+        },
+        {
+          x: 228,
+          y: 286,
+          w: 84,
+          h: 40,
+          lines: ["SITE"],
+        },
+      ].map((node, i) => {
+        const lineHeight = 10;
+        const centerX = node.x + node.w / 2;
+        const textStartY =
+          node.y + node.h / 2 - ((node.lines.length - 1) * lineHeight) / 2 + 1;
+
+        return (
+          <motion.g
+            key={`collab-node-${i}`}
+            initial={{ opacity: 0, scale: 0.85 }}
+            animate={{
+              opacity: 1,
+              scale: [0.96, 1.03, 0.96],
+              y: [0, i % 2 === 0 ? -4 : 4, 0],
+            }}
+            transition={{
+              delay: 0.3 + i * 0.08,
+              duration: 4.4 + i * 0.18,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
           >
-            {node.label}
-          </text>
-        </motion.g>
-      ))}
+            <rect
+              x={node.x}
+              y={node.y}
+              width={node.w}
+              height={node.h}
+              rx="14"
+              fill="rgba(255,255,255,0.08)"
+              stroke="url(#collaborationNode)"
+              strokeOpacity="0.7"
+            />
+            <text
+              x={centerX}
+              y={textStartY}
+              textAnchor="middle"
+              fill={colors.white}
+              fontSize="7.4"
+              fontWeight="600"
+              letterSpacing="0.45"
+              fontFamily={labelFont}
+            >
+              {node.lines.map((line, lineIndex) => (
+                <tspan
+                  key={`${line}-${lineIndex}`}
+                  x={centerX}
+                  dy={lineIndex === 0 ? 0 : lineHeight}
+                >
+                  {line}
+                </tspan>
+              ))}
+            </text>
+          </motion.g>
+        );
+      })}
 
       <motion.rect
         x="154"

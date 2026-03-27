@@ -17,3 +17,4 @@ export * from "./pages/home-page";
 export * from "./pages/who-we-are";
 export * from "./pages/iclinrt";
 export * from "./pages/brochures";
+export * from "./pages/clinrt-world";

@@ -329,7 +329,7 @@ export default function IclinrtPage() {
           priority // Add if this is above the fold
           sizes="100vw" // Helps with responsive loading
         />
-        <div className="absolute inset-0 bg-linear-to-b from-black/65 via-black/45 to-black/70" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(224,242,254,0.2)_0%,rgba(167,243,208,0.16)_22%,rgba(14,116,144,0.4)_52%,rgba(15,23,42,0.84)_100%)]" />
         <div className="hero-content-lift relative z-10 section-shell w-full pb-16 pt-28 text-white md:pb-20 md:pt-36 lg:pb-24">
           <ScrollReveal className="max-w-3xl text-white">
             <Image
@@ -339,7 +339,7 @@ export default function IclinrtPage() {
               height={72}
               priority
             />
-            <p className="mt-4 type-h2 font-semibold text-white">
+            <p className="mt-4 page-banner-title font-semibold text-white">
               Configuration That Matters
             </p>
             <p className="mt-4 text-white/85">
@@ -487,7 +487,7 @@ export default function IclinrtPage() {
             ))}
           </div>
 
-          {/* MODAL — unchanged */}
+          {/* MODAL â€” unchanged */}
           <AnimatePresence>
             {activeService && activeServiceMedia && (
               <motion.div
@@ -1082,6 +1082,7 @@ export default function IclinrtPage() {
     </PageTransition>
   );
 }
+
 
 
 

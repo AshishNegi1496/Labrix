@@ -299,13 +299,6 @@ export default function WhoWeArePage() {
     <PageTransition>
       {/* ================= HERO ================= */}
       <section className="relative h-screen overflow-hidden">
-        {/* <video
-          className="absolute inset-0 h-full w-full object-cover scale-105"
-          src="/videos/homePageVideo.mp4"
-          autoPlay
-          muted
-          loop
-        /> */}
         <Image
           src="/images/about-baner.avif"
           alt="Background"
@@ -316,7 +309,7 @@ export default function WhoWeArePage() {
         />
 
         {/* overlay */}
-        {/* <div className="absolute inset-0 bg-linear-to-b from-black/40 via-black/70 to-black/95" /> */}
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(224,242,254,0.2)_0%,rgba(167,243,208,0.16)_22%,rgba(14,116,144,0.4)_52%,rgba(15,23,42,0.84)_100%)]" />
 
         {/* animated gradient blobs */}
         <motion.div
@@ -332,7 +325,7 @@ export default function WhoWeArePage() {
 
         <div className="hero-content-lift relative z-10 flex h-full items-end section-shell pb-16 text-white mb-16 md:pb-20 lg:pb-24">
           <ScrollReveal className="max-w-3xl">
-            <p className="mt-6 text-5xl md:text-6xl font-semibold leading-tight max-w-3xl">
+            <p className="mt-6 max-w-3xl page-banner-title font-semibold">
               Experienced people.
               <br />
               Thoughtful work.
@@ -415,8 +408,8 @@ export default function WhoWeArePage() {
                 >
                   <p className="text-base leading-8 text-white/60">
                     Our background spans clinical operations, technology, and
-                    delivery — giving us a practical view of what works and what
-                    does not.
+                    delivery â€” giving us a practical view of what works and
+                    what does not.
                   </p>
                   <p className="text-base leading-8 text-white/60">
                     We believe good work comes from clear thinking, strong
@@ -642,7 +635,7 @@ export default function WhoWeArePage() {
                   className="mb-6 border-l border-slate-200/90 pl-4 text-sm leading-7 text-slate-600"
                 >
                   We focus on improving coordination, strengthening visibility,
-                  and supporting consistent execution across studies —
+                  and supporting consistent execution across studies â€”
                   reflecting real world needs.
                 </motion.p>
 
@@ -727,7 +720,7 @@ export default function WhoWeArePage() {
                   className="border-l border-slate-200/90 pl-4 text-sm leading-7 text-slate-600"
                 >
                   Clear information, connected ways of working, and dependable
-                  support so studies move forward with fewer disruptions —
+                  support so studies move forward with fewer disruptions â€”
                   helping research teams{" "}
                   <span className="font-medium text-slate-900">
                     focus on progress instead of process.
@@ -1052,140 +1045,155 @@ export default function WhoWeArePage() {
       </SectionWrapper>
 
       {/* ================= CULTURE ================= */}
-      {/* Replace your existing SectionWrapper content with this */}
+
       <SectionWrapper
         id="culture"
         fullBleed
         className="py-1 sm:py-3 md:py-2 lg:py-2"
         innerClassName="overflow-visible"
       >
-        <div className="bg-linear-to-r from-black to-blue-200 text-white rounded-3xl overflow-hidden">
-          <div className="px-5 pt-5 sm:px-6 sm:pt-6 lg:px-6 lg:pt-5 xl:px-7 xl:pt-6">
-            <SectionBadge>Our Culture</SectionBadge>
-          </div>
-          <p className="px-7 type-h2 font-semibold leading-tight">
-            Principles that shape how we work
-          </p>
-          <div className="grid min-h-136 lg:h-[min(40rem,calc(100vh-4.5rem))] lg:grid-cols-[0.92fr_1.08fr] xl:h-[min(42rem,calc(100vh-5.5rem))]">
-            {/* LEFT — sticky graphic panel */}
-            <div className="sticky top-10 flex h-80 flex-col items-center justify-center border-r border-white/8 p-2 sm:h-104 lg:h-full  xl:top-10">
-              {/* Eyebrow */}
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="flex items-center gap-2 self-start"
-              ></motion.div>
-
-              {/* Dynamic SVG graphic */}
-              <div className="w-full h-full lg:w-full lg:h-full">
-                <CultureGraphic index={activeCultureCard} />
-              </div>
-
-              {/* Dot nav */}
-              <div className="mt-4 flex items-center gap-2 lg:mt-2">
-                {culture.map((_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setActiveCultureCard(i)}
-                    className={`transition-all duration-300 rounded-full ${
-                      activeCultureCard === i
-                        ? "w-6 h-1.5 bg-white"
-                        : "w-1.5 h-1.5 bg-white/30 hover:bg-white/50"
-                    }`}
-                  />
-                ))}
-              </div>
+        <div className="relative overflow-hidden rounded-3xl border border-slate-200/80 bg-[linear-gradient(135deg,#eef6ff_0%,#f8f7ff_48%,#fff4e8_100%)] text-slate-950 shadow-[0_28px_80px_rgba(148,163,184,0.18)]">
+          <div className="pointer-events-none absolute inset-x-10 top-0 h-px bg-linear-to-r from-transparent via-sky-200/90 to-transparent" />
+          <div className="pointer-events-none absolute inset-x-10 bottom-0 h-px bg-linear-to-r from-transparent via-orange-200/90 to-transparent" />
+          <div className="pointer-events-none absolute -left-12 top-10 h-40 w-40 rounded-full bg-sky-200/65 blur-3xl" />
+          <div className="pointer-events-none absolute right-0 top-1/3 h-52 w-52 rounded-full bg-indigo-200/40 blur-3xl" />
+          <div className="pointer-events-none absolute -bottom-8 right-10 h-44 w-44 rounded-full bg-orange-200/60 blur-3xl" />
+          <div className="relative z-10">
+            <div className="px-5 pt-5 sm:px-6 sm:pt-6 lg:px-6 lg:pt-5 xl:px-7 xl:pt-6">
+              <SectionBadge>Our Culture</SectionBadge>
             </div>
-
-            {/* RIGHT — stacked scroll cards */}
-            <div className="space-y-1 px-5  sm:px-6 sm:py-6 lg:px-7 lg:py-2 xl:px-8 xl:py-1">
-              {/* Heading */}
-
-              {/* Cards */}
-              {culture.map((c, i) => (
+            <p className="px-7 type-h2 font-semibold leading-tight">
+              Principles that shape how we work
+            </p>
+            <div className="grid min-h-136 lg:h-[min(40rem,calc(100vh-4.5rem))] lg:grid-cols-[0.92fr_1.08fr] xl:h-[min(42rem,calc(100vh-5.5rem))]">
+              {/* LEFT â€” sticky graphic panel */}
+              <div className="sticky top-10 flex h-80 flex-col items-center justify-center border-r border-slate-200/80 bg-white/22 p-2 backdrop-blur-[2px] sm:h-104 lg:h-full xl:top-10">
+                {/* Eyebrow */}
                 <motion.div
-                  key={i}
-                  initial={{ opacity: 0, x: 40 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, margin: "-80px" }}
-                  onViewportEnter={() => setActiveCultureCard(i)}
-                  transition={{
-                    duration: 0.6,
-                    delay: i * 0.08,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
-                  whileHover={{ x: 6 }}
-                  onClick={() => setActiveCultureCard(i)}
-                  className={`group cursor-pointer rounded-2xl border p-3.5 sm:p-4 transition-all duration-500 ${
-                    activeCultureCard === i
-                      ? "border-white/30 bg-white/12 shadow-[0_0_40px_rgba(255,255,255,0.06)]"
-                      : "border-white/8 bg-white/4 hover:border-white/15 hover:bg-white/8"
-                  }`}
-                >
-                  <div className="flex items-start gap-3">
-                    {/* Number */}
-                    <span
-                      className={`text-[10px] font-medium uppercase tracking-[0.3em] mt-1 transition-colors duration-300 ${
+                  initial={{ opacity: 0, y: -10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  className="flex items-center gap-2 self-start"
+                ></motion.div>
+
+                {/* Dynamic SVG graphic */}
+                <div className="relative h-full w-full lg:h-full lg:w-full">
+                  <div className="pointer-events-none absolute inset-[10%] rounded-4xl bg-(--color-primary) shadow-[0_24px_60px_rgba(15,23,42,0.24)]" />
+                  <div className="relative z-10 flex h-full w-full items-center justify-center">
+                    <CultureGraphic index={activeCultureCard} />
+                  </div>
+                </div>
+
+                {/* Dot nav */}
+                <div className="mt-4 flex items-center gap-2 lg:mt-2">
+                  {culture.map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setActiveCultureCard(i)}
+                      className={`rounded-full transition-all duration-300 ${
                         activeCultureCard === i
-                          ? "text-white/80"
-                          : "text-white/50"
+                          ? "h-1.5 w-6 bg-(--color-primary) shadow-[0_0_20px_rgba(100,102,174,0.35)]"
+                          : "h-1.5 w-1.5 bg-slate-400/40 hover:bg-slate-500/60"
                       }`}
-                    >
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-
-                    <div className="flex-1">
-                      <div className="flex items-center justify-between">
-                        <p className="font-semibold type-h4 ">{c.title}</p>
-                        {/* Active indicator */}
-                        <motion.div
-                          animate={{ scale: activeCultureCard === i ? 1 : 0 }}
-                          transition={{ duration: 0.3 }}
-                          className="h-1.5 w-1.5 rounded-full bg-orange-500 "
-                        />
-                      </div>
-                      <motion.p
-                        animate={{
-                          height: activeCultureCard === i ? "auto" : 0,
-                          opacity: activeCultureCard === i ? 1 : 0,
-                        }}
-                        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                        className="overflow-hidden type-h6 leading-6 text-white"
-                      >
-                        <span className="block mt-2">{c.text}</span>
-                      </motion.p>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-
-              {/* Bottom CTA card */}
-              <ScrollReveal delay={180}>
-                <motion.div
-                  whileHover={{ y: -4 }}
-                  className=" grid gap-2 rounded-[30px] border border-white/12 bg-white/6 p-2 backdrop-blur sm:p-4.5 md:mt-4 md:grid-cols-[1.1fr_auto] md:items-center"
-                >
-                  <div>
-                    <p className="text-xs font-semibold uppercase tracking-[0.35em] text-white/75">
-                      Shared Moments
-                    </p>
-                    <p className="mt-2 max-w-2xl text-2xl font-semibold leading-tight text-white">
-                      Our culture comes alive through shared moments.
-                    </p>
-                    <p className="mt-2 max-w-2xl text-sm leading-7 text-white/70">
-                      Explore the events, celebrations, and team experiences
-                      that shape how we work together across ClinRT.
-                    </p>
-                  </div>
-                  <div className="md:justify-self-end">
-                    <Button
-                      href="/clinrt-world?tab=Moments#content-hub"
-                      label="Explore Our Moments"
                     />
-                  </div>
-                </motion.div>
-              </ScrollReveal>
+                  ))}
+                </div>
+              </div>
+
+              {/* RIGHT â€” stacked scroll cards */}
+              <div className="space-y-1 px-5  sm:px-6 sm:py-6 lg:px-7 lg:py-2 xl:px-8 xl:py-1">
+                {/* Heading */}
+
+                {/* Cards */}
+                {culture.map((c, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, x: 40 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, margin: "-80px" }}
+                    onViewportEnter={() => setActiveCultureCard(i)}
+                    transition={{
+                      duration: 0.6,
+                      delay: i * 0.08,
+                      ease: [0.22, 1, 0.36, 1],
+                    }}
+                    whileHover={{ x: 6 }}
+                    onClick={() => setActiveCultureCard(i)}
+                    className={`group cursor-pointer rounded-2xl border p-3.5 transition-all duration-500 sm:p-4 ${
+                      activeCultureCard === i
+                        ? "border-[rgba(100,102,174,0.28)] bg-white/88 shadow-[0_20px_50px_rgba(100,102,174,0.12)]"
+                        : "border-slate-200/80 bg-white/58 hover:border-slate-300 hover:bg-white/74"
+                    }`}
+                  >
+                    <div className="flex items-start gap-3">
+                      {/* Number */}
+                      <span
+                        className={`text-[10px] font-medium uppercase tracking-[0.3em] mt-1 transition-colors duration-300 ${
+                          activeCultureCard === i
+                            ? "text-slate-500"
+                            : "text-slate-400"
+                        }`}
+                      >
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+
+                      <div className="flex-1">
+                        <div className="flex items-center justify-between">
+                          <p className="type-h4 font-semibold text-slate-950">
+                            {c.title}
+                          </p>
+                          {/* Active indicator */}
+                          <motion.div
+                            animate={{ scale: activeCultureCard === i ? 1 : 0 }}
+                            transition={{ duration: 0.3 }}
+                            className="h-1.5 w-1.5 rounded-full bg-orange-500 "
+                          />
+                        </div>
+                        <motion.p
+                          animate={{
+                            height: activeCultureCard === i ? "auto" : 0,
+                            opacity: activeCultureCard === i ? 1 : 0,
+                          }}
+                          transition={{
+                            duration: 0.4,
+                            ease: [0.22, 1, 0.36, 1],
+                          }}
+                          className="type-h6 overflow-hidden leading-6 text-slate-600"
+                        >
+                          <span className="block mt-2">{c.text}</span>
+                        </motion.p>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+
+                {/* Bottom CTA card */}
+                <ScrollReveal delay={180}>
+                  <motion.div
+                    whileHover={{ y: -4 }}
+                    className="grid gap-2 rounded-[30px] border border-slate-200/80 bg-white/72 p-2 shadow-[0_18px_40px_rgba(15,23,42,0.06)] backdrop-blur-sm sm:p-4.5 md:mt-4 md:grid-cols-[1.1fr_auto] md:items-center"
+                  >
+                    <div>
+                      <p className="text-xs font-semibold uppercase tracking-[0.35em] text-slate-500">
+                        Shared Moments
+                      </p>
+                      <p className="mt-2 max-w-2xl text-2xl font-semibold leading-tight text-slate-950">
+                        Our culture comes alive through shared moments.
+                      </p>
+                      <p className="mt-2 max-w-2xl text-sm leading-7 text-slate-600">
+                        Explore the events, celebrations, and team experiences
+                        that shape how we work together across ClinRT.
+                      </p>
+                    </div>
+                    <div className="md:justify-self-end">
+                      <Button
+                        href="/clinrt-world?tab=Moments#content-hub"
+                        label="Explore Our Moments"
+                      />
+                    </div>
+                  </motion.div>
+                </ScrollReveal>
+              </div>
             </div>
           </div>
         </div>
@@ -1257,7 +1265,7 @@ export default function WhoWeArePage() {
               practical experience with thoughtful design to build technology
               that stands up in real world research. Every person here
               contributes to making clinical operations clearer, smoother, and
-              more reliable—one workflow at a time.
+              more reliableâ€”one workflow at a time.
             </p> */}
 
             <div className="grid grid-cols-3 gap-6 mt-12">

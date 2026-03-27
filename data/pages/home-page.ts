@@ -127,33 +127,10 @@ export const homePosterItems = deepFreeze([
   {
     title: "Protocol-Ready IRT Stack",
     tag: "Launch",
-    image: "/images/case-study-1.jpg",
+    image: "/images/poster.jpg",
     href: "/what-we-build",
   },
-  {
-    title: "Supply Forecasting Console",
-    tag: "Update",
-    image: "/images/case-study-2.jpg",
-    href: "/clinrt-world",
-  },
-  {
-    title: "Live Trial Dashboards",
-    tag: "Insight",
-    image: "/images/case-study-3.jpg",
-    href: "/clinrt-world",
-  },
-  {
-    title: "Demo at Home",
-    tag: "Insight",
-    image: "/images/case-study-3.jpg",
-    href: "/clinrt-world",
-  },
-  {
-    title: "Trial at Lab",
-    tag: "Research",
-    image: "/images/case-study-3.jpg",
-    href: "/clinrt-world",
-  },
+
 ] as const);
 
 export const homeNewsItems = deepFreeze([

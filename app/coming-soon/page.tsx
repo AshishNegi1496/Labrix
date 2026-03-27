@@ -21,7 +21,7 @@ export default function ComingSoonPage() {
           <div className="hero-content-lift section-shell px-4 sm:px-6">
             <ScrollReveal className="coming-card mx-auto w-full max-w-4xl px-6 py-12 text-center text-white sm:px-10 sm:py-14">
               <span className="coming-pill">Coming Soon</span>
-              <h1 className="mt-5 type-h1 font-semibold text-white">
+              <h1 className="mt-5 page-banner-title font-semibold text-white">
                 This ClinRT module is on the way
               </h1>
               <p className="mt-4 text-white/80">

@@ -1,7 +1,22 @@
 import Image from "next/image";
 import Link from "next/link";
 import Button from "@/components/ui/Button";
+import type { IconType } from "react-icons";
+import {
+  FaFacebookF,
+  FaGlobe,
+  FaInstagram,
+  FaLinkedinIn,
+  FaYoutube,
+} from "react-icons/fa";
 import { footerData, getContactFormHref } from "@/data";
+
+const socialIcons: Record<string, IconType> = {
+  linkedin: FaLinkedinIn,
+  instagram: FaInstagram,
+  facebook: FaFacebookF,
+  youtube: FaYoutube,
+};
 
 export default function Footer() {
   const {
@@ -20,7 +35,7 @@ export default function Footer() {
           <div className="grid gap-10 lg:grid-cols-[1.2fr_0.7fr_0.9fr_1fr]">
             <div>
               <div className="flex items-center">
-                <Link href="/" className="flex items-center gap-2 z-50">
+                <Link href="/" className="z-50 flex items-center gap-2">
                   <Image
                     src="/images/company-logo.png"
                     alt="ClinRT Logo"
@@ -59,10 +74,22 @@ export default function Footer() {
               <p className="text-sm font-semibold uppercase tracking-wider">
                 {servicesLabel}
               </p>
-              <ul className="mt-4 space-y-2 text-sm text-black/70">
-                {services.map((service) => (
-                  <li key={service}>{service}</li>
-                ))}
+              <ul className="mt-4 flex flex-wrap gap-3 text-black/70">
+                {services.map((service) => {
+                  const Icon = socialIcons[service.toLowerCase()] ?? FaGlobe;
+
+                  return (
+                    <li key={service}>
+                      <span
+                        className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-black/8 bg-black/[0.03] text-lg text-black/70 transition hover:-translate-y-0.5 hover:border-orange-200 hover:bg-orange-50 hover:text-orange-600"
+                        title={service}
+                      >
+                        <Icon aria-hidden="true" />
+                        <span className="sr-only">{service}</span>
+                      </span>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
 
@@ -92,5 +119,3 @@ export default function Footer() {
     </footer>
   );
 }
-
-

@@ -28,7 +28,7 @@ export default function HeroBanner({
         <p className="text-xs uppercase tracking-[0.45em] text-black/70">
           {breadcrumb}
         </p>
-        <h1 className="mt-4 text-3xl sm:text-4xl md:text-6xl font-semibold">
+        <h1 className="mt-4 page-banner-title font-semibold">
           {title}
         </h1>
         {subtitle ? (

@@ -16,7 +16,7 @@ import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { FaqModal } from "@/components/FaqModal";
 import { TestimonialModal } from "@/components/TestimonialModal";
-import { FiArrowRight, FiChevronDown } from "react-icons/fi";
+import { FiArrowRight, FiChevronDown, FiPlay } from "react-icons/fi";
 import {
   FaFlask,
   FaCogs,
@@ -52,23 +52,23 @@ export default function HomePage() {
   return (
     <PageTransition>
       <section className="relative flex min-h-[90vh] items-end overflow-hidden sm:min-h-screen lg:min-h-[110vh]">
-        <video
-          className="absolute inset-0 h-full w-full object-cover"
-          src="/videos/home-final.mp4"
-          autoPlay
-          muted
-          loop
-          playsInline
+        <Image
+          src="/images/home-baner.avif"
+          alt="Background"
+          fill
+          className="object-cover scale-105"
+          priority // Add if this is above the fold
+          sizes="100vw" // Helps with responsive loading
         />
 
         {/* Dark overlay */}
-        {/* <div className="absolute inset-0 bg-linear-to-b from-black/70 via-black/70 to-black/90" /> */}
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(224,242,254,0.2)_0%,rgba(167,243,208,0.16)_22%,rgba(14,116,144,0.4)_52%,rgba(15,23,42,0.84)_100%)]" />
 
         <div className="hero-content-lift relative z-10 section-shell w-full pb-14 pt-28 text-white md:pb-20 md:pt-36 lg:pb-24">
           <div className="grid items-end gap-10 md:gap-14 lg:grid-cols-2 lg:gap-1">
             {/* LEFT CONTENT */}
             <ScrollReveal variant="left" className="max-w-3xl mb-1">
-              <p className="mt-12 type-h2 md:text-4xl leading-tight font-semibold">
+              <p className="mt-12 page-banner-title font-semibold">
                 Powering Smarter Clinical Research
               </p>
 
@@ -122,7 +122,10 @@ export default function HomePage() {
                 className="relative flex items-center justify-center h-40 w-40 rounded-full border border-white/80 backdrop-blur-md hover:scale-110 transition"
               >
                 <div className="absolute inset-0 rounded-full border border-white/80 animate-ping"></div>
-                <span className=" type-h6 tracking-wider">▶ Play</span>
+                <span className="type-h6 inline-flex items-center gap-2 tracking-wider">
+                  <FiPlay className="h-4 w-4 fill-current" />
+                  Play
+                </span>
               </a>
             </div>
           </div>
@@ -337,11 +340,11 @@ export default function HomePage() {
               <p className=" type-h6 mt-4 text-(--text-invert)">
                 These features collectively enable streamlined clinical trial
                 execution by reducing manual effort, minimizing operational
-                risks, and ensuring real‑time control across subjects, supplies,
-                and study data. The platform is designed to adapt to complex
-                protocol requirements while maintaining strong regulatory
-                compliance, transparency, and operational efficiency throughout
-                the trial lifecycle.
+                risks, and ensuring realâ€‘time control across subjects,
+                supplies, and study data. The platform is designed to adapt to
+                complex protocol requirements while maintaining strong
+                regulatory compliance, transparency, and operational efficiency
+                throughout the trial lifecycle.
               </p>
             </div>
           </ScrollReveal>
@@ -531,7 +534,7 @@ export default function HomePage() {
                           className="rounded-full object-cover"
                         />
                         <div className="absolute -bottom-1 -right-1 flex h-8 w-8 items-center justify-center rounded-full bg-(--color-orange)">
-                          ▶
+                          â–¶
                         </div>
                       </div>
 

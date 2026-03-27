@@ -35,20 +35,15 @@ export const iclinrtServiceMedia = deepFreeze([
 ] as const);
 
 export const iclinrtPotentialMedia = deepFreeze([
-  "/images/case-study-1.jpg",
-  "/images/case-study-2.jpg",
-  "/images/case-study-3.jpg",
-  "/images/service-1.jpg",
-  "/images/about-lab.png",
-  "/images/why-choose-image.jpg",
+  "/images/Kit-expiry.avif",
+  "/images/Kit-manage.avif",
+  "/images/subject-management.avif",
+  "/images/subject-randomisation-treatment.avif",
+  "/images/subject-randomisation-treatment.avif",
+  "/images/Kit-manage.avif",
 ] as const);
 
-export const iclinrtHowItWorksMedia = deepFreeze([
-  "/images/service-1.jpg",
-  "/images/about-lab.png",
-  "/images/why-choose-image.jpg",
-  "/images/case-study-2.jpg",
-] as const);
+
 
 export const iclinrtHowItWorksIcons = deepFreeze([
   FiCpu,

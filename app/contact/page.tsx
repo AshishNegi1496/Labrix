@@ -196,11 +196,11 @@ export default function Contact() {
           className="object-cover scale-105"
         />
 
-        <div className="absolute inset-0 bg-linear-to-b from-black/10 via-black/40 to-black/65" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(224,242,254,0.2)_0%,rgba(167,243,208,0.16)_22%,rgba(14,116,144,0.4)_52%,rgba(15,23,42,0.84)_100%)]" />
 
         <div className="hero-content-lift relative z-10 flex h-full items-end section-shell mb-4 pb-16 text-white md:pb-20 lg:p-24">
           <ScrollReveal className="max-w-3xl">
-            <p className="type-h1 md:text-6xl font-semibold">
+            <p className="page-banner-title font-semibold">
               {contactHero.punchline}
             </p>
 
@@ -902,4 +902,5 @@ export default function Contact() {
     </PageTransition>
   );
 }
+
 
