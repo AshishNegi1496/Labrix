@@ -134,9 +134,11 @@ export type FooterData = Readonly<{
   newsletterCta: string;
   newsletterAgreement: string;
   quickLinksLabel: string;
+  siteNavigationLabel: string;
   servicesLabel: string;
   hoursLabel: string;
   quickLinks: ReadonlyArray<LinkItem>;
+  siteNavigation: ReadonlyArray<LinkItem>;
   services: ReadonlyArray<string>;
   hours: ReadonlyArray<Readonly<{ label: string; value: string }>>;
   copyright: string;

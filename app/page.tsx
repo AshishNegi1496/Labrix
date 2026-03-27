@@ -75,22 +75,19 @@ export default function HomePage() {
               {/* Buttons */}
 
               {/* Hero Bottom Stats */}
-              <div className="mt-10 sm:mt-12 flex flex-wrap items-center gap-6 md:gap-10">
-                <div className="flex flex-row gap-2">
+              <div className="mt-10 flex flex-row items-center gap-4 sm:mt-12 sm:gap-5">
+                <div className="inline-flex items-center gap-3 rounded-3xl sm:px-5">
                   <CountUpOnView
                     to={40}
                     suffix="+"
-                    className="text-4xl font-semibold text-white"
+                    className="inline-block min-w-[3ch] text-right type-h1 font-semibold text-white tabular-nums sm:text-[2.6rem]"
                   />
-                  <p className="type-h6  text-white/70">
-                    Years of
-                    <br />
-                    Collective Experience
+                  <p className="type-h6 font-semibold leading-6 text-white sm:text-[15px]">
+                    Years Of Experience
                   </p>
                 </div>
 
-                {/* Client avatars */}
-                <div className="flex items-center gap-3 sm:gap-4">
+                <div className="inline-flex flex-wrap items-center gap-3  sm:flex-nowrap sm:px-5">
                   <Clients
                     avatars={[
                       { src: "/images/author-1.jpg" },
@@ -99,36 +96,27 @@ export default function HomePage() {
                       { src: "/images/author-2.jpg" },
                     ]}
                     label=""
-                    // title="5000+ Clients Worldwide"
+                    size={40}
+                    className="shrink-0"
                   />
-                  <div className="flex flex-row gap-2">
+                  <p className=" flex flex-col items-baseline gap-x-2 gap-y-1 type-h6 leading-6 text-white sm:flex-nowrap sm:text-[15px]">
+                    <span className="whitespace-nowrap">Trusted By</span>
+
                     <CountUpOnView
                       to={500}
                       suffix="+"
-                      className="text-4xl font-semibold text-white"
+                      className="inline-block min-w-[4ch] text-right type-h2 font-semibold leading-none text-white tabular-nums sm:text-[2.6rem]"
                     />
-                    <p className="type-h6 text-white/70">Clients</p>
-                  </div>
+                  </p>
+                  <span className="whitespace-nowrap type-h6 font-semibold mt-8 leading-6">
+                    Satisfied Clients
+                  </span>
                 </div>
               </div>
               <div className="mt-8 ">
                 <Button href="/who-we-are" label="Get Started" />
               </div>
             </ScrollReveal>
-
-            {/* RIGHT VIDEO CIRCLE */}
-            <div className="hidden lg:flex justify-end">
-              <a
-                href="https://www.youtube.com/watch?v=Y-x0efG1seA"
-                className="relative flex items-center justify-center h-40 w-40 rounded-full border border-white/80 backdrop-blur-md hover:scale-110 transition"
-              >
-                <div className="absolute inset-0 rounded-full border border-white/80 animate-ping"></div>
-                <span className="type-h6 inline-flex items-center gap-2 tracking-wider">
-                  <FiPlay className="h-4 w-4 fill-current" />
-                  Play
-                </span>
-              </a>
-            </div>
           </div>
         </div>
       </section>
@@ -404,7 +392,7 @@ export default function HomePage() {
                     { src: "/images/author-2.jpg" },
                   ]}
                   label="Trusted By"
-                  title="5k+ Clients"
+                  title="500+ Clients"
                   className="ml-6"
                 />
               </div>

@@ -40,6 +40,7 @@ import {
   sanitizePhoneValue,
   sanitizeTextValue,
 } from "@/lib/sanitize";
+import SectionBadge from "@/components/ui/SectionBadge";
 
 const ContactMap = dynamic(() => import("@/components/ContactMap"), {
   ssr: false,
@@ -672,9 +673,7 @@ export default function Contact() {
             viewport={{ once: true, amount: 0.25 }}
             className="rounded-4xl border border-slate-200 bg-white/85 p-6 shadow-[0_20px_60px_rgba(15,36,58,0.06)] backdrop-blur md:p-8"
           >
-            <p className="text-[11px] uppercase tracking-[0.3em] text-slate-500">
-              {contactInfoBlock.label}
-            </p>
+            <SectionBadge>{contactInfoBlock.label}</SectionBadge>
             <p className="mt-3 type-h3 font-semibold text-[#0f243a]">
               {contactInfoBlock.title}
             </p>
@@ -726,9 +725,7 @@ export default function Contact() {
             <div className="rounded-[1.75rem] border border-slate-200 bg-white p-5">
               <div className="flex flex-wrap items-center justify-between gap-4">
                 <div>
-                  <p className="text-[11px] uppercase tracking-[0.3em] text-slate-500">
-                    {contactMapBlock.label}
-                  </p>
+                  <SectionBadge>{contactMapBlock.label}</SectionBadge>
                   <h3 className="mt-2 text-2xl font-semibold text-[#0f243a]">
                     {contactMapBlock.title}
                   </h3>

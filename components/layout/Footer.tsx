@@ -18,11 +18,20 @@ const socialIcons: Record<string, IconType> = {
   youtube: FaYoutube,
 };
 
+const socialHrefMap: Record<string, string> = {
+  linkedin: "https://www.linkedin.com/company/111766542/admin/dashboard/",
+  instagram: "/coming-soon",
+  facebook: "/coming-soon",
+  youtube: "/coming-soon",
+};
+
 export default function Footer() {
   const {
     description,
     quickLinksLabel,
     quickLinks,
+    siteNavigationLabel,
+    siteNavigation,
     servicesLabel,
     services,
     copyright,
@@ -32,7 +41,7 @@ export default function Footer() {
     <footer>
       <div className="m-2">
         <div className="rounded-3xl bg-white px-8 py-10 text-black">
-          <div className="grid gap-10 lg:grid-cols-[1.2fr_0.7fr_0.9fr_1fr]">
+          <div className="grid gap-10 lg:grid-cols-[1.15fr_0.7fr_0.8fr_0.8fr_1fr]">
             <div>
               <div className="flex items-center">
                 <Link href="/" className="z-50 flex items-center gap-2">
@@ -50,7 +59,6 @@ export default function Footer() {
               </p>
             </div>
 
-            {/* 2. Quick Links */}
             <div>
               <p className="text-sm font-semibold uppercase tracking-wider">
                 {quickLinksLabel}
@@ -69,7 +77,24 @@ export default function Footer() {
               </ul>
             </div>
 
-            {/* 3. Services */}
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-wider">
+                {siteNavigationLabel}
+              </p>
+              <ul className="mt-4 space-y-2 text-sm text-black/70">
+                {siteNavigation.map((link) => (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      className="transition hover:text-black"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
             <div>
               <p className="text-sm font-semibold uppercase tracking-wider">
                 {servicesLabel}
@@ -77,23 +102,38 @@ export default function Footer() {
               <ul className="mt-4 flex flex-wrap gap-3 text-black/70">
                 {services.map((service) => {
                   const Icon = socialIcons[service.toLowerCase()] ?? FaGlobe;
+                  const href = socialHrefMap[service.toLowerCase()] ?? "/coming-soon";
+                  const isExternal = /^https?:\/\//u.test(href);
 
                   return (
                     <li key={service}>
-                      <span
-                        className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-black/8 bg-black/[0.03] text-lg text-black/70 transition hover:-translate-y-0.5 hover:border-orange-200 hover:bg-orange-50 hover:text-orange-600"
-                        title={service}
-                      >
-                        <Icon aria-hidden="true" />
-                        <span className="sr-only">{service}</span>
-                      </span>
+                      {isExternal ? (
+                        <a
+                          href={href}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-black/8 bg-black/[0.03] text-lg text-black/70 transition hover:-translate-y-0.5 hover:border-orange-200 hover:bg-orange-50 hover:text-orange-600"
+                          title={service}
+                        >
+                          <Icon aria-hidden="true" />
+                          <span className="sr-only">{service}</span>
+                        </a>
+                      ) : (
+                        <Link
+                          href={href}
+                          className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-black/8 bg-black/[0.03] text-lg text-black/70 transition hover:-translate-y-0.5 hover:border-orange-200 hover:bg-orange-50 hover:text-orange-600"
+                          title={service}
+                        >
+                          <Icon aria-hidden="true" />
+                          <span className="sr-only">{service}</span>
+                        </Link>
+                      )}
                     </li>
                   );
                 })}
               </ul>
             </div>
 
-            {/* 4. Contact CTA Section */}
             <div className="flex flex-col gap-4 border-l border-white/10 pl-0 lg:pl-8">
               <p className="text-sm font-semibold uppercase tracking-wider text-black">
                 Contact ClinRT
@@ -107,7 +147,6 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Copyright Section */}
           <div className="mt-12 border-t pt-6 text-center type-h6 text-black">
             {copyright}
           </div>

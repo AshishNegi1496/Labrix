@@ -307,7 +307,7 @@ video {
   justify-content: center;
   gap: clamp(8px, 2vw, 12px);
   width: 100%;
-  padding: clamp(12px, 2vw, 18px) clamp(16px, 3vw, 25px);
+  padding: clamp(8px, 1vw, 14px) clamp(12px, 2vw, 21px);
   text-align: center;
   z-index: 2;
   transition: all 0.3s ease-in-out;

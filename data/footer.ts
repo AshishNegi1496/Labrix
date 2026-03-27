@@ -13,6 +13,7 @@ export const footerData: FooterData = validateFooter(
     newsletterCta: "Join",
     newsletterAgreement: "I agree to the privacy policy.",
     quickLinksLabel: "Quick Links",
+    siteNavigationLabel: "Site Navigation",
     servicesLabel: "Social Platforms",
     hoursLabel: "Working Hours",
     quickLinks: [
@@ -21,6 +22,14 @@ export const footerData: FooterData = validateFooter(
       { href: "/iclinrt#iclinrt-usps", label: "USPs" },
       { href: getContactFormHref("touch"), label: "Careers" },
       { href: "/clinrt-world?tab=Blogs#content-hub", label: "Insights" },
+    ],
+    siteNavigation: [
+      { href: "/", label: "Home" },
+      { href: "/who-we-are", label: "About ClinRT" },
+      { href: "/iclinrt", label: "iClinRT" },
+      { href: "/clinrt-world", label: "ClinRT World" },
+      // { href: "/career", label: "Career" },
+      { href: "/contact", label: "Contact" },
     ],
     services: [
       "Linkedin",

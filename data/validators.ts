@@ -78,14 +78,20 @@ export function validateFooter(footer: FooterData): ValidatorResult<FooterData> 
   assertNonEmptyString(footer.newsletterCta, "footer.newsletterCta");
   assertNonEmptyString(footer.newsletterAgreement, "footer.newsletterAgreement");
   assertNonEmptyString(footer.quickLinksLabel, "footer.quickLinksLabel");
+  assertNonEmptyString(footer.siteNavigationLabel, "footer.siteNavigationLabel");
   assertNonEmptyString(footer.servicesLabel, "footer.servicesLabel");
   assertNonEmptyString(footer.hoursLabel, "footer.hoursLabel");
   assertArray(footer.quickLinks, "footer.quickLinks");
+  assertArray(footer.siteNavigation, "footer.siteNavigation");
   assertArray(footer.services, "footer.services");
   assertArray(footer.hours, "footer.hours");
   footer.quickLinks.forEach((link, index) => {
     assertNonEmptyString(link.href, `footer.quickLinks[${index}].href`);
     assertNonEmptyString(link.label, `footer.quickLinks[${index}].label`);
+  });
+  footer.siteNavigation.forEach((link, index) => {
+    assertNonEmptyString(link.href, `footer.siteNavigation[${index}].href`);
+    assertNonEmptyString(link.label, `footer.siteNavigation[${index}].label`);
   });
   return footer;
 }

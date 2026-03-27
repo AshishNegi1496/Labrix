@@ -39,6 +39,12 @@ export const iclinrtPotentialMedia = deepFreeze([
   "/images/Kit-manage.avif",
   "/images/subject-management.avif",
   "/images/subject-randomisation-treatment.avif",
+  "/images/Kit-manage.avif",
+  "/images/subject-randomisation-treatment.avif",
+    "/images/Kit-expiry.avif",
+  "/images/Kit-manage.avif",
+  "/images/subject-randomisation-treatment.avif",
+  "/images/subject-management.avif",
   "/images/subject-randomisation-treatment.avif",
   "/images/Kit-manage.avif",
 ] as const);

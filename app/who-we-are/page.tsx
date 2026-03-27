@@ -635,8 +635,8 @@ export default function WhoWeArePage() {
                   className="mb-6 border-l border-slate-200/90 pl-4 text-sm leading-7 text-slate-600"
                 >
                   We focus on improving coordination, strengthening visibility,
-                  and supporting consistent execution across studies â€”
-                  reflecting real world needs.
+                  and supporting consistent execution across studies reflecting
+                  real world needs.
                 </motion.p>
 
                 {/* POINTS */}
@@ -720,8 +720,8 @@ export default function WhoWeArePage() {
                   className="border-l border-slate-200/90 pl-4 text-sm leading-7 text-slate-600"
                 >
                   Clear information, connected ways of working, and dependable
-                  support so studies move forward with fewer disruptions â€”
-                  helping research teams{" "}
+                  support so studies move forward with fewer disruptions helping
+                  research teams{" "}
                   <span className="font-medium text-slate-900">
                     focus on progress instead of process.
                   </span>
@@ -1032,14 +1032,6 @@ export default function WhoWeArePage() {
                 </div>
               </ScrollReveal>
             </div>
-            {/* 
-            <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-              {leadership.map((m, i) => (
-                <ScrollReveal key={m.name} delay={i * 100}>
-                  <LeadershipProfileCard leader={m} />
-                </ScrollReveal>
-              ))}
-            </div> */}
           </div>
         </div>
       </SectionWrapper>

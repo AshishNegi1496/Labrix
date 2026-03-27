@@ -40,6 +40,7 @@ import {
   type Brochure,
 } from "@/data";
 import { cn } from "@/lib/cn";
+import SectionBadge from "@/components/ui/SectionBadge";
 
 const tabs = ["News", "Events", "Moments", "Blogs", "Brochures"] as const;
 
@@ -321,9 +322,7 @@ export default function WhatsNewPage() {
           <div className="relative grid gap-6 lg:grid-cols-[minmax(15.75rem,16.75rem)_minmax(0,1fr)] xl:grid-cols-[280px_1fr] lg:gap-8">
             <aside className="lg:sticky lg:top-10 lg:h-fit xl:top-12">
               <ScrollReveal className="rounded-[1.75rem] border border-orange-100/80 bg-[linear-gradient(180deg,rgba(255,248,243,0.96)_0%,rgba(255,255,255,0.86)_100%)] p-4 shadow-[0_20px_60px_rgba(15,36,58,0.08)] backdrop-blur sm:p-5 xl:p-6">
-                <p className="type-h6 font-semibold uppercase tracking-[0.35em] text-black/45">
-                  Content Hub
-                </p>
+                <SectionBadge>Content Hub</SectionBadge>
 
                 <div className="mt-6 grid grid-cols-2 gap-3">
                   <div className="rounded-2xl bg-(--color-primary) p-4 text-white">
@@ -367,9 +366,7 @@ export default function WhatsNewPage() {
                           <activeContent.icon className="h-5 w-5 sm:h-6 sm:w-6" />
                         </span>
                         <div>
-                          <p className="text-xs font-semibold uppercase tracking-[0.35em] text-black/40">
-                            Active Collection
-                          </p>
+                          <SectionBadge>Active Collection</SectionBadge>
                           <p className="mt-2 text-2xl font-semibold leading-tight text-black sm:text-3xl md:text-4xl">
                             {activeContent.title}
                           </p>
@@ -692,9 +689,9 @@ function ResourceCard({
         item.featured && "md:col-span-2",
       )}
     >
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-linear-to-r from-sky-100/60 via-orange-50/70 to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-18 bg-linear-to-r from-sky-100/60 via-orange-50/70 to-transparent" />
       <div className="relative">
-        <div className="flex items-start justify-between gap-4">
+        <div className="flex items-start justify-between ">
           <span className="inline-flex rounded-full border border-black/8 bg-slate-50 px-3 py-1 text-[11px] uppercase tracking-[0.32em] text-black/55">
             {item.eyebrow}
           </span>

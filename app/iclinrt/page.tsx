@@ -330,8 +330,8 @@ export default function IclinrtPage() {
           sizes="100vw" // Helps with responsive loading
         />
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(224,242,254,0.2)_0%,rgba(167,243,208,0.16)_22%,rgba(14,116,144,0.4)_52%,rgba(15,23,42,0.84)_100%)]" />
-        <div className="hero-content-lift relative z-10 section-shell w-full pb-16 pt-28 text-white md:pb-20 md:pt-36 lg:pb-24">
-          <ScrollReveal className="max-w-3xl text-white">
+        <div className="hero-content-lift relative z-10 section-shell w-full pb-16 pt-20 text-white md:pb-20 md:pt-36 lg:pb-20 ">
+          <ScrollReveal className="max-w-3xl text-white mb-20">
             <Image
               src="/images/product-logo.png"
               alt="iClinRT"
