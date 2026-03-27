@@ -36,6 +36,7 @@ export default function Clients({
             alt={avatar.alt ?? "client"}
             width={size}
             height={size}
+            loading="lazy"
             className="rounded-full border border-white"
           />
         ))}

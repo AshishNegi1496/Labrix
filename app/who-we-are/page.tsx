@@ -21,7 +21,6 @@ import { IconType } from "react-icons";
 import {
   whoWeAreCulture as culture,
   whoWeAreHowWeWorkPoints as howWeWorkPoints,
-  whoWeAreLeadership as leadership,
   whoWeAreLeadershipPrinciples as leadershipPrinciples,
   whoWeAreMeaningPoints as meaningPoints,
   whoWeAreMissionPoints as missionPoints,
@@ -229,52 +228,6 @@ const StickyCards = ({ iclinrtUsps }: StickyCardsProps) => {
   );
 };
 
-function LeadershipProfileCard({
-  leader,
-}: {
-  leader: (typeof leadership)[number];
-}) {
-  return (
-    <article className="group overflow-hidden rounded-[1.75rem] border border-black/8 bg-white shadow-[0_18px_60px_rgba(15,23,42,0.08)] transition duration-500 hover:-translate-y-1 hover:border-black/12 hover:shadow-[0_28px_80px_rgba(15,23,42,0.14)]">
-      <div className="relative m-3 overflow-hidden rounded-[1.4rem]">
-        <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-20 bg-linear-to-r from-orange-200/30 via-white/20 to-sky-200/20 opacity-0 transition duration-500 group-hover:opacity-100" />
-        <div className="relative h-72 overflow-hidden rounded-[1.4rem]">
-          <Image
-            src={leader.image}
-            alt={leader.name}
-            fill
-            className="object-cover transition duration-700 group-hover:scale-[1.04]"
-          />
-          <div className="absolute inset-0 bg-linear-to-t from-slate-950/88 via-slate-950/24 to-transparent" />
-          <div className="absolute bottom-0 left-0 right-0 p-5">
-            <p className="text-xl font-semibold text-white">{leader.name}</p>
-            <p className="mt-1 text-[11px] uppercase tracking-[0.32em] text-white/65">
-              {leader.role}
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div className="px-6 pb-6 pt-2">
-        <p className="text-[11px] font-semibold uppercase tracking-[0.34em] text-black/40">
-          Leadership Focus
-        </p>
-        <p className="mt-4 text-sm leading-7 text-black/62">{leader.summary}</p>
-
-        <div className="mt-5 flex flex-wrap gap-2">
-          {leader.highlights.map((highlight) => (
-            <span
-              key={highlight}
-              className="rounded-full border border-black/8 bg-slate-50 px-3 py-1 text-[10px] uppercase tracking-[0.22em] text-black/55 transition duration-300 group-hover:border-orange-200 group-hover:bg-orange-50 group-hover:text-orange-700"
-            >
-              {highlight}
-            </span>
-          ))}
-        </div>
-      </div>
-    </article>
-  );
-}
 /* ---------------- Page ---------------- */
 
 export default function WhoWeArePage() {
@@ -300,11 +253,11 @@ export default function WhoWeArePage() {
       {/* ================= HERO ================= */}
       <section className="relative h-screen overflow-hidden">
         <Image
-          src="/images/about-baner.avif"
+          src="/images/Experienced people. Thoughtful work. Trusted outcomes.webp"
           alt="Background"
           fill
+          loading="lazy"
           className="object-cover scale-105"
-          priority // Add if this is above the fold
           sizes="100vw" // Helps with responsive loading
         />
 
@@ -408,7 +361,7 @@ export default function WhoWeArePage() {
                 >
                   <p className="text-base leading-8 text-white/60">
                     Our background spans clinical operations, technology, and
-                    delivery â€” giving us a practical view of what works and
+                    delivery - giving us a practical view of what works and
                     what does not.
                   </p>
                   <p className="text-base leading-8 text-white/60">
@@ -1058,7 +1011,7 @@ export default function WhoWeArePage() {
               Principles that shape how we work
             </p>
             <div className="grid min-h-136 lg:h-[min(40rem,calc(100vh-4.5rem))] lg:grid-cols-[0.92fr_1.08fr] xl:h-[min(42rem,calc(100vh-5.5rem))]">
-              {/* LEFT â€” sticky graphic panel */}
+              {/* LEFT - sticky graphic panel */}
               <div className="sticky top-10 flex h-80 flex-col items-center justify-center border-r border-slate-200/80 bg-white/22 p-2 backdrop-blur-[2px] sm:h-104 lg:h-full xl:top-10">
                 {/* Eyebrow */}
                 <motion.div
@@ -1092,7 +1045,7 @@ export default function WhoWeArePage() {
                 </div>
               </div>
 
-              {/* RIGHT â€” stacked scroll cards */}
+              {/* RIGHT - stacked scroll cards */}
               <div className="space-y-1 px-5  sm:px-6 sm:py-6 lg:px-7 lg:py-2 xl:px-8 xl:py-1">
                 {/* Heading */}
 
@@ -1215,8 +1168,8 @@ export default function WhoWeArePage() {
                     src="/images/one-team.png"
                     fill
                     alt="team background"
+                    loading="lazy"
                     className="object-cover team-collage-bg"
-                    priority
                   />
                 </div>
               </div>
@@ -1238,6 +1191,7 @@ export default function WhoWeArePage() {
                       src={member.image}
                       fill
                       alt={member.image}
+                      loading="lazy"
                       className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
                     />
                   </div>
@@ -1257,7 +1211,7 @@ export default function WhoWeArePage() {
               practical experience with thoughtful design to build technology
               that stands up in real world research. Every person here
               contributes to making clinical operations clearer, smoother, and
-              more reliableâ€”one workflow at a time.
+              more reliable-one workflow at a time.
             </p> */}
 
             <div className="grid grid-cols-3 gap-6 mt-12">

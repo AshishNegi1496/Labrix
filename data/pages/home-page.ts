@@ -33,70 +33,37 @@ export const homeResearchFields = deepFreeze([
     title: "Precision Randomization & Treatment Control",
     description:
       "Balanced allocation across arms and cohorts, with safeguarded emergency unblinding.",
-    image: "/images/treatment.avif",
+    image: "/images/Precision Randomization & Treatment Control.webp",
   },
   {
     title: "Integrated IP Supply & Kit Operations",
     description:
       "Unified oversight of inventory, resupply, kit assignment, expiry, transfers, and temperature mapping.",
-    image: "/images/kit-ops.avif",
+    image: "/images/Integrated IP Supply & Kit Operations.webp",
   },
   {
     title: "Full Chain of Custody Accountability",
     description:
       "Complete traceability of every kit from creation to final reconciliation and destruction.",
-    image: "/images/custody.avif",
+    image: "/images/Full Chain of Custody Accountability.webp",
   },
   {
     title: " Streamlined Participant & Visit Workflow",
     description:
       "Protocol aligned configuration for screening, enrolment, and visit execution across all sites.",
-    image: "/images/workflow.avif",
+    image: "/images/Streamlined Participant & Visit Workflow.webp",
   },
   {
     title: "Real Time Operational Intelligence",
     description:
       "Dynamic dashboards, detailed reports, and event driven alerts for confident oversight.",
-    image: "/images/operations.avif",
+    image: "/images/Real Time Operational Intelligence.webp",
   },
   {
     title: "Compliance Ready, Connected, and Scalable",
     description:
       "Aligned with global regulations and seamlessly integrated with CTMS/EDC for multi region, multi phase trials.",
-    image: "/images/complaince.avif",
-  },
-] as const);
-
-export const homePageTestimonials = deepFreeze([
-  {
-    name: "Grace Martin",
-    role: "Lab Supervisor",
-    text: "ClinRT helped us streamline trial logistics and maintain full oversight across multiple study sites.",
-    image: "/images/author-2.jpg",
-  },
-  {
-    name: "Emma Davis",
-    role: "Project Coordinator",
-    text: "The platform simplified our coordination between research teams and improved operational clarity.",
-    image: "/images/author-3.jpg",
-  },
-  {
-    name: "Jenny Wilson",
-    role: "Research Analyst",
-    text: "From planning to execution, the tools allowed us to track every stage of our trials confidently.",
-    image: "/images/author-1.jpg",
-  },
-  {
-    name: "Ashish Sharma",
-    role: "Research Analyst",
-    text: "From planning to execution, the tools allowed us to track every stage of our trials confidently.",
-    image: "/images/author-1.jpg",
-  },
-  {
-    name: "Dennis Levi",
-    role: "Research Analyst",
-    text: "From planning to execution, the tools allowed us to track every stage of our trials confidently.",
-    image: "/images/author-1.jpg",
+    image: "/images/Compliance Ready, Connected, and Scalable.webp",
   },
 ] as const);
 
@@ -127,7 +94,13 @@ export const homePosterItems = deepFreeze([
   {
     title: "Introducing iClinRT",
     tag: "Launch",
-    image: "/images/poster.jpg",
+    image: "/images/poster1.webp",
+    href: "/what-we-build",
+  },
+    {
+    title: "",
+    tag: "Launch",
+    image: "/images/poster2.webp",
     href: "/what-we-build",
   },
 

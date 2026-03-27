@@ -25,28 +25,30 @@ export const iclinrtPhases = deepFreeze([
 ] as const);
 
 export const iclinrtServiceMedia = deepFreeze([
-  "/images/subject-management.avif",
-  "/images/subject-randomisation-treatment.avif",
-  "/images/kit-manage.avif",
-  "/images/trigger-auto-ship.avif",
-  "/images/kit-expiry.avif",
-  "/images/service6.png",
-  "/images/supply-site-inventory.avif",
+  "/images/Subject Management.webp",
+  "/images/Subject Randomization & Treatment Assignment.webp",
+  "/images/Kit Management and Assignment.webp",
+  "/images/Triggers and Auto Shipments.webp",
+  "/images/Triggers and Auto Shipments.webp",
+  "/images/Kit Expiry Date Management.webp",
+  "/images/Kit Expiry Date Management.webp",
 ] as const);
 
 export const iclinrtPotentialMedia = deepFreeze([
-  "/images/Kit-expiry.avif",
-  "/images/Kit-manage.avif",
-  "/images/subject-management.avif",
-  "/images/subject-randomisation-treatment.avif",
-  "/images/Kit-manage.avif",
-  "/images/subject-randomisation-treatment.avif",
-    "/images/Kit-expiry.avif",
-  "/images/Kit-manage.avif",
-  "/images/subject-randomisation-treatment.avif",
-  "/images/subject-management.avif",
-  "/images/subject-randomisation-treatment.avif",
-  "/images/Kit-manage.avif",
+  "/images/Management of every Subject.webp",
+  "/images/Fair Treatment Assignments.webp",
+  "/images/Supply That Thinks Ahead.webp",
+  "/images/Smart Kit Assignment.webp",
+  "/images/Safety First - Expiry Under Control.webp",
+  "/images/Kit Lifecycle Tracking.webp",
+  "/images/Controlled Unblinding - For True Emergencies Only.webp",
+  "/images/Reports and Dashboards for Complete Visibility.webp",
+  "/images/Stay Ahead with Notifications and Alerts.webp",
+  "/images/24x7 Expert Assisted Support.webp",
+  "/images/Quick Site-to-Site Transfers.webp",
+  "/images/Cold-Chain and Excursion Handling.webp",
+  "/images/Retention Sample Management.webp",
+  "/images/Study Startup and Go-Live Setup.webp",
 ] as const);
 
 

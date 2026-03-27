@@ -50,7 +50,7 @@ export default function Footer() {
                     alt="ClinRT Logo"
                     width={160}
                     height={20}
-                    priority
+                    loading="lazy"
                   />
                 </Link>
               </div>

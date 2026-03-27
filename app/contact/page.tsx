@@ -200,7 +200,7 @@ export default function Contact() {
           src={contactHero.image}
           alt="ClinRT operations workspace"
           fill
-          priority
+          loading="lazy"
           className="object-cover scale-105"
         />
 
@@ -227,7 +227,7 @@ export default function Contact() {
             src="/images/operations.avif"
             alt="ClinRT team collaborating on clinical operations"
             fill
-            priority
+            loading="lazy"
             className="object-cover object-center"
           />
           <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(8,27,46,0.94)_0%,rgba(8,27,46,0.82)_42%,rgba(8,27,46,0.56)_100%)]" />

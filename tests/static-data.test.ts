@@ -18,7 +18,6 @@ import {
   homeFaqItems,
   homeMovingWords,
   homeNewsItems,
-  homePageTestimonials,
   homePosterItems,
   homeResearchFields,
   homeWhyChoosePoints,
@@ -53,7 +52,6 @@ test("page data collections are populated", () => {
   assert.ok(homeFaqItems.length > 0);
   assert.ok(homeMovingWords.length > 0);
   assert.ok(homeNewsItems.length > 0);
-  assert.ok(homePageTestimonials.length > 0);
   assert.ok(homePosterItems.length > 0);
   assert.ok(homeResearchFields.length > 0);
   assert.ok(homeWhyChoosePoints.length > 0);

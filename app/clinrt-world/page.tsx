@@ -147,7 +147,7 @@ const contentByTab: Record<Tab, TabContent> = {
     items: [
       {
         eyebrow: "Celebration",
-        title: "Women’s Day Celebration",
+        title: "Women's Day Celebration",
         summary:
           "A heartfelt celebration recognizing the strength, contributions, and achievements of women at ClinRT, reflecting our commitment to inclusion and appreciation.",
         meta: "Photo collage",
@@ -155,11 +155,11 @@ const contentByTab: Record<Tab, TabContent> = {
         momentImages: [
           {
             src: "/images/moment4.jpg",
-            alt: "Women’s Day celebration highlight at ClinRT",
+            alt: "Women's Day celebration highlight at ClinRT",
           },
           {
             src: "/images/moment1.jpg",
-            alt: "Team gathering during the Women’s Day celebration",
+            alt: "Team gathering during the Women's Day celebration",
           },
         ],
         featured: true,
@@ -278,10 +278,10 @@ export default function WhatsNewPage() {
     <PageTransition>
       <section className="relative min-h-[88svh] overflow-hidden sm:h-screen">
         <Image
-          src="/images/iclinrt-world-baner.avif"
+          src="/images/Stay connected with our latest updates, resources, and milestones.webp"
           alt="What's new"
           fill
-          priority
+          loading="lazy"
           className="object-cover scale-105"
         />
 
@@ -641,6 +641,7 @@ function ResourceCard({
             src={moment.image}
             alt={item.title}
             fill
+            loading="lazy"
             sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
             className="object-cover scale-[1.06] blur-[6px] transition duration-700 group-hover:scale-[1.1] group-hover:blur-[5px]"
           />

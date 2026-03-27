@@ -80,6 +80,7 @@ export function MomentGalleryModal({
             src={moment.image}
             alt={moment.title}
             fill
+            loading="lazy"
             sizes="100vw"
             className="object-contain object-center"
           />
@@ -131,6 +132,7 @@ export function MomentGalleryModal({
                   src={image.src}
                   alt={image.alt}
                   fill
+                  loading="lazy"
                   sizes="(max-width: 640px) 100vw, 50vw"
                   className="object-contain object-center"
                 />

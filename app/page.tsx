@@ -15,8 +15,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { FaqModal } from "@/components/FaqModal";
-import { TestimonialModal } from "@/components/TestimonialModal";
-import { FiArrowRight, FiChevronDown, FiPlay } from "react-icons/fi";
+import { FiArrowRight, FiChevronDown } from "react-icons/fi";
 import {
   FaFlask,
   FaCogs,
@@ -29,7 +28,6 @@ import {
   homeFaqItems as faqs,
   homeMovingWords,
   homeNewsItems as newsItems,
-  homePageTestimonials as testimonials,
   homePosterItems as posterItems,
   homeResearchFields as researchFields,
   homeWhyChoosePoints as whyChoosePoints,
@@ -38,11 +36,7 @@ import {
 const movingTrack = [...homeMovingWords, ...homeMovingWords];
 
 export default function HomePage() {
-  const [activeIndex, setActiveIndex] = useState(1);
   const [isFaqModalOpen, setIsFaqModalOpen] = useState(false);
-  const [activeTestimonial, setActiveTestimonial] = useState<
-    (typeof testimonials)[number] | null
-  >(null);
   const [activeNewsIndex, setActiveNewsIndex] = useState<number | null>(null);
   const [hoveredNewsIndex, setHoveredNewsIndex] = useState<number | null>(null);
   const PREVIEW_COUNT = 5;
@@ -53,23 +47,27 @@ export default function HomePage() {
     <PageTransition>
       <section className="relative flex min-h-[90vh] items-end overflow-hidden sm:min-h-screen lg:min-h-[110vh]">
         <Image
-          src="/images/home-baner.avif"
+          src="/images/home-final.webp"
           alt="Background"
           fill
+          loading="lazy"
           className="object-cover scale-105"
-          priority // Add if this is above the fold
           sizes="100vw" // Helps with responsive loading
         />
 
         {/* Dark overlay */}
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(224,242,254,0.2)_0%,rgba(167,243,208,0.16)_22%,rgba(14,116,144,0.4)_52%,rgba(15,23,42,0.84)_100%)]" />
 
-        <div className="hero-content-lift relative z-10 section-shell w-full pb-14 pt-28 text-white md:pb-20 md:pt-36 lg:pb-24">
+        <div className="hero-content-lift relative z-10 section-shell w-full pb-20 pt-20 text-white md:pb-20 md:pt-36 lg:pb-24">
           <div className="grid items-end gap-10 md:gap-14 lg:grid-cols-2 lg:gap-1">
             {/* LEFT CONTENT */}
-            <ScrollReveal variant="left" className="max-w-3xl mb-1">
-              <p className="mt-12 page-banner-title font-semibold">
-                Powering Smarter Clinical Research
+            <ScrollReveal variant="left" className="max-w-3xl mb-16">
+              <p className=" page-banner-title font-semibold">
+                Intelligent, Interactive and Innovative
+              </p>
+              <p className="type-h4 font-semibold">
+                Customised and scalable IRT platform for managing clinical
+                trials in an efficient way
               </p>
 
               {/* Buttons */}
@@ -173,6 +171,7 @@ export default function HomePage() {
                         src={poster.image}
                         alt={poster.title}
                         fill
+                        loading="lazy"
                         sizes="100vw"
                         className="object-contain object-center transition-transform duration-700 ease-out"
                       />
@@ -329,7 +328,7 @@ export default function HomePage() {
               <p className=" type-h6 mt-4 text-(--text-invert)">
                 These features collectively enable streamlined clinical trial
                 execution by reducing manual effort, minimizing operational
-                risks, and ensuring realâ€‘time control across subjects,
+                risks, and ensuring real-time control across subjects,
                 supplies, and study data. The platform is designed to adapt to
                 complex protocol requirements while maintaining strong
                 regulatory compliance, transparency, and operational efficiency
@@ -376,6 +375,7 @@ export default function HomePage() {
                 width={520}
                 height={920}
                 className="rounded-2xl object-cover"
+                loading="lazy"
               />
 
               {/* Floating client badge */}
@@ -460,115 +460,6 @@ export default function HomePage() {
           </div>
         </div>
       </SectionWrapper>
-
-      {/* Testimonials section */}
-
-      {/* <SectionWrapper fullBleed>
-        <section className="relative overflow-hidden bg-(--primary-color) rounded-3xl text-white">
-          <div
-            className="absolute inset-0 opacity-20 bg-cover bg-center bg-fixed"
-            style={{ backgroundImage: "url('/images/pattern-bg.jpg')" }}
-          />
-
-          <div className="relative mx-auto max-w-7xl px-6 py-20 md:px-10">
-            <div className="text-center max-w-3xl mx-auto">
-              <ScrollReveal>
-                <SectionBadge>Our Testimonials</SectionBadge>
-                <p className="mt-4 type-h2 font-semibold text-white">
-                  Recognized for Providing Operational Transparency and Reliable
-                  Platform Performance
-                </p>
-              </ScrollReveal>
-            </div>
-
-            <GlassSlider
-              items={testimonials}
-              ariaLabel="Testimonials"
-              scrollerClassName="gap-8 px-[max(0px,calc((100%-18rem)/2))] sm:px-[max(0px,calc((100%-20rem)/2))] lg:px-[max(0px,calc((100%-24rem)/2))]"
-              controlsClassName="mt-4 justify-center"
-              edgeFadeClassName="from-[var(--color-primary)]/90 via-[var(--color-primary)]/60"
-              pageSize={1}
-              onActiveChange={(i) => setActiveIndex(i)}
-              snapAlign="center"
-              renderItem={(item, index) => {
-                const isCenter = index === activeIndex;
-                const isSide = Math.abs(index - activeIndex) === 1;
-
-                return (
-                  <ScrollReveal delay={index * 120}>
-                    <div
-                      onClick={(event) => {
-                        setActiveIndex(index);
-                        event.currentTarget.parentElement?.scrollIntoView({
-                          behavior: "smooth",
-                          block: "nearest",
-                          inline: "center",
-                        });
-                      }}
-                      className={`
-                  w-72 shrink-0 rounded-2xl border border-white/10 bg-white/10 p-6 backdrop-blur-md
-                  transition-all duration-500 cursor-pointer sm:w-80 lg:w-96
-                  ${isCenter ? "scale-110 z-10 bg-white/20 shadow-2xl border-white/30" : "scale-95"}
-                  ${isSide ? "blur-[1.5px] opacity-70" : ""}
-                  ${!isCenter && !isSide ? "blur-[3px] opacity-40" : ""}
-                  hover:bg-white/15
-                `}
-                    >
-                      <div className="relative mb-6 h-20 w-20">
-                        <Image
-                          width={140}
-                          height={120}
-                          src={item.image ?? "/images/default-avatar.jpg"}
-                          alt={item.name}
-                          className="rounded-full object-cover"
-                        />
-                        <div className="absolute -bottom-1 -right-1 flex h-8 w-8 items-center justify-center rounded-full bg-(--color-orange)">
-                          â–¶
-                        </div>
-                      </div>
-
-                      <p className="min-h-22 text-sm leading-relaxed text-white/80">
-                        {item.text}
-                      </p>
-
-                      <div className="mt-6 flex items-end justify-between gap-4 border-t border-white/10 pt-5">
-                        <div>
-                          <p className="font-semibold">{item.name}</p>
-                          <p className="text-sm text-white/60">{item.role}</p>
-                        </div>
-
-                        <button
-                          type="button"
-                          onPointerDown={(event) => event.stopPropagation()}
-                          onClick={(event) => {
-                            event.stopPropagation();
-                            setActiveIndex(index);
-                            setActiveTestimonial(item);
-                          }}
-                          className="group inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-medium text-white transition-all duration-300 hover:-translate-y-0.5 hover:border-white/30 hover:bg-white/20"
-                        >
-                          Read more
-                          <FiArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-                        </button>
-                      </div>
-                    </div>
-                  </ScrollReveal>
-                );
-              }}
-            />
-          </div>
-        </section>
-      </SectionWrapper> */}
-
-      {/* <AnimatePresence initial={false} mode="wait">
-        {activeTestimonial ? (
-          <TestimonialModal
-            key={`${activeTestimonial.name}-${activeTestimonial.role}`}
-            testimonial={activeTestimonial}
-            onClose={() => setActiveTestimonial(null)}
-          />
-        ) : null}
-      </AnimatePresence> */}
 
       {/* FAQs section  */}
 

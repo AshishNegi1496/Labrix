@@ -98,6 +98,7 @@ export default function GlassCard({
           src={image}
           alt={imageAlt || title || "Card image"}
           fill
+          loading="lazy"
           className={cn(
             "object-cover transition duration-500",
             imagePositionClass,

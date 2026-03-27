@@ -150,126 +150,6 @@ const StickyCards = ({
   );
 };
 
-function IclinrtMedia({ reduceMotion }: { reduceMotion: boolean }) {
-  return (
-    <div className="relative h-full min-h-80 overflow-hidden rounded-3xl border border-slate-200 bg-black">
-      <video
-        className="absolute inset-0 h-full w-full object-cover"
-        src="/videos/homePageVideo.mp4"
-        autoPlay
-        muted
-        loop
-        playsInline
-      />
-      <div className="absolute inset-0 bg-black/40" />
-      <div className="absolute inset-0 grid place-items-center">
-        <div className="relative h-56 w-56">
-          <span className="absolute inset-0 rounded-full bg-[radial-gradient(closest-side,rgba(255,255,255,0.2),rgba(0,0,0,0))]" />
-          <motion.span
-            className="absolute inset-0 rounded-full border border-white/25 border-dashed"
-            animate={reduceMotion ? undefined : { rotate: 360 }}
-            transition={
-              reduceMotion
-                ? undefined
-                : { duration: 46, repeat: Infinity, ease: "linear" }
-            }
-          />
-          <motion.span
-            className="absolute inset-3 rounded-full bg-[conic-gradient(from_90deg,rgba(255,255,255,0)_0deg,rgba(255,255,255,0.55)_45deg,rgba(255,153,51,0.95)_90deg,rgba(255,255,255,0)_160deg)]"
-            style={{
-              WebkitMask:
-                "radial-gradient(transparent 58%, #000 60%, #000 63%, transparent 65%)",
-              mask: "radial-gradient(transparent 58%, #000 60%, #000 63%, transparent 65%)",
-            }}
-            animate={reduceMotion ? undefined : { rotate: -360 }}
-            transition={
-              reduceMotion
-                ? undefined
-                : { duration: 28, repeat: Infinity, ease: "linear" }
-            }
-          />
-          <motion.span
-            className="absolute inset-8 rounded-full bg-[conic-gradient(from_220deg,rgba(255,255,255,0)_0deg,rgba(255,255,255,0.35)_30deg,rgba(255,153,51,0.75)_60deg,rgba(255,255,255,0)_120deg)]"
-            style={{
-              WebkitMask:
-                "radial-gradient(transparent 60%, #000 62%, #000 64%, transparent 66%)",
-              mask: "radial-gradient(transparent 60%, #000 62%, #000 64%, transparent 66%)",
-            }}
-            animate={reduceMotion ? undefined : { rotate: 360 }}
-            transition={
-              reduceMotion
-                ? undefined
-                : { duration: 18, repeat: Infinity, ease: "linear" }
-            }
-          />
-          <motion.span
-            className="absolute inset-10 rounded-full border border-white/15"
-            animate={
-              reduceMotion ? undefined : { scale: [1, 1.18], opacity: [0.5, 0] }
-            }
-            transition={
-              reduceMotion
-                ? undefined
-                : { duration: 2.8, repeat: Infinity, ease: "easeOut" }
-            }
-          />
-          <motion.span
-            className="absolute inset-12 rounded-full border border-(--color-orange)/35"
-            animate={
-              reduceMotion ? undefined : { scale: [1, 1.3], opacity: [0.5, 0] }
-            }
-            transition={
-              reduceMotion
-                ? undefined
-                : {
-                    duration: 3.2,
-                    repeat: Infinity,
-                    ease: "easeOut",
-                    delay: 0.6,
-                  }
-            }
-          />
-          <motion.div
-            className="absolute inset-2"
-            animate={reduceMotion ? undefined : { rotate: 360 }}
-            transition={
-              reduceMotion
-                ? undefined
-                : { duration: 20, repeat: Infinity, ease: "linear" }
-            }
-          >
-            <span className="absolute left-1/2 top-0 h-2.5 w-2.5 -translate-x-1/2 rounded-full bg-(--color-orange) shadow-[0_0_16px_rgba(255,153,51,0.8)]" />
-          </motion.div>
-          <motion.div
-            className="absolute inset-10"
-            animate={reduceMotion ? undefined : { rotate: -360 }}
-            transition={
-              reduceMotion
-                ? undefined
-                : { duration: 14, repeat: Infinity, ease: "linear" }
-            }
-          >
-            <span className="absolute left-1/2 top-0 h-2 w-2 -translate-x-1/2 rounded-full bg-white/80 shadow-[0_0_12px_rgba(255,255,255,0.6)]" />
-          </motion.div>
-          <span className="absolute left-1/2 top-1/2 h-8 w-8 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.95),rgba(255,153,51,0.6),rgba(0,0,0,0))]" />
-        </div>
-      </div>
-      <div className="absolute left-6 top-6 rounded-full bg-white/15 px-3 py-1 type-h6 font-semibold text-white">
-        Protocol Logic
-      </div>
-      <div className="absolute right-6 top-14 rounded-full bg-white/15 px-3 py-1 type-h6 font-semibold text-white">
-        Treatment Flow
-      </div>
-      <div className="absolute bottom-8 left-6 rounded-full bg-white/15 px-3 py-1 type-h6 font-semibold text-white">
-        Supply Engine
-      </div>
-      <div className="absolute bottom-6 right-6 rounded-full bg-white/15 px-3 py-1 type-h6 font-semibold text-white">
-        Live Insights
-      </div>
-    </div>
-  );
-}
-
 export default function IclinrtPage() {
   const reduceMotion = useReducedMotion();
   const regulatoryTrack = [...regulatoryStandards, ...regulatoryStandards];
@@ -322,11 +202,11 @@ export default function IclinrtPage() {
           playsInline
         /> */}
         <Image
-          src="/images/iclinrt-baner.avif"
+          src="/images/Configuration That Matters.webp"
           alt="Background"
           fill
+          loading="lazy"
           className="object-cover scale-105"
-          priority // Add if this is above the fold
           sizes="100vw" // Helps with responsive loading
         />
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(224,242,254,0.2)_0%,rgba(167,243,208,0.16)_22%,rgba(14,116,144,0.4)_52%,rgba(15,23,42,0.84)_100%)]" />
@@ -335,9 +215,9 @@ export default function IclinrtPage() {
             <Image
               src="/images/product-logo.png"
               alt="iClinRT"
-              width={120}
-              height={72}
-              priority
+              width={150}
+              height={82}
+              loading="lazy"
               className="rounded-4xl border-white/18 bg-linear-to-r from-white/72 via-[#edf7ff]/64 to-[#daf6ea]/62 px-3 py-2 shadow-[0_18px_40px_rgba(8,20,35,0.14)] ring-1 ring-white/32 backdrop-blur-xl transition duration-300 hover:from-white/80 hover:via-[#f2f9ff]/76 hover:to-[#e3faf1]/72 sm:px-4"
             />
             <p className="mt-4 page-banner-title font-semibold text-white">
@@ -393,7 +273,18 @@ export default function IclinrtPage() {
               </Link>
             </ScrollReveal>
             <ScrollReveal delay={140}>
-              <IclinrtMedia reduceMotion={!!reduceMotion} />
+              <div className="relative h-full min-h-80 overflow-hidden rounded-3xl border border-slate-200 bg-slate-950 shadow-[0_24px_60px_rgba(15,23,42,0.16)]">
+                <video
+                  className="h-full w-full object-contain"
+                  src="/videos/infographic.mp4"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  controls
+                  preload="metadata"
+                />
+              </div>
             </ScrollReveal>
           </div>
         </div>
@@ -488,7 +379,7 @@ export default function IclinrtPage() {
             ))}
           </div>
 
-          {/* MODAL Ã¢â‚¬â€ unchanged */}
+          {/* MODAL - unchanged */}
           <AnimatePresence>
             {activeService && activeServiceMedia && (
               <motion.div
@@ -592,6 +483,7 @@ export default function IclinrtPage() {
                         alt={item.label + " logo"}
                         width={52}
                         height={76}
+                        loading="lazy"
                         className="h-auto max-h-6 w-auto object-contain"
                       />
                     </span>
