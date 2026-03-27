@@ -488,7 +488,7 @@ export default function IclinrtPage() {
             ))}
           </div>
 
-          {/* MODAL â€” unchanged */}
+          {/* MODAL Ã¢â‚¬â€ unchanged */}
           <AnimatePresence>
             {activeService && activeServiceMedia && (
               <motion.div
@@ -732,11 +732,6 @@ export default function IclinrtPage() {
                           <Button
                             href={getContactFormHref("demo")}
                             label="Request a Demo"
-                          />
-                          <Button
-                            href="/coming-soon"
-                            label="View Factsheets"
-                            size="sm"
                           />
                         </div>
                       </div>

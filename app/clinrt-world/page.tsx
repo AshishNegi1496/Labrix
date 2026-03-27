@@ -128,10 +128,11 @@ const contentByTab: Record<Tab, TabContent> = {
     },
     items: [
       {
-        eyebrow: "Conference",
-        title: "19th Annual ISCR Conference in New Delhi",
+        eyebrow: "upcoming event",
+        title:
+          "ClinRT is excited to attend the 17th Annual Clinical Trials Summit 2026 in Mumbai",
         summary:
-          "ClinRT was delighted to be part of the 19th Annual ISCR Conference in New Delhi, engaging with industry leaders and clinical research professionals to explore innovative, value-driven solutions in Clinical Research Technology.",
+          "Where industry leaders come together to exchange insights, explore emerging trends, and engage in impactful conversations shaping the future of clinical research.",
         meta: "Industry event",
         featured: true,
       },
@@ -239,7 +240,9 @@ export default function WhatsNewPage() {
   const [selectedTab, setSelectedTab] = useState<Tab | null>(null);
   const [activeBlog, setActiveBlog] = useState<BlogArticle | null>(null);
   const [activeBrochure, setActiveBrochure] = useState<Brochure | null>(null);
-  const [activeMoment, setActiveMoment] = useState<MomentGalleryItem | null>(null);
+  const [activeMoment, setActiveMoment] = useState<MomentGalleryItem | null>(
+    null,
+  );
   const [query, setQuery] = useState("");
   const deferredQuery = useDeferredValue(query);
   const [visibleCount, setVisibleCount] = useState(INITIAL_VISIBLE);
@@ -840,4 +843,3 @@ function BrochureCard({
     </motion.article>
   );
 }
-

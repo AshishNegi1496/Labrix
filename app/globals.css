@@ -332,7 +332,7 @@ video {
 .btn:hover .btn-icon {
   /* color: var(--btn-bg); */
   color: #000; 
-  animation: scaleUp 0.3s ease-in-out;
+  animation: scaleUp 0.2s ease-in-out;
 }
 
 .btn:hover .btn-icon {

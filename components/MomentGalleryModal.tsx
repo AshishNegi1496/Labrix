@@ -81,7 +81,7 @@ export function MomentGalleryModal({
             alt={moment.title}
             fill
             sizes="100vw"
-            className="object-cover"
+            className="object-contain object-center"
           />
           <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,20,35,0.08)_0%,rgba(8,20,35,0.36)_42%,rgba(8,20,35,0.88)_100%)]" />
           <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-6 lg:p-8">
@@ -132,7 +132,7 @@ export function MomentGalleryModal({
                   alt={image.alt}
                   fill
                   sizes="(max-width: 640px) 100vw, 50vw"
-                  className="object-cover"
+                  className="object-contain object-center"
                 />
                 <div className="absolute inset-x-0 bottom-0 bg-linear-to-t from-black/70 via-black/18 to-transparent p-4">
                   <p className="text-sm font-medium text-white/82">{image.alt}</p>
