@@ -251,10 +251,11 @@ const SvgText = ({
 
 export default function StudyFlowSvg() {
   return (
-    <div className="w-full overflow-x-auto">
+    <div className="no-scrollbar w-full overflow-x-auto pb-2">
       <motion.svg
         viewBox="0 0 1800 720"
-        className="w-full min-w-400"
+        preserveAspectRatio="xMidYMin meet"
+        className="h-auto w-[1120px] max-w-none sm:w-[1320px] lg:w-full lg:max-w-full"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}

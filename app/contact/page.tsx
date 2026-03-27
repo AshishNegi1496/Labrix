@@ -195,7 +195,7 @@ export default function Contact() {
     <PageTransition>
       {/* ---------------- HERO ---------------- */}
 
-      <section className="relative h-screen overflow-hidden">
+      <section className="relative min-h-[78svh] overflow-hidden sm:min-h-[88svh] lg:min-h-screen">
         <Image
           src={contactHero.image}
           alt="ClinRT operations workspace"
@@ -206,7 +206,7 @@ export default function Contact() {
 
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(224,242,254,0.2)_0%,rgba(167,243,208,0.16)_22%,rgba(14,116,144,0.4)_52%,rgba(15,23,42,0.84)_100%)]" />
 
-        <div className="hero-content-lift relative z-10 flex h-full items-end section-shell mb-4 pb-16 text-white md:pb-20 lg:p-24">
+        <div className="hero-content-lift relative z-10 mb-4 flex h-full items-end section-shell pb-12 pt-24 text-white sm:pb-16 sm:pt-28 md:pb-20">
           <ScrollReveal className="max-w-3xl">
             <p className="page-banner-title font-semibold">
               {contactHero.punchline}
@@ -222,7 +222,7 @@ export default function Contact() {
       {/* ---------------- CONTACT FORMS ---------------- */}
 
       <SectionWrapper fullBleed id="contact-forms">
-        <div className="relative mt-20 grid gap-10 overflow-hidden rounded-[2.5rem] border border-slate-200 bg-[#0f243a] px-6 py-8 shadow-[0_35px_120px_rgba(15,36,58,0.2)] md:px-8 md:py-10 lg:grid-cols-[0.95fr_1.05fr] lg:px-10 lg:py-12">
+        <div className="relative mt-12 grid gap-8 overflow-hidden rounded-[2.5rem] border border-slate-200 bg-[#0f243a] px-4 py-6 shadow-[0_35px_120px_rgba(15,36,58,0.2)] sm:mt-16 sm:px-6 sm:py-8 md:px-8 md:py-10 lg:grid-cols-[0.95fr_1.05fr] lg:px-10 lg:py-12">
           <Image
             src="/images/operations.avif"
             alt="ClinRT team collaborating on clinical operations"
@@ -231,15 +231,15 @@ export default function Contact() {
             className="object-cover object-center"
           />
           <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(8,27,46,0.94)_0%,rgba(8,27,46,0.82)_42%,rgba(8,27,46,0.56)_100%)]" />
-          <div className="absolute -left-20 top-12 h-64 w-64 rounded-full bg-[#f59e0b]/20 blur-3xl" />
-          <div className="absolute -right-12 bottom-0 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
+          <div className="absolute -left-20 top-12 h-48 w-48 rounded-full bg-[#f59e0b]/20 blur-3xl sm:h-64 sm:w-64" />
+          <div className="absolute -right-12 bottom-0 h-56 w-56 rounded-full bg-white/10 blur-3xl sm:h-72 sm:w-72" />
 
           <div className="relative z-10 space-y-6 text-white">
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
-              className="rounded-[1.9rem] border border-white/15 bg-white/10 p-6 backdrop-blur-xl"
+              className="rounded-[1.9rem] border border-white/15 bg-white/10 p-5 backdrop-blur-xl sm:p-6"
             >
               <p className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-[11px] uppercase tracking-[0.3em] text-white/75">
                 <span className="h-2.5 w-2.5 rounded-full bg-[#f59e0b]" />
@@ -261,15 +261,15 @@ export default function Contact() {
                     viewport={{ once: true, amount: 0.3 }}
                     transition={{ delay: index * 0.1 }}
                     className={cn(
-                      "group w-full rounded-[1.6rem] border px-5 py-5 text-left transition duration-300",
+                      "group w-full rounded-[1.6rem] border px-4 py-4 text-left transition duration-300 sm:px-5 sm:py-5",
                       isActive
                         ? "border-white/35 bg-white/18 shadow-xl"
                         : "border-white/12 bg-white/8 hover:border-white/25 hover:bg-white/12",
                     )}
                     aria-pressed={isActive}
                   >
-                    <div className="flex items-center justify-between gap-4">
-                      <div className="flex items-start gap-4">
+                    <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                      <div className="flex items-start gap-3 sm:gap-4">
                         <span
                           className={cn(
                             "grid h-12 w-12 place-items-center rounded-2xl border text-white",
@@ -291,7 +291,7 @@ export default function Contact() {
                       </div>
                       <span
                         className={cn(
-                          "inline-flex items-center gap-2 rounded-full border px-3 py-1 text-[10px] uppercase tracking-[0.3em]",
+                          "inline-flex self-start items-center gap-2 rounded-full border px-3 py-1 text-[10px] uppercase tracking-[0.3em]",
                           isActive
                             ? "border-white/40 bg-white/15 text-white"
                             : "border-white/20 bg-white/10 text-white/70",
@@ -314,7 +314,7 @@ export default function Contact() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -24 }}
               transition={{ duration: 0.32 }}
-              className="relative z-10 rounded-[2rem] border border-white/35 bg-white/92 p-6 shadow-[0_30px_90px_rgba(4,18,33,0.22)] backdrop-blur-2xl"
+              className="relative z-10 rounded-[2rem] border border-white/35 bg-white/92 p-4 shadow-[0_30px_90px_rgba(4,18,33,0.22)] backdrop-blur-2xl sm:p-6"
             >
               <div className="flex flex-col gap-4 border-b border-slate-200 pb-5 sm:flex-row sm:items-start sm:justify-between">
                 <div>
@@ -345,7 +345,7 @@ export default function Contact() {
               )}
 
               {brochure && activeForm === "touch" && (
-                <div className="mt-6 rounded-[1.75rem] border border-amber-200 bg-[linear-gradient(135deg,rgba(255,251,235,0.98)_0%,rgba(255,247,237,0.98)_100%)] p-5 shadow-[0_18px_50px_rgba(15,36,58,0.08)]">
+                <div className="mt-6 rounded-[1.75rem] border border-amber-200 bg-[linear-gradient(135deg,rgba(255,251,235,0.98)_0%,rgba(255,247,237,0.98)_100%)] p-4 shadow-[0_18px_50px_rgba(15,36,58,0.08)] sm:p-5">
                   <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
                     <div>
                       <p className="text-[11px] uppercase tracking-[0.28em] text-amber-700/75">
@@ -735,7 +735,7 @@ export default function Contact() {
                 </span>
               </div>
 
-              <div className="mt-5 h-105 w-full overflow-hidden rounded-3xl">
+              <div className="mt-5 h-[20rem] w-full overflow-hidden rounded-3xl sm:h-[26rem] lg:h-[32rem]">
                 <ContactMap />
               </div>
             </div>

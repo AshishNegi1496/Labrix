@@ -95,6 +95,7 @@ body {
   color: var(--text-body);
   font-family: var(--font-body), Arial, Helvetica, sans-serif;
   line-height: 1.6;
+  overflow-x: clip;
 }
 
 h1,
@@ -206,6 +207,25 @@ video {
 
 .hero-content-lift {
   transform: translate3d(0, clamp(-1.5rem, -2vw, -0.75rem), 0);
+}
+
+@media (max-width: 639px) {
+  .hero-content-lift {
+    transform: none;
+  }
+
+  .ticker-track {
+    gap: 20px;
+    padding: 14px 0;
+  }
+
+  .btn[data-size="sm"] .btn-content {
+    padding: 10px 14px;
+  }
+
+  .btn[data-size="sm"] .btn-label {
+    letter-spacing: 0.16em;
+  }
 }
 
 .ticker {

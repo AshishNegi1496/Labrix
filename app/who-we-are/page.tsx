@@ -251,7 +251,7 @@ export default function WhoWeArePage() {
   return (
     <PageTransition>
       {/* ================= HERO ================= */}
-      <section className="relative h-screen overflow-hidden">
+      <section className="relative flex min-h-[82svh] items-end overflow-hidden sm:min-h-screen">
         <Image
           src="/images/Experienced people. Thoughtful work. Trusted outcomes.webp"
           alt="Background"
@@ -266,17 +266,17 @@ export default function WhoWeArePage() {
 
         {/* animated gradient blobs */}
         <motion.div
-          className="absolute top-20 left-10 w-72 h-72 bg-green-400/20 blur-3xl rounded-full"
+          className="absolute left-4 top-24 h-52 w-52 rounded-full bg-green-400/20 blur-3xl sm:left-10 sm:top-20 sm:h-72 sm:w-72"
           animate={{ y: [0, -30, 0] }}
           transition={{ duration: 10, repeat: Infinity }}
         />
         <motion.div
-          className="absolute bottom-20 right-10 w-80 h-80 bg-blue-500/20 blur-3xl rounded-full"
+          className="absolute bottom-16 right-0 h-60 w-60 rounded-full bg-blue-500/20 blur-3xl sm:bottom-20 sm:right-10 sm:h-80 sm:w-80"
           animate={{ y: [0, 30, 0] }}
           transition={{ duration: 12, repeat: Infinity }}
         />
 
-        <div className="hero-content-lift relative z-10 flex h-full items-end section-shell pb-16 text-white mb-16 md:pb-20 lg:pb-24">
+        <div className="hero-content-lift relative z-10 flex h-full items-end section-shell pb-12 pt-24 text-white sm:pb-16 sm:pt-28 md:pb-20 lg:pb-24">
           <ScrollReveal className="max-w-3xl">
             <p className="mt-6 max-w-3xl page-banner-title font-semibold">
               Experienced people.
@@ -1007,12 +1007,12 @@ export default function WhoWeArePage() {
             <div className="px-5 pt-5 sm:px-6 sm:pt-6 lg:px-6 lg:pt-5 xl:px-7 xl:pt-6">
               <SectionBadge>Our Culture</SectionBadge>
             </div>
-            <p className="px-7 type-h2 font-semibold leading-tight">
+            <p className="px-5 type-h2 font-semibold leading-tight sm:px-6 lg:px-7">
               Principles that shape how we work
             </p>
-            <div className="grid min-h-136 lg:h-[min(40rem,calc(100vh-4.5rem))] lg:grid-cols-[0.92fr_1.08fr] xl:h-[min(42rem,calc(100vh-5.5rem))]">
+            <div className="grid gap-0 lg:min-h-[40rem] lg:grid-cols-[0.92fr_1.08fr] xl:min-h-[42rem]">
               {/* LEFT - sticky graphic panel */}
-              <div className="sticky top-10 flex h-80 flex-col items-center justify-center border-r border-slate-200/80 bg-white/22 p-2 backdrop-blur-[2px] sm:h-104 lg:h-full xl:top-10">
+              <div className="relative flex h-72 flex-col items-center justify-center border-b border-slate-200/80 bg-white/22 p-3 backdrop-blur-[2px] sm:h-96 lg:sticky lg:top-10 lg:h-full lg:border-b-0 lg:border-r lg:p-2 xl:top-10">
                 {/* Eyebrow */}
                 <motion.div
                   initial={{ opacity: 0, y: -10 }}
@@ -1046,7 +1046,7 @@ export default function WhoWeArePage() {
               </div>
 
               {/* RIGHT - stacked scroll cards */}
-              <div className="space-y-1 px-5  sm:px-6 sm:py-6 lg:px-7 lg:py-2 xl:px-8 xl:py-1">
+              <div className="space-y-2 px-4 pb-5 pt-4 sm:px-6 sm:pb-6 sm:pt-5 lg:px-7 lg:py-2 xl:px-8 xl:py-1">
                 {/* Heading */}
 
                 {/* Cards */}
@@ -1116,7 +1116,7 @@ export default function WhoWeArePage() {
                 <ScrollReveal delay={180}>
                   <motion.div
                     whileHover={{ y: -4 }}
-                    className="grid gap-2 rounded-[30px] border border-slate-200/80 bg-white/72 p-2 shadow-[0_18px_40px_rgba(15,23,42,0.06)] backdrop-blur-sm sm:p-4.5 md:mt-4 md:grid-cols-[1.1fr_auto] md:items-center"
+                    className="grid gap-2 rounded-[30px] border border-slate-200/80 bg-white/72 p-2 shadow-[0_18px_40px_rgba(15,23,42,0.06)] backdrop-blur-sm sm:p-4 md:mt-4 md:grid-cols-[1.1fr_auto] md:items-center"
                   >
                     <div>
                       <p className="text-xs font-semibold uppercase tracking-[0.35em] text-slate-500">
@@ -1157,12 +1157,12 @@ export default function WhoWeArePage() {
         </div>
 
         {/* Collage of Images - Full Width with Container */}
-        <div className="container -mb-40">
-          <div className="relative min-h-screen w-full overflow-hidden team-collage">
+        <div className="mx-auto max-w-6xl">
+          <div className="relative w-full overflow-hidden rounded-[2rem] bg-white/55 p-2 shadow-[0_24px_60px_rgba(15,23,42,0.08)] sm:p-3">
             {/* Collage Grid */}
-            <div className="grid h-full w-full grid-cols-1 gap-2 sm:p-2 md:grid-cols-6 md:grid-rows-4 md:gap-3">
+            <div className="grid w-full grid-cols-1 gap-3 md:grid-cols-6 md:grid-rows-4">
               {/* Large tile */}
-              <div className="relative col-span-1 md:col-span-4 md:row-span-4 group team-float">
+              <div className="group relative min-h-[18rem] md:col-span-4 md:row-span-4 md:min-h-[32rem] team-float">
                 <div className="relative h-full w-full rounded-2xl overflow-hidden transition-all duration-500 ease-out ring-1 ring-white/20 shadow-lg group-hover:scale-[1.02] group-hover:z-10 group-hover:shadow-2xl group-hover:ring-2 group-hover:ring-white/70">
                   <Image
                     src="/images/one-team.png"
@@ -1184,7 +1184,7 @@ export default function WhoWeArePage() {
               ].map((member, idx) => (
                 <div
                   key={idx}
-                  className="relative col-span-1 md:col-span-2 md:row-span-2  min-h-75 group team-float"
+                  className="group relative min-h-[14rem] md:col-span-2 md:row-span-2 md:min-h-[15.5rem] team-float"
                 >
                   <div className="relative h-full w-full rounded-xl overflow-hidden transition-all duration-500 ease-out ring-1 ring-white/20 shadow-lg group-hover:scale-105 group-hover:z-10 group-hover:shadow-2xl group-hover:ring-2 group-hover:ring-white/70">
                     <Image
@@ -1202,7 +1202,7 @@ export default function WhoWeArePage() {
         </div>
 
         {/* Text Content Below */}
-        <div className=" -mt-72 ">
+        <div className="mt-10">
           <div className="max-w-3xl mx-auto text-center">
             {/* <p className="text-muted-foreground text-lg leading-relaxed">
               Our team brings together product thinkers, clinical specialists,
@@ -1214,11 +1214,11 @@ export default function WhoWeArePage() {
               more reliable-one workflow at a time.
             </p> */}
 
-            <div className="grid grid-cols-3 gap-6 mt-12">
+            <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {teamStats.map((s) => (
                 <div
                   key={s.label}
-                  className="relative p-6 text-center hover:-translate-y-1 transition-all duration-300 group"
+                  className="group relative p-5 text-center transition-all duration-300 hover:-translate-y-1 sm:p-6"
                 >
                   {/* Rhombus background */}
                   <div className="absolute inset-0 bg-(--color-primary) border border-indigo-200 skew-x-6 skew-y-2 rounded-sm group-hover:shadow-xl group-hover:from-indigo-100 group-hover:to-blue-200 transition-all duration-300" />
@@ -1241,9 +1241,9 @@ export default function WhoWeArePage() {
 
       {/* ================= CTA ================= */}
       <SectionWrapper fullBleed>
-        <div className=" bg-(--color-orange) rounded-4xl py-16 px-6 md:py-20 md:px-12">
-          <div className="flex flex-col md:flex-col md:items-center md:justify-between gap-6">
-            <p className="text-white type-h1 md:text-2xl lg:text-3xl font-semibold text-center md:text-left">
+        <div className=" bg-(--color-orange) rounded-4xl px-4 py-12 sm:px-6 md:px-12 md:py-20">
+          <div className="flex flex-col items-center gap-6 text-center">
+            <p className="max-w-3xl text-center font-semibold text-white type-h1 md:text-2xl lg:text-3xl">
               Want to{" "}
               <span className="font-bold italic bg-(--btn-bg) px-2 py-1 rounded-lg">
                 work with us

@@ -56,7 +56,7 @@ const StickyCards = ({
   }
 
   return (
-    <div className="relative min-h-144 overflow-hidden rounded-4xl border border-white/10 shadow-[0_24px_80px_rgba(4,18,33,0.18)] lg:h-[min(42rem,calc(100vh-5.75rem))]">
+    <div className="relative min-h-[40rem] overflow-hidden rounded-4xl border border-white/10 shadow-[0_24px_80px_rgba(4,18,33,0.18)] sm:min-h-[44rem] lg:h-[min(42rem,calc(100vh-5.75rem))]">
       <div className="pointer-events-none absolute inset-0">
         <video
           className="absolute inset-0 h-full w-full object-cover"
@@ -72,7 +72,7 @@ const StickyCards = ({
       </div>
 
       <div className="relative grid h-full gap-4 p-3 sm:p-4 lg:grid-cols-[minmax(0,1fr)_18rem] lg:gap-5 lg:p-5">
-        <div className="relative min-h-88 lg:min-h-0">
+        <div className="relative min-h-[23rem] sm:min-h-[26rem] lg:min-h-0">
           {iclinrtUsps.map((item: StickyCardItem, index: number) => {
             const Icon = uspIcons[index % uspIcons.length] || FiZap;
 
@@ -210,8 +210,8 @@ export default function IclinrtPage() {
           sizes="100vw" // Helps with responsive loading
         />
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(224,242,254,0.2)_0%,rgba(167,243,208,0.16)_22%,rgba(14,116,144,0.4)_52%,rgba(15,23,42,0.84)_100%)]" />
-        <div className="hero-content-lift relative z-10 section-shell w-full pb-16 pt-20 text-white md:pb-20 md:pt-36 lg:pb-20 ">
-          <ScrollReveal className="max-w-3xl text-white mb-20">
+        <div className="hero-content-lift relative z-10 section-shell w-full pb-12 pt-24 text-white sm:pb-16 sm:pt-28 md:pb-20 md:pt-36 lg:pb-20">
+          <ScrollReveal className="mb-8 max-w-3xl text-white sm:mb-12 lg:mb-20">
             <Image
               src="/images/product-logo.png"
               alt="iClinRT"
@@ -238,7 +238,7 @@ export default function IclinrtPage() {
         fullBleed
         className="bg-(--color-primary)"
       >
-        <div className="mx-auto rounded-3xl bg-white px-6 py-14 md:px-10">
+        <div className="mx-auto rounded-3xl bg-white px-4 py-10 sm:px-6 sm:py-12 md:px-10 md:py-14">
           <div className="grid gap-10 lg:grid-cols-[1.1fr_1fr]">
             <ScrollReveal>
               <SectionBadge>What is iClinRT</SectionBadge>
@@ -263,14 +263,15 @@ export default function IclinrtPage() {
               <div className="mt-6 flex flex-wrap gap-4">
                 <Button href={getContactFormHref("touch")} label="Contact Us" />
               </div>
-              <Link className="link text-sm" href="/contact">
-                Your Trial&apos;s Operational Control Center.
-              </Link>
+              <div className="mt-5 flex flex-wrap gap-4 text-sm">
+                <Link className="link" href="/contact">
+                  Your Trial&apos;s Operational Control Center.
+                </Link>
 
-              <Link className="link text-sm" href="/">
-                {" "}
-                Discover What Sets Us Apart
-              </Link>
+                <Link className="link" href="/">
+                  Discover What Sets Us Apart
+                </Link>
+              </div>
             </ScrollReveal>
             <ScrollReveal delay={140}>
               <div className="relative h-full min-h-80 overflow-hidden rounded-3xl border border-slate-200 bg-slate-950 shadow-[0_24px_60px_rgba(15,23,42,0.16)]">
@@ -303,7 +304,7 @@ export default function IclinrtPage() {
           </ScrollReveal>
 
           {/* GRID */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 auto-rows-fr">
+          <div className="grid auto-rows-fr grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3 lg:gap-10">
             {iclinrtServices.map((service, index) => (
               <ScrollReveal key={index} delay={index * 60}>
                 <motion.div
@@ -330,7 +331,7 @@ export default function IclinrtPage() {
                 >
                   <GlassCard
                     image={serviceMedia[index % serviceMedia.length]}
-                    height="h-80 lg:h-92"
+                    height="h-72 sm:h-80 lg:h-92"
                     contentPadding="p-6"
                     overlayOpacity="bg-gradient-to-b from-black/20 via-black/50 to-black/90"
                     borderColor="border-white/10"
@@ -358,7 +359,7 @@ export default function IclinrtPage() {
                     </div>
                     {/* TITLE */}
                     <div className="flex flex-3 items-center justify-center">
-                      <p className="type-h4 max-w-100 text-center font-semibold leading-snug text-white">
+                      <p className="type-h4 max-w-full text-center font-semibold leading-snug text-white">
                         {service.title}
                       </p>
                     </div>
@@ -501,7 +502,7 @@ export default function IclinrtPage() {
       </SectionWrapper>
 
       <SectionWrapper fullBleed id="iclinrt-potential">
-        <div className="relative overflow-hidden rounded-[2.25rem] border border-white/30 bg-(--primary-color) px-6 py-8 text-white shadow-[0_30px_120px_rgba(15,23,42,0.2)] md:px-8 md:py-10">
+        <div className="relative overflow-hidden rounded-[2.25rem] border border-white/30 bg-(--primary-color) px-4 py-6 text-white shadow-[0_30px_120px_rgba(15,23,42,0.2)] sm:px-6 sm:py-8 md:px-8 md:py-10">
           <div className="pointer-events-none absolute -left-16 top-10 h-48 w-48 rounded-full bg-(--color-accent)/20 blur-3xl" />
           <div className="pointer-events-none absolute -right-10 bottom-6 h-64 w-64 rounded-full bg-(--color-orange)/20 blur-3xl" />
           <div className="relative z-10 grid gap-8 xl:grid-cols-[0.7fr_1.3fr] xl:items-start">
@@ -510,7 +511,7 @@ export default function IclinrtPage() {
                 <SectionBadge>iClinRT&apos;s Potential</SectionBadge>
               </ScrollReveal>
 
-              <div className="mt-8 max-h-140 space-y-3 overflow-y-auto pr-2 no-scrollbar">
+              <div className="mt-6 max-h-[24rem] space-y-3 overflow-y-auto pr-2 no-scrollbar sm:mt-8 sm:max-h-[28rem] xl:max-h-[35rem]">
                 {iclinrtPotential.map((item, index) => {
                   const isActive = selectedPotentialIndex === index;
 
@@ -574,7 +575,7 @@ export default function IclinrtPage() {
               >
                 <GlassCard
                   image={activePotentialMedia}
-                  height="min-h-[520px] lg:min-h-[620px]"
+                  height="min-h-[26rem] sm:min-h-[32rem] lg:min-h-[38rem]"
                   contentPadding="p-5 sm:p-6 lg:p-8"
                   contentPosition="top"
                   overlayOpacity="bg-gradient-to-b from-black/25 via-black/55 to-black/88"
@@ -637,7 +638,7 @@ export default function IclinrtPage() {
       </SectionWrapper>
 
       <SectionWrapper fullBleed>
-        <div className="rounded-3xl bg-white/70 backdrop-blur-xl p-10 border shadow-xl">
+        <div className="rounded-3xl border bg-white/70 p-4 shadow-xl backdrop-blur-xl sm:p-6 md:p-8 lg:p-10">
           <SectionBadge>How it works</SectionBadge>
           <StudyFlowSvg />
         </div>
@@ -647,11 +648,12 @@ export default function IclinrtPage() {
         <ScrollReveal delay={120}>
           <div className="relative mt-6 overflow-hidden rounded-4xl border border-white/50 shadow-xl">
             {/* LEFT BG - gradient */}
-            <div className="absolute inset-0 bg-linear-to-br from-orange-100/90 via-white/95 to-purple-100/90 backdrop-blur-sm" />
+            <div className="absolute inset-0 bg-linear-to-br from-orange-100/90 via-white/95 to-sky-100/90 backdrop-blur-sm" />
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(100,102,174,0.08)_0%,rgba(100,102,174,0.22)_100%)] md:hidden" />
 
             {/* RIGHT BG - solid primary color with diagonal clip */}
             <div
-              className="absolute inset-0 bg-(--primary-color)"
+              className="absolute inset-0 hidden bg-(--primary-color) md:block"
               style={{
                 clipPath: "polygon(45% 0%, 100% 0%, 100% 100%, 35% 100%)",
               }}
@@ -662,7 +664,7 @@ export default function IclinrtPage() {
             <div className="pointer-events-none absolute right-0 top-1/2 h-56 w-56 -translate-y-1/2 rounded-full bg-(--color-orange)/20 blur-3xl" />
             <div className="pointer-events-none absolute inset-x-10 top-0 h-px bg-linear-to-r from-transparent via-black/10 to-transparent" />
 
-            <div className="relative z-10 grid gap-8 p-6 md:p-8 lg:grid-cols-[0.92fr_1.08fr] lg:items-center">
+            <div className="relative z-10 grid gap-6 p-4 sm:p-6 md:p-8 lg:grid-cols-[0.92fr_1.08fr] lg:items-center">
               {/* LEFT CONTENT */}
               <div>
                 <SectionBadge>
@@ -755,7 +757,7 @@ export default function IclinrtPage() {
               </div>
 
               {/* RIGHT CONTENT - white text on dark bg */}
-              <div className="relative overflow-hidden rounded-[1.75rem] border border-white/20 bg-transparent p-4 sm:p-5 2xl:min-h-[47rem]">
+              <div className="relative overflow-hidden rounded-[1.75rem] border border-white/20 bg-transparent p-3 sm:p-5 2xl:min-h-[47rem]">
                 <div className="pointer-events-none absolute inset-4 rounded-3xl border border-white/20" />
                 <div className="pointer-events-none absolute left-1/2 top-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/10" />
                 <motion.div
@@ -875,7 +877,7 @@ export default function IclinrtPage() {
       </SectionWrapper>
 
       <SectionWrapper fullBleed>
-        <div className="relative mx-auto overflow-hidden rounded-3xl border border-white/40 bg-white/70 px-6 py-14 shadow-xl backdrop-blur-2xl md:px-10">
+        <div className="relative mx-auto overflow-hidden rounded-3xl border border-white/40 bg-white/70 px-4 py-10 shadow-xl backdrop-blur-2xl sm:px-6 sm:py-12 md:px-10 md:py-14">
           <div className="pointer-events-none absolute -left-16 top-10 h-52 w-52 rounded-full bg-(--color-accent)/25 blur-3xl" />
           <div className="pointer-events-none absolute -bottom-24 right-6 h-64 w-64 rounded-full bg-(--color-orange)/25 blur-3xl" />
           <div className="relative z-10 grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
@@ -898,7 +900,7 @@ export default function IclinrtPage() {
             </ScrollReveal>
 
             <ScrollReveal delay={120}>
-              <div className="relative h-120 overflow-hidden rounded-3xl border border-white/40 bg-white/60 p-6 shadow-xl backdrop-blur-2xl">
+              <div className="relative h-[28rem] overflow-hidden rounded-3xl border border-white/40 bg-white/60 p-4 shadow-xl backdrop-blur-2xl sm:h-[32rem] sm:p-6">
                 <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-linear-to-b from-white/80 via-white/40 to-transparent" />
                 <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-linear-to-t from-white/80 via-white/40 to-transparent" />
 
@@ -947,7 +949,7 @@ export default function IclinrtPage() {
       </SectionWrapper>
 
       <SectionWrapper fullBleed>
-        <div className="relative text-center mx-auto overflow-hidden rounded-3xl border border-white/25 bg-(--color-primary) px-6 py-14 text-white shadow-2xl md:px-10">
+        <div className="relative mx-auto overflow-hidden rounded-3xl border border-white/25 bg-(--color-primary) px-4 py-12 text-center text-white shadow-2xl sm:px-6 sm:py-14 md:px-10">
           <ScrollReveal>
             <div className="flex flex-col items-center">
               <SectionBadge>

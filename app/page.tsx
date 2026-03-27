@@ -46,26 +46,29 @@ export default function HomePage() {
   return (
     <PageTransition>
       <section className="relative flex min-h-[90vh] items-end overflow-hidden sm:min-h-screen lg:min-h-[110vh]">
-        <Image
-          src="/images/home-final.webp"
-          alt="Background"
-          fill
-          loading="lazy"
-          className="object-cover scale-105"
-          sizes="100vw" // Helps with responsive loading
+        <video
+          className="absolute inset-0 h-full w-full object-cover"
+          src="/videos/home-video.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
         />
 
         {/* Dark overlay */}
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(224,242,254,0.2)_0%,rgba(167,243,208,0.16)_22%,rgba(14,116,144,0.4)_52%,rgba(15,23,42,0.84)_100%)]" />
 
-        <div className="hero-content-lift relative z-10 section-shell w-full pb-20 pt-20 text-white md:pb-20 md:pt-36 lg:pb-24">
-          <div className="grid items-end gap-10 md:gap-14 lg:grid-cols-2 lg:gap-1">
+        <div className="hero-content-lift relative z-10 section-shell w-full pb-12 pt-24 text-white sm:pb-16 sm:pt-28 md:pb-20 md:pt-36 lg:pb-24">
+          <div className="grid items-end gap-8 md:gap-14 lg:grid-cols-2 lg:gap-1">
             {/* LEFT CONTENT */}
-            <ScrollReveal variant="left" className="max-w-3xl mb-16">
+            <ScrollReveal
+              variant="left"
+              className="mb-8 max-w-3xl sm:mb-12 lg:mb-16"
+            >
               <p className=" page-banner-title font-semibold">
                 Intelligent, Interactive and Innovative
               </p>
-              <p className="type-h4 font-semibold">
+              <p className="mt-4 max-w-2xl type-h4 font-semibold">
                 Customised and scalable IRT platform for managing clinical
                 trials in an efficient way
               </p>
@@ -73,8 +76,8 @@ export default function HomePage() {
               {/* Buttons */}
 
               {/* Hero Bottom Stats */}
-              <div className="mt-10 flex flex-row items-center gap-4 sm:mt-12 sm:gap-5">
-                <div className="inline-flex items-center gap-3 rounded-3xl sm:px-5">
+              <div className="mt-10 flex flex-col items-start gap-4 sm:mt-12 sm:flex-row sm:items-center sm:gap-5">
+                <div className="inline-flex items-center gap-3 rounded-3xl bg-white/10 px-4 py-3 backdrop-blur-sm sm:bg-transparent sm:px-0 sm:py-0">
                   <CountUpOnView
                     to={40}
                     suffix="+"
@@ -85,7 +88,7 @@ export default function HomePage() {
                   </p>
                 </div>
 
-                <div className="inline-flex flex-wrap items-center gap-3  sm:flex-nowrap sm:px-5">
+                <div className="inline-flex flex-wrap items-center gap-3 rounded-3xl bg-white/10 px-4 py-3 backdrop-blur-sm sm:flex-nowrap sm:bg-transparent sm:px-0 sm:py-0">
                   <Clients
                     avatars={[
                       { src: "/images/author-1.jpg" },
@@ -97,18 +100,21 @@ export default function HomePage() {
                     size={40}
                     className="shrink-0"
                   />
-                  <p className=" flex flex-col items-baseline gap-x-2 gap-y-1 type-h6 leading-6 text-white sm:flex-nowrap sm:text-[15px]">
-                    <span className="whitespace-nowrap">Trusted By</span>
-
-                    <CountUpOnView
-                      to={500}
-                      suffix="+"
-                      className="inline-block min-w-[4ch] text-right type-h2 font-semibold leading-none text-white tabular-nums sm:text-[2.6rem]"
-                    />
-                  </p>
-                  <span className="whitespace-nowrap type-h6 font-semibold mt-8 leading-6">
-                    Satisfied Clients
-                  </span>
+                  <div className="flex flex-col items-start gap-1">
+                    <span className="whitespace-nowrap type-h6 font-semibold leading-6">
+                      Trusted By
+                    </span>
+                    <div className="flex flex-wrap items-end gap-2">
+                      <CountUpOnView
+                        to={500}
+                        suffix="+"
+                        className="inline-block min-w-[4ch] text-right type-h2 font-semibold leading-none text-white tabular-nums sm:text-[2.6rem]"
+                      />
+                      <span className="whitespace-nowrap type-h6 font-semibold leading-6">
+                        Satisfied Clients
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div className="mt-8 ">
@@ -154,19 +160,19 @@ export default function HomePage() {
             <GlassSlider
               items={posterItems}
               ariaLabel="At a glance posters"
-              className="h-80"
+              className="h-[18rem] sm:h-80 lg:h-[25.5rem]"
               scrollerClassName="h-full w-full pb-0 pt-0"
-              controlsClassName="pointer-events-none absolute top-1/2 z-10 -translate-y-1/2 justify-between sm:inset-x-4"
+              controlsClassName="pointer-events-none absolute inset-x-3 top-1/2 z-10 -translate-y-1/2 justify-between sm:inset-x-4"
               edgeFadeClassName=""
               pageSize={1}
-              itemClassName="w-full h-full"
+              itemClassName="h-full w-full"
               renderItem={(poster, index) => (
                 <ScrollReveal delay={index * 80}>
                   <Link
                     href={poster.href}
                     className="group relative block h-full w-full overflow-hidden rounded-2xl bg-white transition-all hover:shadow-xl hover:shadow-slate-200/50"
                   >
-                    <div className="relative h-full min-h-100 w-full overflow-hidden">
+                    <div className="relative h-full min-h-[18rem] w-full overflow-hidden sm:min-h-[25rem]">
                       <Image
                         src={poster.image}
                         alt={poster.title}
@@ -191,7 +197,7 @@ export default function HomePage() {
             />
             {/* </div> */}
 
-            <aside className="flex h-102 min-h-80 flex-col rounded-[1.75rem] border border-orange-400/80 bg-white/72 p-5 text-slate-900 shadow-[0_18px_50px_rgba(15,23,42,0.06)] backdrop-blur-sm sm:p-6 lg:p-7">
+            <aside className="flex min-h-[20rem] flex-col rounded-[1.75rem] border border-orange-400/80 bg-white/72 p-5 text-slate-900 shadow-[0_18px_50px_rgba(15,23,42,0.06)] backdrop-blur-sm sm:min-h-[22rem] sm:p-6 lg:h-[25.5rem] lg:p-7">
               <SectionBadge
                 className="bg-white/80 text-slate-900"
                 borderClassName="border border-orange-200"
@@ -199,7 +205,7 @@ export default function HomePage() {
                 News & Updates
               </SectionBadge>
 
-              <div className="relative mt-5 min-h-0 flex-1 space-y-3 overflow-y-auto pb-10 pr-2 no-scrollbar sm:mt-6 sm:space-y-4">
+              <div className="relative mt-5 min-h-0 flex-1 space-y-3 overflow-y-auto pb-12 pr-2 no-scrollbar sm:mt-6 sm:space-y-4 sm:pb-10">
                 <div
                   className="pointer-events-none absolute inset-x-0 bottom-0 h-14 bg-linear-to-t from-white via-white/85 to-transparent"
                   aria-hidden="true"
@@ -316,7 +322,7 @@ export default function HomePage() {
 
       {/* key features section */}
       <SectionWrapper fullBleed>
-        <div className="mx-auto  px-6 py-20 bg-(--primary-color) rounded-3xl text-(--text-invert)">
+        <div className="mx-auto rounded-3xl bg-(--primary-color) px-4 py-12 text-(--text-invert) sm:px-6 sm:py-16 md:py-20">
           {/* Section Header */}
           <ScrollReveal className="">
             <SectionBadge>Key Features</SectionBadge>
@@ -328,11 +334,11 @@ export default function HomePage() {
               <p className=" type-h6 mt-4 text-(--text-invert)">
                 These features collectively enable streamlined clinical trial
                 execution by reducing manual effort, minimizing operational
-                risks, and ensuring real-time control across subjects,
-                supplies, and study data. The platform is designed to adapt to
-                complex protocol requirements while maintaining strong
-                regulatory compliance, transparency, and operational efficiency
-                throughout the trial lifecycle.
+                risks, and ensuring real-time control across subjects, supplies,
+                and study data. The platform is designed to adapt to complex
+                protocol requirements while maintaining strong regulatory
+                compliance, transparency, and operational efficiency throughout
+                the trial lifecycle.
               </p>
             </div>
           </ScrollReveal>
@@ -365,22 +371,22 @@ export default function HomePage() {
 
       {/* Why choose ClinRT section */}
       <SectionWrapper>
-        <div className="grid gap-14 lg:grid-cols-2 items-center">
+        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
           {/* LEFT IMAGE */}
           <ScrollReveal>
-            <div className="relative">
+            <div className="relative pb-20 lg:pb-0">
               <Image
                 src="/images/wgy-choose-us.webp"
                 alt=" 	Why ClinRT"
                 width={520}
                 height={920}
-                className="rounded-2xl object-cover"
+                className="w-full rounded-2xl object-cover"
                 loading="lazy"
               />
 
               {/* Floating client badge */}
-              <div className="absolute -bottom-6 left-6 rounded-xl bg-black/30 shadow-lg px-5 py-3 text-white animate-bounce ">
-                <p className="text-sm font-semibold text-white">
+              <div className="absolute -bottom-8 left-4 right-4 rounded-xl bg-black/40 px-4 py-3 text-white shadow-lg backdrop-blur-sm sm:left-6 sm:right-auto sm:max-w-sm sm:px-5">
+                <p className="text-sm font-semibold leading-6 text-white">
                   Your Partner for Proven, Practical, and High Performance
                   Technology
                 </p>
@@ -393,7 +399,7 @@ export default function HomePage() {
                   ]}
                   label="Trusted By"
                   title="500+ Clients"
-                  className="ml-6"
+                  className="mt-3"
                 />
               </div>
             </div>
@@ -419,26 +425,36 @@ export default function HomePage() {
             <div className="mt-8 space-y-6">
               {whyChoosePoints.map((item, index) => (
                 <ScrollReveal key={item.title} delay={index * 120}>
-                  <div className="group flex gap-4 cursor-pointer">
+                  <div className="group flex cursor-pointer items-start gap-4">
                     {/* icon */}
                     <div
-                      className="mt-1 h-15 w-15 flex items-center justify-center rounded-lg 
+                      className="mt-1 flex h-12 w-12 shrink-0 items-center justify-center rounded-lg 
           bg-(--color-primary)/80 text-(--text-invert)
           transition-all duration-300 ease-out
           group-hover:scale-110 group-hover:rotate-3
-          group-hover:shadow-lg group-hover:shadow-indigo-400/40"
+          group-hover:shadow-lg group-hover:shadow-indigo-400/40 sm:h-14 sm:w-14"
                     >
                       <div className="transition-transform duration-300 group-hover:scale-125">
-                        {index === 0 && <FaFlask size={50} />}
-                        {index === 1 && <FaCogs size={50} />}
-                        {index === 2 && <FaHandshake size={50} />}
-                        {index === 3 && <FaShieldAlt size={50} />}
-                        {index === 4 && <FaGlobeAmericas size={50} />}
+                        {index === 0 && (
+                          <FaFlask className="h-7 w-7 sm:h-8 sm:w-8" />
+                        )}
+                        {index === 1 && (
+                          <FaCogs className="h-7 w-7 sm:h-8 sm:w-8" />
+                        )}
+                        {index === 2 && (
+                          <FaHandshake className="h-7 w-7 sm:h-8 sm:w-8" />
+                        )}
+                        {index === 3 && (
+                          <FaShieldAlt className="h-7 w-7 sm:h-8 sm:w-8" />
+                        )}
+                        {index === 4 && (
+                          <FaGlobeAmericas className="h-7 w-7 sm:h-8 sm:w-8" />
+                        )}
                       </div>
                     </div>
 
                     {/* content */}
-                    <div>
+                    <div className="min-w-0">
                       <p className="type-h5 font-semibold transition-colors duration-300 group-hover:text-(--color-primary)">
                         {item.title}
                       </p>

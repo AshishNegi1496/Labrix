@@ -66,14 +66,17 @@ export const FullScreenCard = ({ item, index, activeIndex, Icon }: Props) => {
             <Icon className="h-6 w-6 text-white" />
           </div>
 
-          <div>
-            <p className="text-xl font-semibold leading-tight text-white sm:text-2xl xl:text-[1.85rem]">
+          <div className="min-w-0">
+            <p className="text-lg font-semibold leading-tight text-white sm:text-2xl xl:text-[1.85rem]">
               {item.title}
             </p>
 
             <ul className="mt-3.5 space-y-2.5 text-white/82">
               {item.items.map((point: string) => (
-                <li key={point} className="flex gap-2 text-sm leading-6 sm:text-[0.95rem]">
+                <li
+                  key={point}
+                  className="flex gap-2 text-sm leading-5 sm:text-[0.95rem] sm:leading-6"
+                >
                   <FiCheck className="mt-1 text-(--color-accent)" />
                   <span>{point}</span>
                 </li>

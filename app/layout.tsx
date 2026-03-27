@@ -1,8 +1,8 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
+import AppNavbar from "@/components/AppNavbar";
+import AppFooter from "@/components/AppFooter";
 import { CursorEffects } from "@/components/cursor-effects";
 import { siteMeta } from "@/data";
 import Watermark from "@/components/Watermark";
@@ -28,12 +28,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body className="min-h-screen bg-background text-foreground">
-        <Navbar />
+        <AppNavbar />
         {appConfig.enableCursorEffects ? <CursorEffects /> : null}
         <Watermark />
         <WatermarkRight />
         {children}
-        <Footer />
+        <AppFooter />
       </body>
     </html>
   );
