@@ -93,13 +93,7 @@ const submissionErrorMessages: Record<string, string> = {
     "Too many submissions were received from this connection. Please wait a few minutes and try again.",
 };
 
-const CheckboxRow = ({
-  label,
-  name,
-}: {
-  label: string;
-  name: string;
-}) => (
+const CheckboxRow = ({ label, name }: { label: string; name: string }) => (
   <label className="flex items-start gap-3 rounded-2xl border border-slate-200 bg-slate-50/80 px-4 py-3 text-sm text-slate-600">
     <input
       type="checkbox"
@@ -400,11 +394,7 @@ export default function Contact() {
                     tabIndex={-1}
                     autoComplete="off"
                   />
-                  <input
-                    type="hidden"
-                    name="contactFormId"
-                    value="demo"
-                  />
+                  <input type="hidden" name="contactFormId" value="demo" />
                   <input type="hidden" name="formType" value="Request a Demo" />
                   <input type="hidden" name="sourcePage" value="Contact Page" />
 
@@ -535,11 +525,7 @@ export default function Contact() {
                     tabIndex={-1}
                     autoComplete="off"
                   />
-                  <input
-                    type="hidden"
-                    name="contactFormId"
-                    value="touch"
-                  />
+                  <input type="hidden" name="contactFormId" value="touch" />
                   <input type="hidden" name="formType" value="Get in Touch" />
                   <input
                     type="hidden"
@@ -644,7 +630,7 @@ export default function Contact() {
                       name="message"
                       rows={4}
                       placeholder="Tell us how we can help."
-                      className="min-h-[140px] resize-none"
+                      className="min-h-35 resize-none"
                       maxLength={1200}
                       required
                     />
@@ -673,7 +659,6 @@ export default function Contact() {
                   </div>
                 </form>
               )}
-
             </motion.div>
           </AnimatePresence>
         </div>
@@ -690,9 +675,9 @@ export default function Contact() {
             <p className="text-[11px] uppercase tracking-[0.3em] text-slate-500">
               {contactInfoBlock.label}
             </p>
-            <h3 className="mt-3 type-h3 font-semibold text-[#0f243a]">
+            <p className="mt-3 type-h3 font-semibold text-[#0f243a]">
               {contactInfoBlock.title}
-            </h3>
+            </p>
             <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-600">
               {contactInfoBlock.description}
             </p>
@@ -763,5 +748,3 @@ export default function Contact() {
     </PageTransition>
   );
 }
-
-
