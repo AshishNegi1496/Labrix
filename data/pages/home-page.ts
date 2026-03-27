@@ -125,7 +125,7 @@ export const homeMovingWords = deepFreeze([
 
 export const homePosterItems = deepFreeze([
   {
-    title: "Protocol-Ready IRT Stack",
+    title: "Introducing iClinRT",
     tag: "Launch",
     image: "/images/poster.jpg",
     href: "/what-we-build",

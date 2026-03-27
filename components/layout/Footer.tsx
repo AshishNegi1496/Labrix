@@ -93,20 +93,17 @@ export default function Footer() {
               </ul>
             </div>
 
-            {/* 4. NEW: Community CTA Section */}
+            {/* 4. Contact CTA Section */}
             <div className="flex flex-col gap-4 border-l border-white/10 pl-0 lg:pl-8">
               <p className="text-sm font-semibold uppercase tracking-wider text-black">
-                Our Community
+                Contact ClinRT
               </p>
               <p className="text-sm leading-relaxed text-black/70">
-                Be a part of our community and stay close to the conversations,
-                insights, and milestones that shape our work.
+                Start a conversation with our team for demos, brochure access,
+                support questions, or partnership enquiries.
               </p>
 
-              <Button
-                href={getContactFormHref("community")}
-                label="Join our community"
-              />
+              <Button href={getContactFormHref("touch")} label="Get in touch" />
             </div>
           </div>
 

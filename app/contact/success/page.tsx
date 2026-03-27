@@ -35,7 +35,7 @@ export default function ContactSuccessPage() {
             </p>
             <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-white/72">
               {brochure
-                ? `Thanks for joining the ClinRT community. We are starting the ${brochure.title} download automatically, and you can preview or retry it below at any time.`
+                ? `Thanks for your brochure request. We are starting the ${brochure.title} download automatically, and you can preview or retry it below at any time.`
                 : "We have received your submission successfully. Our team will review it and get back to you as soon as possible."}
             </p>
 

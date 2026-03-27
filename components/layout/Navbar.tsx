@@ -57,7 +57,7 @@ export default function Navbar() {
         <div className="relative mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 sm:py-5">
           <Link
             href="/"
-            className="relative z-50 flex items-center gap-2 rounded-full border border-white/18 bg-linear-to-r from-white/72 via-[#edf7ff]/64 to-[#daf6ea]/62 px-3 py-2 shadow-[0_18px_40px_rgba(8,20,35,0.14)] ring-1 ring-white/32 backdrop-blur-xl transition duration-300 hover:from-white/80 hover:via-[#f2f9ff]/76 hover:to-[#e3faf1]/72 sm:px-4"
+            className="relative -ml-20 z-50 flex items-center gap-2 rounded-full border border-white/18 bg-linear-to-r from-white/72 via-[#edf7ff]/64 to-[#daf6ea]/62 px-3 py-2 shadow-[0_18px_40px_rgba(8,20,35,0.14)] ring-1 ring-white/32 backdrop-blur-xl transition duration-300 hover:from-white/80 hover:via-[#f2f9ff]/76 hover:to-[#e3faf1]/72 sm:px-4"
           >
             <Image
               src="/images/company-logo.png"

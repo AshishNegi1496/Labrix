@@ -4,13 +4,12 @@ import {
   FiMapPin,
   FiMessageCircle,
   FiPhone,
-  FiUsers,
 } from "react-icons/fi";
 import { deepFreeze } from "../utils";
 import type { ContactDetails } from "../types";
 import { validateContactDetails } from "../validators";
 
-export type ContactFormType = "demo" | "touch" | "community";
+export type ContactFormType = "demo" | "touch";
 
 export type ContactFormOption = Readonly<{
   id: ContactFormType;
@@ -34,11 +33,7 @@ export const contactHero = deepFreeze({
   image: "/images/contact-baner.avif",
 });
 
-export const contactFormRecipient = "ashishnegi1496@gmail.com";
-
-export const contactFormAction = `https://formsubmit.co/${contactFormRecipient}`;
-
-export const contactFormTemplate = "table";
+export const contactFormActionPath = "/api/contact";
 
 export const contactFormSuccessPath = "/contact/success";
 export const contactFormsSectionId = "contact-forms";
@@ -49,6 +44,38 @@ export const contactFileConstraints = deepFreeze({
   errorMessage:
     "Please upload a PDF, DOC, DOCX, PNG, JPG, JPEG, or WEBP file up to 5MB.",
 });
+
+export const contactFileMimeTypes = deepFreeze([
+  "application/pdf",
+  "application/msword",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  "image/jpeg",
+  "image/png",
+  "image/webp",
+] as const);
+
+export const contactDemoInterestOptions = deepFreeze([
+  "iClinRT platform overview",
+  "Randomization workflows",
+  "Supply and kit management",
+  "Integrations and reporting",
+  "Full platform evaluation",
+] as const);
+
+export const contactDemoTimelineOptions = deepFreeze([
+  "Immediately",
+  "Within 30 days",
+  "This quarter",
+  "Just exploring",
+] as const);
+
+export const contactTouchEnquiryTypeOptions = deepFreeze([
+  "Product enquiry",
+  "Support",
+  "Partnership",
+  "Careers",
+  "Other",
+] as const);
 
 export const contactFormOptions: ReadonlyArray<ContactFormOption> = deepFreeze([
   {
@@ -70,16 +97,6 @@ export const contactFormOptions: ReadonlyArray<ContactFormOption> = deepFreeze([
       "Tell us what you need and we will route your enquiry to the right team quickly.",
     badge: "General Enquiry",
     icon: FiMessageCircle,
-  },
-  {
-    id: "community",
-    title: "Join Our Community",
-    description:
-      "Stay close to product news, event invites, case studies, and practical clinical operations insights.",
-    helper:
-      "A lighter-touch way to stay connected with the latest from ClinRT.",
-    badge: "Updates & Insights",
-    icon: FiUsers,
   },
 ]);
 

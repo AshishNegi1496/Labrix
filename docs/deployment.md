@@ -28,8 +28,25 @@ Set these only if you want to override the defaults:
 - `NEXT_PUBLIC_ENABLE_CURSOR`
 - `NEXT_PUBLIC_ENABLE_ANIMATIONS`
 - `NEXT_PUBLIC_ANALYTICS_ID`
-- `FORM_SUBMIT_TOKEN`
+- `RESEND_API_KEY`
+- `CONTACT_FORM_FROM_EMAIL`
+- `CONTACT_FORM_FROM_NAME`
+- `CONTACT_FORM_DEMO_RECIPIENT`
+- `CONTACT_FORM_TOUCH_RECIPIENT`
 - `ERROR_TRACKING_DSN`
+
+### Contact Form Email Setup
+
+The contact forms now send mail through a server-side Resend integration instead of posting directly to a browser-side form service.
+
+Before deploying:
+
+1. Create a Resend API key.
+2. Verify the sending domain you want to use.
+3. Set `CONTACT_FORM_FROM_EMAIL` to a verified sender address on that domain.
+4. Set the recipient inboxes. By default all contact flows are configured for `enquiry@clinrtglobal.com`.
+
+If `RESEND_API_KEY` or `CONTACT_FORM_FROM_EMAIL` is missing, the forms will stay visible but submissions will fail safely and the user will be asked to email the team directly.
 
 ## Local Development
 

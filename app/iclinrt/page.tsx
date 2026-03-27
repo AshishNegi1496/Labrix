@@ -338,6 +338,7 @@ export default function IclinrtPage() {
               width={120}
               height={72}
               priority
+              className="rounded-4xl border-white/18 bg-linear-to-r from-white/72 via-[#edf7ff]/64 to-[#daf6ea]/62 px-3 py-2 shadow-[0_18px_40px_rgba(8,20,35,0.14)] ring-1 ring-white/32 backdrop-blur-xl transition duration-300 hover:from-white/80 hover:via-[#f2f9ff]/76 hover:to-[#e3faf1]/72 sm:px-4"
             />
             <p className="mt-4 page-banner-title font-semibold text-white">
               Configuration That Matters
@@ -728,7 +729,10 @@ export default function IclinrtPage() {
                           ))}
                         </div>
                         <div className="mt-8 flex flex-wrap gap-3">
-                          <Button href={getContactFormHref("demo")} label="Request a Demo" />
+                          <Button
+                            href={getContactFormHref("demo")}
+                            label="Request a Demo"
+                          />
                           <Button
                             href="/coming-soon"
                             label="View Factsheets"
@@ -797,7 +801,7 @@ export default function IclinrtPage() {
                     <p className="mt-3 text-3xl font-semibold text-(--primary-color)">
                       {studyTypes.length.toString().padStart(2, "0")}
                     </p>
-                    <p className="mt-2 text-sm text-(--muted-color)">
+                    <p className="mt-2 text-sm text-black">
                       study archetypes represented in this capability view.
                     </p>
                   </div>
@@ -838,7 +842,7 @@ export default function IclinrtPage() {
                       <p className="type-h6 uppercase tracking-[0.3em] text-(--muted-color)">
                         Operational Fit
                       </p>
-                      <p className="mt-2 text-sm leading-6 text-(--muted-color)">
+                      <p className="mt-2 text-sm leading-6 text-black">
                         iClinRT supports early to late phase studies, adaptive
                         designs, and global programs that require precision
                         supply, protocol control, and inspection-ready
@@ -1082,12 +1086,3 @@ export default function IclinrtPage() {
     </PageTransition>
   );
 }
-
-
-
-
-
-
-
-
-

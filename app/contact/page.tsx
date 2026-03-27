@@ -21,20 +21,20 @@ import { cn } from "@/lib/cn";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import {
   contactChannels,
+  contactDemoInterestOptions,
+  contactDemoTimelineOptions,
   contactFileConstraints,
-  contactFormAction,
+  contactFileMimeTypes,
+  contactFormActionPath,
   contactFormOptions,
-  contactFormSuccessPath,
-  contactFormTemplate,
   contactHero,
   contactInfoBlock,
   contactMapBlock,
+  contactTouchEnquiryTypeOptions,
   getBrochureBySlug,
   getBrochureHref,
-  getBrochureSuccessPath,
   type ContactFormType,
 } from "@/data";
-import { appConfig } from "@/config/app-config";
 import {
   sanitizeEmailValue,
   sanitizePhoneValue,
@@ -79,10 +79,32 @@ const FieldShell = ({
   </label>
 );
 
-const CheckboxRow = ({ label }: { label: string }) => (
+const submissionErrorMessages: Record<string, string> = {
+  email_failed:
+    "We could not send your message right now. Please try again or email enquiry@clinrtglobal.com directly.",
+  email_unavailable:
+    "The email service is not configured yet. Please contact enquiry@clinrtglobal.com directly for now.",
+  invalid_file: contactFileConstraints.errorMessage,
+  invalid_origin:
+    "We could not verify this submission. Please reload the page and try again.",
+  invalid_submission:
+    "Please review the highlighted information and try submitting the form again.",
+  rate_limited:
+    "Too many submissions were received from this connection. Please wait a few minutes and try again.",
+};
+
+const CheckboxRow = ({
+  label,
+  name,
+}: {
+  label: string;
+  name: string;
+}) => (
   <label className="flex items-start gap-3 rounded-2xl border border-slate-200 bg-slate-50/80 px-4 py-3 text-sm text-slate-600">
     <input
       type="checkbox"
+      name={name}
+      value="yes"
       required
       className="mt-0.5 h-4 w-4 rounded border-slate-300 text-[#0f243a] focus:ring-[#0f243a]"
     />
@@ -94,16 +116,12 @@ function resolveRequestedForm(
   requestedForm: string | null,
   hasBrochureRequest: boolean,
 ): ContactFormType {
-  if (
-    requestedForm === "demo" ||
-    requestedForm === "touch" ||
-    requestedForm === "community"
-  ) {
+  if (requestedForm === "demo" || requestedForm === "touch") {
     return requestedForm;
   }
 
-  if (hasBrochureRequest) {
-    return "community";
+  if (requestedForm === "community" || hasBrochureRequest) {
+    return "touch";
   }
 
   return "demo";
@@ -120,13 +138,15 @@ export default function Contact() {
   const activeOption =
     contactFormOptions.find((option) => option.id === activeForm) ??
     contactFormOptions[0];
-  const defaultSuccessRedirectUrl = `${appConfig.siteUrl}${contactFormSuccessPath}`;
-  const brochureSuccessRedirectUrl = brochure
-    ? `${appConfig.siteUrl}${getBrochureSuccessPath(brochure.slug)}`
-    : defaultSuccessRedirectUrl;
+  const submissionErrorCode =
+    searchParams.get("status") === "error" ? searchParams.get("error") : null;
+  const submissionError =
+    submissionErrorCode && submissionErrorMessages[submissionErrorCode]
+      ? submissionErrorMessages[submissionErrorCode]
+      : null;
   const activeFormHelper =
-    brochure && activeForm === "community"
-      ? `Complete this short signup to unlock the ${brochure.title} PDF. Once you submit, the download starts automatically on the confirmation page.`
+    brochure && activeForm === "touch"
+      ? `Use this contact form to request the ${brochure.title} brochure. After you submit, the download will start automatically on the confirmation page.`
       : activeOption.helper;
 
   useEffect(() => {
@@ -161,14 +181,7 @@ export default function Contact() {
     }
 
     const [file] = fileField.files;
-    const allowedTypes = new Set([
-      "application/pdf",
-      "application/msword",
-      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-      "image/jpeg",
-      "image/png",
-      "image/webp",
-    ]);
+    const allowedTypes = new Set<string>(contactFileMimeTypes);
 
     if (
       file.size > contactFileConstraints.maxSizeBytes ||
@@ -326,7 +339,17 @@ export default function Contact() {
                 </span>
               </div>
 
-              {brochure && (
+              {submissionError && (
+                <div
+                  role="status"
+                  aria-live="polite"
+                  className="mt-6 rounded-[1.4rem] border border-rose-200 bg-rose-50 px-4 py-3 text-sm leading-6 text-rose-700"
+                >
+                  {submissionError}
+                </div>
+              )}
+
+              {brochure && activeForm === "touch" && (
                 <div className="mt-6 rounded-[1.75rem] border border-amber-200 bg-[linear-gradient(135deg,rgba(255,251,235,0.98)_0%,rgba(255,247,237,0.98)_100%)] p-5 shadow-[0_18px_50px_rgba(15,36,58,0.08)]">
                   <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
                     <div>
@@ -337,10 +360,9 @@ export default function Contact() {
                         {brochure.title}
                       </h3>
                       <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-600">
-                        Submit the Join Our Community form to unlock the gated
-                        PDF download. After submission, we will return you to a
-                        confirmation screen and start the download
-                        automatically.
+                        Submit the Get in Touch form to request this brochure.
+                        After submission, we will return you to a confirmation
+                        screen and start the download automatically.
                       </p>
                     </div>
 
@@ -355,7 +377,7 @@ export default function Contact() {
 
                   <div className="mt-5 flex flex-wrap gap-3 text-[11px] uppercase tracking-[0.24em]">
                     <span className="rounded-full border border-amber-200 bg-white/80 px-4 py-2 text-amber-700">
-                      Community signup required
+                      Contact form required
                     </span>
                     <span className="rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 text-emerald-700">
                       Instant download after submit
@@ -366,7 +388,7 @@ export default function Contact() {
 
               {activeForm === "demo" && (
                 <form
-                  action={contactFormAction}
+                  action={contactFormActionPath}
                   method="POST"
                   onSubmit={handleFormSubmit}
                   className="mt-6 grid gap-5"
@@ -380,22 +402,11 @@ export default function Contact() {
                   />
                   <input
                     type="hidden"
-                    name="_subject"
-                    value="Request a Demo - ClinRT website"
-                  />
-                  <input
-                    type="hidden"
-                    name="_template"
-                    value={contactFormTemplate}
-                  />
-                  <input
-                    type="hidden"
-                    name="_next"
-                    value={defaultSuccessRedirectUrl}
+                    name="contactFormId"
+                    value="demo"
                   />
                   <input type="hidden" name="formType" value="Request a Demo" />
                   <input type="hidden" name="sourcePage" value="Contact Page" />
-                  <input type="hidden" name="_captcha" value="false" />
 
                   <div className="grid gap-4 sm:grid-cols-2">
                     <FieldShell label="First Name">
@@ -466,11 +477,9 @@ export default function Contact() {
                         <option value="" disabled>
                           Select focus area
                         </option>
-                        <option>iClinRT platform overview</option>
-                        <option>Randomization workflows</option>
-                        <option>Supply and kit management</option>
-                        <option>Integrations and reporting</option>
-                        <option>Full platform evaluation</option>
+                        {contactDemoInterestOptions.map((option) => (
+                          <option key={option}>{option}</option>
+                        ))}
                       </Select>
                     </FieldShell>
                     <FieldShell label="Expected Timeline">
@@ -478,10 +487,9 @@ export default function Contact() {
                         <option value="" disabled>
                           Select timeline
                         </option>
-                        <option>Immediately</option>
-                        <option>Within 30 days</option>
-                        <option>This quarter</option>
-                        <option>Just exploring</option>
+                        {contactDemoTimelineOptions.map((option) => (
+                          <option key={option}>{option}</option>
+                        ))}
                       </Select>
                     </FieldShell>
                   </div>
@@ -497,7 +505,10 @@ export default function Contact() {
                     />
                   </FieldShell>
 
-                  <CheckboxRow label="I agree to be contacted about my demo request and understand my information will be handled according to the privacy policy." />
+                  <CheckboxRow
+                    label="I agree to be contacted about my demo request and understand my information will be handled according to the privacy policy."
+                    name="consent"
+                  />
 
                   <div className="flex flex-wrap items-center gap-4">
                     <Button label="Request Demo" type="submit" />
@@ -511,7 +522,7 @@ export default function Contact() {
 
               {activeForm === "touch" && (
                 <form
-                  action={contactFormAction}
+                  action={contactFormActionPath}
                   method="POST"
                   encType="multipart/form-data"
                   onSubmit={handleFormSubmit}
@@ -526,22 +537,33 @@ export default function Contact() {
                   />
                   <input
                     type="hidden"
-                    name="_subject"
-                    value="Get in Touch - ClinRT website"
-                  />
-                  <input
-                    type="hidden"
-                    name="_template"
-                    value={contactFormTemplate}
-                  />
-                  <input
-                    type="hidden"
-                    name="_next"
-                    value={defaultSuccessRedirectUrl}
+                    name="contactFormId"
+                    value="touch"
                   />
                   <input type="hidden" name="formType" value="Get in Touch" />
-                  <input type="hidden" name="sourcePage" value="Contact Page" />
-                  <input type="hidden" name="_captcha" value="false" />
+                  <input
+                    type="hidden"
+                    name="sourcePage"
+                    value={
+                      brochure
+                        ? `Brochure Download (${brochure.slug})`
+                        : "Contact Page"
+                    }
+                  />
+                  {brochure && (
+                    <>
+                      <input
+                        type="hidden"
+                        name="requestedBrochure"
+                        value={brochure.title}
+                      />
+                      <input
+                        type="hidden"
+                        name="brochureSlug"
+                        value={brochure.slug}
+                      />
+                    </>
+                  )}
 
                   <div className="grid gap-4 sm:grid-cols-2">
                     <FieldShell label="First Name">
@@ -611,11 +633,9 @@ export default function Contact() {
                       <option value="" disabled>
                         Select enquiry type
                       </option>
-                      <option>Product enquiry</option>
-                      <option>Support</option>
-                      <option>Partnership</option>
-                      <option>Careers</option>
-                      <option>Other</option>
+                      {contactTouchEnquiryTypeOptions.map((option) => (
+                        <option key={option}>{option}</option>
+                      ))}
                     </Select>
                   </FieldShell>
 
@@ -639,7 +659,10 @@ export default function Contact() {
                     />
                   </FieldShell>
 
-                  <CheckboxRow label="I agree to be contacted about my enquiry and accept the privacy policy." />
+                  <CheckboxRow
+                    label="I agree to be contacted about my enquiry and accept the privacy policy."
+                    name="consent"
+                  />
 
                   <div className="flex flex-wrap items-center gap-4">
                     <Button label="Submit Enquiry" type="submit" />
@@ -651,168 +674,6 @@ export default function Contact() {
                 </form>
               )}
 
-              {activeForm === "community" && (
-                <form
-                  action={contactFormAction}
-                  method="POST"
-                  onSubmit={handleFormSubmit}
-                  className="mt-6 grid gap-5"
-                >
-                  <input
-                    type="text"
-                    name="_honey"
-                    className="hidden"
-                    tabIndex={-1}
-                    autoComplete="off"
-                  />
-                  <input
-                    type="hidden"
-                    name="_subject"
-                    value={
-                      brochure
-                        ? `Brochure Download - ${brochure.title} - ClinRT website`
-                        : "Join Our Community - ClinRT website"
-                    }
-                  />
-                  <input
-                    type="hidden"
-                    name="_template"
-                    value={contactFormTemplate}
-                  />
-                  <input
-                    type="hidden"
-                    name="_next"
-                    value={brochureSuccessRedirectUrl}
-                  />
-                  <input
-                    type="hidden"
-                    name="formType"
-                    value={
-                      brochure
-                        ? "Join Our Community - Brochure Download"
-                        : "Join Our Community"
-                    }
-                  />
-                  <input
-                    type="hidden"
-                    name="sourcePage"
-                    value={
-                      brochure
-                        ? `Brochure Download (${brochure.slug})`
-                        : "Contact Page"
-                    }
-                  />
-                  <input type="hidden" name="_captcha" value="false" />
-                  {brochure && (
-                    <>
-                      <input
-                        type="hidden"
-                        name="requestedBrochure"
-                        value={brochure.title}
-                      />
-                      <input
-                        type="hidden"
-                        name="brochureSlug"
-                        value={brochure.slug}
-                      />
-                    </>
-                  )}
-
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    <FieldShell label="First Name">
-                      <Input
-                        name="firstName"
-                        placeholder="Enter first name"
-                        autoComplete="given-name"
-                        maxLength={80}
-                        required
-                      />
-                    </FieldShell>
-                    <FieldShell label="Last Name">
-                      <Input
-                        name="lastName"
-                        placeholder="Enter last name"
-                        autoComplete="family-name"
-                        maxLength={80}
-                        required
-                      />
-                    </FieldShell>
-                  </div>
-
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    <FieldShell label="Email">
-                      <Input
-                        type="email"
-                        name="email"
-                        placeholder="name@company.com"
-                        autoComplete="email"
-                        required
-                      />
-                    </FieldShell>
-                    <FieldShell label="Company">
-                      <Input
-                        name="company"
-                        placeholder="Company or organisation"
-                        autoComplete="organization"
-                        maxLength={120}
-                      />
-                    </FieldShell>
-                  </div>
-
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    <FieldShell label="Role">
-                      <Input
-                        name="role"
-                        placeholder="Designation or role"
-                        autoComplete="organization-title"
-                        maxLength={120}
-                        required
-                      />
-                    </FieldShell>
-                    <FieldShell label="Country or Region">
-                      <Input
-                        name="country"
-                        placeholder="Country or region"
-                        autoComplete="country-name"
-                        maxLength={80}
-                        required
-                      />
-                    </FieldShell>
-                  </div>
-
-                  <FieldShell label="What would you like to receive">
-                    <Select name="interest" defaultValue="" required>
-                      <option value="" disabled>
-                        Select an interest area
-                      </option>
-                      <option>Product updates</option>
-                      <option>Events and webinars</option>
-                      <option>Case studies</option>
-                      <option>Blogs and insights</option>
-                      <option>Industry news</option>
-                      <option>Everything</option>
-                    </Select>
-                  </FieldShell>
-
-                  <CheckboxRow label="I agree to receive community communications from ClinRT and accept the privacy policy." />
-
-                  <div className="flex flex-wrap items-center gap-4">
-                    <Button
-                      label={
-                        brochure
-                          ? "Join Community & Download"
-                          : "Join Community"
-                      }
-                      type="submit"
-                    />
-                    <p className="text-sm text-slate-500">
-                      {brochure
-                        ? "After you submit, the brochure download starts automatically on the confirmation page."
-                        : "Expect occasional, relevant updates rather than noisy inbox traffic."}
-                    </p>
-                  </div>
-                </form>
-              )}
             </motion.div>
           </AnimatePresence>
         </div>

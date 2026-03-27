@@ -186,7 +186,7 @@ export default function HomePage() {
                         alt={poster.title}
                         fill
                         sizes="100vw"
-                        className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                        className="object-contain object-center transition-transform duration-700 ease-out"
                       />
                       <div className="absolute inset-0 bg-linear-to-t from-slate-950/80 via-transparent to-transparent opacity-60 transition-opacity group-hover:opacity-80" />
                       <div className="absolute bottom-0 left-0 w-full p-5">

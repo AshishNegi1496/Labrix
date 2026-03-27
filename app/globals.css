@@ -315,9 +315,9 @@ video {
 
 .btn-label {
   color: #fff;
-  font-size: clamp(0.85rem, 0.6vw + 0.75rem, 1.05rem);
-  font-weight: 700;
-  letter-spacing: clamp(0.12em, 0.4vw, 0.3em);
+  font-size: clamp(0.65rem, 0.5vw + 0.65rem, 1rem);
+  font-weight: 400;
+  letter-spacing: clamp(0.10em, 0.3vw, 0.2em);
   transition: all 0.3s ease-in-out;
 }
 

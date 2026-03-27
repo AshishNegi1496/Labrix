@@ -990,11 +990,11 @@ export default function WhoWeArePage() {
                     Experience That Guides Our Direction
                   </p>
                   <p className="mt-5 text-base leading-8 text-black/65">
-                    Our leadership team brings decades of experience across
-                    clinical operations, data management, and large research
-                    programs. They set clear standards and lead with
-                    accountability, ensuring that quality, reliability, and
-                    trust remain central to everything we do.
+                    Our leadership team brings over 50 years of consolidated
+                    experience in Clinical Trial Supply Management and IRT. With
+                    over 1000 Trials and 500+ Clients served globally, we
+                    deliver unmatched domain expertise and operational
+                    excellence.
                   </p>
                   <p className="mt-4 text-base leading-8 text-black/58">
                     Their priority is to support teams with clarity and
@@ -1032,14 +1032,14 @@ export default function WhoWeArePage() {
                 </div>
               </ScrollReveal>
             </div>
-
+            {/* 
             <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
               {leadership.map((m, i) => (
                 <ScrollReveal key={m.name} delay={i * 100}>
                   <LeadershipProfileCard leader={m} />
                 </ScrollReveal>
               ))}
-            </div>
+            </div> */}
           </div>
         </div>
       </SectionWrapper>

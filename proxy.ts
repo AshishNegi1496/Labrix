@@ -1,12 +1,14 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-function buildContentSecurityPolicy(isDevelopment: boolean) {
+function buildContentSecurityPolicy(
+  isDevelopment: boolean,
+  allowSameOriginFrames: boolean,
+) {
   const scriptSrc = isDevelopment
     ? "'self' 'unsafe-inline' 'unsafe-eval'"
     : "'self' 'unsafe-inline'";
   const connectSrc = [
     "'self'",
-    "https://formsubmit.co",
     "https://*.tile.openstreetmap.org",
     ...(isDevelopment ? ["ws:", "wss:"] : []),
   ].join(" ");
@@ -21,9 +23,9 @@ function buildContentSecurityPolicy(isDevelopment: boolean) {
     font-src 'self' data:;
     connect-src ${connectSrc};
     worker-src 'self' blob:;
-    frame-ancestors 'none';
+    frame-ancestors ${allowSameOriginFrames ? "'self'" : "'none'"};
     base-uri 'self';
-    form-action 'self' https://formsubmit.co;
+    form-action 'self';
     object-src 'none';
     ${isDevelopment ? "" : "upgrade-insecure-requests;"}
   `
@@ -31,14 +33,23 @@ function buildContentSecurityPolicy(isDevelopment: boolean) {
     .trim();
 }
 
-export function proxy() {
+export function proxy(request: NextRequest) {
   const isDevelopment = process.env.NODE_ENV !== "production";
-  const contentSecurityPolicy = buildContentSecurityPolicy(isDevelopment);
+  const allowSameOriginFrames =
+    request.nextUrl.pathname.startsWith("/brochures/") &&
+    request.nextUrl.pathname.endsWith(".pdf");
+  const contentSecurityPolicy = buildContentSecurityPolicy(
+    isDevelopment,
+    allowSameOriginFrames,
+  );
   const response = NextResponse.next();
 
   response.headers.set("Content-Security-Policy", contentSecurityPolicy);
   response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
-  response.headers.set("X-Frame-Options", "DENY");
+  response.headers.set(
+    "X-Frame-Options",
+    allowSameOriginFrames ? "SAMEORIGIN" : "DENY",
+  );
   response.headers.set("X-Content-Type-Options", "nosniff");
 
   if (!isDevelopment) {

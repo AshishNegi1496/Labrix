@@ -15,7 +15,6 @@ import {
   FiArrowRight,
   FiBookOpen,
   FiCamera,
-  FiCheckCircle,
   FiClock,
   FiDownload,
   FiEye,
@@ -25,11 +24,21 @@ import {
   FiSearch,
 } from "react-icons/fi";
 import PageTransition from "@/components/animations/PageTransition";
+import { BrochurePreviewModal } from "@/components/BrochurePreviewModal";
 import { BlogArticleModal } from "@/components/BlogArticleModal";
+import {
+  MomentGalleryModal,
+  type MomentGalleryItem,
+} from "@/components/MomentGalleryModal";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import SectionWrapper from "@/components/layout/SectionWrapper";
 import Button from "@/components/ui/Button";
-import { brochures, clinrtWorldBlogArticles, getBrochureHref } from "@/data";
+import {
+  brochures,
+  clinrtWorldBlogArticles,
+  getBrochureGateHref,
+  type Brochure,
+} from "@/data";
 import { cn } from "@/lib/cn";
 
 const tabs = ["News", "Events", "Moments", "Blogs", "Brochures"] as const;
@@ -44,10 +53,15 @@ type ResourceItem = {
   eyebrow: string;
   meta: string;
   image?: string;
+  momentImages?: readonly {
+    src: string;
+    alt: string;
+  }[];
   featured?: boolean;
   href?: string;
   highlights?: readonly string[];
   blog?: BlogArticle;
+  brochure?: Brochure;
 };
 
 type TabContent = {
@@ -70,8 +84,8 @@ const brochureItems: readonly ResourceItem[] = brochures.map(
     summary: brochure.summary,
     meta: brochure.meta,
     featured: index === 0,
-    href: getBrochureHref(brochure.slug),
     highlights: brochure.highlights,
+    brochure,
   }),
 );
 
@@ -130,41 +144,45 @@ const contentByTab: Record<Tab, TabContent> = {
     icon: FiCamera,
     items: [
       {
-        eyebrow: "",
+        eyebrow: "Celebration",
         title: "Women’s Day Celebration",
         summary:
-          " A heartfelt celebration recognizing the strength, contributions, and achievements of women at ClinRT, reflecting our commitment to inclusion and appreciation",
-        meta: "",
+          "A heartfelt celebration recognizing the strength, contributions, and achievements of women at ClinRT, reflecting our commitment to inclusion and appreciation.",
+        meta: "Photo collage",
         image: "/images/moment4.jpg",
+        momentImages: [
+          {
+            src: "/images/moment4.jpg",
+            alt: "Women’s Day celebration highlight at ClinRT",
+          },
+          {
+            src: "/images/moment1.jpg",
+            alt: "Team gathering during the Women’s Day celebration",
+          },
+        ],
         featured: true,
       },
+
       {
-        eyebrow: "Client Day",
-        title: "Celebrating partnership milestones",
+        eyebrow: "Celebration",
+        title: "Christmas Celebration",
         summary:
-          "Snapshots from a day focused on long-term relationships, feedback, and shared wins",
-        meta: "",
-        image: "/images/moment2.jpg",
-      },
-      {
-        eyebrow: " ",
-        title: "Christmas Celebration ",
-        summary:
-          "  A cheerful moment where colleagues came together to celebrate the season, strengthening bonds and creating memorable experiences at ClinRT",
-        meta: "",
+          "A cheerful moment where colleagues came together to celebrate the season, strengthening bonds and creating memorable experiences at ClinRT.",
+        meta: "Photo collage",
         image: "/images/moment3.jpg",
-      },
-      {
-        eyebrow: "Team",
-        title: "Cross-functional planning sprint",
-        summary:
-          "Engineers, delivery teams, and domain experts aligning around execution priorities",
-        meta: "",
-        image: "/images/moment1.jpg",
+        momentImages: [
+          {
+            src: "/images/moment3.jpg",
+            alt: "Christmas celebration moment at ClinRT",
+          },
+          {
+            src: "/images/moment2.jpg",
+            alt: "Team sharing festive moments during the Christmas celebration",
+          },
+        ],
       },
     ],
   },
-
   Blogs: {
     title: "Insights and Blogs",
     description:
@@ -175,7 +193,7 @@ const contentByTab: Record<Tab, TabContent> = {
   Brochures: {
     title: "Brochures",
     description:
-      "Open the full brochure in-browser, explore the entire document, and unlock the PDF download through a short community signup.",
+      "Open the full brochure in-browser, explore the entire document, and unlock the PDF download through a short contact request.",
     icon: FiFileText,
     items: brochureItems,
   },
@@ -192,6 +210,14 @@ function getSearchableText(item: ResourceItem) {
       ...(section.paragraphs ?? []),
       ...(section.bullets ?? []),
     ]) ?? [];
+  const brochureText = item.brochure
+    ? [
+        item.brochure.description,
+        item.brochure.fileName,
+        ...item.brochure.highlights,
+      ]
+    : [];
+  const momentText = item.momentImages?.map((image) => image.alt) ?? [];
 
   return [
     item.eyebrow,
@@ -202,6 +228,8 @@ function getSearchableText(item: ResourceItem) {
     ...(item.blog?.lead ?? []),
     ...blogSections,
     ...(item.blog?.closing ?? []),
+    ...brochureText,
+    ...momentText,
   ].join(" ");
 }
 
@@ -210,6 +238,8 @@ export default function WhatsNewPage() {
   const requestedTab = searchParams.get("tab");
   const [selectedTab, setSelectedTab] = useState<Tab | null>(null);
   const [activeBlog, setActiveBlog] = useState<BlogArticle | null>(null);
+  const [activeBrochure, setActiveBrochure] = useState<Brochure | null>(null);
+  const [activeMoment, setActiveMoment] = useState<MomentGalleryItem | null>(null);
   const [query, setQuery] = useState("");
   const deferredQuery = useDeferredValue(query);
   const [visibleCount, setVisibleCount] = useState(INITIAL_VISIBLE);
@@ -228,6 +258,8 @@ export default function WhatsNewPage() {
     startTransition(() => {
       setSelectedTab(tab);
       setActiveBlog(null);
+      setActiveBrochure(null);
+      setActiveMoment(null);
       setQuery("");
       setVisibleCount(INITIAL_VISIBLE);
     });
@@ -271,6 +303,7 @@ export default function WhatsNewPage() {
 
       <SectionWrapper fullBleed id="content-hub">
         <div className="relative overflow-hidden rounded-4xl border border-black/8 bg-[radial-gradient(circle_at_top_left,rgba(15,36,58,0.08),transparent_34%),radial-gradient(circle_at_bottom_right,rgba(243,123,33,0.14),transparent_32%),linear-gradient(180deg,#ffffff_0%,#f8fafc_100%)] p-3 shadow-[0_28px_120px_rgba(15,36,58,0.08)] sm:p-4 lg:p-6 xl:p-8">
+          <div className="pointer-events-none absolute inset-[1.1rem] rounded-[2rem] bg-[radial-gradient(circle_at_top_right,rgba(251,146,60,0.14),transparent_30%),radial-gradient(circle_at_bottom_left,rgba(253,186,116,0.12),transparent_34%),linear-gradient(135deg,rgba(255,248,243,0.78)_0%,rgba(255,255,255,0.38)_52%,rgba(255,244,236,0.64)_100%)]" />
           <motion.div
             className="pointer-events-none absolute -left-14 top-12 h-44 w-44 rounded-full bg-sky-200/35 blur-3xl"
             animate={{ y: [0, -16, 0] }}
@@ -284,7 +317,7 @@ export default function WhatsNewPage() {
 
           <div className="relative grid gap-6 lg:grid-cols-[minmax(15.75rem,16.75rem)_minmax(0,1fr)] xl:grid-cols-[280px_1fr] lg:gap-8">
             <aside className="lg:sticky lg:top-10 lg:h-fit xl:top-12">
-              <ScrollReveal className="rounded-[1.75rem] border border-black/8 bg-white/75 p-4 shadow-[0_20px_60px_rgba(15,36,58,0.08)] backdrop-blur sm:p-5 xl:p-6">
+              <ScrollReveal className="rounded-[1.75rem] border border-orange-100/80 bg-[linear-gradient(180deg,rgba(255,248,243,0.96)_0%,rgba(255,255,255,0.86)_100%)] p-4 shadow-[0_20px_60px_rgba(15,36,58,0.08)] backdrop-blur sm:p-5 xl:p-6">
                 <p className="type-h6 font-semibold uppercase tracking-[0.35em] text-black/45">
                   Content Hub
                 </p>
@@ -323,7 +356,7 @@ export default function WhatsNewPage() {
 
             <div className="space-y-6">
               <ScrollReveal>
-                <div className="rounded-[1.75rem] border border-black/8 bg-white/80 p-4 shadow-[0_18px_50px_rgba(15,36,58,0.08)] backdrop-blur sm:p-5 xl:p-7">
+                <div className="rounded-[1.75rem] border border-orange-100/75 bg-[linear-gradient(180deg,rgba(255,248,243,0.94)_0%,rgba(255,255,255,0.88)_100%)] p-4 shadow-[0_18px_50px_rgba(15,36,58,0.08)] backdrop-blur sm:p-5 xl:p-7">
                   <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
                     <div className="max-w-2xl">
                       <div className="flex items-start gap-3 sm:gap-4">
@@ -351,7 +384,7 @@ export default function WhatsNewPage() {
                           value={query}
                           onChange={handleSearchChange}
                           placeholder={`Search in ${activeTab.toLowerCase()}`}
-                          className="h-13 w-full rounded-2xl border border-black/10 bg-slate-50 pl-11 pr-4 text-sm text-black outline-none transition focus:border-black/20 focus:bg-white"
+                          className="h-13 w-full rounded-2xl border border-orange-100/80 bg-white/86 pl-11 pr-4 text-sm text-black outline-none transition focus:border-orange-200 focus:bg-white"
                         />
                       </label>
                     </div>
@@ -359,10 +392,10 @@ export default function WhatsNewPage() {
 
                   <div className="mt-6 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
                     <div className="flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.28em] text-black/45">
-                      <span className="rounded-full border border-black/8 bg-slate-50 px-4 py-2">
+                      <span className="rounded-full border border-orange-100/70 bg-white/88 px-4 py-2">
                         {filteredItems.length} results
                       </span>
-                      <span className="rounded-full border border-black/8 bg-slate-50 px-4 py-2">
+                      <span className="rounded-full border border-orange-100/70 bg-white/88 px-4 py-2">
                         Showing {visibleItems.length}
                       </span>
                       {normalizedQuery && (
@@ -410,6 +443,8 @@ export default function WhatsNewPage() {
                         tab={activeTab}
                         index={index}
                         onOpenBlog={setActiveBlog}
+                        onOpenBrochure={setActiveBrochure}
+                        onOpenMoment={setActiveMoment}
                       />
                     ))
                   ) : (
@@ -449,6 +484,18 @@ export default function WhatsNewPage() {
           <BlogArticleModal
             article={activeBlog}
             onClose={() => setActiveBlog(null)}
+          />
+        )}
+        {activeBrochure && (
+          <BrochurePreviewModal
+            brochure={activeBrochure}
+            onClose={() => setActiveBrochure(null)}
+          />
+        )}
+        {activeMoment && (
+          <MomentGalleryModal
+            moment={activeMoment}
+            onClose={() => setActiveMoment(null)}
           />
         )}
       </AnimatePresence>
@@ -525,13 +572,30 @@ type ResourceCardProps = {
   tab: Tab;
   index: number;
   onOpenBlog: (article: BlogArticle) => void;
+  onOpenBrochure: (brochure: Brochure) => void;
+  onOpenMoment: (moment: MomentGalleryItem) => void;
 };
 
-function ResourceCard({ item, tab, index, onOpenBlog }: ResourceCardProps) {
+function ResourceCard({
+  item,
+  tab,
+  index,
+  onOpenBlog,
+  onOpenBrochure,
+  onOpenMoment,
+}: ResourceCardProps) {
   const reduceMotion = useReducedMotion();
 
-  if (tab === "Brochures" && item.href) {
-    return <BrochureCard item={{ ...item, href: item.href }} index={index} />;
+  if (tab === "Brochures" && item.brochure) {
+    const brochure = item.brochure;
+
+    return (
+      <BrochureCard
+        item={{ ...item, brochure }}
+        index={index}
+        onOpen={() => onOpenBrochure(brochure)}
+      />
+    );
   }
 
   if (tab === "Blogs" && item.blog) {
@@ -546,53 +610,71 @@ function ResourceCard({ item, tab, index, onOpenBlog }: ResourceCardProps) {
     );
   }
 
-  if (tab === "Moments" && item.image) {
+  if (tab === "Moments" && item.image && item.momentImages?.length) {
+    const moment: MomentGalleryItem = {
+      eyebrow: item.eyebrow,
+      title: item.title,
+      summary: item.summary,
+      meta: item.meta,
+      image: item.image,
+      momentImages: item.momentImages,
+    };
+
     return (
-      <motion.article
+      <motion.button
+        type="button"
+        onClick={() => onOpenMoment(moment)}
         initial={reduceMotion ? undefined : { opacity: 0, y: 18 }}
         animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
         transition={{
           duration: 0.3,
           delay: reduceMotion ? 0 : index * 0.04,
         }}
+        whileHover={reduceMotion ? undefined : { y: -4 }}
         className={cn(
-          "group relative overflow-hidden rounded-[1.75rem] border border-white/15 bg-slate-950 text-white shadow-[0_24px_70px_rgba(15,36,58,0.16)]",
+          "group relative overflow-hidden rounded-[1.75rem] border border-white/15 bg-slate-950 text-left text-white shadow-[0_24px_70px_rgba(15,36,58,0.16)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-300 focus-visible:ring-offset-2 focus-visible:ring-offset-[#081423]",
           item.featured && "md:col-span-2 2xl:row-span-2",
         )}
       >
-        <div className="py-2 absolute inset-0">
+        <div className="absolute inset-0">
           <Image
-            src={item.image}
+            src={moment.image}
             alt={item.title}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-            className="object-cover transition duration-700 group-hover:scale-105"
+            className="object-cover scale-[1.06] blur-[6px] transition duration-700 group-hover:scale-[1.1] group-hover:blur-[5px]"
           />
         </div>
-        <div className="absolute inset-0 bg-linear-to-t from-black/85 via-black/35 to-transparent" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.1),transparent_28%)]" />
+        <div className="absolute inset-0 bg-linear-to-t from-black/88 via-black/50 to-black/12" />
         <div className="relative flex h-full flex-col justify-between p-5 sm:p-6">
-          <span className="inline-flex w-fit rounded-full border border-white/15 bg-white/10 px-3 py-1 text-[11px] uppercase tracking-[0.32em] text-white/75">
-            {item.eyebrow}
-          </span>
+          <div className="flex items-start justify-between gap-3">
+            <span className="inline-flex w-fit rounded-full border border-white/15 bg-white/10 px-3 py-1 text-[11px] uppercase tracking-[0.32em] text-white/75">
+              {item.eyebrow}
+            </span>
+            <span className="inline-flex rounded-full border border-white/15 bg-white/10 px-3 py-1 text-[11px] uppercase tracking-[0.28em] text-white/72">
+              {moment.momentImages.length} photos
+            </span>
+          </div>
           <div>
-            <p className="text-xl mt-2 font-semibold leading-tight sm:text-2xl">
+            <p className="mt-2 text-xl font-semibold leading-tight sm:text-2xl">
               {item.title}
             </p>
             <p className="mt-3 max-w-xl text-sm leading-7 text-white/75">
               {item.summary}
             </p>
             <div className="mt-6 flex items-center justify-between text-[11px] uppercase tracking-[0.32em] text-white/55">
-              <span>{item.meta}</span>
-              <span className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/10">
+              <span>{item.meta || "Click to view collage"}</span>
+              <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-white/80">
+                See all pics
                 <FiArrowRight className="h-4 w-4" />
               </span>
             </div>
           </div>
         </div>
-      </motion.article>
+      </motion.button>
     );
   }
-
   return (
     <motion.article
       initial={reduceMotion ? undefined : { opacity: 0, y: 18 }}
@@ -697,14 +779,17 @@ function BlogCard({
 function BrochureCard({
   item,
   index,
+  onOpen,
 }: {
-  item: ResourceItem & { href: string };
+  item: ResourceItem & { brochure: Brochure };
   index: number;
+  onOpen: () => void;
 }) {
   const reduceMotion = useReducedMotion();
+  const downloadHref = getBrochureGateHref(item.brochure.slug);
 
   return (
-    <motion.div
+    <motion.article
       initial={reduceMotion ? undefined : { opacity: 0, y: 18 }}
       animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
       transition={{
@@ -712,127 +797,47 @@ function BrochureCard({
         delay: reduceMotion ? 0 : index * 0.05,
       }}
       whileHover={reduceMotion ? undefined : { y: -4 }}
+      className="relative overflow-hidden rounded-[1.9rem] border border-black/8 bg-white/88 p-5 shadow-[0_22px_70px_rgba(15,36,58,0.08)] sm:p-6"
     >
-      <Link
-        href={item.href}
-        className="group relative block overflow-hidden rounded-4xl border border-black/8 bg-white/90 p-5 shadow-[0_24px_80px_rgba(15,36,58,0.1)] transition duration-300 hover:border-black/14 hover:shadow-[0_30px_90px_rgba(15,36,58,0.14)] sm:p-6 xl:p-8"
-      >
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(15,36,58,0.08),transparent_34%),radial-gradient(circle_at_bottom_right,rgba(243,123,33,0.14),transparent_28%),linear-gradient(180deg,rgba(255,255,255,0.98)_0%,rgba(248,250,252,0.98)_100%)]" />
-        <div className="pointer-events-none absolute right-8 top-7 hidden w-36 rotate-6 rounded-[1.6rem] border border-slate-200 bg-white/90 p-4 shadow-[0_18px_40px_rgba(15,36,58,0.12)] xl:block">
-          <div className="rounded-[1.1rem] bg-[#0f243a] px-4 py-5 text-white">
-            <p className="text-[10px] uppercase tracking-[0.28em] text-white/55">
-              ClinRT
-            </p>
-            <p className="mt-3 text-lg font-semibold leading-tight">iClinRT</p>
-            <p className="mt-2 text-xs leading-5 text-white/72">
-              Platform overview brochure
-            </p>
-          </div>
-          <div className="mt-4 space-y-2">
-            <div className="h-2 rounded-full bg-slate-200" />
-            <div className="h-2 w-4/5 rounded-full bg-slate-200" />
-            <div className="h-2 w-3/5 rounded-full bg-slate-200" />
-          </div>
-        </div>
-
-        <div className="relative flex h-full flex-col gap-6 xl:gap-8">
-          <div className="max-w-4xl xl:pr-44">
-            <div className="flex flex-wrap items-center gap-3">
-              <span className="inline-flex rounded-full border border-black/8 bg-white/90 px-3 py-1 text-[11px] uppercase tracking-[0.32em] text-black/50">
-                {item.eyebrow}
-              </span>
-              <span className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-[11px] uppercase tracking-[0.26em] text-emerald-700">
-                <FiDownload className="h-3.5 w-3.5" />
-                Gated download
-              </span>
-            </div>
-
-            <p className="mt-5 max-w-3xl text-2xl font-semibold leading-tight text-black sm:mt-6 sm:text-3xl xl:text-4xl">
-              {item.title}
-            </p>
-            <p className="mt-4 max-w-3xl text-sm leading-7 text-black/65 md:text-base">
-              {item.summary}
-            </p>
-          </div>
-
-          <div className="grid gap-5 lg:grid-cols-[minmax(0,1.08fr)_minmax(17rem,0.92fr)] xl:grid-cols-[1.2fr_0.8fr]">
-            <div className="grid gap-3">
-              {item.highlights?.map((highlight) => (
-                <div
-                  key={highlight}
-                  className="flex items-start gap-3 rounded-[1.35rem] border border-black/8 bg-white/78 px-3.5 py-4 shadow-sm sm:px-4"
-                >
-                  <span className="mt-0.5 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-2xl bg-[#0f243a] text-white">
-                    <FiCheckCircle className="h-4 w-4" />
-                  </span>
-                  <p className="text-sm leading-6 text-black/70">{highlight}</p>
-                </div>
-              ))}
-            </div>
-
-            <div className="rounded-[1.6rem] border border-black/8 bg-white/82 p-4 shadow-sm sm:p-5">
-              <p className="text-[11px] uppercase tracking-[0.3em] text-black/45">
-                Access Flow
-              </p>
-              <div className="mt-5 grid gap-3">
-                <FlowStep
-                  icon={FiEye}
-                  title="Open full brochure"
-                  summary="Read the complete PDF inside a polished browser preview."
-                />
-                <FlowStep
-                  icon={FiDownload}
-                  title="Unlock download"
-                  summary="Join the ClinRT community once before the file download starts."
-                />
-                <FlowStep
-                  icon={FiCheckCircle}
-                  title="Instant handoff"
-                  summary="After the form is submitted, the PDF download begins automatically."
-                />
-              </div>
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-4 border-t border-black/8 pt-5 lg:flex-row lg:items-center lg:justify-between">
-            <div className="flex flex-wrap items-center gap-3 text-[11px] uppercase tracking-[0.28em] text-black/45">
-              <span className="rounded-full border border-black/8 bg-slate-50 px-4 py-2">
-                {item.meta}
-              </span>
-              <span className="rounded-full border border-orange-200 bg-orange-50 px-4 py-2 text-orange-700">
-                Industry-style brochure preview
-              </span>
-            </div>
-
-            <span className="inline-flex w-full items-center justify-center gap-3 rounded-full bg-(--color-primary) px-5 py-3 text-sm font-medium text-white shadow-lg transition duration-300 group-hover:translate-x-1 sm:w-auto">
-              Preview brochure
-              <FiArrowRight className="h-4 w-4" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-[radial-gradient(circle_at_top_left,rgba(125,211,252,0.2),transparent_35%),radial-gradient(circle_at_top_right,rgba(167,243,208,0.16),transparent_28%)]" />
+      <div className="relative flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+        <div className="max-w-3xl">
+          <div className="flex flex-wrap items-center gap-3">
+            <span className="inline-flex rounded-full border border-black/8 bg-white/90 px-3 py-1 text-[11px] uppercase tracking-[0.32em] text-black/50">
+              {item.eyebrow}
+            </span>
+            <span className="rounded-full border border-black/8 bg-slate-50 px-3 py-1 text-[11px] uppercase tracking-[0.28em] text-black/45">
+              {item.meta}
             </span>
           </div>
+
+          <p className="mt-5 text-2xl font-semibold leading-tight text-black sm:text-3xl">
+            {item.title}
+          </p>
+          <p className="mt-3 max-w-2xl text-sm leading-7 text-black/65 sm:text-base">
+            {item.summary}
+          </p>
         </div>
-      </Link>
-    </motion.div>
+
+        <div className="flex w-full flex-col gap-3 sm:flex-row lg:w-auto lg:min-w-[14rem] lg:flex-col">
+          <button
+            type="button"
+            onClick={onOpen}
+            className="inline-flex items-center justify-center gap-2 rounded-full border border-black/10 bg-[#0f243a] px-5 py-3 text-sm font-medium text-white transition hover:bg-[#163451]"
+          >
+            <FiEye className="h-4 w-4" />
+            Preview brochure
+          </button>
+          <Link
+            href={downloadHref}
+            className="inline-flex items-center justify-center gap-2 rounded-full border border-black/10 bg-white px-5 py-3 text-sm font-medium text-[#0f243a] transition hover:border-black/18 hover:bg-slate-50"
+          >
+            <FiDownload className="h-4 w-4" />
+            Join & Download
+          </Link>
+        </div>
+      </div>
+    </motion.article>
   );
 }
 
-function FlowStep({
-  icon: Icon,
-  title,
-  summary,
-}: {
-  icon: IconType;
-  title: string;
-  summary: string;
-}) {
-  return (
-    <div className="flex items-start gap-3 rounded-[1.25rem] border border-black/8 bg-slate-50/85 px-3.5 py-3 sm:px-4">
-      <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl border border-black/8 bg-white text-[#0f243a]">
-        <Icon className="h-4 w-4" />
-      </span>
-      <div>
-        <p className="text-sm font-semibold text-black">{title}</p>
-        <p className="mt-1 text-sm leading-6 text-black/60">{summary}</p>
-      </div>
-    </div>
-  );
-}

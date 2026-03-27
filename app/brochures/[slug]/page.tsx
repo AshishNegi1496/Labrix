@@ -122,8 +122,8 @@ export default async function BrochurePage({ params }: BrochurePageProps) {
                   </p>
                   <p className="mt-3 text-sm leading-7 text-white/70">
                     Open the full brochure below. When you are ready to keep a
-                    copy, we route you through the Join Our Community form once
-                    and start the PDF download automatically after submission.
+                    copy, we route you through the Get in Touch form and start
+                    the PDF download automatically after submission.
                   </p>
 
                   <div className="mt-6 grid gap-3">
@@ -136,7 +136,7 @@ export default async function BrochurePage({ params }: BrochurePageProps) {
                           Industry-standard gated access
                         </p>
                         <p className="mt-1 text-sm leading-6 text-white/68">
-                          Community signup doubles as lead capture and unlocks
+                          A brochure request doubles as lead capture and unlocks
                           instant brochure delivery.
                         </p>
                       </div>
@@ -146,7 +146,7 @@ export default async function BrochurePage({ params }: BrochurePageProps) {
                   <div className="mt-6 flex flex-wrap gap-4">
                     <Button
                       href={downloadGateHref}
-                      label="Join Community & Download"
+                      label="Request Brochure & Download"
                       icon={FiDownload}
                     />
                     <Button
