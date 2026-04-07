@@ -94,7 +94,7 @@ export default function HomePage() {
               className="mb-8 max-w-3xl sm:mb-12 lg:mb-16"
             >
               <Image
-                src={brandLogoSrc}
+                src="/images/logo-final.png"
                 alt="ClinRT Logo"
                 width={220}
                 height={65}

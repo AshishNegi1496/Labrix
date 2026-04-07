@@ -10,4 +10,4 @@ export const siteMeta: SiteMeta = deepFreeze({
 });
 
 /** Shared brand asset path with a version suffix to avoid stale browser caches. */
-export const brandLogoSrc = "/images/logo-final.png";
+export const brandLogoSrc = "/images/header-logo.png";
