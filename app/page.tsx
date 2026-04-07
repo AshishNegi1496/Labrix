@@ -96,9 +96,9 @@ export default function HomePage() {
               <Image
                 src="/images/logo-final.png"
                 alt="ClinRT Logo"
-                width={220}
+                width={240}
                 height={65}
-                className="animate-pulse"
+                className="drop-shadow-[0_16px_36px_rgba(8,20,35,0.2)] will-change-transform motion-safe:animate-[float-slow_12s_ease-in-out_infinite]"
                 loading="lazy"
               />
               <p className=" page-banner-title font-semibold">
@@ -151,12 +151,12 @@ export default function HomePage() {
 
                 {/* bottom section */}
                 <div className="mt-4 flex justify-start">
-                  <span className="relative inline-flex items-start rounded-full px-5 py-2 text-xs font-semibold uppercase tracking-widest text-white border border-white/20 bg-white/10 backdrop-blur-md shadow-[0_0_20px_rgba(255,255,255,0.1)]">
+                  <span className="relative inline-flex items-start rounded-full px-5 py-2 text-xs font-semibold  tracking-widest text-white border border-white/20 bg-white/10 backdrop-blur-md shadow-[0_0_20px_rgba(255,255,255,0.1)]">
                     {/* glow effect */}
                     <span className="absolute inset-0 rounded-full bg-linear-to-r from-white/20 via-transparent to-rose-400/20 opacity-40 blur-sm" />
 
                     {/* text */}
-                    <span className="relative z-10">CTMS Domain</span>
+                    <span className="relative z-10">In CTMS Domain</span>
                   </span>
                 </div>
               </div>

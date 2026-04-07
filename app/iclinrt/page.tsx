@@ -19,7 +19,7 @@ import SectionBadge from "@/components/ui/SectionBadge";
 import { FiActivity, FiArrowRight, FiCheck, FiZap } from "react-icons/fi";
 import StudyFlowSvg from "@/components/StudyFlowSvg";
 import { cn } from "@/lib/cn";
-import { brandLogoSrc, getContactFormHref } from "@/data";
+import { getContactFormHref } from "@/data";
 import {
   iclinrtPotential as iclinrtPotential,
   iclinrtPotentialMedia as potentialMedia,
@@ -60,7 +60,7 @@ const StickyCards = ({
       <div className="pointer-events-none absolute inset-0">
         <video
           className="absolute inset-0 h-full w-full object-cover"
-          src="/images/usp-video.mp4"
+          src="/videos/usp-video.webm"
           autoPlay
           muted
           loop
@@ -214,7 +214,7 @@ export default function IclinrtPage() {
           <ScrollReveal className="mb-8 max-w-3xl text-white sm:mb-12 lg:mb-20">
             <Image
               src="/images/logo-final.png"
-              alt="iClinRT"
+              alt="ClinRT Logo"
               width={250}
               height={82}
               loading="lazy"
