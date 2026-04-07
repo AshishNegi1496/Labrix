@@ -30,8 +30,8 @@ export const iclinrtServiceMedia = deepFreeze([
   "/images/Kit Management and Assignment_compressed.webp",
   "/images/Triggers and Auto Shipments.webp",
   "/images/Kit Expiry Date Management_compressed.webp",
+  "/images/Clinical Supply & Site Inventory Management.webp",
   "/images/Cold-Chain and Excursion Handling_compressed.webp",
-  "/images/Kit Expiry Date Management_compressed.webp",
 ] as const);
 
 export const iclinrtPotentialMedia = deepFreeze([

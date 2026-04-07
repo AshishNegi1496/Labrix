@@ -213,7 +213,7 @@ export default function IclinrtPage() {
         <div className="hero-content-lift relative z-10 section-shell w-full pb-12 pt-24 text-white sm:pb-16 sm:pt-28 md:pb-20 md:pt-36 lg:pb-20">
           <ScrollReveal className="mb-8 max-w-3xl text-white sm:mb-12 lg:mb-20">
             <Image
-              src={brandLogoSrc}
+              src="/images/logo-final.png"
               alt="iClinRT"
               width={250}
               height={82}
