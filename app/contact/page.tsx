@@ -6,13 +6,14 @@ import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import type {
+  ComponentProps,
   FormEvent,
   InputHTMLAttributes,
   ReactNode,
   SelectHTMLAttributes,
   TextareaHTMLAttributes,
 } from "react";
-import { useEffect, useState } from "react";
+import { Children, isValidElement, useEffect, useState } from "react";
 import { FiArrowRight, FiShield } from "react-icons/fi";
 import PageTransition from "@/components/animations/PageTransition";
 import SectionWrapper from "@/components/layout/SectionWrapper";
@@ -71,14 +72,27 @@ const FieldShell = ({
 }: {
   label: string;
   children: ReactNode;
-}) => (
-  <label className="grid gap-2">
-    <span className="text-[11px] font-medium uppercase tracking-[0.22em] text-slate-500">
-      {label}
-    </span>
-    {children}
-  </label>
-);
+}) => {
+  const isRequired = Children.toArray(children).some(
+    (child) =>
+      isValidElement<ComponentProps<"input">>(child) &&
+      Boolean(child.props.required),
+  );
+
+  return (
+    <label className="grid gap-2">
+      <span className="text-[11px] font-medium uppercase tracking-[0.22em] text-slate-500">
+        {label}
+        {isRequired ? (
+          <span className="ml-1 text-[#f97316]" aria-hidden="true">
+            *
+          </span>
+        ) : null}
+      </span>
+      {children}
+    </label>
+  );
+};
 
 const submissionErrorMessages: Record<string, string> = {
   email_failed:
@@ -103,7 +117,12 @@ const CheckboxRow = ({ label, name }: { label: string; name: string }) => (
       required
       className="mt-0.5 h-4 w-4 rounded border-slate-300 text-[#0f243a] focus:ring-[#0f243a]"
     />
-    <span>{label}</span>
+    <span>
+      {label}
+      <span className="ml-1 text-[#f97316]" aria-hidden="true">
+        *
+      </span>
+    </span>
   </label>
 );
 
@@ -195,7 +214,7 @@ export default function Contact() {
     <PageTransition>
       {/* ---------------- HERO ---------------- */}
 
-      <section className="relative min-h-[78svh] overflow-hidden sm:min-h-[88svh] lg:min-h-screen">
+      <section className="relative flex min-h-[78svh] items-end overflow-hidden sm:min-h-[88svh] lg:min-h-screen">
         <Image
           src={contactHero.image}
           alt="ClinRT operations workspace"
@@ -206,8 +225,8 @@ export default function Contact() {
 
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(224,242,254,0.2)_0%,rgba(167,243,208,0.16)_22%,rgba(14,116,144,0.4)_52%,rgba(15,23,42,0.84)_100%)]" />
 
-        <div className="hero-content-lift relative z-10 mb-4 flex h-full items-end section-shell pb-12 pt-24 text-white sm:pb-16 sm:pt-28 md:pb-20">
-          <ScrollReveal className="max-w-3xl">
+        <div className="hero-content-lift relative z-10 section-shell w-full pb-12 pt-24 text-white sm:pb-16 sm:pt-28 md:pb-20 lg:pb-24">
+          <ScrollReveal className="mb-8 max-w-3xl sm:mb-12 lg:mb-16">
             <p className="page-banner-title font-semibold">
               {contactHero.punchline}
             </p>
@@ -333,6 +352,12 @@ export default function Contact() {
                   Secure Form
                 </span>
               </div>
+
+              <p className="mt-4 text-sm text-slate-500">
+                Fields marked
+                <span className="mx-1 font-semibold text-[#f97316]">*</span>
+                are required.
+              </p>
 
               {submissionError && (
                 <div

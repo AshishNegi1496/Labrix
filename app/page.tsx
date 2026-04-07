@@ -24,6 +24,7 @@ import {
   FaGlobeAmericas,
 } from "react-icons/fa";
 import {
+  brandLogoSrc,
   getContactFormHref,
   homeFaqItems as faqs,
   homeMovingWords,
@@ -34,6 +35,33 @@ import {
 } from "@/data";
 
 const movingTrack = [...homeMovingWords, ...homeMovingWords];
+const trustedClientAvatars = [
+  { src: "/images/author-1.jpg" },
+  { src: "/images/author-2.jpg" },
+  { src: "/images/author-3.jpg" },
+  { src: "/images/author-2.jpg" },
+];
+const stats = [
+  {
+    eyebrow: "Experience",
+    value: 50,
+    label: "Years of experience",
+    suffix: "+",
+  },
+  {
+    eyebrow: "Delivery",
+    value: 1000,
+    label: "Trials supported",
+    suffix: "+",
+  },
+  {
+    eyebrow: "Trusted by",
+    value: 500,
+    label: "Satisfied clients",
+    suffix: "+",
+    hasClients: true,
+  },
+];
 
 export default function HomePage() {
   const [isFaqModalOpen, setIsFaqModalOpen] = useState(false);
@@ -65,8 +93,16 @@ export default function HomePage() {
               variant="left"
               className="mb-8 max-w-3xl sm:mb-12 lg:mb-16"
             >
+              <Image
+                src={brandLogoSrc}
+                alt="ClinRT Logo"
+                width={220}
+                height={65}
+                className="animate-pulse"
+                loading="lazy"
+              />
               <p className=" page-banner-title font-semibold">
-                Intelligent, Interactive and Innovative
+                &ldquo; Intelligent, Interactive and Innovative&ldquo;
               </p>
               <p className="mt-4 max-w-2xl type-h4 font-semibold">
                 Customised and scalable IRT platform for managing clinical
@@ -76,45 +112,52 @@ export default function HomePage() {
               {/* Buttons */}
 
               {/* Hero Bottom Stats */}
-              <div className="mt-10 flex flex-col items-start gap-4 sm:mt-12 sm:flex-row sm:items-center sm:gap-5">
-                <div className="inline-flex items-center gap-3 rounded-3xl bg-white/10 px-4 py-3 backdrop-blur-sm sm:bg-transparent sm:px-0 sm:py-0">
-                  <CountUpOnView
-                    to={40}
-                    suffix="+"
-                    className="inline-block min-w-[3ch] text-right type-h1 font-semibold text-white tabular-nums sm:text-[2.6rem]"
-                  />
-                  <p className="type-h6 font-semibold leading-6 text-white sm:text-[15px]">
-                    Years Of Experience
-                  </p>
+              <div className="mt-10 max-w-4xl relative">
+                {/* background glow */}
+                <div className="pointer-events-none absolute inset-0" />
+
+                {/* stats */}
+                <div className="relative grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+                  {stats.map((item, i) => (
+                    <div
+                      key={i}
+                      className="px-5 py-5 sm:px-6 sm:py-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]"
+                    >
+                      <div className="flex flex-col items-start">
+                        <span className="text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-white/60">
+                          {item.eyebrow}
+                        </span>
+                        <CountUpOnView
+                          to={item.value}
+                          suffix={item.suffix}
+                          className="mt-4 inline-block text-right text-white font-semibold tabular-nums text-3xl sm:text-5xl"
+                        />
+                        <p className="mt-3 text-sm text-white/80">
+                          {item.label}
+                        </p>
+
+                        {item.hasClients && (
+                          <Clients
+                            avatars={trustedClientAvatars}
+                            label=""
+                            size={28}
+                            className="mt-4 shrink-0"
+                          />
+                        )}
+                      </div>
+                    </div>
+                  ))}
                 </div>
 
-                <div className="inline-flex flex-wrap items-center gap-3 rounded-3xl bg-white/10 px-4 py-3 backdrop-blur-sm sm:flex-nowrap sm:bg-transparent sm:px-0 sm:py-0">
-                  <Clients
-                    avatars={[
-                      { src: "/images/author-1.jpg" },
-                      { src: "/images/author-2.jpg" },
-                      { src: "/images/author-3.jpg" },
-                      { src: "/images/author-2.jpg" },
-                    ]}
-                    label=""
-                    size={40}
-                    className="shrink-0"
-                  />
-                  <div className="flex flex-col items-start gap-1">
-                    <span className="whitespace-nowrap type-h6 font-semibold leading-6">
-                      Trusted By
-                    </span>
-                    <div className="flex flex-wrap items-end gap-2">
-                      <CountUpOnView
-                        to={500}
-                        suffix="+"
-                        className="inline-block min-w-[4ch] text-right type-h2 font-semibold leading-none text-white tabular-nums sm:text-[2.6rem]"
-                      />
-                      <span className="whitespace-nowrap type-h6 font-semibold leading-6">
-                        Satisfied Clients
-                      </span>
-                    </div>
-                  </div>
+                {/* bottom section */}
+                <div className="mt-4 flex justify-start">
+                  <span className="relative inline-flex items-start rounded-full px-5 py-2 text-xs font-semibold uppercase tracking-widest text-white border border-white/20 bg-white/10 backdrop-blur-md shadow-[0_0_20px_rgba(255,255,255,0.1)]">
+                    {/* glow effect */}
+                    <span className="absolute inset-0 rounded-full bg-linear-to-r from-white/20 via-transparent to-rose-400/20 opacity-40 blur-sm" />
+
+                    {/* text */}
+                    <span className="relative z-10">CTMS Domain</span>
+                  </span>
                 </div>
               </div>
               <div className="mt-8 ">
@@ -391,12 +434,7 @@ export default function HomePage() {
                   Technology
                 </p>
                 <Clients
-                  avatars={[
-                    { src: "/images/author-1.jpg" },
-                    { src: "/images/author-2.jpg" },
-                    { src: "/images/author-3.jpg" },
-                    { src: "/images/author-2.jpg" },
-                  ]}
+                  avatars={trustedClientAvatars}
                   label="Trusted By"
                   title="500+ Clients"
                   className="mt-3"

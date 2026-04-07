@@ -246,7 +246,7 @@ export default function WhoWeArePage() {
     "clinical research teams",
   ];
   const impactLines = ["Our experience", "helps research", "teams thrive"];
-  const overviewStats = [{ value: "40+", label: "Years in clinical ops" }];
+  const overviewStats = [{ value: "50+", label: "Years in ctsm" }];
 
   return (
     <PageTransition>
@@ -361,8 +361,8 @@ export default function WhoWeArePage() {
                 >
                   <p className="text-base leading-8 text-white/60">
                     Our background spans clinical operations, technology, and
-                    delivery - giving us a practical view of what works and
-                    what does not.
+                    delivery - giving us a practical view of what works and what
+                    does not.
                   </p>
                   <p className="text-base leading-8 text-white/60">
                     We believe good work comes from clear thinking, strong
@@ -1158,11 +1158,11 @@ export default function WhoWeArePage() {
 
         {/* Collage of Images - Full Width with Container */}
         <div className="mx-auto max-w-6xl">
-          <div className="relative w-full overflow-hidden rounded-[2rem] bg-white/55 p-2 shadow-[0_24px_60px_rgba(15,23,42,0.08)] sm:p-3">
+          <div className="relative w-full overflow-hidden rounded-4xl bg-white/55 p-2 shadow-[0_24px_60px_rgba(15,23,42,0.08)] sm:p-3">
             {/* Collage Grid */}
             <div className="grid w-full grid-cols-1 gap-3 md:grid-cols-6 md:grid-rows-4">
               {/* Large tile */}
-              <div className="group relative min-h-[18rem] md:col-span-4 md:row-span-4 md:min-h-[32rem] team-float">
+              <div className="group relative min-h-72 md:col-span-4 md:row-span-4 md:min-h-128 team-float">
                 <div className="relative h-full w-full rounded-2xl overflow-hidden transition-all duration-500 ease-out ring-1 ring-white/20 shadow-lg group-hover:scale-[1.02] group-hover:z-10 group-hover:shadow-2xl group-hover:ring-2 group-hover:ring-white/70">
                   <Image
                     src="/images/one-team.png"
@@ -1184,7 +1184,7 @@ export default function WhoWeArePage() {
               ].map((member, idx) => (
                 <div
                   key={idx}
-                  className="group relative min-h-[14rem] md:col-span-2 md:row-span-2 md:min-h-[15.5rem] team-float"
+                  className="group relative min-h-56 md:col-span-2 md:row-span-2 md:min-h-62 team-float"
                 >
                   <div className="relative h-full w-full rounded-xl overflow-hidden transition-all duration-500 ease-out ring-1 ring-white/20 shadow-lg group-hover:scale-105 group-hover:z-10 group-hover:shadow-2xl group-hover:ring-2 group-hover:ring-white/70">
                     <Image
@@ -1204,16 +1204,6 @@ export default function WhoWeArePage() {
         {/* Text Content Below */}
         <div className="mt-10">
           <div className="max-w-3xl mx-auto text-center">
-            {/* <p className="text-muted-foreground text-lg leading-relaxed">
-              Our team brings together product thinkers, clinical specialists,
-              engineers, and operators who care deeply about improving how
-              trials run. We work closely across disciplines, combining
-              practical experience with thoughtful design to build technology
-              that stands up in real world research. Every person here
-              contributes to making clinical operations clearer, smoother, and
-              more reliable-one workflow at a time.
-            </p> */}
-
             <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {teamStats.map((s) => (
                 <div
@@ -1241,23 +1231,27 @@ export default function WhoWeArePage() {
 
       {/* ================= CTA ================= */}
       <SectionWrapper fullBleed>
-        <div className=" bg-(--color-orange) rounded-4xl px-4 py-12 sm:px-6 md:px-12 md:py-20">
-          <div className="flex flex-col items-center gap-6 text-center">
-            <p className="max-w-3xl text-center font-semibold text-white type-h1 md:text-2xl lg:text-3xl">
-              Want to{" "}
-              <span className="font-bold italic bg-(--btn-bg) px-2 py-1 rounded-lg">
-                work with us
-              </span>{" "}
-              and create{" "}
-              <span className="font-bold italic bg-(--btn-bg) px-2 py-1 rounded-lg">
-                real impact
+        <div className="rounded-4xl bg-(--color-orange) px-5 py-12 sm:px-8 sm:py-14 md:px-12 md:py-16 lg:px-16 lg:py-20">
+          <div className="mx-auto flex max-w-4xl flex-col items-center gap-6 text-center sm:gap-8">
+            <div className="flex max-w-3xl flex-wrap items-center justify-center gap-x-3 gap-y-4 text-white sm:gap-x-4 sm:gap-y-5">
+              <span className="text-[1.85rem] font-semibold leading-[1.1] sm:text-[2.5rem] lg:text-[3rem]">
+                Want to
               </span>
-              ?
-            </p>
+              <span className="inline-flex items-center rounded-xl bg-(--btn-bg) px-3 py-1.5 text-[1.85rem] font-bold italic leading-none text-white shadow-[0_10px_30px_rgba(15,23,42,0.12)] sm:px-4 sm:py-2 sm:text-[2.5rem] lg:text-[3rem]">
+                work with us
+              </span>
+              <span className="text-[1.85rem] font-semibold leading-[1.1] sm:text-[2.5rem] lg:text-[3rem]">
+                and create
+              </span>
+              <span className="inline-flex items-center rounded-xl bg-(--btn-bg) px-3 py-1.5 text-[1.85rem] font-bold italic leading-none text-white shadow-[0_10px_30px_rgba(15,23,42,0.12)] sm:px-4 sm:py-2 sm:text-[2.5rem] lg:text-[3rem]">
+                real impact?
+              </span>
+            </div>
 
             <Button
               href="/clinrt-world?tab=Moments#content-hub"
               label="Explore now"
+              size="lg"
             />
           </div>
         </div>

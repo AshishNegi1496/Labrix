@@ -1,4 +1,3 @@
-import "./globals.css";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import AppNavbar from "@/components/AppNavbar";
@@ -8,6 +7,7 @@ import { siteMeta } from "@/data";
 import Watermark from "@/components/Watermark";
 import WatermarkRight from "@/components/WatermarkRight";
 import { appConfig } from "@/config/app-config";
+import "./globals.css";
 
 //define metadata for website
 

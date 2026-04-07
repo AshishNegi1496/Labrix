@@ -6,7 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import Button from "@/components/ui/Button";
-import { navigation, uiLabels } from "@/data";
+import { brandLogoSrc, navigation, uiLabels } from "@/data";
 
 export default function AppNavbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -84,14 +84,13 @@ export default function AppNavbar() {
         <div className="relative mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 sm:py-4">
           <Link
             href="/"
-            className="relative z-50 flex shrink-0 items-center gap-2 rounded-full border border-white/18 bg-linear-to-r from-white/72 via-[#edf7ff]/64 to-[#daf6ea]/62 px-3 py-2 shadow-[0_18px_40px_rgba(8,20,35,0.14)] ring-1 ring-white/32 backdrop-blur-xl transition duration-300 hover:from-white/80 hover:via-[#f2f9ff]/76 hover:to-[#e3faf1]/72 sm:px-4"
+            className="relative -ml-20 z-50 flex items-center gap-2 rounded-full border border-white/18 bg-linear-to-r from-white/52 via-[#edf7ff]/64 to-[#daf6ea]/32 px-3 py-2   backdrop-blur-xl transition sm:px-4"
           >
             <Image
-              src="/images/company-logo.png"
+              src={brandLogoSrc}
               alt="ClinRT Logo"
-              width={120}
-              height={15}
-              className="h-auto w-[96px] sm:w-[120px] lg:w-[132px]"
+              width={100}
+              height={25}
               loading="lazy"
             />
           </Link>

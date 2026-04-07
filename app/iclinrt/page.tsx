@@ -19,7 +19,7 @@ import SectionBadge from "@/components/ui/SectionBadge";
 import { FiActivity, FiArrowRight, FiCheck, FiZap } from "react-icons/fi";
 import StudyFlowSvg from "@/components/StudyFlowSvg";
 import { cn } from "@/lib/cn";
-import { getContactFormHref } from "@/data";
+import { brandLogoSrc, getContactFormHref } from "@/data";
 import {
   iclinrtPotential as iclinrtPotential,
   iclinrtPotentialMedia as potentialMedia,
@@ -213,12 +213,12 @@ export default function IclinrtPage() {
         <div className="hero-content-lift relative z-10 section-shell w-full pb-12 pt-24 text-white sm:pb-16 sm:pt-28 md:pb-20 md:pt-36 lg:pb-20">
           <ScrollReveal className="mb-8 max-w-3xl text-white sm:mb-12 lg:mb-20">
             <Image
-              src="/images/product-logo.png"
+              src={brandLogoSrc}
               alt="iClinRT"
-              width={150}
+              width={250}
               height={82}
               loading="lazy"
-              className="rounded-4xl border-white/18 bg-linear-to-r from-white/72 via-[#edf7ff]/64 to-[#daf6ea]/62 px-3 py-2 shadow-[0_18px_40px_rgba(8,20,35,0.14)] ring-1 ring-white/32 backdrop-blur-xl transition duration-300 hover:from-white/80 hover:via-[#f2f9ff]/76 hover:to-[#e3faf1]/72 sm:px-4"
+              className="rounded-4xl  bg-linear-to-r from-white/20 via-[#edf7ff]/34 to-[#daf6ea]/62 px-3 py-2 shadow-[0_18px_40px_rgba(8,20,35,0.14)]  backdrop-blur-xl transition duration-300 hover:from-white/80 hover:via-[#f2f9ff]/76 hover:to-[#e3faf1]/72 sm:px-4"
             />
             <p className="mt-4 page-banner-title font-semibold text-white">
               Configuration That Matters
@@ -975,3 +975,4 @@ export default function IclinrtPage() {
     </PageTransition>
   );
 }
+

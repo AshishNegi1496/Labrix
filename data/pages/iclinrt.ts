@@ -29,8 +29,8 @@ export const iclinrtServiceMedia = deepFreeze([
   "/images/Subject Randomization & Treatment Assignment.webp",
   "/images/Kit Management and Assignment.webp",
   "/images/Triggers and Auto Shipments.webp",
-  "/images/Triggers and Auto Shipments.webp",
   "/images/Kit Expiry Date Management.webp",
+  "/images/Cold-Chain and Excursion Handling.webp",
   "/images/Kit Expiry Date Management.webp",
 ] as const);
 

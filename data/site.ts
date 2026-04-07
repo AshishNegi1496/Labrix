@@ -8,3 +8,6 @@ export const siteMeta: SiteMeta = deepFreeze({
   description: "Connected clinical research technology for faster execution.",
   url: appConfig.siteUrl,
 });
+
+/** Shared brand asset path with a version suffix to avoid stale browser caches. */
+export const brandLogoSrc = "/images/logo-final.png";

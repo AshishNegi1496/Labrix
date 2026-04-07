@@ -97,7 +97,7 @@ export const whoWeAreCulture = deepFreeze([
 ] as const);
 
 export const whoWeAreTeamStats = deepFreeze([
-  { value: 40, suffix: "+", label: "Years of Consolidated Experience" },
+  { value: 50, suffix: "+", label: "Years of Consolidated Experience in CTSM" },
   { value: 1000, suffix: "+", label: " Clinical Trials Supported" },
   {
     value: 500,

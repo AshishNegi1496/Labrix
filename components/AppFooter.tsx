@@ -9,7 +9,7 @@ import {
   FaYoutube,
 } from "react-icons/fa";
 import Button from "@/components/ui/Button";
-import { footerData, getContactFormHref } from "@/data";
+import { brandLogoSrc, footerData, getContactFormHref } from "@/data";
 
 const socialIcons: Record<string, IconType> = {
   linkedin: FaLinkedinIn,
@@ -19,7 +19,7 @@ const socialIcons: Record<string, IconType> = {
 };
 
 const socialHrefMap: Record<string, string> = {
-  linkedin: "https://www.linkedin.com/company/111766542/admin/dashboard/",
+  linkedin: "https://www.linkedin.com/company/clinrt-global-services/",
   instagram: "/coming-soon",
   facebook: "/coming-soon",
   youtube: "/coming-soon",
@@ -46,11 +46,11 @@ export default function AppFooter() {
               <div className="flex items-center">
                 <Link href="/" className="z-50 flex items-center gap-2">
                   <Image
-                    src="/images/company-logo.png"
+                    src={brandLogoSrc}
                     alt="ClinRT Logo"
-                    width={160}
-                    height={20}
-                    className="h-auto w-[130px] sm:w-[160px]"
+                    width={100}
+                    height={50}
+                    className="h-9 w-auto sm:h-10"
                     loading="lazy"
                   />
                 </Link>
