@@ -30,7 +30,7 @@ export type ContactChannel = Readonly<{
 export const contactHero = deepFreeze({
   eyebrow: "Contact ClinRT",
   punchline: "Let's start a conversation",
-  image: "/images/Let's start a conversation.webp",
+  image: "/images/Let's start a conversation_compressed.webp",
 });
 
 export const contactFormActionPath = "/api/contact";

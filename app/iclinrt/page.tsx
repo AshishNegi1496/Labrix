@@ -56,7 +56,7 @@ const StickyCards = ({
   }
 
   return (
-    <div className="relative min-h-[40rem] overflow-hidden rounded-4xl border border-white/10 shadow-[0_24px_80px_rgba(4,18,33,0.18)] sm:min-h-[44rem] lg:h-[min(42rem,calc(100vh-5.75rem))]">
+    <div className="relative min-h-160 overflow-hidden rounded-4xl border border-white/10 shadow-[0_24px_80px_rgba(4,18,33,0.18)] sm:min-h-[44rem] lg:h-[min(42rem,calc(100vh-5.75rem))]">
       <div className="pointer-events-none absolute inset-0">
         <video
           className="absolute inset-0 h-full w-full object-cover"
@@ -72,7 +72,7 @@ const StickyCards = ({
       </div>
 
       <div className="relative grid h-full gap-4 p-3 sm:p-4 lg:grid-cols-[minmax(0,1fr)_18rem] lg:gap-5 lg:p-5">
-        <div className="relative min-h-[23rem] sm:min-h-[26rem] lg:min-h-0">
+        <div className="relative min-h-92 sm:min-h-104 lg:min-h-0">
           {iclinrtUsps.map((item: StickyCardItem, index: number) => {
             const Icon = uspIcons[index % uspIcons.length] || FiZap;
 
@@ -202,7 +202,7 @@ export default function IclinrtPage() {
           playsInline
         /> */}
         <Image
-          src="/images/Configuration That Matters.webp"
+          src="/images/Configuration That Matters_compressed.webp"
           alt="Background"
           fill
           loading="lazy"
@@ -277,7 +277,7 @@ export default function IclinrtPage() {
               <div className="relative h-full min-h-80 overflow-hidden rounded-3xl border border-slate-200 bg-slate-950 shadow-[0_24px_60px_rgba(15,23,42,0.16)]">
                 <video
                   className="h-full w-full object-contain"
-                  src="/videos/infographic.mp4"
+                  src="/videos/infographic.webm"
                   autoPlay
                   muted
                   loop
@@ -511,7 +511,7 @@ export default function IclinrtPage() {
                 <SectionBadge>iClinRT&apos;s Potential</SectionBadge>
               </ScrollReveal>
 
-              <div className="mt-6 max-h-[24rem] space-y-3 overflow-y-auto pr-2 no-scrollbar sm:mt-8 sm:max-h-[28rem] xl:max-h-[35rem]">
+              <div className="mt-6 max-h-96 space-y-3 overflow-y-auto pr-2 no-scrollbar sm:mt-8 sm:max-h-112 xl:max-h-140">
                 {iclinrtPotential.map((item, index) => {
                   const isActive = selectedPotentialIndex === index;
 
@@ -599,7 +599,7 @@ export default function IclinrtPage() {
                     </div>
 
                     <div className="mt-auto">
-                      <div className="max-w-3xl rounded-[1.75rem] border border-white/15 bg-white/10 p-5 backdrop-blur-xl sm:p-6">
+                      <div className="max-w-3xl rounded-[1.75rem] p-5 backdrop-blur-sm sm:p-6">
                         <p className="type-h2 font-semibold text-white">
                           {activePotential.title}
                         </p>
@@ -975,4 +975,3 @@ export default function IclinrtPage() {
     </PageTransition>
   );
 }
-

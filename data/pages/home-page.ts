@@ -33,37 +33,37 @@ export const homeResearchFields = deepFreeze([
     title: "Precision Randomization & Treatment Control",
     description:
       "Balanced allocation across arms and cohorts, with safeguarded emergency unblinding.",
-    image: "/images/Precision Randomization & Treatment Control.webp",
+    image: "/images/Precision Randomization & Treatment Control_compressed.webp",
   },
   {
     title: "Integrated IP Supply & Kit Operations",
     description:
       "Unified oversight of inventory, resupply, kit assignment, expiry, transfers, and temperature mapping.",
-    image: "/images/Integrated IP Supply & Kit Operations.webp",
+    image: "/images/Integrated IP Supply & Kit Operations_compressed.webp",
   },
   {
     title: "Full Chain of Custody Accountability",
     description:
       "Complete traceability of every kit from creation to final reconciliation and destruction.",
-    image: "/images/Full Chain of Custody Accountability.webp",
+    image: "/images/Full Chain of Custody Accountability_compressed.webp",
   },
   {
     title: " Streamlined Participant & Visit Workflow",
     description:
       "Protocol aligned configuration for screening, enrolment, and visit execution across all sites.",
-    image: "/images/Streamlined Participant & Visit Workflow.webp",
+    image: "/images/Streamlined Participant & Visit Workflow_compressed.webp",
   },
   {
     title: "Real Time Operational Intelligence",
     description:
       "Dynamic dashboards, detailed reports, and event driven alerts for confident oversight.",
-    image: "/images/Real Time Operational Intelligence.webp",
+    image: "/images/Real Time Operational Intelligence_compressed.webp",
   },
   {
     title: "Compliance Ready, Connected, and Scalable",
     description:
       "Aligned with global regulations and seamlessly integrated with CTMS/EDC for multi region, multi phase trials.",
-    image: "/images/Compliance Ready, Connected, and Scalable.webp",
+    image: "/images/Compliance Ready, Connected, and Scalable_compressed.webp",
   },
 ] as const);
 

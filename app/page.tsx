@@ -76,7 +76,7 @@ export default function HomePage() {
       <section className="relative flex min-h-[90vh] items-end overflow-hidden sm:min-h-screen lg:min-h-[110vh]">
         <video
           className="absolute inset-0 h-full w-full object-cover"
-          src="/videos/home-video.mp4"
+          src="/videos/home-video.webm"
           autoPlay
           muted
           loop

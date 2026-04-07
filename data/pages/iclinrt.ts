@@ -25,30 +25,30 @@ export const iclinrtPhases = deepFreeze([
 ] as const);
 
 export const iclinrtServiceMedia = deepFreeze([
-  "/images/Subject Management.webp",
-  "/images/Subject Randomization & Treatment Assignment.webp",
-  "/images/Kit Management and Assignment.webp",
+  "/images/Subject Management_compressed.webp",
+  "/images/Subject Randomization & Treatment Assignment_compressed.webp",
+  "/images/Kit Management and Assignment_compressed.webp",
   "/images/Triggers and Auto Shipments.webp",
-  "/images/Kit Expiry Date Management.webp",
-  "/images/Cold-Chain and Excursion Handling.webp",
-  "/images/Kit Expiry Date Management.webp",
+  "/images/Kit Expiry Date Management_compressed.webp",
+  "/images/Cold-Chain and Excursion Handling_compressed.webp",
+  "/images/Kit Expiry Date Management_compressed.webp",
 ] as const);
 
 export const iclinrtPotentialMedia = deepFreeze([
-  "/images/Management of every Subject.webp",
-  "/images/Fair Treatment Assignments.webp",
-  "/images/Supply That Thinks Ahead.webp",
-  "/images/Smart Kit Assignment.webp",
-  "/images/Safety First - Expiry Under Control.webp",
-  "/images/Kit Lifecycle Tracking.webp",
-  "/images/Controlled Unblinding - For True Emergencies Only.webp",
-  "/images/Reports and Dashboards for Complete Visibility.webp",
-  "/images/Stay Ahead with Notifications and Alerts.webp",
-  "/images/24x7 Expert Assisted Support.webp",
-  "/images/Quick Site-to-Site Transfers.webp",
-  "/images/Cold-Chain and Excursion Handling.webp",
-  "/images/Retention Sample Management.webp",
-  "/images/Study Startup and Go-Live Setup.webp",
+  "/images/Management of every Subject_compressed.webp",
+  "/images/Fair Treatment Assignments_compressed.webp",
+  "/images/Supply That Thinks Ahead_compressed.webp",
+  "/images/Smart Kit Assignment_compressed.webp",
+  "/images/Safety First - Expiry Under Control_compressed.webp",
+  "/images/Kit Lifecycle Tracking_compressed.webp",
+  "/images/Controlled Unblinding - For True Emergencies Only_compressed.webp",
+  "/images/Reports and Dashboards for Complete Visibility_compressed.webp",
+  "/images/Stay Ahead with Notifications and Alerts_compressed.webp",
+  "/images/24x7 Expert Assisted Support_compressed.webp",
+  "/images/Quick Site-to-Site Transfers_compressed.webp",
+  "/images/Cold-Chain and Excursion Handling_compressed.webp",
+  "/images/Retention Sample Management_compressed.webp",
+  "/images/Study Startup and Go-Live Setup_compressed.webp",
 ] as const);
 
 

@@ -278,7 +278,7 @@ export default function WhatsNewPage() {
     <PageTransition>
       <section className="relative min-h-[88svh] overflow-hidden sm:h-screen">
         <Image
-          src="/images/Stay connected with our latest updates, resources, and milestones.webp"
+          src="/images/Stay connected with our latest updates, resources, and milestones_compressed.webp"
           alt="What's new"
           fill
           loading="lazy"
