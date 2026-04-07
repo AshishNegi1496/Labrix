@@ -419,7 +419,7 @@ export default function HomePage() {
           <ScrollReveal>
             <div className="relative pb-20 lg:pb-0">
               <Image
-                src="/images/wgy-choose-us.webp"
+                src="/images/Powered by technology and clinical expertise Updated.webp"
                 alt=" 	Why ClinRT"
                 width={520}
                 height={920}
