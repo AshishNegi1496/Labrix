@@ -277,7 +277,7 @@ export default function IclinrtPage() {
               <div className="relative h-full min-h-80 overflow-hidden rounded-3xl border border-slate-200 bg-slate-950 shadow-[0_24px_60px_rgba(15,23,42,0.16)]">
                 <video
                   className="h-full w-full object-contain"
-                  src="/videos/infographic.webm"
+                  src="/videos/infographic.mp4"
                   autoPlay
                   muted
                   loop

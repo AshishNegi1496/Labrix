@@ -91,7 +91,7 @@ export default function HomePage() {
             {/* LEFT CONTENT */}
             <ScrollReveal
               variant="left"
-              className="mb-8 max-w-3xl sm:mb-12 lg:mb-16"
+              className="mb-2 max-w-3xl sm:mb-12 lg:mb-16"
             >
               <Image
                 src="/images/logo-final.png"
@@ -104,7 +104,7 @@ export default function HomePage() {
               <p className=" page-banner-title font-semibold">
                 &ldquo; Intelligent, Interactive and Innovative&ldquo;
               </p>
-              <p className="mt-4 max-w-2xl type-h4 font-semibold">
+              <p className="mt-2 max-w-2xl type-h4 ">
                 Customised and scalable IRT platform for managing clinical
                 trials in an efficient way
               </p>
@@ -112,16 +112,16 @@ export default function HomePage() {
               {/* Buttons */}
 
               {/* Hero Bottom Stats */}
-              <div className="mt-10 max-w-4xl relative">
+              <div className=" max-w-4xl relative">
                 {/* background glow */}
                 <div className="pointer-events-none absolute inset-0" />
 
                 {/* stats */}
-                <div className="relative grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+                <div className="relative grid sm:grid-cols-2 xl:grid-cols-3">
                   {stats.map((item, i) => (
                     <div
                       key={i}
-                      className="px-5 py-5 sm:px-6 sm:py-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]"
+                      className="px-5 py-2 sm:px-6 sm:py-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]"
                     >
                       <div className="flex flex-col items-start">
                         <span className="text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-white/60">
@@ -130,18 +130,16 @@ export default function HomePage() {
                         <CountUpOnView
                           to={item.value}
                           suffix={item.suffix}
-                          className="mt-4 inline-block text-right text-white font-semibold tabular-nums text-3xl sm:text-5xl"
+                          className=" inline-block text-right text-white font-semibold tabular-nums text-3xl sm:text-5xl"
                         />
-                        <p className="mt-3 text-sm text-white/80">
-                          {item.label}
-                        </p>
+                        <p className=" text-sm text-white/80">{item.label}</p>
 
                         {item.hasClients && (
                           <Clients
                             avatars={trustedClientAvatars}
                             label=""
                             size={28}
-                            className="mt-4 shrink-0"
+                            className=" shrink-0"
                           />
                         )}
                       </div>
@@ -150,8 +148,8 @@ export default function HomePage() {
                 </div>
 
                 {/* bottom section */}
-                <div className="mt-4 flex justify-start">
-                  <span className="relative inline-flex items-start rounded-full px-5 py-2 text-xs font-semibold  tracking-widest text-white border border-white/20 bg-white/10 backdrop-blur-md shadow-[0_0_20px_rgba(255,255,255,0.1)]">
+                <div className=" flex justify-start">
+                  <span className="relative inline-flex items-start rounded-full px-5 py-2 text-xs font-semibold  tracking-widest text-(--color-orange) border border-white/20 bg-white/10 backdrop-blur-md shadow-[0_0_20px_rgba(255,255,255,0.1)]">
                     {/* glow effect */}
                     <span className="absolute inset-0 rounded-full bg-linear-to-r from-white/20 via-transparent to-rose-400/20 opacity-40 blur-sm" />
 
@@ -160,7 +158,7 @@ export default function HomePage() {
                   </span>
                 </div>
               </div>
-              <div className="mt-8 ">
+              <div className="mt-4 ">
                 <Button href="/who-we-are" label="Get Started" />
               </div>
             </ScrollReveal>
