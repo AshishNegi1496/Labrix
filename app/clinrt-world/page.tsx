@@ -700,7 +700,7 @@ function ResourceCard({
             <FiArrowRight className="h-4 w-4" />
           </span>
         </div>
-        <p className="mt-6 text-xl font-semibold leading-tight text-black sm:mt-8 sm:text-2xl">
+        <p className="mt-6 type-h3 font-semibold leading-tight text-white sm:mt-8 sm:text-2xl">
           {item.title}
         </p>
         <p className="mt-4 text-sm leading-7 text-black/65">{item.summary}</p>

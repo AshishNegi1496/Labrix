@@ -193,14 +193,6 @@ export default function IclinrtPage() {
   return (
     <PageTransition>
       <section className="relative flex min-h-[90vh] items-end overflow-hidden sm:min-h-screen lg:min-h-[110vh]">
-        {/* <video
-          className="absolute inset-0 h-full w-full object-cover"
-          src="/videos/homePageVideo.mp4"
-          autoPlay
-          muted
-          loop
-          playsInline
-        /> */}
         <Image
           src="/images/Configuration That Matters_compressed.webp"
           alt="Background"
@@ -218,7 +210,7 @@ export default function IclinrtPage() {
               width={250}
               height={82}
               loading="lazy"
-              className="rounded-4xl  bg-linear-to-r from-white/20 via-[#edf7ff]/34 to-[#daf6ea]/62 px-3 py-2 shadow-[0_18px_40px_rgba(8,20,35,0.14)]  backdrop-blur-xl transition duration-300 hover:from-white/80 hover:via-[#f2f9ff]/76 hover:to-[#e3faf1]/72 sm:px-4"
+              // className="rounded-[1.75rem] border border-white/14 bg-[linear-gradient(135deg,rgba(255,255,255,0.14)_0%,rgba(255,255,255,0.08)_58%,rgba(255,255,255,0.05)_100%)] px-3 py-2 shadow-[0_18px_40px_rgba(8,20,35,0.14)] backdrop-blur-[18px] transition duration-300 hover:border-white/20 sm:px-4"
             />
             <p className="mt-4 page-banner-title font-semibold text-white">
               Configuration That Matters
@@ -603,7 +595,7 @@ export default function IclinrtPage() {
                       </span>
                     </div>
 
-                    <div className="mt-auto">
+                    <div className="mt-8">
                       <div className="max-w-3xl rounded-[1.75rem] p-5 backdrop-blur-sm sm:p-6">
                         <p className="type-h2 font-semibold text-white">
                           {activePotential.title}

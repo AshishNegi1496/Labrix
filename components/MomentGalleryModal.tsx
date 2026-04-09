@@ -4,8 +4,6 @@ import { useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { FiCamera, FiX } from "react-icons/fi";
-import { cn } from "@/lib/cn";
-
 type MomentImage = {
   src: string;
   alt: string;
@@ -75,15 +73,7 @@ export function MomentGalleryModal({
           <FiX className="h-5 w-5" />
         </button>
 
-        <div className="relative h-60 overflow-hidden sm:h-72 lg:h-80">
-          <Image
-            src={moment.image}
-            alt={moment.title}
-            fill
-            loading="lazy"
-            sizes="100vw"
-            className="object-contain object-center"
-          />
+        <div className="relative  overflow-hidden h-40 sm:h-52 lg:h-60">
           <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,20,35,0.08)_0%,rgba(8,20,35,0.36)_42%,rgba(8,20,35,0.88)_100%)]" />
           <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-6 lg:p-8">
             <div className="flex flex-wrap items-center gap-3">
@@ -95,49 +85,42 @@ export function MomentGalleryModal({
                 {moment.momentImages.length} photos
               </span>
             </div>
-            <h2
+            <p
               id="moment-gallery-title"
               className="mt-4 max-w-4xl text-2xl font-semibold leading-tight text-white sm:text-3xl lg:text-4xl"
             >
               {moment.title}
-            </h2>
+            </p>
             <p className="mt-3 max-w-3xl text-sm leading-7 text-white/72 sm:text-base">
               {moment.summary}
             </p>
           </div>
         </div>
 
-        <div className="max-h-[calc(94vh-15rem)] overflow-y-auto p-4 sm:p-5 lg:max-h-[calc(94vh-18rem)] lg:p-6">
-          <div className="mb-4 flex flex-wrap items-center gap-3 text-[11px] uppercase tracking-[0.28em] text-white/55">
-            <span className="rounded-full border border-white/12 bg-white/6 px-4 py-2">
-              {moment.meta || "Celebration gallery"}
-            </span>
-            <span className="rounded-full border border-white/12 bg-white/6 px-4 py-2">
-              Full collage view
-            </span>
-          </div>
-
-          <div className="grid gap-3 sm:grid-cols-2 lg:gap-4">
+        <div className="max-h-[calc(94vh-15rem)] overflow-y-auto p-4 sm:p-5 lg:max-h-[calc(94vh-18rem)] lg:p-4">
+          <div className="space-y-4 lg:space-y-5">
             {moment.momentImages.map((image, index) => (
               <div
                 key={`${image.src}-${index}`}
-                className={cn(
-                  "relative overflow-hidden rounded-[1.35rem] border border-white/10 bg-white/6",
-                  index === 0
-                    ? "min-h-[18rem] sm:col-span-2 lg:min-h-[22rem]"
-                    : "min-h-[14rem] lg:min-h-[16rem]",
-                )}
+                className="group relative overflow-hidden rounded-[1.45rem] border border-white/10 bg-white/6 shadow-[0_18px_50px_rgba(4,18,33,0.2)]"
               >
-                <Image
-                  src={image.src}
-                  alt={image.alt}
-                  fill
-                  loading="lazy"
-                  sizes="(max-width: 640px) 100vw, 50vw"
-                  className="object-contain object-center"
-                />
+                <div className="absolute left-4 top-4 z-10 inline-flex rounded-full border border-white/15 bg-black/28 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.28em] text-white/78 backdrop-blur-sm">
+                  {String(index + 1).padStart(2, "0")}
+                </div>
+                <div className="relative aspect-[16/10] w-full overflow-hidden sm:aspect-[16/9]">
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    fill
+                    loading="lazy"
+                    sizes="100vw"
+                    className="object-cover object-center transition duration-700 ease-out group-hover:scale-[1.02]"
+                  />
+                </div>
                 <div className="absolute inset-x-0 bottom-0 bg-linear-to-t from-black/70 via-black/18 to-transparent p-4">
-                  <p className="text-sm font-medium text-white/82">{image.alt}</p>
+                  <p className="text-sm font-medium text-white/82">
+                    {image.alt}
+                  </p>
                 </div>
               </div>
             ))}

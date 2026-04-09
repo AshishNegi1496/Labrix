@@ -96,15 +96,15 @@ export default function HomePage() {
               <Image
                 src="/images/logo-final.png"
                 alt="ClinRT Logo"
-                width={240}
+                width={220}
                 height={65}
                 className="drop-shadow-[0_16px_36px_rgba(8,20,35,0.2)] will-change-transform motion-safe:animate-[float-slow_12s_ease-in-out_infinite]"
                 loading="lazy"
               />
               <p className=" page-banner-title font-semibold">
-                &ldquo; Intelligent, Interactive and Innovative&ldquo;
+                Intelligent, Interactive and Innovative
               </p>
-              <p className="mt-2 max-w-2xl type-h4 ">
+              <p className="mt-2 max-w-2xl type-h5 ">
                 Customised and scalable IRT platform for managing clinical
                 trials in an efficient way
               </p>
@@ -201,7 +201,7 @@ export default function HomePage() {
             <GlassSlider
               items={posterItems}
               ariaLabel="At a glance posters"
-              className="h-[18rem] sm:h-80 lg:h-[25.5rem]"
+              className="h-72 sm:h-80 lg:h-102"
               scrollerClassName="h-full w-full pb-0 pt-0"
               controlsClassName="pointer-events-none absolute inset-x-3 top-1/2 z-10 -translate-y-1/2 justify-between sm:inset-x-4"
               edgeFadeClassName=""
@@ -213,7 +213,7 @@ export default function HomePage() {
                     href={poster.href}
                     className="group relative block h-full w-full overflow-hidden rounded-2xl bg-white transition-all hover:shadow-xl hover:shadow-slate-200/50"
                   >
-                    <div className="relative h-full min-h-[18rem] w-full overflow-hidden sm:min-h-[25rem]">
+                    <div className="relative h-full min-h-72 w-full overflow-hidden sm:min-h-100">
                       <Image
                         src={poster.image}
                         alt={poster.title}
@@ -238,7 +238,7 @@ export default function HomePage() {
             />
             {/* </div> */}
 
-            <aside className="flex min-h-[20rem] flex-col rounded-[1.75rem] border border-orange-400/80 bg-white/72 p-5 text-slate-900 shadow-[0_18px_50px_rgba(15,23,42,0.06)] backdrop-blur-sm sm:min-h-[22rem] sm:p-6 lg:h-[25.5rem] lg:p-7">
+            <aside className="flex min-h-80 flex-col rounded-[1.75rem] border border-orange-400/80 bg-white/72 p-5 text-slate-900 shadow-[0_18px_50px_rgba(15,23,42,0.06)] backdrop-blur-sm sm:min-h-[22rem] sm:p-6 lg:h-[25.5rem] lg:p-7">
               <SectionBadge
                 className="bg-white/80 text-slate-900"
                 borderClassName="border border-orange-200"
@@ -300,7 +300,7 @@ export default function HomePage() {
                       >
                         <div className="flex items-start justify-between gap-4">
                           <div>
-                            <p className="text-sm font-semibold text-slate-900">
+                            <p className="type-h5 font-semibold text-slate-900">
                               {item.title}
                             </p>
                             <p className="mt-2 text-xs uppercase tracking-[0.2em] text-slate-500">
@@ -372,7 +372,7 @@ export default function HomePage() {
                 Leading innovation across critical fields
               </p>
 
-              <p className=" type-h6 mt-4 text-(--text-invert)">
+              <p className=" type-h5 mt-4 text-(--text-invert)">
                 These features collectively enable streamlined clinical trial
                 execution by reducing manual effort, minimizing operational
                 risks, and ensuring real-time control across subjects, supplies,
@@ -412,16 +412,16 @@ export default function HomePage() {
 
       {/* Why choose ClinRT section */}
       <SectionWrapper>
-        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-start lg:gap-14">
           {/* LEFT IMAGE */}
-          <ScrollReveal>
-            <div className="relative pb-20 lg:pb-0">
+          <ScrollReveal className="h-full lg:flex lg:items-start">
+            <div className="relative pb-20 lg:w-full lg:max-w-[34rem] lg:pb-0">
               <Image
                 src="/images/Powered by technology and clinical expertise Updated.webp"
                 alt=" 	Why ClinRT"
                 width={520}
-                height={920}
-                className="w-full rounded-2xl object-cover"
+                height={400}
+                className="w-full rounded-2xl object-cover lg:h-[28rem]"
                 loading="lazy"
               />
 
@@ -442,7 +442,7 @@ export default function HomePage() {
           </ScrollReveal>
 
           {/* RIGHT CONTENT */}
-          <div>
+          <div className="flex h-full flex-col justify-start">
             <ScrollReveal>
               <SectionBadge>Why Choose Us</SectionBadge>
 
@@ -520,7 +520,9 @@ export default function HomePage() {
           <ScrollReveal>
             <SectionBadge>FAQs</SectionBadge>
             <p className="mt-3 type-h2 font-semibold">
-              Clear Answers. Confident Decisions.
+              Clear Answers.
+              <br />
+              Confident Decisions.
             </p>
 
             {/* Using your custom Button component */}
