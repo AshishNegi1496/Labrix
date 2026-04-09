@@ -162,7 +162,6 @@ const contentByTab: Record<Tab, TabContent> = {
             alt: "Team gathering during the Women's Day celebration",
           },
         ],
-        featured: true,
       },
 
       {
@@ -636,16 +635,6 @@ function ResourceCard({
           item.featured && "md:col-span-2 2xl:row-span-2",
         )}
       >
-        <div className="absolute inset-0">
-          <Image
-            src={moment.image}
-            alt={item.title}
-            fill
-            loading="lazy"
-            sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-            className="object-cover scale-[1.06] blur-[6px] transition duration-700 group-hover:scale-[1.1] group-hover:blur-[5px]"
-          />
-        </div>
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.1),transparent_28%)]" />
         <div className="absolute inset-0 bg-linear-to-t from-black/88 via-black/50 to-black/12" />
         <div className="relative flex h-full flex-col justify-between p-5 sm:p-6">

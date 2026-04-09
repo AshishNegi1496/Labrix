@@ -107,7 +107,7 @@ export default function AppNavbar() {
                   key={item.href}
                   href={item.href}
                   aria-current={isActive ? "page" : undefined}
-                  className={`btn-label rounded-full px-4 py-2 transition duration-300 ${
+                  className={`type-h5 rounded-full px-4 py-2 transition duration-300 ${
                     isActive
                       ? "bg-white/16 text-white shadow-[inset_0_0_0_1px_rgba(255,255,255,0.18)]"
                       : "text-white/78 hover:bg-white/10 hover:text-white"

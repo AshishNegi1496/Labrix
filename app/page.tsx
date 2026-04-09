@@ -102,7 +102,7 @@ export default function HomePage() {
                 loading="lazy"
               />
               <p className=" page-banner-title font-semibold">
-                Intelligent, Interactive and Innovative
+                Intelligent, Interactive and Innovative IRT Platform
               </p>
               <p className="mt-2 max-w-2xl type-h5 ">
                 Customised and scalable IRT platform for managing clinical
