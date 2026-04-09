@@ -285,7 +285,10 @@ export default function IclinrtPage() {
                   controls
                   preload="metadata"
                 >
-                  <source src="/videos/infographic.mp4" type="video/mp4" />
+                  <source
+                    src="/videos/infographic-fixed.mp4"
+                    type="video/mp4"
+                  />
                 </video>
               </div>
             </ScrollReveal>
