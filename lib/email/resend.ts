@@ -20,13 +20,24 @@ type SendEmailInput = Readonly<{
   to: ReadonlyArray<string>;
 }>;
 
+function getConfiguredSenderEmail() {
+  return (
+    process.env.CONTACT_FORM_FROM_EMAIL?.trim() ||
+    process.env.RESEND_FROM_EMAIL?.trim() ||
+    process.env.RESEND_FROM?.trim()
+  );
+}
+
 function buildFromAddress() {
-  const fromEmail = process.env.CONTACT_FORM_FROM_EMAIL?.trim();
-  const fromName = process.env.CONTACT_FORM_FROM_NAME?.trim() || "ClinRT Website";
+  const fromEmail = getConfiguredSenderEmail();
+  const fromName =
+    process.env.CONTACT_FORM_FROM_NAME?.trim() ||
+    process.env.RESEND_FROM_NAME?.trim() ||
+    "ClinRT Website";
 
   if (!fromEmail) {
     throw new Error(
-      "CONTACT_FORM_FROM_EMAIL is not configured. Set a verified sender address before using contact emails.",
+      "CONTACT_FORM_FROM_EMAIL is not configured. Set CONTACT_FORM_FROM_EMAIL or RESEND_FROM_EMAIL to a verified sender address before using contact emails.",
     );
   }
 

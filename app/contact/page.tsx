@@ -108,6 +108,18 @@ const submissionErrorMessages: Record<string, string> = {
     "Too many submissions were received from this connection. Please wait a few minutes and try again.",
 };
 
+type ContactSubmissionApiResponse = Readonly<
+  | {
+      ok: true;
+      redirectTo: string;
+    }
+  | {
+      errorCode?: string;
+      ok: false;
+      redirectTo?: string;
+    }
+>;
+
 const CheckboxRow = ({ label, name }: { label: string; name: string }) => (
   <label className="flex items-start gap-3 rounded-2xl border border-slate-200 bg-slate-50/80 px-4 py-3 text-sm text-slate-600">
     <input
@@ -141,6 +153,19 @@ function resolveRequestedForm(
   return "demo";
 }
 
+function resolveSubmittedFormId(form: HTMLFormElement): ContactFormType {
+  const rawValue = form.elements.namedItem("contactFormId");
+
+  if (
+    rawValue instanceof HTMLInputElement &&
+    (rawValue.value === "demo" || rawValue.value === "touch")
+  ) {
+    return rawValue.value;
+  }
+
+  return "demo";
+}
+
 export default function Contact() {
   const searchParams = useSearchParams();
   const brochure = getBrochureBySlug(searchParams.get("brochure"));
@@ -154,10 +179,16 @@ export default function Contact() {
     contactFormOptions[0];
   const submissionErrorCode =
     searchParams.get("status") === "error" ? searchParams.get("error") : null;
-  const submissionError =
+  const searchParamSubmissionError =
     submissionErrorCode && submissionErrorMessages[submissionErrorCode]
       ? submissionErrorMessages[submissionErrorCode]
       : null;
+  const [liveSubmissionError, setLiveSubmissionError] = useState<string | null>(
+    null,
+  );
+  const [submittingFormId, setSubmittingFormId] =
+    useState<ContactFormType | null>(null);
+  const submissionError = liveSubmissionError ?? searchParamSubmissionError;
   const activeFormHelper =
     brochure && activeForm === "touch"
       ? `Use this contact form to request the ${brochure.title} brochure. After you submit, the download will start automatically on the confirmation page.`
@@ -165,10 +196,19 @@ export default function Contact() {
 
   useEffect(() => {
     setActiveForm(requestedForm);
+    setLiveSubmissionError(null);
   }, [requestedForm]);
 
-  function handleFormSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleFormSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
     const form = event.currentTarget;
+    const submittedFormId = resolveSubmittedFormId(form);
+
+    if (submittingFormId) {
+      return;
+    }
+
     const textFields = form.querySelectorAll<
       HTMLInputElement | HTMLTextAreaElement
     >(
@@ -191,23 +231,72 @@ export default function Contact() {
 
     const fileField = form.elements.namedItem("file");
     if (!(fileField instanceof HTMLInputElement) || !fileField.files?.length) {
-      return;
+      if (fileField instanceof HTMLInputElement) {
+        fileField.setCustomValidity("");
+      }
+    } else {
+      const [file] = fileField.files;
+      const allowedTypes = new Set<string>(contactFileMimeTypes);
+
+      if (
+        file.size > contactFileConstraints.maxSizeBytes ||
+        !allowedTypes.has(file.type)
+      ) {
+        fileField.setCustomValidity(contactFileConstraints.errorMessage);
+        fileField.reportValidity();
+        setLiveSubmissionError(contactFileConstraints.errorMessage);
+        return;
+      }
+
+      fileField.setCustomValidity("");
     }
 
-    const [file] = fileField.files;
-    const allowedTypes = new Set<string>(contactFileMimeTypes);
+    setLiveSubmissionError(null);
+    setSubmittingFormId(submittedFormId);
 
-    if (
-      file.size > contactFileConstraints.maxSizeBytes ||
-      !allowedTypes.has(file.type)
-    ) {
-      fileField.setCustomValidity(contactFileConstraints.errorMessage);
-      fileField.reportValidity();
-      event.preventDefault();
-      return;
+    try {
+      const response = await fetch(contactFormActionPath, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "X-Requested-With": "XMLHttpRequest",
+        },
+        body: new FormData(form),
+      });
+      let payload: ContactSubmissionApiResponse | null = null;
+
+      try {
+        payload = (await response.json()) as ContactSubmissionApiResponse;
+      } catch {
+        payload = null;
+      }
+
+      if (payload?.ok) {
+        window.location.assign(payload.redirectTo);
+        return;
+      }
+
+      if (
+        payload &&
+        !payload.ok &&
+        payload.errorCode &&
+        submissionErrorMessages[payload.errorCode]
+      ) {
+        setLiveSubmissionError(submissionErrorMessages[payload.errorCode]);
+        return;
+      }
+
+      if (payload && !payload.ok && payload.redirectTo) {
+        window.location.assign(payload.redirectTo);
+        return;
+      }
+
+      setLiveSubmissionError(submissionErrorMessages.email_failed);
+    } catch {
+      setLiveSubmissionError(submissionErrorMessages.email_failed);
+    } finally {
+      setSubmittingFormId(null);
     }
-
-    fileField.setCustomValidity("");
   }
 
   return (
@@ -273,17 +362,18 @@ export default function Contact() {
                 return (
                   <motion.button
                     key={option.id}
-                    type="button"
-                    onClick={() => setActiveForm(option.id)}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.3 }}
-                    transition={{ delay: index * 0.1 }}
-                    className={cn(
-                      "group w-full rounded-[1.6rem] border px-4 py-4 text-left transition duration-300 sm:px-5 sm:py-5",
-                      isActive
-                        ? "border-white/35 bg-white/18 shadow-xl"
-                        : "border-white/12 bg-white/8 hover:border-white/25 hover:bg-white/12",
+                      type="button"
+                      onClick={() => setActiveForm(option.id)}
+                      disabled={Boolean(submittingFormId)}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, amount: 0.3 }}
+                      transition={{ delay: index * 0.1 }}
+                      className={cn(
+                        "group w-full rounded-[1.6rem] border px-4 py-4 text-left transition duration-300 disabled:cursor-not-allowed disabled:opacity-70 sm:px-5 sm:py-5",
+                        isActive
+                          ? "border-white/35 bg-white/18 shadow-xl"
+                          : "border-white/12 bg-white/8 hover:border-white/25 hover:bg-white/12",
                     )}
                     aria-pressed={isActive}
                   >
@@ -411,6 +501,7 @@ export default function Contact() {
                   action={contactFormActionPath}
                   method="POST"
                   onSubmit={handleFormSubmit}
+                  aria-busy={submittingFormId === "demo"}
                   className="mt-6 grid gap-5"
                 >
                   <input
@@ -527,7 +618,15 @@ export default function Contact() {
                   />
 
                   <div className="flex flex-wrap items-center gap-4">
-                    <Button label="Request Demo" type="submit" />
+                    <Button
+                      label={
+                        submittingFormId === "demo"
+                          ? "Sending Request"
+                          : "Request Demo"
+                      }
+                      type="submit"
+                      disabled={Boolean(submittingFormId)}
+                    />
                     <p className="text-sm text-slate-500">
                       We typically route demo requests to the right team within
                       one business day.
@@ -542,6 +641,7 @@ export default function Contact() {
                   method="POST"
                   encType="multipart/form-data"
                   onSubmit={handleFormSubmit}
+                  aria-busy={submittingFormId === "touch"}
                   className="mt-6 grid gap-5"
                 >
                   <input
@@ -677,7 +777,15 @@ export default function Contact() {
                   />
 
                   <div className="flex flex-wrap items-center gap-4">
-                    <Button label="Submit Enquiry" type="submit" />
+                    <Button
+                      label={
+                        submittingFormId === "touch"
+                          ? "Sending Enquiry"
+                          : "Submit Enquiry"
+                      }
+                      type="submit"
+                      disabled={Boolean(submittingFormId)}
+                    />
                     <p className="text-sm text-slate-500">
                       Use this route for support, services, or broader business
                       conversations.

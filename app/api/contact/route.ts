@@ -50,6 +50,18 @@ type ContactErrorCode =
   | "invalid_submission"
   | "rate_limited";
 
+type ContactSubmissionResponseBody = Readonly<
+  | {
+      ok: true;
+      redirectTo: string;
+    }
+  | {
+      errorCode: ContactErrorCode;
+      ok: false;
+      redirectTo: string;
+    }
+>;
+
 class ContactSubmissionError extends Error {
   constructor(public readonly code: ContactErrorCode) {
     super(code);
@@ -95,6 +107,11 @@ const touchRecipientEnvNames: Record<TouchEnquiryType, ReadonlyArray<string>> = 
   ],
 };
 
+const sharedRecipientEnvNames = [
+  "CONTACT_FORM_RECIPIENTS",
+  "CONTACT_FORM_RECIPIENT",
+] as const;
+
 function parseRecipientList(value: string | undefined) {
   if (!value) {
     return [];
@@ -122,6 +139,10 @@ function getRecipientsFromEnv(envNames: ReadonlyArray<string>) {
   return [];
 }
 
+function getSharedRecipients() {
+  return getRecipientsFromEnv(sharedRecipientEnvNames);
+}
+
 function getDemoRecipients() {
   const demoRecipients = getRecipientsFromEnv([
     "CONTACT_FORM_DEMO_RECIPIENTS",
@@ -130,6 +151,12 @@ function getDemoRecipients() {
 
   if (demoRecipients.length > 0) {
     return demoRecipients;
+  }
+
+  const sharedRecipients = getSharedRecipients();
+
+  if (sharedRecipients.length > 0) {
+    return sharedRecipients;
   }
 
   return [DEFAULT_CONTACT_RECIPIENT];
@@ -144,10 +171,6 @@ function getTouchRecipients(enquiryType: TouchEnquiryType) {
     return enquiryRecipients;
   }
 
-  if (enquiryType === "Careers") {
-    return [DEFAULT_CAREERS_RECIPIENT];
-  }
-
   const touchRecipients = getRecipientsFromEnv([
     "CONTACT_FORM_TOUCH_RECIPIENTS",
     "CONTACT_FORM_TOUCH_RECIPIENT",
@@ -155,6 +178,16 @@ function getTouchRecipients(enquiryType: TouchEnquiryType) {
 
   if (touchRecipients.length > 0) {
     return touchRecipients;
+  }
+
+  const sharedRecipients = getSharedRecipients();
+
+  if (sharedRecipients.length > 0) {
+    return sharedRecipients;
+  }
+
+  if (enquiryType === "Careers") {
+    return [DEFAULT_CAREERS_RECIPIENT];
   }
 
   return [DEFAULT_CONTACT_RECIPIENT];
@@ -352,6 +385,70 @@ function buildRedirect(request: NextRequest, pathname: string) {
   return NextResponse.redirect(new URL(pathname, request.url), 303);
 }
 
+function prefersJsonResponse(request: NextRequest) {
+  const requestedWith = request.headers.get("x-requested-with");
+
+  if (requestedWith?.toLowerCase() === "xmlhttprequest") {
+    return true;
+  }
+
+  const acceptHeader = request.headers.get("accept") ?? "";
+  return acceptHeader.includes("application/json");
+}
+
+function getErrorStatusCode(errorCode: ContactErrorCode) {
+  switch (errorCode) {
+    case "invalid_submission":
+    case "invalid_file":
+      return 400;
+    case "invalid_origin":
+      return 403;
+    case "rate_limited":
+      return 429;
+    case "email_unavailable":
+      return 503;
+    case "email_failed":
+    default:
+      return 502;
+  }
+}
+
+function buildSuccessResponse(request: NextRequest, pathname: string) {
+  if (!prefersJsonResponse(request)) {
+    return buildRedirect(request, pathname);
+  }
+
+  const body: ContactSubmissionResponseBody = {
+    ok: true,
+    redirectTo: pathname,
+  };
+
+  return NextResponse.json(body);
+}
+
+function buildErrorResponse(
+  request: NextRequest,
+  formId: ContactFormType,
+  errorCode: ContactErrorCode,
+  brochureSlug?: string,
+) {
+  const redirectTo = getErrorPath(formId, errorCode, brochureSlug);
+
+  if (!prefersJsonResponse(request)) {
+    return buildRedirect(request, redirectTo);
+  }
+
+  const body: ContactSubmissionResponseBody = {
+    errorCode,
+    ok: false,
+    redirectTo,
+  };
+
+  return NextResponse.json(body, {
+    status: getErrorStatusCode(errorCode),
+  });
+}
+
 function assertAllowedOrigin(request: NextRequest) {
   const requestOrigin = new URL(request.url).origin;
   const configuredOrigin = new URL(appConfig.siteUrl).origin;
@@ -543,7 +640,7 @@ export async function POST(request: NextRequest) {
 
     const honeyValue = formData.get("_honey");
     if (typeof honeyValue === "string" && sanitizeTextValue(honeyValue)) {
-      return buildRedirect(request, getSuccessPath(brochureSlug));
+      return buildSuccessResponse(request, getSuccessPath(brochureSlug));
     }
 
     assertRateLimit(getClientKey(request));
@@ -563,7 +660,7 @@ export async function POST(request: NextRequest) {
       to: submission.recipients,
     });
 
-    return buildRedirect(request, submission.successPath);
+    return buildSuccessResponse(request, submission.successPath);
   } catch (error) {
     const errorCode =
       error instanceof ContactSubmissionError
@@ -580,6 +677,6 @@ export async function POST(request: NextRequest) {
       formId,
     });
 
-    return buildRedirect(request, getErrorPath(formId, errorCode, brochureSlug));
+    return buildErrorResponse(request, formId, errorCode, brochureSlug);
   }
 }

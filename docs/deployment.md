@@ -31,6 +31,10 @@ Set these only if you want to override the defaults:
 - `RESEND_API_KEY`
 - `CONTACT_FORM_FROM_EMAIL`
 - `CONTACT_FORM_FROM_NAME`
+- `RESEND_FROM_EMAIL`
+- `RESEND_FROM_NAME`
+- `CONTACT_FORM_RECIPIENT`
+- `CONTACT_FORM_RECIPIENTS`
 - `CONTACT_FORM_DEMO_RECIPIENT`
 - `CONTACT_FORM_DEMO_RECIPIENTS`
 - `CONTACT_FORM_TOUCH_RECIPIENT`
@@ -55,16 +59,19 @@ Before deploying:
 
 1. Create a Resend API key.
 2. Verify the sending domain you want to use.
-3. Set `CONTACT_FORM_FROM_EMAIL` to a verified sender address on that domain.
+3. Set `CONTACT_FORM_FROM_EMAIL` to a verified sender address on that domain. The route also accepts `RESEND_FROM_EMAIL`, but `CONTACT_FORM_FROM_EMAIL` is the preferred name in this project.
 4. Set the recipient inboxes. You can use a single email address or a comma-separated list in each variable.
 5. Route each flow as needed:
+   - `CONTACT_FORM_RECIPIENT` or `CONTACT_FORM_RECIPIENTS` to send every contact flow to one shared inbox
    - `CONTACT_FORM_DEMO_RECIPIENT` or `CONTACT_FORM_DEMO_RECIPIENTS` for demo requests
    - `CONTACT_FORM_TOUCH_RECIPIENT` or `CONTACT_FORM_TOUCH_RECIPIENTS` for general touch submissions
    - `CONTACT_FORM_PRODUCT_ENQUIRY_RECIPIENT(S)`, `CONTACT_FORM_SUPPORT_RECIPIENT(S)`, `CONTACT_FORM_PARTNERSHIP_RECIPIENT(S)`, `CONTACT_FORM_CAREERS_RECIPIENT(S)`, and `CONTACT_FORM_OTHER_RECIPIENT(S)` for enquiry-type-specific routing
 
-If no touch enquiry override is set, product, support, partnership, and other submissions fall back to `CONTACT_FORM_TOUCH_RECIPIENT` and then `enquiry@clinrtglobal.com`. Careers submissions fall back to `hr@clinrtglobal.com`.
+If no enquiry-specific override is set, touch submissions fall back to `CONTACT_FORM_TOUCH_RECIPIENT`, then `CONTACT_FORM_RECIPIENT`, then `enquiry@clinrtglobal.com`. Careers submissions follow the same chain and finally fall back to `hr@clinrtglobal.com`. Demo submissions fall back to `CONTACT_FORM_DEMO_RECIPIENT`, then `CONTACT_FORM_RECIPIENT`, then `enquiry@clinrtglobal.com`.
 
 If `RESEND_API_KEY` or `CONTACT_FORM_FROM_EMAIL` is missing, the forms will stay visible but submissions will fail safely and the user will be asked to email the team directly.
+
+Important for Vercel: a local `.env.production` file is ignored unless you manually copy those values into the Vercel project settings. In Vercel, open the project, go to `Settings -> Environment Variables`, and add the same values there for the environments you deploy. Use `env.production.example` as the safe checklist of keys.
 
 ## Local Development
 
