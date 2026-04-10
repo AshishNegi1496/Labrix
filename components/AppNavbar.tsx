@@ -81,10 +81,10 @@ export default function AppNavbar() {
         `}
       >
         <div className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-linear-to-b from-[#081423]/24 via-[#081423]/10 to-transparent" />
-        <div className="relative mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 sm:py-4">
+        <div className="relative mx-auto flex w-full max-w-7xl min-w-0 items-center justify-between gap-4 px-4 py-3 sm:px-6 sm:py-4">
           <Link
             href="/"
-            className="relative -ml-20 z-50 flex items-center gap-1 rounded-[1.4rem]  bg-[linear-gradient(135deg,rgba(255,255,255,0.14)_0%,rgba(255,255,255,0.08)_10%,rgba(255,255,255,0.05)_10%)]  shadow-[0_18px_40px_rgba(8,20,35,0.12)] backdrop-blur-[10px] transition hover:border-white/20 sm:px-4"
+            className="relative z-50 flex shrink-0 items-center gap-1 rounded-[1.4rem] bg-[linear-gradient(135deg,rgba(255,255,255,0.14)_0%,rgba(255,255,255,0.08)_10%,rgba(255,255,255,0.05)_10%)] shadow-[0_18px_40px_rgba(8,20,35,0.12)] backdrop-blur-[10px] transition hover:border-white/20 -ml-6 sm:-ml-12 lg:-ml-20 sm:px-4"
           >
             <Image
               src={brandLogoSrc}
@@ -96,7 +96,7 @@ export default function AppNavbar() {
           </Link>
 
           <nav
-            className="hidden items-center gap-1 rounded-full bg-[#0f243a]/30 px-2 py-2 text-white shadow-[0_18px_36px_rgba(8,20,35,0.16)] backdrop-blur-xl lg:flex"
+            className="hidden min-w-0 items-center gap-1 rounded-full bg-[#0f243a]/30 px-2 py-2 text-white shadow-[0_18px_36px_rgba(8,20,35,0.16)] backdrop-blur-xl lg:flex"
             aria-label="Primary"
           >
             {navigation.items.map((item) => {
@@ -122,11 +122,11 @@ export default function AppNavbar() {
           <Button
             href={navigation.cta.href}
             label={navigation.cta.label}
-            className="hidden shadow-[0_18px_36px_rgba(8,20,35,0.16)] lg:inline-flex"
+            className="hidden shrink-0 shadow-[0_18px_36px_rgba(8,20,35,0.16)] lg:inline-flex"
           />
 
           <button
-            className="z-50 rounded-full border border-white/18 bg-[#0f243a]/30 p-2 text-white shadow-[0_18px_36px_rgba(8,20,35,0.18)] backdrop-blur-xl transition hover:bg-[#0f243a]/40 sm:p-2.5 lg:hidden"
+            className="z-50 shrink-0 rounded-full border border-white/18 bg-[#0f243a]/30 p-2 text-white shadow-[0_18px_36px_rgba(8,20,35,0.18)] backdrop-blur-xl transition hover:bg-[#0f243a]/40 sm:p-2.5 lg:hidden"
             onClick={handleMenuToggle}
             aria-label={uiLabels.toggleMenu}
             aria-expanded={menuIsOpen}

@@ -32,7 +32,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         {appConfig.enableCursorEffects ? <CursorEffects /> : null}
         <Watermark />
         <WatermarkRight />
-        {children}
+        <main className="min-w-0 overflow-x-clip">{children}</main>
         <AppFooter />
       </body>
     </html>

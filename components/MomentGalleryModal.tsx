@@ -74,7 +74,7 @@ export function MomentGalleryModal({
         </button>
 
         <div className="relative  overflow-hidden h-40 sm:h-52 lg:h-60">
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,20,35,0.08)_0%,rgba(8,20,35,0.36)_42%,rgba(8,20,35,0.88)_100%)]" />
+          <div className="absolute inset-0 bg-(--color-primary)/30" />
           <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-6 lg:p-8">
             <div className="flex flex-wrap items-center gap-3">
               <span className="inline-flex rounded-full border border-white/15 bg-white/10 px-3 py-1 text-[11px] uppercase tracking-[0.32em] text-white/75">

@@ -13,7 +13,7 @@ export default function Container({
   return (
     <div
       className={cn(
-        "section-shell",
+        "section-shell min-w-0",
         fullBleed && "[--container-max:100%] px-0",
         className,
       )}

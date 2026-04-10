@@ -275,7 +275,7 @@ export default function WhatsNewPage() {
 
   return (
     <PageTransition>
-      <section className="relative min-h-[88svh] overflow-hidden sm:h-screen">
+      <section className="relative flex min-h-[78svh] items-end overflow-hidden sm:min-h-[88svh] lg:min-h-screen">
         <Image
           src="/images/Stay connected with our latest updates, resources, and milestones_compressed.webp"
           alt="What's new"
@@ -286,7 +286,7 @@ export default function WhatsNewPage() {
 
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(224,242,254,0.2)_0%,rgba(167,243,208,0.16)_22%,rgba(14,116,144,0.4)_52%,rgba(15,23,42,0.84)_100%)]" />
 
-        <div className="hero-content-lift relative z-10 flex h-full items-end section-shell pb-10 pt-24 text-white sm:pb-14 sm:pt-28 md:pb-20 md:pt-36 lg:pb-24">
+        <div className="hero-content-lift relative z-10 section-shell w-full pb-10 pt-24 text-white sm:pb-14 sm:pt-28 md:pb-20 md:pt-36 lg:pb-24">
           <ScrollReveal className="max-w-3xl">
             <p className="page-banner-title font-semibold">
               Stay connected with our latest updates, resources, and milestones.
@@ -318,7 +318,7 @@ export default function WhatsNewPage() {
             transition={{ duration: 11, repeat: Infinity }}
           />
 
-          <div className="relative grid gap-6 lg:grid-cols-[minmax(15.75rem,16.75rem)_minmax(0,1fr)] xl:grid-cols-[280px_1fr] lg:gap-8">
+          <div className="relative grid gap-6 md:gap-5 lg:grid-cols-[minmax(15.75rem,16.75rem)_minmax(0,1fr)] xl:grid-cols-[280px_1fr] lg:gap-8">
             <aside className="lg:sticky lg:top-10 lg:h-fit xl:top-12">
               <ScrollReveal className="rounded-[1.75rem] border border-orange-100/80 bg-[linear-gradient(180deg,rgba(255,248,243,0.96)_0%,rgba(255,255,255,0.86)_100%)] p-4 shadow-[0_20px_60px_rgba(15,36,58,0.08)] backdrop-blur sm:p-5 xl:p-6">
                 <SectionBadge>Content Hub</SectionBadge>
@@ -340,7 +340,7 @@ export default function WhatsNewPage() {
                   </div>
                 </div>
 
-                <div className="-mx-1 mt-6 flex gap-3 overflow-x-auto px-1 pb-1 no-scrollbar lg:mx-0 lg:flex-col lg:overflow-visible lg:px-0">
+                <div className="-mx-1 mt-6 flex gap-3 overflow-x-auto px-1 pb-1 no-scrollbar md:mx-0 md:grid md:grid-cols-2 md:overflow-visible md:px-0 lg:flex lg:grid-cols-none lg:flex-col">
                   {tabs.map((tab) => (
                     <TabButton
                       key={tab}
@@ -355,16 +355,16 @@ export default function WhatsNewPage() {
               </ScrollReveal>
             </aside>
 
-            <div className="space-y-6">
+            <div className="min-w-0 space-y-6">
               <ScrollReveal>
                 <div className="rounded-[1.75rem] border border-orange-100/75 bg-[linear-gradient(180deg,rgba(255,248,243,0.94)_0%,rgba(255,255,255,0.88)_100%)] p-4 shadow-[0_18px_50px_rgba(15,36,58,0.08)] backdrop-blur sm:p-5 xl:p-7">
-                  <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-                    <div className="max-w-2xl">
+                  <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+                    <div className="min-w-0 max-w-2xl">
                       <div className="flex items-start gap-3 sm:gap-4">
                         <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-(--color-primary) text-white shadow-lg sm:h-14 sm:w-14">
                           <activeContent.icon className="h-5 w-5 sm:h-6 sm:w-6" />
                         </span>
-                        <div>
+                        <div className="min-w-0">
                           <SectionBadge>Active Collection</SectionBadge>
                           <p className="mt-2 text-2xl font-semibold leading-tight text-black sm:text-3xl md:text-4xl">
                             {activeContent.title}
@@ -376,7 +376,7 @@ export default function WhatsNewPage() {
                       </div>
                     </div>
 
-                    <div className="w-full lg:max-w-sm">
+                    <div className="w-full md:max-w-xs lg:max-w-sm">
                       <label className="relative block">
                         <FiSearch className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-black/35" />
                         <input
@@ -389,7 +389,7 @@ export default function WhatsNewPage() {
                     </div>
                   </div>
 
-                  <div className="mt-6 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+                  <div className="mt-6 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
                     <div className="flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.28em] text-black/45">
                       <span className="rounded-full border border-orange-100/70 bg-white/88 px-4 py-2">
                         {filteredItems.length} results
@@ -522,7 +522,7 @@ function TabButton({
       type="button"
       onClick={onClick}
       className={cn(
-        "group min-w-52 rounded-2xl border px-4 py-3.5 text-left transition duration-300 sm:min-w-55 sm:py-4 lg:min-w-0",
+        "group min-w-[13rem] rounded-2xl border px-4 py-3.5 text-left transition duration-300 sm:min-w-[15rem] sm:py-4 md:min-w-0",
         isActive
           ? " bg-(--color-primary) text-white shadow-lg"
           : "border-black/8 bg-white/75 text-black hover:-translate-y-0.5 hover:border-black/18 hover:bg-white",
@@ -530,7 +530,7 @@ function TabButton({
       aria-pressed={isActive}
     >
       <div className="flex items-center justify-between gap-4">
-        <div className="flex items-center gap-3">
+        <div className="min-w-0 flex items-center gap-3">
           <span
             className={cn(
               "inline-flex h-11 w-11 items-center justify-center rounded-2xl border",
@@ -541,7 +541,7 @@ function TabButton({
           >
             <Icon className="h-5 w-5" />
           </span>
-          <div>
+          <div className="min-w-0">
             <p className="font-semibold">{tab}</p>
             <p
               className={cn(
@@ -636,9 +636,9 @@ function ResourceCard({
         )}
       >
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.1),transparent_28%)]" />
-        <div className="absolute inset-0 bg-linear-to-t from-black/88 via-black/50 to-black/12" />
+        <div className="absolute inset-0 bg-linear-to-t from-(--color-primary)/88 via-(--color-primary)/50 to-(--color-primary)/12" />
         <div className="relative flex h-full flex-col justify-between p-5 sm:p-6">
-          <div className="flex items-start justify-between gap-3">
+          <div className="flex flex-wrap items-start justify-between gap-3">
             <span className="inline-flex w-fit rounded-full border border-white/15 bg-white/10 px-3 py-1 text-[11px] uppercase tracking-[0.32em] text-white/75">
               {item.eyebrow}
             </span>
@@ -653,7 +653,7 @@ function ResourceCard({
             <p className="mt-3 max-w-xl text-sm leading-7 text-white/75">
               {item.summary}
             </p>
-            <div className="mt-6 flex items-center justify-between text-[11px] uppercase tracking-[0.32em] text-white/55">
+            <div className="mt-6 flex flex-col gap-3 text-[11px] uppercase tracking-[0.32em] text-white/55 sm:flex-row sm:items-center sm:justify-between">
               <span>{item.meta || "Click to view collage"}</span>
               <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-white/80">
                 See all pics
@@ -681,7 +681,7 @@ function ResourceCard({
     >
       <div className="pointer-events-none absolute inset-x-0 top-0 h-18 bg-linear-to-r from-sky-100/60 via-orange-50/70 to-transparent" />
       <div className="relative">
-        <div className="flex items-start justify-between ">
+        <div className="flex flex-wrap items-start justify-between gap-3">
           <span className="inline-flex rounded-full border border-black/8 bg-slate-50 px-3 py-1 text-[11px] uppercase tracking-[0.32em] text-black/55">
             {item.eyebrow}
           </span>
@@ -790,8 +790,8 @@ function BrochureCard({
       className="relative overflow-hidden rounded-[1.9rem] border border-black/8 bg-white/88 p-5 shadow-[0_22px_70px_rgba(15,36,58,0.08)] sm:p-6"
     >
       <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-[radial-gradient(circle_at_top_left,rgba(125,211,252,0.2),transparent_35%),radial-gradient(circle_at_top_right,rgba(167,243,208,0.16),transparent_28%)]" />
-      <div className="relative flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
-        <div className="max-w-3xl">
+      <div className="relative flex min-w-0 flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+        <div className="min-w-0 max-w-3xl">
           <div className="flex flex-wrap items-center gap-3">
             <span className="inline-flex rounded-full border border-black/8 bg-white/90 px-3 py-1 text-[11px] uppercase tracking-[0.32em] text-black/50">
               {item.eyebrow}
@@ -809,7 +809,7 @@ function BrochureCard({
           </p>
         </div>
 
-        <div className="flex w-full flex-col gap-3 sm:flex-row lg:w-auto lg:min-w-[14rem] lg:flex-col">
+        <div className="flex w-full flex-col gap-3 sm:flex-row sm:flex-wrap lg:w-auto lg:min-w-[14rem] lg:flex-col">
           <button
             type="button"
             onClick={onOpen}
