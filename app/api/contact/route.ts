@@ -23,6 +23,7 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 const DEFAULT_CONTACT_RECIPIENT = "enquiry@clinrtglobal.com";
+const DEFAULT_CAREERS_RECIPIENT = "hr@clinrtglobal.com";
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
 const RATE_LIMIT_MAX_REQUESTS = 5;
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/u;
@@ -38,6 +39,8 @@ const formLabels: Record<ContactFormType, string> = {
   demo: "Request a Demo",
   touch: "Get in Touch",
 };
+
+type TouchEnquiryType = (typeof contactTouchEnquiryTypeOptions)[number];
 
 type ContactErrorCode =
   | "email_failed"
@@ -57,7 +60,7 @@ type ParsedSubmission = Readonly<{
   attachments: ReadonlyArray<EmailAttachment>;
   formId: ContactFormType;
   html: string;
-  recipient: string;
+  recipients: ReadonlyArray<string>;
   replyTo: string;
   subject: string;
   successPath: string;
@@ -69,10 +72,92 @@ type EmailField = Readonly<{
   value: string | undefined;
 }>;
 
-function getRecipientForForm(formId: ContactFormType) {
-  return formId === "demo"
-    ? process.env.CONTACT_FORM_DEMO_RECIPIENT?.trim() || DEFAULT_CONTACT_RECIPIENT
-    : process.env.CONTACT_FORM_TOUCH_RECIPIENT?.trim() || DEFAULT_CONTACT_RECIPIENT;
+const touchRecipientEnvNames: Record<TouchEnquiryType, ReadonlyArray<string>> = {
+  "Product enquiry": [
+    "CONTACT_FORM_PRODUCT_ENQUIRY_RECIPIENTS",
+    "CONTACT_FORM_PRODUCT_ENQUIRY_RECIPIENT",
+  ],
+  Support: [
+    "CONTACT_FORM_SUPPORT_RECIPIENTS",
+    "CONTACT_FORM_SUPPORT_RECIPIENT",
+  ],
+  Partnership: [
+    "CONTACT_FORM_PARTNERSHIP_RECIPIENTS",
+    "CONTACT_FORM_PARTNERSHIP_RECIPIENT",
+  ],
+  Careers: [
+    "CONTACT_FORM_CAREERS_RECIPIENTS",
+    "CONTACT_FORM_CAREERS_RECIPIENT",
+  ],
+  Other: [
+    "CONTACT_FORM_OTHER_RECIPIENTS",
+    "CONTACT_FORM_OTHER_RECIPIENT",
+  ],
+};
+
+function parseRecipientList(value: string | undefined) {
+  if (!value) {
+    return [];
+  }
+
+  return Array.from(
+    new Set(
+      value
+        .split(/[,\n;]+/u)
+        .map((recipient) => sanitizeEmailValue(recipient))
+        .filter((recipient) => EMAIL_PATTERN.test(recipient)),
+    ),
+  );
+}
+
+function getRecipientsFromEnv(envNames: ReadonlyArray<string>) {
+  for (const envName of envNames) {
+    const recipients = parseRecipientList(process.env[envName]);
+
+    if (recipients.length > 0) {
+      return recipients;
+    }
+  }
+
+  return [];
+}
+
+function getDemoRecipients() {
+  const demoRecipients = getRecipientsFromEnv([
+    "CONTACT_FORM_DEMO_RECIPIENTS",
+    "CONTACT_FORM_DEMO_RECIPIENT",
+  ]);
+
+  if (demoRecipients.length > 0) {
+    return demoRecipients;
+  }
+
+  return [DEFAULT_CONTACT_RECIPIENT];
+}
+
+function getTouchRecipients(enquiryType: TouchEnquiryType) {
+  const enquiryRecipients = getRecipientsFromEnv(
+    touchRecipientEnvNames[enquiryType],
+  );
+
+  if (enquiryRecipients.length > 0) {
+    return enquiryRecipients;
+  }
+
+  if (enquiryType === "Careers") {
+    return [DEFAULT_CAREERS_RECIPIENT];
+  }
+
+  const touchRecipients = getRecipientsFromEnv([
+    "CONTACT_FORM_TOUCH_RECIPIENTS",
+    "CONTACT_FORM_TOUCH_RECIPIENT",
+  ]);
+
+  if (touchRecipients.length > 0) {
+    return touchRecipients;
+  }
+
+  return [DEFAULT_CONTACT_RECIPIENT];
 }
 
 function escapeHtml(value: string) {
@@ -396,7 +481,7 @@ async function parseSubmission(formData: FormData): Promise<ParsedSubmission> {
       attachments: [],
       formId,
       html: content.html,
-      recipient: getRecipientForForm(formId),
+      recipients: getDemoRecipients(),
       replyTo: email,
       subject: `Request a Demo | ${firstName} ${lastName} | ${company}`,
       successPath: getSuccessPath(),
@@ -435,7 +520,7 @@ async function parseSubmission(formData: FormData): Promise<ParsedSubmission> {
     attachments: attachment ? [attachment] : [],
     formId,
     html: content.html,
-    recipient: getRecipientForForm(formId),
+    recipients: getTouchRecipients(enquiryType),
     replyTo: email,
     subject: brochureTitle
       ? `Brochure Request | ${firstName} ${lastName} | ${brochureTitle}`
@@ -475,7 +560,7 @@ export async function POST(request: NextRequest) {
         { name: "source", value: "website" },
       ],
       text: submission.text,
-      to: [submission.recipient],
+      to: submission.recipients,
     });
 
     return buildRedirect(request, submission.successPath);

@@ -32,7 +32,19 @@ Set these only if you want to override the defaults:
 - `CONTACT_FORM_FROM_EMAIL`
 - `CONTACT_FORM_FROM_NAME`
 - `CONTACT_FORM_DEMO_RECIPIENT`
+- `CONTACT_FORM_DEMO_RECIPIENTS`
 - `CONTACT_FORM_TOUCH_RECIPIENT`
+- `CONTACT_FORM_TOUCH_RECIPIENTS`
+- `CONTACT_FORM_PRODUCT_ENQUIRY_RECIPIENT`
+- `CONTACT_FORM_PRODUCT_ENQUIRY_RECIPIENTS`
+- `CONTACT_FORM_SUPPORT_RECIPIENT`
+- `CONTACT_FORM_SUPPORT_RECIPIENTS`
+- `CONTACT_FORM_PARTNERSHIP_RECIPIENT`
+- `CONTACT_FORM_PARTNERSHIP_RECIPIENTS`
+- `CONTACT_FORM_CAREERS_RECIPIENT`
+- `CONTACT_FORM_CAREERS_RECIPIENTS`
+- `CONTACT_FORM_OTHER_RECIPIENT`
+- `CONTACT_FORM_OTHER_RECIPIENTS`
 - `ERROR_TRACKING_DSN`
 
 ### Contact Form Email Setup
@@ -44,7 +56,13 @@ Before deploying:
 1. Create a Resend API key.
 2. Verify the sending domain you want to use.
 3. Set `CONTACT_FORM_FROM_EMAIL` to a verified sender address on that domain.
-4. Set the recipient inboxes. By default all contact flows are configured for `enquiry@clinrtglobal.com`.
+4. Set the recipient inboxes. You can use a single email address or a comma-separated list in each variable.
+5. Route each flow as needed:
+   - `CONTACT_FORM_DEMO_RECIPIENT` or `CONTACT_FORM_DEMO_RECIPIENTS` for demo requests
+   - `CONTACT_FORM_TOUCH_RECIPIENT` or `CONTACT_FORM_TOUCH_RECIPIENTS` for general touch submissions
+   - `CONTACT_FORM_PRODUCT_ENQUIRY_RECIPIENT(S)`, `CONTACT_FORM_SUPPORT_RECIPIENT(S)`, `CONTACT_FORM_PARTNERSHIP_RECIPIENT(S)`, `CONTACT_FORM_CAREERS_RECIPIENT(S)`, and `CONTACT_FORM_OTHER_RECIPIENT(S)` for enquiry-type-specific routing
+
+If no touch enquiry override is set, product, support, partnership, and other submissions fall back to `CONTACT_FORM_TOUCH_RECIPIENT` and then `enquiry@clinrtglobal.com`. Careers submissions fall back to `hr@clinrtglobal.com`.
 
 If `RESEND_API_KEY` or `CONTACT_FORM_FROM_EMAIL` is missing, the forms will stay visible but submissions will fail safely and the user will be asked to email the team directly.
 
