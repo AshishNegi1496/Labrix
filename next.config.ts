@@ -8,7 +8,7 @@ const nextConfig: NextConfig = {
     ? {}
     : {
         output: "standalone",
-        distDir: "build",
+       
       }),
   reactStrictMode: !isProd,
   compress: true,
