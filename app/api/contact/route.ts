@@ -12,7 +12,12 @@ import {
   getContactFormHref,
   type ContactFormType,
 } from "@/data";
-import { sendEmail, type EmailAttachment } from "@/lib/email/resend";
+import {
+  isEmailConfigError,
+  isEmailTransportUnavailableError,
+  sendEmail,
+  type EmailAttachment,
+} from "@/lib/email/send";
 import {
   sanitizeEmailValue,
   sanitizePhoneValue,
@@ -526,7 +531,9 @@ async function getOptionalAttachment(formData: FormData) {
 
   return {
     content: encodedContent,
+    contentType: rawValue.type || undefined,
     filename: rawValue.name,
+    size: rawValue.size,
   } satisfies EmailAttachment;
 }
 
@@ -665,8 +672,7 @@ export async function POST(request: NextRequest) {
     const errorCode =
       error instanceof ContactSubmissionError
         ? error.code
-        : error instanceof Error &&
-            (/RESEND_API_KEY|CONTACT_FORM_FROM_EMAIL/).test(error.message)
+        : isEmailConfigError(error) || isEmailTransportUnavailableError(error)
           ? "email_unavailable"
           : "email_failed";
 

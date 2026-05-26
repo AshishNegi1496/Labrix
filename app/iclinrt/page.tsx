@@ -17,7 +17,6 @@ import Button from "@/components/ui/Button";
 import GlassCard from "@/components/GlassCard";
 import SectionBadge from "@/components/ui/SectionBadge";
 import { FiActivity, FiArrowRight, FiCheck, FiZap } from "react-icons/fi";
-import StudyFlowSvg from "@/components/StudyFlowSvg";
 import { cn } from "@/lib/cn";
 import { getContactFormHref } from "@/data";
 import {
@@ -632,10 +631,35 @@ export default function IclinrtPage() {
       </SectionWrapper>
 
       <SectionWrapper fullBleed>
-        <div className="rounded-3xl border bg-white/70 p-4 shadow-xl backdrop-blur-xl sm:p-6 md:p-8 lg:p-10">
-          <SectionBadge>How it works</SectionBadge>
-          <StudyFlowSvg />
-        </div>
+        <ScrollReveal>
+          <div className="relative overflow-hidden rounded-[2.4rem] border border-white/45 bg-[linear-gradient(145deg,rgba(255,255,255,0.95)_0%,rgba(244,247,252,0.98)_45%,rgba(232,241,255,0.98)_100%)] p-4 shadow-[0_28px_90px_rgba(15,23,42,0.12)] sm:p-6 md:p-8 lg:p-10">
+            <div className="pointer-events-none absolute -left-16 top-10 h-48 w-48 rounded-full bg-(--color-accent)/16 blur-3xl" />
+            <div className="pointer-events-none absolute -right-12 bottom-0 h-64 w-64 rounded-full bg-(--color-orange)/14 blur-3xl" />
+            <div className="pointer-events-none absolute inset-x-10 top-0 h-px bg-linear-to-r from-transparent via-black/8 to-transparent" />
+
+            <div className="relative z-10">
+              <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-end">
+                <div className="max-w-3xl">
+                  <SectionBadge>How It Works</SectionBadge>
+                </div>
+              </div>
+
+              <div className="relative mt-8 overflow-hidden rounded-4xl p-4 ">
+                <div className="relative aspect-21/9 min-h-72 w-full sm:min-h-96 lg:min-h-128">
+                  <Image
+                    src="/images/New.gif"
+                    alt="iClinRT workflow showing connected randomization, kit assignment, and trial operations"
+                    fill
+                    unoptimized
+                    loading="lazy"
+                    className="object-cover object-center"
+                    sizes="100vw"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </ScrollReveal>
       </SectionWrapper>
 
       <SectionWrapper fullBleed>

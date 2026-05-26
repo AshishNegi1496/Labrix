@@ -28,11 +28,23 @@ Set these only if you want to override the defaults:
 - `NEXT_PUBLIC_ENABLE_CURSOR`
 - `NEXT_PUBLIC_ENABLE_ANIMATIONS`
 - `NEXT_PUBLIC_ANALYTICS_ID`
-- `RESEND_API_KEY`
+- `SMTP_HOST`
+- `SMTP_PORT`
+- `SMTP_SECURE`
+- `SMTP_USERNAME`
+- `SMTP_PASSWORD`
+- `SMTP_FROM_EMAIL`
+- `SMTP_FROM_NAME`
 - `CONTACT_FORM_FROM_EMAIL`
 - `CONTACT_FORM_FROM_NAME`
-- `RESEND_FROM_EMAIL`
-- `RESEND_FROM_NAME`
+- `SMTP_CONNECTION_TIMEOUT_MS`
+- `SMTP_GREETING_TIMEOUT_MS`
+- `SMTP_SOCKET_TIMEOUT_MS`
+- `ELASTIC_EMAIL_USERNAME`
+- `ELASTIC_EMAIL_USER_NAME_TITLE`
+- `ELASTIC_EMAIL_HOST`
+- `ELASTIC_EMAIL_PORT`
+- `ELASTIC_EMAIL_PASSWORD`
 - `CONTACT_FORM_RECIPIENT`
 - `CONTACT_FORM_RECIPIENTS`
 - `CONTACT_FORM_DEMO_RECIPIENT`
@@ -53,23 +65,24 @@ Set these only if you want to override the defaults:
 
 ### Contact Form Email Setup
 
-The contact forms now send mail through a server-side Resend integration instead of posting directly to a browser-side form service.
+The contact forms send mail through a server-side SMTP transport powered by `nodemailer`.
 
 Before deploying:
 
-1. Create a Resend API key.
-2. Verify the sending domain you want to use.
-3. Set `CONTACT_FORM_FROM_EMAIL` to a verified sender address on that domain. The route also accepts `RESEND_FROM_EMAIL`, but `CONTACT_FORM_FROM_EMAIL` is the preferred name in this project.
+1. Prepare working SMTP credentials from your mail provider. The project accepts generic SMTP variables and the Elastic Email alias variables shown in `env.production.example`.
+2. Set `SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURE`, `SMTP_USERNAME`, and `SMTP_PASSWORD`.
+3. Set `CONTACT_FORM_FROM_EMAIL` to a verified sender address on that domain. `CONTACT_FORM_FROM_NAME` is optional and defaults to `ClinRT Website`.
 4. Set the recipient inboxes. You can use a single email address or a comma-separated list in each variable.
 5. Route each flow as needed:
    - `CONTACT_FORM_RECIPIENT` or `CONTACT_FORM_RECIPIENTS` to send every contact flow to one shared inbox
    - `CONTACT_FORM_DEMO_RECIPIENT` or `CONTACT_FORM_DEMO_RECIPIENTS` for demo requests
    - `CONTACT_FORM_TOUCH_RECIPIENT` or `CONTACT_FORM_TOUCH_RECIPIENTS` for general touch submissions
    - `CONTACT_FORM_PRODUCT_ENQUIRY_RECIPIENT(S)`, `CONTACT_FORM_SUPPORT_RECIPIENT(S)`, `CONTACT_FORM_PARTNERSHIP_RECIPIENT(S)`, `CONTACT_FORM_CAREERS_RECIPIENT(S)`, and `CONTACT_FORM_OTHER_RECIPIENT(S)` for enquiry-type-specific routing
+6. Run `npm run check:contact-email` in the deploy environment, or against your local `.env.production`, to confirm the required mail variables are present before release.
 
 If no enquiry-specific override is set, touch submissions fall back to `CONTACT_FORM_TOUCH_RECIPIENT`, then `CONTACT_FORM_RECIPIENT`, then `enquiry@clinrtglobal.com`. Careers submissions follow the same chain and finally fall back to `hr@clinrtglobal.com`. Demo submissions fall back to `CONTACT_FORM_DEMO_RECIPIENT`, then `CONTACT_FORM_RECIPIENT`, then `enquiry@clinrtglobal.com`.
 
-If `RESEND_API_KEY` or `CONTACT_FORM_FROM_EMAIL` is missing, the forms will stay visible but submissions will fail safely and the user will be asked to email the team directly.
+If `SMTP_HOST`, `SMTP_USERNAME`, `SMTP_PASSWORD`, or `CONTACT_FORM_FROM_EMAIL` is missing, the forms will stay visible but submissions will fail safely and the user will be asked to email the team directly.
 
 Important for Vercel: a local `.env.production` file is ignored unless you manually copy those values into the Vercel project settings. In Vercel, open the project, go to `Settings -> Environment Variables`, and add the same values there for the environments you deploy. Use `env.production.example` as the safe checklist of keys.
 

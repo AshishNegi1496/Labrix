@@ -98,7 +98,7 @@ const submissionErrorMessages: Record<string, string> = {
   email_failed:
     "We could not send your message right now. Please try again or email enquiry@clinrtglobal.com directly.",
   email_unavailable:
-    "The email service is not configured yet. Please contact enquiry@clinrtglobal.com directly for now.",
+    "The email service is temporarily unavailable. Please try again later or email enquiry@clinrtglobal.com directly.",
   invalid_file: contactFileConstraints.errorMessage,
   invalid_origin:
     "We could not verify this submission. Please reload the page and try again.",

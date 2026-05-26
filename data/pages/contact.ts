@@ -104,7 +104,8 @@ export const contactChannels: ReadonlyArray<ContactChannel> = deepFreeze([
   {
     icon: FiMail,
     title: "General enquiries",
-    value: "enquiry@clinrtglobal.com",
+    // value: "enquiry@clinrtglobal.com",
+    value: "ashishnegi1496@gmail.com",
     href: "mailto:enquiry@clinrtglobal.com",
   },
 
