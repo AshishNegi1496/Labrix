@@ -104,16 +104,8 @@ export const contactChannels: ReadonlyArray<ContactChannel> = deepFreeze([
   {
     icon: FiMail,
     title: "General enquiries",
-    // value: "enquiry@clinrtglobal.com",
-    value: "ashishnegi1496@gmail.com",
-    href: "mailto:enquiry@clinrtglobal.com",
-  },
-
-  {
-    icon: FiMail,
-    title: "Careers",
-    value: "hr@clinrtglobal.com",
-    href: "mailto:hr@clinrtglobal.com",
+    value: "support@clinrtglobal.com",
+    href: "mailto:support@clinrtglobal.com",
   },
   {
     icon: FiPhone,
@@ -131,7 +123,7 @@ export const contactChannels: ReadonlyArray<ContactChannel> = deepFreeze([
 
 export const contactDetails: ContactDetails = validateContactDetails(
   deepFreeze({
-    email: "enquiry@clinrtglobal.com",
+    email: "support@clinrtglobal.com",
     location: "Pune, Maharashtra, India",
     phone: "+91 8530067925",
   }),
