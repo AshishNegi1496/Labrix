@@ -201,7 +201,7 @@ export default function Contact() {
 
   async function handleFormSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-
+    console.log("Submitting form...");
     const form = event.currentTarget;
     const submittedFormId = resolveSubmittedFormId(form);
 
@@ -253,8 +253,9 @@ export default function Contact() {
 
     setLiveSubmissionError(null);
     setSubmittingFormId(submittedFormId);
-
+    console.log("Submitting form...");
     try {
+      console.log("Fetch starting");
       const response = await fetch(contactFormActionPath, {
         method: "POST",
         headers: {
