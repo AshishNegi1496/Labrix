@@ -209,7 +209,7 @@ export default function ContactPage() {
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
-                className="rounded-[2rem] bg-white p-6 md:p-8"
+                className="rounded-4xl bg-white p-6 md:p-8"
               >
                 <div className="flex items-center justify-between border-b border-slate-200 pb-5">
                   <div>
@@ -518,7 +518,7 @@ export default function ContactPage() {
                 const Icon = item.icon;
 
                 const card = (
-                  <div className="rounded-[1.5rem] border border-slate-200 bg-slate-50/85 p-4 transition duration-300 hover:-translate-y-0.5 hover:bg-white hover:shadow-sm">
+                  <div className="rounded-3xl border border-slate-200 bg-slate-50/85 p-4 transition duration-300 hover:-translate-y-0.5 hover:bg-white hover:shadow-sm">
                     <div className="flex items-start gap-4">
                       <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-slate-200 bg-white text-[#0f243a]">
                         <Icon className="h-5 w-5" />
@@ -572,7 +572,7 @@ export default function ContactPage() {
                 </span>
               </div>
 
-              <div className="mt-5 h-[20rem] w-full overflow-hidden rounded-3xl sm:h-[26rem] lg:h-[32rem]">
+              <div className="mt-5 h-80 w-full overflow-hidden rounded-3xl sm:h-104 lg:h-128">
                 <ContactMap />
               </div>
             </div>
