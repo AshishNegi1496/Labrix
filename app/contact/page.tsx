@@ -5,6 +5,7 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   FiArrowRight,
+  FiCheckCircle,
   FiMail,
   FiMessageCircle,
   FiShield,
@@ -43,6 +44,7 @@ export default function ContactPage() {
   const [activeForm, setActiveForm] = useState<"touch" | "demo">("touch");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const isSuccessMessage = message.startsWith("Thank you");
 
   async function handleSubmit(
     e: React.FormEvent<HTMLFormElement>,
@@ -70,8 +72,16 @@ export default function ContactPage() {
         throw new Error(data.error || "Failed");
       }
 
-      setMessage("Message sent successfully.");
+      setMessage(
+        type === "touch"
+          ? "Thank you for your request!"
+          : "Thank you for getting in touch!",
+      );
       form.reset();
+
+      if (type === "touch") {
+        setActiveForm("demo");
+      }
     } catch (error) {
       console.error(error);
       setMessage("Something went wrong");
@@ -219,8 +229,18 @@ export default function ContactPage() {
                 </div>
 
                 {message && (
-                  <div className="mt-5 rounded-2xl bg-slate-100 px-4 py-3 text-sm">
-                    {message}
+                  <div
+                    className={`mt-5 flex items-center gap-3 rounded-2xl px-4 py-3 text-sm ${
+                      isSuccessMessage
+                        ? "border border-emerald-200 bg-emerald-50 text-emerald-800"
+                        : "border border-rose-200 bg-rose-50 text-rose-700"
+                    }`}
+                  >
+                    {isSuccessMessage ? (
+                      <FiCheckCircle className="h-5 w-5 shrink-0 text-emerald-600" />
+                    ) : null}
+
+                    <span>{message}</span>
                   </div>
                 )}
 
