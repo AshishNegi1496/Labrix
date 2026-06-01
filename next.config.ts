@@ -4,12 +4,6 @@ const isProd = process.env.NODE_ENV === "production";
 const isVercel = process.env.VERCEL === "1";
 
 const nextConfig: NextConfig = {
-  ...(isVercel
-    ? {}
-    : {
-        output: "standalone",
-       
-      }),
   reactStrictMode: !isProd,
   compress: true,
   poweredByHeader: false,
