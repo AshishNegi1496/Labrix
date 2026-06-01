@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -11,39 +11,8 @@ import { brandLogoSrc, navigation, uiLabels } from "@/data";
 export default function AppNavbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [menuPath, setMenuPath] = useState("");
-  const [isVisible, setIsVisible] = useState(true);
-  const lastScrollYRef = useRef(0);
-  const tickingRef = useRef(false);
   const pathname = usePathname();
   const menuIsOpen = isOpen && pathname === menuPath;
-
-  useEffect(() => {
-    const controlNavbar = () => {
-      const currentScrollY = window.scrollY;
-
-      if (currentScrollY > lastScrollYRef.current && currentScrollY > 100) {
-        setIsVisible(false);
-      } else if (currentScrollY < lastScrollYRef.current) {
-        setIsVisible(true);
-      }
-
-      lastScrollYRef.current = currentScrollY;
-      tickingRef.current = false;
-    };
-
-    const onScroll = () => {
-      if (!tickingRef.current) {
-        requestAnimationFrame(controlNavbar);
-        tickingRef.current = true;
-      }
-    };
-
-    window.addEventListener("scroll", onScroll);
-
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-    };
-  }, []);
 
   useEffect(() => {
     const originalOverflow = document.body.style.overflow;
@@ -74,11 +43,7 @@ export default function AppNavbar() {
   return (
     <>
       <header
-        className={`
-          fixed inset-x-0 top-0 z-50 border-b border-white/20 bg-transparent
-          transition-transform duration-300 ease-in-out will-change-transform
-          ${isVisible ? "translate-y-0" : "-translate-y-full"}
-        `}
+        className="fixed inset-x-0 top-0 z-50 border-b border-white/20 bg-transparent"
       >
         <div className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-linear-to-b from-[#081423]/24 via-[#081423]/10 to-transparent" />
         <div className="relative mx-auto flex w-full max-w-7xl min-w-0 items-center justify-between gap-4 px-4 py-3 sm:px-6 sm:py-4">
