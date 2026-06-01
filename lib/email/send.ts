@@ -55,6 +55,8 @@ function getConfiguredSenderEmail() {
   return getEnvValue([
     "CONTACT_FORM_FROM_EMAIL",
     "SMTP_FROM_EMAIL",
+    "SMTP_USER",
+    "SMTP_USERNAME",
     "ELASTIC_EMAIL_FROM_EMAIL",
     "ELASTIC_EMAIL_USERNAME",
     "ELASTIC_EMAIL_USER_NAME",
@@ -95,6 +97,7 @@ function getSmtpUsername() {
 function getSmtpPassword() {
   return getEnvValue([
     "SMTP_PASSWORD",
+    "SMTP_PASS",
     "ELASTIC_EMAIL_PASSWORD",
     "Elastic_Email_Password",
   ]);
@@ -206,10 +209,20 @@ function buildTransporter() {
   const port = getSmtpPort();
 
   return nodemailer.createTransport({
+    host,
+    port,
+
+    secure: getSmtpSecure(port),
+
     auth: {
-      pass,
       user,
+      pass,
     },
+
+    tls: {
+      rejectUnauthorized: false,
+    },
+
     connectionTimeout: getSmtpTimeout(
       ["SMTP_CONNECTION_TIMEOUT_MS"],
       10000,
@@ -220,9 +233,6 @@ function buildTransporter() {
       10000,
       "SMTP_GREETING_TIMEOUT_MS",
     ),
-    host,
-    port,
-    secure: getSmtpSecure(port),
     socketTimeout: getSmtpTimeout(
       ["SMTP_SOCKET_TIMEOUT_MS"],
       20000,

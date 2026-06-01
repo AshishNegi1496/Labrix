@@ -102,12 +102,14 @@ const requiredChecks = [
     envNames: [
       "CONTACT_FORM_FROM_EMAIL",
       "SMTP_FROM_EMAIL",
+      "SMTP_USER",
+      "SMTP_USERNAME",
       "ELASTIC_EMAIL_FROM_EMAIL",
       "ELASTIC_EMAIL_USERNAME",
       "ELASTIC_EMAIL_USER_NAME",
       "Elastic_Email_UserName",
     ],
-    help: "Set CONTACT_FORM_FROM_EMAIL or SMTP_FROM_EMAIL to a verified sender address.",
+    help: "Set CONTACT_FORM_FROM_EMAIL, SMTP_FROM_EMAIL, SMTP_USER, or SMTP_USERNAME to a verified sender address.",
   },
   {
     label: "SMTP host",
@@ -129,10 +131,11 @@ const requiredChecks = [
     label: "SMTP password",
     envNames: [
       "SMTP_PASSWORD",
+      "SMTP_PASS",
       "ELASTIC_EMAIL_PASSWORD",
       "Elastic_Email_Password",
     ],
-    help: "Set SMTP_PASSWORD or ELASTIC_EMAIL_PASSWORD.",
+    help: "Set SMTP_PASSWORD, SMTP_PASS, or ELASTIC_EMAIL_PASSWORD.",
   },
 ];
 

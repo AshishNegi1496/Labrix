@@ -1,308 +1,88 @@
 "use client";
 
 import Image from "next/image";
-import dynamic from "next/dynamic";
+import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import Link from "next/link";
-import { useSearchParams } from "next/navigation";
-import type {
-  ComponentProps,
-  FormEvent,
-  InputHTMLAttributes,
-  ReactNode,
-  SelectHTMLAttributes,
-  TextareaHTMLAttributes,
-} from "react";
-import { Children, isValidElement, useEffect, useState } from "react";
-import { FiArrowRight, FiShield } from "react-icons/fi";
-import PageTransition from "@/components/animations/PageTransition";
-import SectionWrapper from "@/components/layout/SectionWrapper";
-import Button from "@/components/ui/Button";
-import { cn } from "@/lib/cn";
-import ScrollReveal from "@/components/animations/ScrollReveal";
+import {
+  FiArrowRight,
+  FiMail,
+  FiMessageCircle,
+  FiShield,
+} from "react-icons/fi";
+
 import {
   contactChannels,
-  contactDemoInterestOptions,
-  contactDemoTimelineOptions,
-  contactFileConstraints,
-  contactFileMimeTypes,
-  contactFormActionPath,
-  contactFormOptions,
   contactHero,
   contactInfoBlock,
   contactMapBlock,
-  contactTouchEnquiryTypeOptions,
-  getBrochureBySlug,
-  getBrochureHref,
-  type ContactFormType,
 } from "@/data";
-import {
-  sanitizeEmailValue,
-  sanitizePhoneValue,
-  sanitizeTextValue,
-} from "@/lib/sanitize";
+
+import PageTransition from "@/components/animations/PageTransition";
+import SectionWrapper from "@/components/layout/SectionWrapper";
+import ContactMap from "@/components/ContactMap";
 import SectionBadge from "@/components/ui/SectionBadge";
+import ScrollReveal from "@/components/animations/ScrollReveal";
+import Button from "@/components/ui/Button";
 
-const ContactMap = dynamic(() => import("@/components/ContactMap"), {
-  ssr: false,
-});
+const interestOptions = [
+  "Clinical Trial Management",
+  "EDC & Data Collection",
+  "Regulatory Workflow",
+  "Site Operations",
+  "Custom Enterprise Solution",
+];
 
-const fieldClass =
-  "w-full rounded-2xl border border-slate-200 bg-white px-4 py-3.5 text-sm text-slate-900 placeholder:text-slate-400 shadow-[0_10px_30px_rgba(15,36,58,0.05)] transition focus:border-[#0f243a]/35 focus:outline-none focus:ring-4 focus:ring-[#0f243a]/10";
-const selectClass = `${fieldClass} appearance-none`;
+const timelineOptions = [
+  "Immediately",
+  "Within 1 Month",
+  "1 - 3 Months",
+  "Just Exploring",
+];
 
-type InputProps = InputHTMLAttributes<HTMLInputElement>;
-const Input = ({ className, ...props }: InputProps) => (
-  <input {...props} className={cn(fieldClass, className)} />
-);
+export default function ContactPage() {
+  const [activeForm, setActiveForm] = useState<"touch" | "demo">("touch");
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
 
-type SelectProps = SelectHTMLAttributes<HTMLSelectElement>;
-const Select = ({ className, ...props }: SelectProps) => (
-  <select {...props} className={cn(selectClass, className)} />
-);
-
-type TextAreaProps = TextareaHTMLAttributes<HTMLTextAreaElement>;
-const TextArea = ({ className, ...props }: TextAreaProps) => (
-  <textarea {...props} className={cn(fieldClass, className)} />
-);
-
-const FieldShell = ({
-  label,
-  children,
-}: {
-  label: string;
-  children: ReactNode;
-}) => {
-  const isRequired = Children.toArray(children).some(
-    (child) =>
-      isValidElement<ComponentProps<"input">>(child) &&
-      Boolean(child.props.required),
-  );
-
-  return (
-    <label className="grid gap-2">
-      <span className="text-[11px] font-medium uppercase tracking-[0.22em] text-slate-500">
-        {label}
-        {isRequired ? (
-          <span className="ml-1 text-[#f97316]" aria-hidden="true">
-            *
-          </span>
-        ) : null}
-      </span>
-      {children}
-    </label>
-  );
-};
-
-const submissionErrorMessages: Record<string, string> = {
-  email_failed:
-    "We could not send your message right now. Please try again or email support@clinrtglobal.com directly.",
-  email_unavailable:
-    "The email service is temporarily unavailable. Please try again later or email support@clinrtglobal.com directly.",
-  invalid_file: contactFileConstraints.errorMessage,
-  invalid_origin:
-    "We could not verify this submission. Please reload the page and try again.",
-  invalid_submission:
-    "Please review the highlighted information and try submitting the form again.",
-  rate_limited:
-    "Too many submissions were received from this connection. Please wait a few minutes and try again.",
-};
-
-type ContactSubmissionApiResponse = Readonly<
-  | {
-      ok: true;
-      redirectTo: string;
-    }
-  | {
-      errorCode?: string;
-      ok: false;
-      redirectTo?: string;
-    }
->;
-
-const CheckboxRow = ({ label, name }: { label: string; name: string }) => (
-  <label className="flex items-start gap-3 rounded-2xl border border-slate-200 bg-slate-50/80 px-4 py-3 text-sm text-slate-600">
-    <input
-      type="checkbox"
-      name={name}
-      value="yes"
-      required
-      className="mt-0.5 h-4 w-4 rounded border-slate-300 text-[#0f243a] focus:ring-[#0f243a]"
-    />
-    <span>
-      {label}
-      <span className="ml-1 text-[#f97316]" aria-hidden="true">
-        *
-      </span>
-    </span>
-  </label>
-);
-
-function resolveRequestedForm(
-  requestedForm: string | null,
-  hasBrochureRequest: boolean,
-): ContactFormType {
-  if (requestedForm === "demo" || requestedForm === "touch") {
-    return requestedForm;
-  }
-
-  if (requestedForm === "community" || hasBrochureRequest) {
-    return "touch";
-  }
-
-  return "demo";
-}
-
-function resolveSubmittedFormId(form: HTMLFormElement): ContactFormType {
-  const rawValue = form.elements.namedItem("contactFormId");
-
-  if (
-    rawValue instanceof HTMLInputElement &&
-    (rawValue.value === "demo" || rawValue.value === "touch")
+  async function handleSubmit(
+    e: React.FormEvent<HTMLFormElement>,
+    type: "touch" | "demo",
   ) {
-    return rawValue.value;
-  }
+    e.preventDefault();
 
-  return "demo";
-}
+    const form = e.currentTarget;
 
-export default function Contact() {
-  const searchParams = useSearchParams();
-  const brochure = getBrochureBySlug(searchParams.get("brochure"));
-  const requestedForm = resolveRequestedForm(
-    searchParams.get("form"),
-    !!brochure,
-  );
-  const [activeForm, setActiveForm] = useState<ContactFormType>(requestedForm);
-  const activeOption =
-    contactFormOptions.find((option) => option.id === activeForm) ??
-    contactFormOptions[0];
-  const submissionErrorCode =
-    searchParams.get("status") === "error" ? searchParams.get("error") : null;
-  const searchParamSubmissionError =
-    submissionErrorCode && submissionErrorMessages[submissionErrorCode]
-      ? submissionErrorMessages[submissionErrorCode]
-      : null;
-  const [liveSubmissionError, setLiveSubmissionError] = useState<string | null>(
-    null,
-  );
-  const [submittingFormId, setSubmittingFormId] =
-    useState<ContactFormType | null>(null);
-  const submissionError = liveSubmissionError ?? searchParamSubmissionError;
-  const activeFormHelper =
-    brochure && activeForm === "touch"
-      ? `Use this contact form to request the ${brochure.title} brochure. After you submit, the download will start automatically on the confirmation page.`
-      : activeOption.helper;
+    setLoading(true);
+    setMessage("");
 
-  useEffect(() => {
-    setActiveForm(requestedForm);
-    setLiveSubmissionError(null);
-  }, [requestedForm]);
-
-  async function handleFormSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    console.log("Submitting form...");
-    const form = event.currentTarget;
-    const submittedFormId = resolveSubmittedFormId(form);
-
-    if (submittingFormId) {
-      return;
-    }
-
-    const textFields = form.querySelectorAll<
-      HTMLInputElement | HTMLTextAreaElement
-    >(
-      "input:not([type='hidden']):not([type='checkbox']):not([type='file']), textarea",
-    );
-
-    textFields.forEach((field) => {
-      if (field.name === "email") {
-        field.value = sanitizeEmailValue(field.value);
-        return;
-      }
-
-      if (field.name === "phone") {
-        field.value = sanitizePhoneValue(field.value);
-        return;
-      }
-
-      field.value = sanitizeTextValue(field.value);
-    });
-
-    const fileField = form.elements.namedItem("file");
-    if (!(fileField instanceof HTMLInputElement) || !fileField.files?.length) {
-      if (fileField instanceof HTMLInputElement) {
-        fileField.setCustomValidity("");
-      }
-    } else {
-      const [file] = fileField.files;
-      const allowedTypes = new Set<string>(contactFileMimeTypes);
-
-      if (
-        file.size > contactFileConstraints.maxSizeBytes ||
-        !allowedTypes.has(file.type)
-      ) {
-        fileField.setCustomValidity(contactFileConstraints.errorMessage);
-        fileField.reportValidity();
-        setLiveSubmissionError(contactFileConstraints.errorMessage);
-        return;
-      }
-
-      fileField.setCustomValidity("");
-    }
-
-    setLiveSubmissionError(null);
-    setSubmittingFormId(submittedFormId);
-    console.log("Submitting form...");
     try {
-      console.log("Fetch starting");
-      const response = await fetch(contactFormActionPath, {
+      const formData = new FormData(form);
+      formData.append("contactFormId", type);
+
+      const response = await fetch("/api/contact", {
         method: "POST",
-        headers: {
-          Accept: "application/json",
-          "X-Requested-With": "XMLHttpRequest",
-        },
-        body: new FormData(form),
+        body: formData,
       });
-      let payload: ContactSubmissionApiResponse | null = null;
 
-      try {
-        payload = (await response.json()) as ContactSubmissionApiResponse;
-      } catch {
-        payload = null;
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+        throw new Error(data.error || "Failed");
       }
 
-      if (payload?.ok) {
-        window.location.assign(payload.redirectTo);
-        return;
-      }
-
-      if (
-        payload &&
-        !payload.ok &&
-        payload.errorCode &&
-        submissionErrorMessages[payload.errorCode]
-      ) {
-        setLiveSubmissionError(submissionErrorMessages[payload.errorCode]);
-        return;
-      }
-
-      if (payload && !payload.ok && payload.redirectTo) {
-        window.location.assign(payload.redirectTo);
-        return;
-      }
-
-      setLiveSubmissionError(submissionErrorMessages.email_failed);
-    } catch {
-      setLiveSubmissionError(submissionErrorMessages.email_failed);
+      setMessage("Message sent successfully.");
+      form.reset();
+    } catch (error) {
+      console.error(error);
+      setMessage("Something went wrong");
     } finally {
-      setSubmittingFormId(null);
+      setLoading(false);
     }
   }
 
   return (
     <PageTransition>
-      {/* ---------------- HERO ---------------- */}
+      {/* HERO */}
 
       <section className="relative flex min-h-[78svh] items-end overflow-hidden sm:min-h-[88svh] lg:min-h-screen">
         <Image
@@ -328,476 +108,372 @@ export default function Contact() {
         </div>
       </section>
 
-      {/* ---------------- CONTACT FORMS ---------------- */}
+      {/* FORMS */}
 
-      <SectionWrapper fullBleed id="contact-forms">
-        <div className="relative mt-12 grid gap-8 overflow-hidden rounded-[2.5rem] border border-slate-200 bg-[#0f243a] px-4 py-6 shadow-[0_35px_120px_rgba(15,36,58,0.2)] sm:mt-16 sm:px-6 sm:py-8 md:px-8 md:py-10 lg:grid-cols-[0.95fr_1.05fr] lg:px-10 lg:py-12">
+      <section id="contact-forms" className="px-4 py-16 md:px-10">
+        <div className="relative overflow-hidden rounded-[2.5rem] bg-[#0f243a] p-5 md:p-10">
           <Image
             src="/images/operations.avif"
-            alt="ClinRT team collaborating on clinical operations"
+            alt="Operations"
             fill
-            loading="lazy"
-            className="object-cover object-center"
+            className="object-cover"
           />
+
           <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(8,27,46,0.94)_0%,rgba(8,27,46,0.82)_42%,rgba(8,27,46,0.56)_100%)]" />
-          <div className="absolute -left-20 top-12 h-48 w-48 rounded-full bg-[#f59e0b]/20 blur-3xl sm:h-64 sm:w-64" />
-          <div className="absolute -right-12 bottom-0 h-56 w-56 rounded-full bg-white/10 blur-3xl sm:h-72 sm:w-72" />
 
-          <div className="relative z-10 space-y-6 text-white">
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              className="rounded-[1.9rem] border border-white/15 bg-white/10 p-5 backdrop-blur-xl sm:p-6"
-            >
-              <p className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-[11px] uppercase tracking-[0.3em] text-white/75">
-                <span className="h-2.5 w-2.5 rounded-full bg-[#f59e0b]" />
-                {contactHero.eyebrow}
-              </p>
-            </motion.div>
+          <div className="relative z-10 grid gap-10 lg:grid-cols-2">
+            {/* LEFT */}
 
-            <div className="space-y-4">
-              {contactFormOptions.map((option, index) => {
-                const Icon = option.icon;
-                const isActive = activeForm === option.id;
-                return (
-                  <motion.button
-                    key={option.id}
-                      type="button"
-                      onClick={() => setActiveForm(option.id)}
-                      disabled={Boolean(submittingFormId)}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true, amount: 0.3 }}
-                      transition={{ delay: index * 0.1 }}
-                      className={cn(
-                        "group w-full rounded-[1.6rem] border px-4 py-4 text-left transition duration-300 disabled:cursor-not-allowed disabled:opacity-70 sm:px-5 sm:py-5",
-                        isActive
-                          ? "border-white/35 bg-white/18 shadow-xl"
-                          : "border-white/12 bg-white/8 hover:border-white/25 hover:bg-white/12",
-                    )}
-                    aria-pressed={isActive}
-                  >
-                    <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-                      <div className="flex items-start gap-3 sm:gap-4">
-                        <span
-                          className={cn(
-                            "grid h-12 w-12 place-items-center rounded-2xl border text-white",
-                            isActive
-                              ? "border-white/40 bg-white/20"
-                              : "border-white/15 bg-white/10",
-                          )}
-                        >
-                          <Icon className="h-5 w-5" />
-                        </span>
-                        <div>
-                          <p className="type-h5 font-semibold text-white">
-                            {option.title}
-                          </p>
-                          <p className="mt-2 text-sm text-white/70">
-                            {option.description}
-                          </p>
-                        </div>
-                      </div>
-                      <span
-                        className={cn(
-                          "inline-flex self-start items-center gap-2 rounded-full border px-3 py-1 text-[10px] uppercase tracking-[0.3em]",
-                          isActive
-                            ? "border-white/40 bg-white/15 text-white"
-                            : "border-white/20 bg-white/10 text-white/70",
-                        )}
-                      >
-                        {option.badge}
-                        <FiArrowRight className="h-3 w-3" />
-                      </span>
-                    </div>
-                  </motion.button>
-                );
-              })}
-            </div>
-          </div>
-
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeForm}
-              initial={{ opacity: 0, x: 24 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -24 }}
-              transition={{ duration: 0.32 }}
-              className="relative z-10 rounded-[2rem] border border-white/35 bg-white/92 p-4 shadow-[0_30px_90px_rgba(4,18,33,0.22)] backdrop-blur-2xl sm:p-6"
-            >
-              <div className="flex flex-col gap-4 border-b border-slate-200 pb-5 sm:flex-row sm:items-start sm:justify-between">
-                <div>
-                  <p className="text-[11px] uppercase tracking-[0.3em] text-slate-500">
-                    {activeOption.badge}
-                  </p>
-                  <h2 className="mt-2 type-h3 font-semibold text-[#0f243a]">
-                    {activeOption.title}
-                  </h2>
-                  <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-600">
-                    {activeFormHelper}
-                  </p>
-                </div>
-                <span className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-[11px] uppercase tracking-[0.22em] text-emerald-700">
-                  <FiShield className="h-3.5 w-3.5" />
-                  Secure Form
-                </span>
+            <div className="space-y-5 text-white">
+              <div className="rounded-3xl border border-white/10 bg-white/10 p-6 backdrop-blur-xl">
+                <p className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-4 py-2 text-[11px] uppercase tracking-[0.3em] text-white/75">
+                  <span className="h-2.5 w-2.5 rounded-full bg-orange-400" />
+                  Contact ClinRT
+                </p>
               </div>
 
-              <p className="mt-4 text-sm text-slate-500">
-                Fields marked
-                <span className="mx-1 font-semibold text-[#f97316]">*</span>
-                are required.
-              </p>
+              {/* SWITCH */}
 
-              {submissionError && (
-                <div
-                  role="status"
-                  aria-live="polite"
-                  className="mt-6 rounded-[1.4rem] border border-rose-200 bg-rose-50 px-4 py-3 text-sm leading-6 text-rose-700"
-                >
-                  {submissionError}
-                </div>
-              )}
+              <button
+                onClick={() => setActiveForm("touch")}
+                className={`w-full rounded-3xl border p-5 text-left transition ${
+                  activeForm === "touch"
+                    ? "border-white/30 bg-white/20"
+                    : "border-white/10 bg-white/5"
+                }`}
+              >
+                <div className="flex items-start justify-between">
+                  <div className="flex gap-4">
+                    <span className="grid h-12 w-12 place-items-center rounded-2xl bg-white/10">
+                      <FiMessageCircle />
+                    </span>
 
-              {brochure && activeForm === "touch" && (
-                <div className="mt-6 rounded-[1.75rem] border border-amber-200 bg-[linear-gradient(135deg,rgba(255,251,235,0.98)_0%,rgba(255,247,237,0.98)_100%)] p-4 shadow-[0_18px_50px_rgba(15,36,58,0.08)] sm:p-5">
-                  <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
                     <div>
-                      <p className="text-[11px] uppercase tracking-[0.28em] text-amber-700/75">
-                        Brochure Access Request
-                      </p>
-                      <h3 className="mt-2 text-xl font-semibold text-[#0f243a]">
-                        {brochure.title}
-                      </h3>
-                      <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-600">
-                        Submit the Get in Touch form to request this brochure.
-                        After submission, we will return you to a confirmation
-                        screen and start the download automatically.
+                      <p className="text-xl font-semibold">Request Demo</p>
+
+                      <p className="mt-2 text-sm text-white/70">
+                        Book a guided walkthrough of iClinRT, its workflows, and
+                        the operating model behind it.
                       </p>
                     </div>
-
-                    <Link
-                      href={getBrochureHref(brochure.slug)}
-                      className="inline-flex items-center gap-2 text-sm font-medium text-[#0f243a] transition hover:text-[#163451]"
-                    >
-                      Preview brochure first
-                      <FiArrowRight className="h-4 w-4" />
-                    </Link>
                   </div>
 
-                  <div className="mt-5 flex flex-wrap gap-3 text-[11px] uppercase tracking-[0.24em]">
-                    <span className="rounded-full border border-amber-200 bg-white/80 px-4 py-2 text-amber-700">
-                      Contact form required
-                    </span>
-                    <span className="rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 text-emerald-700">
-                      Instant download after submit
-                    </span>
-                  </div>
+                  <FiArrowRight />
                 </div>
-              )}
+              </button>
 
-              {activeForm === "demo" && (
-                <form
-                  action={contactFormActionPath}
-                  method="POST"
-                  onSubmit={handleFormSubmit}
-                  aria-busy={submittingFormId === "demo"}
-                  className="mt-6 grid gap-5"
-                >
-                  <input
-                    type="text"
-                    name="_honey"
-                    className="hidden"
-                    tabIndex={-1}
-                    autoComplete="off"
-                  />
-                  <input type="hidden" name="contactFormId" value="demo" />
-                  <input type="hidden" name="formType" value="Request a Demo" />
-                  <input type="hidden" name="sourcePage" value="Contact Page" />
+              <button
+                onClick={() => setActiveForm("demo")}
+                className={`w-full rounded-3xl border p-5 text-left transition ${
+                  activeForm === "demo"
+                    ? "border-white/30 bg-white/20"
+                    : "border-white/10 bg-white/5"
+                }`}
+              >
+                <div className="flex items-start justify-between">
+                  <div className="flex gap-4">
+                    <span className="grid h-12 w-12 place-items-center rounded-2xl bg-white/10">
+                      <FiMail />
+                    </span>
 
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    <FieldShell label="First Name">
-                      <Input
-                        name="firstName"
-                        placeholder="Enter first name"
-                        autoComplete="given-name"
-                        maxLength={80}
-                        required
-                      />
-                    </FieldShell>
-                    <FieldShell label="Last Name">
-                      <Input
-                        name="lastName"
-                        placeholder="Enter last name"
-                        autoComplete="family-name"
-                        maxLength={80}
-                        required
-                      />
-                    </FieldShell>
+                    <div>
+                      <p className="text-xl font-semibold">Get in Touch</p>
+
+                      <p className="mt-2 text-sm text-white/70">
+                        Reach out for support, partnerships, service questions,
+                        or a broader conversation with the team.
+                      </p>
+                    </div>
                   </div>
 
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    <FieldShell label="Work Email">
-                      <Input
-                        type="email"
-                        name="email"
-                        placeholder="name@company.com"
-                        autoComplete="email"
-                        required
-                      />
-                    </FieldShell>
-                    <FieldShell label="Phone Number">
-                      <Input
-                        type="tel"
-                        name="phone"
-                        placeholder="+91 or local number"
-                        inputMode="tel"
-                        maxLength={20}
-                      />
-                    </FieldShell>
-                  </div>
+                  <FiArrowRight />
+                </div>
+              </button>
+            </div>
 
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    <FieldShell label="Company">
-                      <Input
-                        name="company"
-                        placeholder="Company or organisation"
-                        autoComplete="organization"
-                        maxLength={120}
-                        required
-                      />
-                    </FieldShell>
-                    <FieldShell label="Role">
-                      <Input
-                        name="designation"
-                        placeholder="Clinical operations lead"
-                        autoComplete="organization-title"
-                        maxLength={120}
-                        required
-                      />
-                    </FieldShell>
-                  </div>
+            {/* RIGHT */}
 
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    <FieldShell label="Primary Interest">
-                      <Select name="productInterest" defaultValue="" required>
-                        <option value="" disabled>
-                          Select focus area
-                        </option>
-                        {contactDemoInterestOptions.map((option) => (
-                          <option key={option}>{option}</option>
-                        ))}
-                      </Select>
-                    </FieldShell>
-                    <FieldShell label="Expected Timeline">
-                      <Select name="timeline" defaultValue="" required>
-                        <option value="" disabled>
-                          Select timeline
-                        </option>
-                        {contactDemoTimelineOptions.map((option) => (
-                          <option key={option}>{option}</option>
-                        ))}
-                      </Select>
-                    </FieldShell>
-                  </div>
-
-                  <FieldShell label="Let us know about your requirement">
-                    <TextArea
-                      name="message"
-                      rows={4}
-                      placeholder="Tell us about your study type, current tools, timelines, or the workflows you want to see."
-                      className="min-h-[140px] resize-none"
-                      maxLength={1200}
-                      required
-                    />
-                  </FieldShell>
-
-                  <CheckboxRow
-                    label="I agree to be contacted about my demo request and understand my information will be handled according to the privacy policy."
-                    name="consent"
-                  />
-
-                  <div className="flex flex-wrap items-center gap-4">
-                    <Button
-                      label={
-                        submittingFormId === "demo"
-                          ? "Sending Request"
-                          : "Request Demo"
-                      }
-                      type="submit"
-                      disabled={Boolean(submittingFormId)}
-                    />
-                    <p className="text-sm text-slate-500">
-                      We typically route demo requests to the right team within
-                      one business day.
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeForm}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                className="rounded-[2rem] bg-white p-6 md:p-8"
+              >
+                <div className="flex items-center justify-between border-b border-slate-200 pb-5">
+                  <div>
+                    <p className="text-[11px] uppercase tracking-[0.3em] text-slate-500">
+                      Secure Form
                     </p>
+
+                    <h2 className="mt-2 text-3xl font-bold text-[#0f243a]">
+                      {activeForm === "touch" ? "Request Demo" : "Get in Touch"}
+                    </h2>
                   </div>
-                </form>
-              )}
 
-              {activeForm === "touch" && (
-                <form
-                  action={contactFormActionPath}
-                  method="POST"
-                  encType="multipart/form-data"
-                  onSubmit={handleFormSubmit}
-                  aria-busy={submittingFormId === "touch"}
-                  className="mt-6 grid gap-5"
-                >
-                  <input
-                    type="text"
-                    name="_honey"
-                    className="hidden"
-                    tabIndex={-1}
-                    autoComplete="off"
-                  />
-                  <input type="hidden" name="contactFormId" value="touch" />
-                  <input type="hidden" name="formType" value="Get in Touch" />
-                  <input
-                    type="hidden"
-                    name="sourcePage"
-                    value={
-                      brochure
-                        ? `Brochure Download (${brochure.slug})`
-                        : "Contact Page"
-                    }
-                  />
-                  {brochure && (
-                    <>
-                      <input
-                        type="hidden"
-                        name="requestedBrochure"
-                        value={brochure.title}
-                      />
-                      <input
-                        type="hidden"
-                        name="brochureSlug"
-                        value={brochure.slug}
-                      />
-                    </>
-                  )}
+                  <span className="inline-flex items-center gap-2 rounded-full bg-emerald-50 px-3 py-2 text-xs text-emerald-700">
+                    <FiShield />
+                    Protected
+                  </span>
+                </div>
 
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    <FieldShell label="First Name">
-                      <Input
+                {message && (
+                  <div className="mt-5 rounded-2xl bg-slate-100 px-4 py-3 text-sm">
+                    {message}
+                  </div>
+                )}
+
+                {/* TOUCH FORM */}
+
+                {activeForm === "touch" && (
+                  <form
+                    onSubmit={(e) => handleSubmit(e, "touch")}
+                    className="mt-6 grid gap-5"
+                  >
+                    <div className="grid gap-2 md:grid-cols-2">
+                      <input
                         name="firstName"
-                        placeholder="Enter first name"
-                        autoComplete="given-name"
-                        maxLength={80}
+                        placeholder="First Name"
                         required
+                        className="rounded-2xl border p-4 outline-none"
                       />
-                    </FieldShell>
-                    <FieldShell label="Last Name">
-                      <Input
-                        name="lastName"
-                        placeholder="Enter last name"
-                        autoComplete="family-name"
-                        maxLength={80}
-                        required
-                      />
-                    </FieldShell>
-                  </div>
 
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    <FieldShell label="Email">
-                      <Input
+                      <input
+                        name="lastName"
+                        placeholder="Last Name"
+                        required
+                        className="rounded-2xl border p-4 outline-none"
+                      />
+                    </div>
+
+                    <div className="grid gap-2 md:grid-cols-2">
+                      <input
                         type="email"
                         name="email"
-                        placeholder="name@company.com"
-                        autoComplete="email"
+                        placeholder="Email"
                         required
+                        className="rounded-2xl border p-4 outline-none"
                       />
-                    </FieldShell>
-                    <FieldShell label="Phone Number">
-                      <Input
-                        type="tel"
+
+                      <input
                         name="phone"
-                        placeholder="Add a direct line"
-                        inputMode="tel"
-                        maxLength={20}
-                        required
+                        placeholder="Phone"
+                        className="rounded-2xl border p-4 outline-none"
                       />
-                    </FieldShell>
-                  </div>
+                    </div>
 
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    <FieldShell label="Company">
-                      <Input
-                        name="company"
-                        placeholder="Company name"
-                        autoComplete="organization"
-                        maxLength={120}
-                        required
-                      />
-                    </FieldShell>
-                    <FieldShell label="Designation">
-                      <Input
-                        name="designation"
-                        placeholder="Your role"
-                        autoComplete="organization-title"
-                        maxLength={120}
-                      />
-                    </FieldShell>
-                  </div>
+                    <input
+                      name="company"
+                      placeholder="Company"
+                      required
+                      className="rounded-2xl border p-4 outline-none"
+                    />
 
-                  <FieldShell label="Enquiry Type">
-                    <Select name="enquiryType" defaultValue="" required>
+                    <div className="grid gap-4 md:grid-cols-2">
+                      <input
+                        name="role"
+                        placeholder="Your Role"
+                        required
+                        className="rounded-2xl border p-4 outline-none"
+                      />
+
+                      <select
+                        name="primaryInterest"
+                        required
+                        defaultValue=""
+                        className="rounded-2xl border p-4 outline-none"
+                      >
+                        <option value="" disabled>
+                          Primary Interest
+                        </option>
+
+                        {interestOptions.map((option) => (
+                          <option key={option} value={option}>
+                            {option}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
+                    <select
+                      name="timeline"
+                      required
+                      defaultValue=""
+                      className="rounded-2xl border p-4 outline-none"
+                    >
                       <option value="" disabled>
-                        Select enquiry type
+                        Expected Timeline
                       </option>
-                      {contactTouchEnquiryTypeOptions.map((option) => (
-                        <option key={option}>{option}</option>
+
+                      {timelineOptions.map((option) => (
+                        <option key={option} value={option}>
+                          {option}
+                        </option>
                       ))}
-                    </Select>
-                  </FieldShell>
+                    </select>
 
-                  <FieldShell label="Message">
-                    <TextArea
-                      name="message"
-                      rows={4}
-                      placeholder="Tell us how we can help."
-                      className="min-h-35 resize-none"
-                      maxLength={1200}
+                    <textarea
+                      name="requirements"
+                      placeholder="Let us know about your requirement"
+                      rows={5}
                       required
+                      className="rounded-2xl border p-4 outline-none"
                     />
-                  </FieldShell>
 
-                  <FieldShell label="Attachment">
-                    <Input
-                      type="file"
-                      name="file"
-                      accept={contactFileConstraints.accept}
-                      className="file:mr-4 file:rounded-full file:border-0 file:bg-[#0f243a] file:px-4 file:py-2 file:text-xs file:font-medium file:uppercase file:tracking-[0.2em] file:text-white hover:file:bg-[#163451]"
-                    />
-                  </FieldShell>
+                    <label className="flex items-start gap-3 rounded-2xl border border-slate-200 p-4 text-sm text-slate-700">
+                      <input
+                        type="checkbox"
+                        name="consent"
+                        required
+                        className="mt-1 h-4 w-4 accent-[#0f243a]"
+                      />
 
-                  <CheckboxRow
-                    label="I agree to be contacted about my enquiry and accept the privacy policy."
-                    name="consent"
-                  />
+                      <span>
+                        I agree to be contacted about my demo request and
+                        understand my information will be handled according to
+                        the privacy policy.*
+                      </span>
+                    </label>
 
-                  <div className="flex flex-wrap items-center gap-4">
-                    <Button
-                      label={
-                        submittingFormId === "touch"
-                          ? "Sending Enquiry"
-                          : "Submit Enquiry"
-                      }
+                    <button
                       type="submit"
-                      disabled={Boolean(submittingFormId)}
+                      disabled={loading}
+                      className="rounded-full bg-[#0f243a] px-6 py-4 text-sm font-semibold text-white transition hover:scale-[1.02]"
+                    >
+                      {loading ? "Sending..." : "Request Demo"}
+                    </button>
+                  </form>
+                )}
+
+                {/* DEMO FORM */}
+
+                {activeForm === "demo" && (
+                  <form
+                    onSubmit={(e) => handleSubmit(e, "demo")}
+                    className="mt-6 grid gap-5"
+                  >
+                    <div className="grid gap-4 md:grid-cols-2">
+                      <input
+                        name="firstName"
+                        placeholder="First Name"
+                        required
+                        className="rounded-2xl border p-4 outline-none"
+                      />
+
+                      <input
+                        name="lastName"
+                        placeholder="Last Name"
+                        required
+                        className="rounded-2xl border p-4 outline-none"
+                      />
+                    </div>
+
+                    <div className="grid gap-4 md:grid-cols-2">
+                      <input
+                        type="email"
+                        name="email"
+                        placeholder="Work Email"
+                        required
+                        className="rounded-2xl border p-4 outline-none"
+                      />
+
+                      <input
+                        name="phone"
+                        placeholder="Phone"
+                        className="rounded-2xl border p-4 outline-none"
+                      />
+                    </div>
+
+                    <input
+                      name="company"
+                      placeholder="Company"
+                      required
+                      className="rounded-2xl border p-4 outline-none"
                     />
-                    <p className="text-sm text-slate-500">
-                      Use this route for support, services, or broader business
-                      conversations.
-                    </p>
-                  </div>
-                </form>
-              )}
-            </motion.div>
-          </AnimatePresence>
+
+                    <div className="grid gap-4 md:grid-cols-2">
+                      <input
+                        name="role"
+                        placeholder="Your Role"
+                        required
+                        className="rounded-2xl border p-4 outline-none"
+                      />
+
+                      <select
+                        name="primaryInterest"
+                        required
+                        defaultValue=""
+                        className="rounded-2xl border p-4 outline-none"
+                      >
+                        <option value="" disabled>
+                          Primary Interest
+                        </option>
+
+                        {interestOptions.map((option) => (
+                          <option key={option} value={option}>
+                            {option}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
+                    <select
+                      name="timeline"
+                      required
+                      defaultValue=""
+                      className="rounded-2xl border p-4 outline-none"
+                    >
+                      <option value="" disabled>
+                        Expected Timeline
+                      </option>
+
+                      {timelineOptions.map((option) => (
+                        <option key={option} value={option}>
+                          {option}
+                        </option>
+                      ))}
+                    </select>
+
+                    <textarea
+                      name="requirements"
+                      placeholder="Let us know about your requirement"
+                      rows={5}
+                      required
+                      className="rounded-2xl border p-4 outline-none"
+                    />
+
+                    <label className="flex items-start gap-3 rounded-2xl border border-slate-200 p-4 text-sm text-slate-700">
+                      <input
+                        type="checkbox"
+                        name="consent"
+                        required
+                        className="mt-1 h-4 w-4 accent-[#0f243a]"
+                      />
+
+                      <span>
+                        I agree to be contacted about my demo request and
+                        understand my information will be handled according to
+                        the privacy policy.*
+                      </span>
+                    </label>
+
+                    <button
+                      type="submit"
+                      disabled={loading}
+                      className="rounded-full bg-[#0f243a] px-6 py-4 text-sm font-semibold text-white transition hover:scale-[1.02]"
+                    >
+                      {loading ? "Sending..." : "Get in Touch"}
+                    </button>
+                  </form>
+                )}
+              </motion.div>
+            </AnimatePresence>
+          </div>
         </div>
-      </SectionWrapper>
+      </section>
+
+      {/* BOTTOM */}
 
       <SectionWrapper fullBleed className="pb-10 md:pb-16">
         <div className="grid gap-10 lg:grid-cols-[0.92fr_1.08fr]">
@@ -808,9 +484,11 @@ export default function Contact() {
             className="rounded-4xl border border-slate-200 bg-white/85 p-6 shadow-[0_20px_60px_rgba(15,36,58,0.06)] backdrop-blur md:p-8"
           >
             <SectionBadge>{contactInfoBlock.label}</SectionBadge>
+
             <p className="mt-3 type-h3 font-semibold text-[#0f243a]">
               {contactInfoBlock.title}
             </p>
+
             <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-600">
               {contactInfoBlock.description}
             </p>
@@ -818,16 +496,19 @@ export default function Contact() {
             <div className="mt-6 grid gap-3">
               {contactChannels.map((item) => {
                 const Icon = item.icon;
+
                 const card = (
                   <div className="rounded-[1.5rem] border border-slate-200 bg-slate-50/85 p-4 transition duration-300 hover:-translate-y-0.5 hover:bg-white hover:shadow-sm">
                     <div className="flex items-start gap-4">
                       <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-slate-200 bg-white text-[#0f243a]">
                         <Icon className="h-5 w-5" />
                       </span>
+
                       <div>
                         <p className="text-[11px] uppercase tracking-[0.22em] text-slate-500">
                           {item.title}
                         </p>
+
                         <p className="mt-2 text-sm leading-6 text-slate-700">
                           {item.value}
                         </p>
@@ -860,10 +541,12 @@ export default function Contact() {
               <div className="flex flex-wrap items-center justify-between gap-4">
                 <div>
                   <SectionBadge>{contactMapBlock.label}</SectionBadge>
+
                   <h3 className="mt-2 text-2xl font-semibold text-[#0f243a]">
                     {contactMapBlock.title}
                   </h3>
                 </div>
+
                 <span className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-[11px] uppercase tracking-[0.22em] text-slate-600">
                   {contactMapBlock.badge}
                 </span>

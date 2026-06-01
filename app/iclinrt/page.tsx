@@ -646,15 +646,17 @@ export default function IclinrtPage() {
 
               <div className="relative mt-8 overflow-hidden rounded-4xl p-4 ">
                 <div className="relative aspect-21/9 min-h-72 w-full sm:min-h-96 lg:min-h-128">
-                  <Image
-                    src="/images/New.gif"
-                    alt="iClinRT workflow showing connected randomization, kit assignment, and trial operations"
-                    fill
-                    unoptimized
-                    loading="lazy"
-                    className="object-cover object-center"
-                    sizes="100vw"
-                  />
+                <video
+    className="h-full w-full object-cover object-center"
+    autoPlay
+    muted
+    loop
+    playsInline
+    preload="auto"
+  >
+    <source src="/videos/presentation1.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
                 </div>
               </div>
             </div>
