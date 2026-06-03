@@ -45,11 +45,11 @@ const formMeta = {
     successMessage: "Thank you for your demo request!",
   },
   demo: {
-    title: "Join Our Community",
+    title: "Get in Touch",
     helper:
       "Be part of our growing community and stay connected to product updates, events, and industry news.",
     submitLabel: "Join Now",
-    switchTitle: "Join Our Community",
+    switchTitle: "Get in Touch",
     switchDescription:
       "Stay connected with product updates, webinars, case studies, and other company news.",
     successMessage: "Thank you for joining our community!",
@@ -94,10 +94,6 @@ export default function ContactPage() {
           : formMeta.demo.successMessage,
       );
       form.reset();
-
-      if (type === "touch") {
-        setActiveForm("demo");
-      }
     } catch (error) {
       console.error(error);
       setMessage("Something went wrong");

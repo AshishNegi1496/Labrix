@@ -82,12 +82,12 @@ export const contactTouchEnquiryTypeOptions = deepFreeze([
 export const contactFormOptions: ReadonlyArray<ContactFormOption> = deepFreeze([
   {
     id: "demo",
-    title: "Join Our Community",
+    title: "Get in Touch",
     description:
       "Be part of our growing community and stay connected to the work we care deeply about.",
     helper:
       "Use this form to hear about product updates, events, case studies, and industry news.",
-    badge: "Community Route",
+    badge: "Get in Touch",
     icon: FiCalendar,
   },
   {

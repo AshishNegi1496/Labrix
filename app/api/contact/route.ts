@@ -100,7 +100,7 @@ export async function POST(req: Request) {
     const contactFormId = normalizeValue(body.get("contactFormId"));
     const isEnquiryRequest = contactFormId === "touch";
     const routeType: ContactRouteType = isEnquiryRequest ? "demo" : "touch";
-    const formLabel = isEnquiryRequest ? "Request a Demo" : "Join Our Community";
+    const formLabel = isEnquiryRequest ? "Request a Demo" : "Get in Touch";
     const recipients = resolveRecipients(routeType);
 
     const firstName = normalizeValue(body.get("firstName"));
@@ -261,4 +261,5 @@ export async function POST(req: Request) {
     );
   }
 }
+
 
