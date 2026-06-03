@@ -55,24 +55,26 @@ export const contactFileMimeTypes = deepFreeze([
 ] as const);
 
 export const contactDemoInterestOptions = deepFreeze([
-  "iClinRT platform overview",
-  "Randomization workflows",
-  "Supply and kit management",
-  "Integrations and reporting",
-  "Full platform evaluation",
+  "Product Updates",
+  "Events & Webinars",
+  "Case Studies",
+  "Blogs & Insights",
+  "Industry News",
+  "All",
 ] as const);
 
 export const contactDemoTimelineOptions = deepFreeze([
-  "Immediately",
-  "Within 30 days",
-  "This quarter",
-  "Just exploring",
+  "India",
+  "North America",
+  "Europe",
+  "Middle East",
+  "Asia Pacific",
+  "Other",
 ] as const);
 
 export const contactTouchEnquiryTypeOptions = deepFreeze([
-  "Product enquiry",
+  "Enquiry",
   "Support",
-  "Partnership",
   "Careers",
   "Other",
 ] as const);
@@ -80,22 +82,22 @@ export const contactTouchEnquiryTypeOptions = deepFreeze([
 export const contactFormOptions: ReadonlyArray<ContactFormOption> = deepFreeze([
   {
     id: "demo",
-    title: "Request a Demo",
+    title: "Join Our Community",
     description:
-      "Book a guided walkthrough of iClinRT, its workflows, and the operating model behind it.",
+      "Be part of our growing community and stay connected to the work we care deeply about.",
     helper:
-      "Best for sponsors, CROs, and clinical operations teams actively evaluating the platform.",
-    badge: "Priority Route",
+      "Use this form to hear about product updates, events, case studies, and industry news.",
+    badge: "Community Route",
     icon: FiCalendar,
   },
   {
     id: "touch",
-    title: "Get in Touch",
+    title: "Request a Demo",
     description:
-      "Reach out for support, partnerships, service questions, or a broader conversation with the team.",
+      "Share your details and our team will reach out shortly with demo information.",
     helper:
-      "Tell us what you need and we will route your enquiry to the right team quickly.",
-    badge: "General Enquiry",
+      "Best for product walkthroughs, platform questions, and demo requests.",
+    badge: "Request Demo",
     icon: FiMessageCircle,
   },
 ]);
@@ -104,8 +106,20 @@ export const contactChannels: ReadonlyArray<ContactChannel> = deepFreeze([
   {
     icon: FiMail,
     title: "General enquiries",
+    value: "enquiry@clinrtglobal.com",
+    href: "mailto:enquiry@clinrtglobal.com",
+  },
+  {
+    icon: FiMail,
+    title: "Support",
     value: "support@clinrtglobal.com",
     href: "mailto:support@clinrtglobal.com",
+  },
+  {
+    icon: FiMail,
+    title: "Careers",
+    value: "hr@clinrtglobal.com",
+    href: "mailto:hr@clinrtglobal.com",
   },
   {
     icon: FiPhone,
@@ -117,14 +131,14 @@ export const contactChannels: ReadonlyArray<ContactChannel> = deepFreeze([
     icon: FiMapPin,
     title: "Office",
     value:
-      "ClinRT Global Services Pvt. Ltd. 905, Tower 3, Kohinoor World Towers (KWT) PCMC, Pune, Maharashtra 411018, India",
+      "ClinRT Global Services Pvt. Ltd. 905, Tower 3, Kohinoor World Towers (KWT), Opposite Empire Estate, Old Mumbai-Pune Highway, PCMC, Pune, Maharashtra 411018, India",
   },
 ]);
 
 export const contactDetails: ContactDetails = validateContactDetails(
   deepFreeze({
-    email: "support@clinrtglobal.com",
-    location: "Pune, Maharashtra, India",
+    email: "enquiry@clinrtglobal.com",
+    location: "905, Tower 3, Kohinoor World Towers (KWT), PCMC, Pune, Maharashtra 411018, India",
     phone: "+91 8530067925",
   }),
 );
@@ -133,7 +147,7 @@ export const contactInfoBlock = deepFreeze({
   label: "Contact Information",
   title: "Reach the ClinRT team directly",
   description:
-    "If you already know where your request belongs, use the details below. For everything else, the forms above are the fastest path.",
+    "Use the details below for direct contact. For everything else, the forms above are the fastest path.",
 });
 
 export const contactMapBlock = deepFreeze({

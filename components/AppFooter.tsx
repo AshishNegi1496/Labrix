@@ -1,28 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { IconType } from "react-icons";
-import {
-  FaFacebookF,
-  FaGlobe,
-  FaInstagram,
-  FaLinkedinIn,
-  FaYoutube,
-} from "react-icons/fa";
+import { FaGlobe, FaLinkedinIn } from "react-icons/fa";
 import Button from "@/components/ui/Button";
 import { brandLogoSrc, footerData, getContactFormHref } from "@/data";
 
 const socialIcons: Record<string, IconType> = {
   linkedin: FaLinkedinIn,
-  instagram: FaInstagram,
-  facebook: FaFacebookF,
-  youtube: FaYoutube,
 };
 
 const socialHrefMap: Record<string, string> = {
   linkedin: "https://www.linkedin.com/company/clinrt-global-services/",
-  instagram: "/coming-soon",
-  facebook: "/coming-soon",
-  youtube: "/coming-soon",
 };
 
 export default function AppFooter() {

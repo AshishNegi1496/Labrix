@@ -48,6 +48,22 @@ function parseRecipients(value: string | null) {
   );
 }
 
+function getMultiValue(body: FormData, key: string) {
+  return body
+    .getAll(key)
+    .map((value) => normalizeValue(value))
+    .filter(Boolean);
+}
+
+async function fileToAttachment(file: File) {
+  return {
+    content: Buffer.from(await file.arrayBuffer()).toString("base64"),
+    contentType: file.type || "application/octet-stream",
+    filename: file.name || "upload",
+    size: file.size,
+  };
+}
+
 function resolveRecipients(routeType: ContactRouteType) {
   const routeSpecificRecipients = parseRecipients(
     getEnvValue(
@@ -82,9 +98,9 @@ export async function POST(req: Request) {
 });
     const body = await req.formData();
     const contactFormId = normalizeValue(body.get("contactFormId"));
-    const isDemoRequest = contactFormId === "touch";
-    const routeType: ContactRouteType = isDemoRequest ? "demo" : "touch";
-    const formLabel = isDemoRequest ? "Demo Request" : "General Enquiry";
+    const isEnquiryRequest = contactFormId === "touch";
+    const routeType: ContactRouteType = isEnquiryRequest ? "demo" : "touch";
+    const formLabel = isEnquiryRequest ? "Request a Demo" : "Join Our Community";
     const recipients = resolveRecipients(routeType);
 
     const firstName = normalizeValue(body.get("firstName"));
@@ -92,21 +108,39 @@ export async function POST(req: Request) {
     const email = normalizeValue(body.get("email"));
     const phone = normalizeValue(body.get("phone"));
     const company = normalizeValue(body.get("company"));
-    const role = normalizeValue(body.get("role"));
-    const primaryInterest = normalizeValue(body.get("primaryInterest"));
-    const timeline = normalizeValue(body.get("timeline"));
-    const requirements = normalizeValue(body.get("requirements"));
+    const designation = normalizeValue(body.get("designation"));
+    const enquiryType = normalizeValue(body.get("enquiryType"));
+    const message = normalizeValue(body.get("message"));
+    const sourceOfContact = normalizeValue(body.get("sourceOfContact"));
+    const countryRegion = normalizeValue(body.get("countryRegion"));
+    const areasOfInterest = getMultiValue(body, "areasOfInterest");
+    const attachmentValue = body.get("attachment");
+    const attachment =
+      attachmentValue instanceof File && attachmentValue.size > 0
+        ? await fileToAttachment(attachmentValue)
+        : null;
 
-    const summaryRows: ReadonlyArray<readonly [string, string]> = [
-      ["First Name", firstName],
-      ["Last Name", lastName],
-      ["Email Address", email],
-      ["Phone Number", phone],
-      ["Organization", company],
-      ["Role / Position", role],
-      ["Primary Interest", primaryInterest],
-      ["Expected Timeline", timeline],
-    ];
+    const summaryRows: ReadonlyArray<readonly [string, string]> = isEnquiryRequest
+      ? [
+          ["First Name", firstName],
+          ["Last Name", lastName],
+          ["Email Address", email],
+          ["Phone Number", phone],
+          ["Company Name", company],
+          ["Designation", designation],
+          ["Enquiry Type", enquiryType],
+          ["Source of Contact", sourceOfContact],
+          ["Uploaded File", attachment?.filename ?? "-"],
+        ]
+      : [
+          ["First Name", firstName],
+          ["Last Name", lastName],
+          ["Email Address", email],
+          ["Company Name", company],
+          ["Designation / Role", designation],
+          ["Areas of Interest", areasOfInterest.join(", ")],
+          ["Country / Region", countryRegion],
+        ];
 
     const htmlRows = summaryRows
       .map(
@@ -122,6 +156,32 @@ export async function POST(req: Request) {
         `,
       )
       .join("");
+
+    const messageSection = isEnquiryRequest
+      ? `
+        <div style="margin-top:32px;">
+          <p style="margin:0 0 12px;font-size:15px;font-weight:700;color:#0f243a;">
+            Your Message
+          </p>
+          <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:20px;color:#475569;line-height:1.8;font-size:15px;white-space:pre-wrap;">
+            ${escapeHtml(message || "-")}
+          </div>
+        </div>
+      `
+      : "";
+
+    const htmlAttachmentSection = attachment
+      ? `
+        <div style="margin-top:32px;">
+          <p style="margin:0 0 12px;font-size:15px;font-weight:700;color:#0f243a;">
+            Uploaded File
+          </p>
+          <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:20px;color:#475569;line-height:1.8;font-size:15px;white-space:pre-wrap;">
+            ${escapeHtml(attachment.filename)}
+          </div>
+        </div>
+      `
+      : "";
 
     const html = `
       <div style="margin:0;padding:0;background-color:#f4f7fb;font-family:Arial,sans-serif;">
@@ -149,14 +209,8 @@ export async function POST(req: Request) {
                       ${htmlRows}
                     </table>
 
-                    <div style="margin-top:32px;">
-                      <p style="margin:0 0 12px;font-size:15px;font-weight:700;color:#0f243a;">
-                        Project Requirements
-                      </p>
-                      <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:20px;color:#475569;line-height:1.8;font-size:15px;white-space:pre-wrap;">
-                        ${escapeHtml(requirements || "-")}
-                      </div>
-                    </div>
+                    ${messageSection}
+                    ${htmlAttachmentSection}
                   </td>
                 </tr>
 
@@ -178,9 +232,10 @@ export async function POST(req: Request) {
       `ClinRT | ${formLabel} Received`,
       "",
       ...summaryRows.map(([label, value]) => `${label}: ${value || "-"}`),
-      "",
-      "Project Requirements",
-      requirements || "-",
+      ...(isEnquiryRequest
+        ? ["", "Your Message", message || "-"]
+        : []),
+      ...(attachment ? ["", "Uploaded File", attachment.filename] : []),
     ].join("\n");
 
     await sendEmail({
@@ -188,6 +243,7 @@ export async function POST(req: Request) {
       subject: `ClinRT | ${formLabel} Received`,
       html,
       text,
+      attachments: attachment ? [attachment] : undefined,
       replyTo: email || undefined,
     });
 
@@ -205,3 +261,4 @@ export async function POST(req: Request) {
     );
   }
 }
+

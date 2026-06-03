@@ -13,9 +13,13 @@ import {
 
 import {
   contactChannels,
+  contactDemoInterestOptions,
+  contactDemoTimelineOptions,
   contactHero,
   contactInfoBlock,
   contactMapBlock,
+  contactFileConstraints,
+  contactTouchEnquiryTypeOptions,
 } from "@/data";
 
 import PageTransition from "@/components/animations/PageTransition";
@@ -25,20 +29,32 @@ import SectionBadge from "@/components/ui/SectionBadge";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import Button from "@/components/ui/Button";
 
-const interestOptions = [
-  "Clinical Trial Management",
-  "EDC & Data Collection",
-  "Regulatory Workflow",
-  "Site Operations",
-  "Custom Enterprise Solution",
-];
+const enquiryTypeOptions = contactTouchEnquiryTypeOptions;
+const communityInterestOptions = contactDemoInterestOptions;
+const communityRegionOptions = contactDemoTimelineOptions;
 
-const timelineOptions = [
-  "Immediately",
-  "Within 1 Month",
-  "1 - 3 Months",
-  "Just Exploring",
-];
+const formMeta = {
+  touch: {
+    title: "Request a Demo",
+    helper:
+      "Share your details and our team will reach out shortly with demo information.",
+    submitLabel: "Request a Demo",
+    switchTitle: "Request a Demo",
+    switchDescription:
+      "Book a guided walkthrough or ask for more platform information.",
+    successMessage: "Thank you for your demo request!",
+  },
+  demo: {
+    title: "Join Our Community",
+    helper:
+      "Be part of our growing community and stay connected to product updates, events, and industry news.",
+    submitLabel: "Join Now",
+    switchTitle: "Join Our Community",
+    switchDescription:
+      "Stay connected with product updates, webinars, case studies, and other company news.",
+    successMessage: "Thank you for joining our community!",
+  },
+} as const;
 
 export default function ContactPage() {
   const [activeForm, setActiveForm] = useState<"touch" | "demo">("touch");
@@ -74,8 +90,8 @@ export default function ContactPage() {
 
       setMessage(
         type === "touch"
-          ? "Thank you for your request!"
-          : "Thank you for getting in touch!",
+          ? formMeta.touch.successMessage
+          : formMeta.demo.successMessage,
       );
       form.reset();
 
@@ -159,11 +175,12 @@ export default function ContactPage() {
                     </span>
 
                     <div>
-                      <p className="text-xl font-semibold">Request Demo</p>
+                      <p className="text-xl font-semibold">
+                        {formMeta.touch.switchTitle}
+                      </p>
 
                       <p className="mt-2 text-sm text-white/70">
-                        Book a guided walkthrough of iClinRT, its workflows, and
-                        the operating model behind it.
+                        {formMeta.touch.switchDescription}
                       </p>
                     </div>
                   </div>
@@ -187,11 +204,12 @@ export default function ContactPage() {
                     </span>
 
                     <div>
-                      <p className="text-xl font-semibold">Get in Touch</p>
+                      <p className="text-xl font-semibold">
+                        {formMeta.demo.switchTitle}
+                      </p>
 
                       <p className="mt-2 text-sm text-white/70">
-                        Reach out for support, partnerships, service questions,
-                        or a broader conversation with the team.
+                        {formMeta.demo.switchDescription}
                       </p>
                     </div>
                   </div>
@@ -218,7 +236,7 @@ export default function ContactPage() {
                     </p>
 
                     <h2 className="mt-2 text-3xl font-bold text-[#0f243a]">
-                      {activeForm === "touch" ? "Request Demo" : "Get in Touch"}
+                      {formMeta[activeForm].title}
                     </h2>
                   </div>
 
@@ -244,13 +262,17 @@ export default function ContactPage() {
                   </div>
                 )}
 
-                {/* TOUCH FORM */}
+                {/* ENQUIRY FORM */}
 
                 {activeForm === "touch" && (
                   <form
                     onSubmit={(e) => handleSubmit(e, "touch")}
                     className="mt-6 grid gap-5"
                   >
+                    <p className="text-sm leading-6 text-slate-600">
+                      {formMeta.touch.helper}
+                    </p>
+
                     <div className="grid gap-2 md:grid-cols-2">
                       <input
                         name="firstName"
@@ -278,37 +300,37 @@ export default function ContactPage() {
 
                       <input
                         name="phone"
-                        placeholder="Phone"
+                        placeholder="Phone Number"
                         className="rounded-2xl border p-4 outline-none"
                       />
                     </div>
 
                     <input
                       name="company"
-                      placeholder="Company"
+                      placeholder="Company Name"
                       required
                       className="rounded-2xl border p-4 outline-none"
                     />
 
                     <div className="grid gap-4 md:grid-cols-2">
                       <input
-                        name="role"
-                        placeholder="Your Role"
+                        name="designation"
+                        placeholder="Designation"
                         required
                         className="rounded-2xl border p-4 outline-none"
                       />
 
                       <select
-                        name="primaryInterest"
+                        name="enquiryType"
                         required
                         defaultValue=""
                         className="rounded-2xl border p-4 outline-none"
                       >
                         <option value="" disabled>
-                          Primary Interest
+                          Enquiry Type
                         </option>
 
-                        {interestOptions.map((option) => (
+                        {enquiryTypeOptions.map((option) => (
                           <option key={option} value={option}>
                             {option}
                           </option>
@@ -316,30 +338,34 @@ export default function ContactPage() {
                       </select>
                     </div>
 
-                    <select
-                      name="timeline"
-                      required
-                      defaultValue=""
-                      className="rounded-2xl border p-4 outline-none"
-                    >
-                      <option value="" disabled>
-                        Expected Timeline
-                      </option>
-
-                      {timelineOptions.map((option) => (
-                        <option key={option} value={option}>
-                          {option}
-                        </option>
-                      ))}
-                    </select>
-
                     <textarea
-                      name="requirements"
-                      placeholder="Let us know about your requirement"
+                      name="message"
+                      placeholder="Tell us how we can help..."
                       rows={5}
                       required
                       className="rounded-2xl border p-4 outline-none"
                     />
+
+                    <input
+                      name="sourceOfContact"
+                      placeholder="Source of Contact"
+                      className="rounded-2xl border p-4 outline-none"
+                    />
+
+                    <label className="grid gap-2 rounded-2xl border border-slate-200 p-4 text-sm text-slate-700">
+                      <span className="font-medium text-slate-900">
+                        Upload File (optional)
+                      </span>
+                      <input
+                        type="file"
+                        name="attachment"
+                        accept={contactFileConstraints.accept}
+                        className="block w-full text-sm text-slate-600 file:mr-4 file:rounded-full file:border-0 file:bg-[#0f243a] file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white"
+                      />
+                      <span className="text-xs text-slate-500">
+                        {contactFileConstraints.errorMessage}
+                      </span>
+                    </label>
 
                     <label className="flex items-start gap-3 rounded-2xl border border-slate-200 p-4 text-sm text-slate-700">
                       <input
@@ -350,9 +376,9 @@ export default function ContactPage() {
                       />
 
                       <span>
-                        I agree to be contacted about my demo request and
-                        understand my information will be handled according to
-                        the privacy policy.*
+                        I consent to ClinRT Global Services collecting and
+                        processing my details in accordance with its Privacy
+                        Policy.
                       </span>
                     </label>
 
@@ -361,18 +387,22 @@ export default function ContactPage() {
                       disabled={loading}
                       className="rounded-full bg-[#0f243a] px-6 py-4 text-sm font-semibold text-white transition hover:scale-[1.02]"
                     >
-                      {loading ? "Sending..." : "Request Demo"}
+                      {loading ? "Sending..." : formMeta.touch.submitLabel}
                     </button>
                   </form>
                 )}
 
-                {/* DEMO FORM */}
+                {/* COMMUNITY FORM */}
 
                 {activeForm === "demo" && (
                   <form
                     onSubmit={(e) => handleSubmit(e, "demo")}
                     className="mt-6 grid gap-5"
                   >
+                    <p className="text-sm leading-6 text-slate-600">
+                      {formMeta.demo.helper}
+                    </p>
+
                     <div className="grid gap-4 md:grid-cols-2">
                       <input
                         name="firstName"
@@ -393,75 +423,66 @@ export default function ContactPage() {
                       <input
                         type="email"
                         name="email"
-                        placeholder="Work Email"
+                        placeholder="Email"
                         required
-                        className="rounded-2xl border p-4 outline-none"
-                      />
-
-                      <input
-                        name="phone"
-                        placeholder="Phone"
                         className="rounded-2xl border p-4 outline-none"
                       />
                     </div>
 
                     <input
                       name="company"
-                      placeholder="Company"
+                      placeholder="Company Name"
                       required
                       className="rounded-2xl border p-4 outline-none"
                     />
 
                     <div className="grid gap-4 md:grid-cols-2">
                       <input
-                        name="role"
-                        placeholder="Your Role"
+                        name="designation"
+                        placeholder="Designation / Role"
                         required
                         className="rounded-2xl border p-4 outline-none"
                       />
-
-                      <select
-                        name="primaryInterest"
-                        required
-                        defaultValue=""
-                        className="rounded-2xl border p-4 outline-none"
-                      >
-                        <option value="" disabled>
-                          Primary Interest
-                        </option>
-
-                        {interestOptions.map((option) => (
-                          <option key={option} value={option}>
-                            {option}
-                          </option>
-                        ))}
-                      </select>
                     </div>
 
+                    <fieldset className="grid gap-3 rounded-2xl border border-slate-200 p-4">
+                      <legend className="px-1 text-sm font-medium text-slate-900">
+                        Areas of Interest
+                      </legend>
+
+                      <div className="grid gap-3 sm:grid-cols-2">
+                        {communityInterestOptions.map((option) => (
+                          <label
+                            key={option}
+                            className="flex items-center gap-3 rounded-xl border border-slate-200 px-3 py-2 text-sm text-slate-700"
+                          >
+                            <input
+                              type="checkbox"
+                              name="areasOfInterest"
+                              value={option}
+                              className="h-4 w-4 accent-[#0f243a]"
+                            />
+                            <span>{option}</span>
+                          </label>
+                        ))}
+                      </div>
+                    </fieldset>
+
                     <select
-                      name="timeline"
-                      required
+                      name="countryRegion"
                       defaultValue=""
                       className="rounded-2xl border p-4 outline-none"
                     >
                       <option value="" disabled>
-                        Expected Timeline
+                        Country / Region
                       </option>
 
-                      {timelineOptions.map((option) => (
+                      {communityRegionOptions.map((option) => (
                         <option key={option} value={option}>
                           {option}
                         </option>
                       ))}
                     </select>
-
-                    <textarea
-                      name="requirements"
-                      placeholder="Let us know about your requirement"
-                      rows={5}
-                      required
-                      className="rounded-2xl border p-4 outline-none"
-                    />
 
                     <label className="flex items-start gap-3 rounded-2xl border border-slate-200 p-4 text-sm text-slate-700">
                       <input
@@ -472,9 +493,8 @@ export default function ContactPage() {
                       />
 
                       <span>
-                        I agree to be contacted about my demo request and
-                        understand my information will be handled according to
-                        the privacy policy.*
+                        I agree to receive communications from ClinRT and
+                        accept the privacy policy.
                       </span>
                     </label>
 
@@ -483,7 +503,7 @@ export default function ContactPage() {
                       disabled={loading}
                       className="rounded-full bg-[#0f243a] px-6 py-4 text-sm font-semibold text-white transition hover:scale-[1.02]"
                     >
-                      {loading ? "Sending..." : "Get in Touch"}
+                      {loading ? "Sending..." : formMeta.demo.submitLabel}
                     </button>
                   </form>
                 )}

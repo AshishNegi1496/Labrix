@@ -31,12 +31,7 @@ export const footerData: FooterData = validateFooter(
       // { href: "/career", label: "Career" },
       { href: "/contact", label: "Contact" },
     ],
-    services: [
-      "Linkedin",
-      "Instagram",
-      "Facebook",
-      "Youtube",
-    ],
+    services: ["Linkedin"],
     hours: [
       { label: "Mon - Fri", value: "10:00AM - 07:00PM" },
       { label: "Saturday", value: "12:00AM - 05:00PM" },
@@ -45,4 +40,3 @@ export const footerData: FooterData = validateFooter(
     copyright: "Copyright 2026 ClinRT. All Rights Reserved.",
   }),
 );
-
