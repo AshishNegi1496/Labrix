@@ -66,7 +66,8 @@ export default function ContactPage() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const isSuccessMessage = message !== "" && message !== "Something went wrong";
-
+  const [touchMessage, setTouchMessage] = useState("");
+  const [demoMessage, setDemoMessage] = useState("");
   async function handleSubmit(
     e: React.FormEvent<HTMLFormElement>,
     type: "touch" | "demo",
@@ -76,7 +77,11 @@ export default function ContactPage() {
     const form = e.currentTarget;
 
     setLoading(true);
-    setMessage("");
+    if (type === "touch") {
+      setTouchMessage("");
+    } else {
+      setDemoMessage("");
+    }
 
     try {
       const formData = new FormData(form);
@@ -93,15 +98,24 @@ export default function ContactPage() {
         throw new Error(data.error || "Failed");
       }
 
-      setMessage(
+      const successMessage =
         type === "touch"
           ? formMeta.touch.successMessage
-          : formMeta.demo.successMessage,
-      );
+          : formMeta.demo.successMessage;
+      if (type === "touch") {
+        setTouchMessage(successMessage);
+      } else {
+        setDemoMessage(successMessage);
+      }
+
       form.reset();
     } catch (error) {
       console.error(error);
-      setMessage("Something went wrong");
+      if (type === "touch") {
+        setTouchMessage("Something went wrong");
+      } else {
+        setDemoMessage("Something went wrong");
+      }
     } finally {
       setLoading(false);
     }

@@ -98,12 +98,18 @@ export async function POST(req: Request) {
 });
     const body = await req.formData();
     const contactFormId = normalizeValue(body.get("contactFormId"));
-    const formType = normalizeValue(body.get("formType"));
-    const isEnquiryRequest = contactFormId === "touch";
-    const routeType: ContactRouteType = isEnquiryRequest ? "demo" : "touch";
-    const isRequestDemoForm = formType === "Request a Demo";
-    const formLabel =
-      isRequestDemoForm || isEnquiryRequest ? "Request a Demo" : "Get in Touch";
+
+const isTouchForm = contactFormId === "touch";
+const isDemoForm = contactFormId === "demo";
+
+const formLabel = isDemoForm
+  ? "Request a Demo"
+  : "Get in Touch";
+
+const routeType: ContactRouteType = isDemoForm
+  ? "demo"
+  : "touch";
+   
     const recipients = resolveRecipients(routeType);
 
     const firstName = normalizeValue(body.get("firstName"));
@@ -125,7 +131,7 @@ export async function POST(req: Request) {
       attachmentValue instanceof File && attachmentValue.size > 0
         ? await fileToAttachment(attachmentValue)
         : null;
-    const summaryRows: ReadonlyArray<readonly [string, string]> = isRequestDemoForm
+    const summaryRows: ReadonlyArray<readonly [string, string]> = isDemoForm
       ? [
           ["First Name", firstName],
           ["Last Name", lastName],
@@ -138,7 +144,7 @@ export async function POST(req: Request) {
           ["Lead Source", leadSource],
           ["Source Page", sourcePage],
         ]
-      : isEnquiryRequest
+      : isTouchForm
       ? [
           ["First Name", firstName],
           ["Last Name", lastName],
@@ -186,7 +192,7 @@ export async function POST(req: Request) {
   )
   .join("");
 
-    const messageSection = isRequestDemoForm || isEnquiryRequest
+    const messageSection = isDemoForm || isTouchForm
       ? `
         <div style="margin-top:32px;">
           <p style="margin:0 0 12px;font-size:15px;font-weight:700;color:#0f243a;">
@@ -437,7 +443,7 @@ export async function POST(req: Request) {
       `ClinRT | ${formLabel} Received`,
       "",
       ...summaryRows.map(([label, value]) => `${label}: ${value || "-"}`),
-      ...(isEnquiryRequest
+      ...(isTouchForm
         ? ["", "Your Message", message || "-"]
         : []),
       ...(attachment ? ["", "Uploaded File", attachment.filename] : []),
