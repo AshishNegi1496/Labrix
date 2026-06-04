@@ -98,9 +98,12 @@ export async function POST(req: Request) {
 });
     const body = await req.formData();
     const contactFormId = normalizeValue(body.get("contactFormId"));
+    const formType = normalizeValue(body.get("formType"));
     const isEnquiryRequest = contactFormId === "touch";
     const routeType: ContactRouteType = isEnquiryRequest ? "demo" : "touch";
-    const formLabel = isEnquiryRequest ? "Request a Demo" : "Get in Touch";
+    const isRequestDemoForm = formType === "Request a Demo";
+    const formLabel =
+      isRequestDemoForm || isEnquiryRequest ? "Request a Demo" : "Get in Touch";
     const recipients = resolveRecipients(routeType);
 
     const firstName = normalizeValue(body.get("firstName"));
@@ -110,8 +113,11 @@ export async function POST(req: Request) {
     const company = normalizeValue(body.get("company"));
     const designation = normalizeValue(body.get("designation"));
     const enquiryType = normalizeValue(body.get("enquiryType"));
+    const productInterest = normalizeValue(body.get("productInterest"));
+    const timeline = normalizeValue(body.get("timeline"));
     const message = normalizeValue(body.get("message"));
     const sourceOfContact = normalizeValue(body.get("sourceOfContact"));
+    const sourcePage = normalizeValue(body.get("sourcePage"));
     const countryRegion = normalizeValue(body.get("countryRegion"));
     const areasOfInterest = getMultiValue(body, "areasOfInterest");
     const attachmentValue = body.get("attachment");
@@ -119,8 +125,19 @@ export async function POST(req: Request) {
       attachmentValue instanceof File && attachmentValue.size > 0
         ? await fileToAttachment(attachmentValue)
         : null;
-
-    const summaryRows: ReadonlyArray<readonly [string, string]> = isEnquiryRequest
+    const summaryRows: ReadonlyArray<readonly [string, string]> = isRequestDemoForm
+      ? [
+          ["First Name", firstName],
+          ["Last Name", lastName],
+          ["Email Address", email],
+          ["Phone Number", phone],
+          ["Company", company],
+          ["Role", designation],
+          ["Primary Interest", productInterest],
+          ["Expected Timeline", timeline],
+          ["Source Page", sourcePage],
+        ]
+      : isEnquiryRequest
       ? [
           ["First Name", firstName],
           ["Last Name", lastName],
@@ -141,7 +158,6 @@ export async function POST(req: Request) {
           ["Areas of Interest", areasOfInterest.join(", ")],
           ["Country / Region", countryRegion],
         ];
-
     const htmlRows = summaryRows
       .map(
         ([label, value]) => `
@@ -157,7 +173,7 @@ export async function POST(req: Request) {
       )
       .join("");
 
-    const messageSection = isEnquiryRequest
+    const messageSection = isRequestDemoForm || isEnquiryRequest
       ? `
         <div style="margin-top:32px;">
           <p style="margin:0 0 12px;font-size:15px;font-weight:700;color:#0f243a;">
@@ -261,5 +277,7 @@ export async function POST(req: Request) {
     );
   }
 }
+
+
 
 

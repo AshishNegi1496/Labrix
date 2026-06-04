@@ -35,16 +35,6 @@ const communityRegionOptions = contactDemoTimelineOptions;
 
 const formMeta = {
   touch: {
-    title: "Request a Demo",
-    helper:
-      "Share your details and our team will reach out shortly with demo information.",
-    submitLabel: "Request a Demo",
-    switchTitle: "Request a Demo",
-    switchDescription:
-      "Book a guided walkthrough or ask for more platform information.",
-    successMessage: "Thank you for your demo request!",
-  },
-  demo: {
     title: "Get in Touch",
     helper:
       "Be part of our growing community and stay connected to product updates, events, and industry news.",
@@ -53,6 +43,16 @@ const formMeta = {
     switchDescription:
       "Stay connected with product updates, webinars, case studies, and other company news.",
     successMessage: "Thank you for joining our community!",
+  },
+  demo: {
+    title: "Request a Demo",
+    helper:
+      "Share your details and our team will reach out shortly with demo information.",
+    submitLabel: "Request a Demo",
+    switchTitle: "Request a Demo",
+    switchDescription:
+      "Book a guided walkthrough or ask for more platform information.",
+    successMessage: "Thank you for your demo request!",
   },
 } as const;
 
@@ -388,7 +388,7 @@ export default function ContactPage() {
                   </form>
                 )}
 
-                {/* COMMUNITY FORM */}
+                {/* Request a Demo form */}
 
                 {activeForm === "demo" && (
                   <form
@@ -398,6 +398,21 @@ export default function ContactPage() {
                     <p className="text-sm leading-6 text-slate-600">
                       {formMeta.demo.helper}
                     </p>
+
+                    <input
+                      type="text"
+                      name="_honey"
+                      className="hidden"
+                      tabIndex={-1}
+                      autoComplete="off"
+                    />
+                    <input
+                      type="hidden"
+                      name="contactFormId"
+                      value="demo"
+                    />
+                    <input type="hidden" name="formType" value="Request a Demo" />
+                    <input type="hidden" name="sourcePage" value="Contact Page" />
 
                     <div className="grid gap-4 md:grid-cols-2">
                       <input
@@ -419,66 +434,78 @@ export default function ContactPage() {
                       <input
                         type="email"
                         name="email"
-                        placeholder="Email"
+                        placeholder="Work Email"
                         required
                         className="rounded-2xl border p-4 outline-none"
                       />
-                    </div>
 
-                    <input
-                      name="company"
-                      placeholder="Company Name"
-                      required
-                      className="rounded-2xl border p-4 outline-none"
-                    />
+                      <input
+                        type="tel"
+                        name="phone"
+                        placeholder="Phone Number"
+                        className="rounded-2xl border p-4 outline-none"
+                      />
+                    </div>
 
                     <div className="grid gap-4 md:grid-cols-2">
                       <input
+                        name="company"
+                        placeholder="Company"
+                        required
+                        className="rounded-2xl border p-4 outline-none"
+                      />
+
+                      <input
                         name="designation"
-                        placeholder="Designation / Role"
+                        placeholder="Role"
                         required
                         className="rounded-2xl border p-4 outline-none"
                       />
                     </div>
 
-                    <fieldset className="grid gap-3 rounded-2xl border border-slate-200 p-4">
-                      <legend className="px-1 text-sm font-medium text-slate-900">
-                        Areas of Interest
-                      </legend>
-
-                      <div className="grid gap-3 sm:grid-cols-2">
-                        {communityInterestOptions.map((option) => (
-                          <label
-                            key={option}
-                            className="flex items-center gap-3 rounded-xl border border-slate-200 px-3 py-2 text-sm text-slate-700"
-                          >
-                            <input
-                              type="checkbox"
-                              name="areasOfInterest"
-                              value={option}
-                              className="h-4 w-4 accent-[#0f243a]"
-                            />
-                            <span>{option}</span>
-                          </label>
-                        ))}
-                      </div>
-                    </fieldset>
-
-                    <select
-                      name="countryRegion"
-                      defaultValue=""
-                      className="rounded-2xl border p-4 outline-none"
-                    >
-                      <option value="" disabled>
-                        Country / Region
-                      </option>
-
-                      {communityRegionOptions.map((option) => (
-                        <option key={option} value={option}>
-                          {option}
+                    <div className="grid gap-4 md:grid-cols-2">
+                      <select
+                        name="productInterest"
+                        required
+                        defaultValue=""
+                        className="rounded-2xl border p-4 outline-none"
+                      >
+                        <option value="" disabled>
+                          Select focus area
                         </option>
-                      ))}
-                    </select>
+
+                        {communityInterestOptions.map((option) => (
+                          <option key={option} value={option}>
+                            {option}
+                          </option>
+                        ))}
+                      </select>
+
+                      <select
+                        name="timeline"
+                        required
+                        defaultValue=""
+                        className="rounded-2xl border p-4 outline-none"
+                      >
+                        <option value="" disabled>
+                          Select timeline
+                        </option>
+
+                        {communityRegionOptions.map((option) => (
+                          <option key={option} value={option}>
+                            {option}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
+                    <textarea
+                      name="message"
+                      placeholder="Tell us about your study type, current tools, timelines, or the workflows you want to see."
+                      rows={5}
+                      required
+                      className="min-h-[140px] resize-none rounded-2xl border p-4 outline-none"
+                    />
 
                     <label className="flex items-start gap-3 rounded-2xl border border-slate-200 p-4 text-sm text-slate-700">
                       <input
@@ -489,8 +516,9 @@ export default function ContactPage() {
                       />
 
                       <span>
-                        I agree to receive communications from ClinRT and
-                        accept the privacy policy.
+                        I agree to be contacted about my demo request and
+                        understand my information will be handled according to
+                        the privacy policy.
                       </span>
                     </label>
 
