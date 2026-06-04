@@ -261,24 +261,29 @@ export default function ContactPage() {
                   </span>
                 </div>
 
-                {message && (
+                {/* ENQUIRY FORM */}
+                {touchMessage && (
                   <div
                     className={`mt-5 flex items-center gap-3 rounded-2xl px-4 py-3 text-sm ${
-                      isSuccessMessage
+                      touchMessage !== "Something went wrong"
                         ? "border border-emerald-200 bg-emerald-50 text-emerald-800"
                         : "border border-rose-200 bg-rose-50 text-rose-700"
                     }`}
                   >
-                    {isSuccessMessage ? (
-                      <FiCheckCircle className="h-5 w-5 shrink-0 text-emerald-600" />
-                    ) : null}
-
-                    <span>{message}</span>
+                    <span>{touchMessage}</span>
                   </div>
                 )}
-
-                {/* ENQUIRY FORM */}
-
+                {demoMessage && (
+                  <div
+                    className={`mt-5 flex items-center gap-3 rounded-2xl px-4 py-3 text-sm ${
+                      demoMessage !== "Something went wrong"
+                        ? "border border-emerald-200 bg-emerald-50 text-emerald-800"
+                        : "border border-rose-200 bg-rose-50 text-rose-700"
+                    }`}
+                  >
+                    <span>{demoMessage}</span>
+                  </div>
+                )}
                 {activeForm === "touch" && (
                   <form
                     onSubmit={(e) => handleSubmit(e, "touch")}
