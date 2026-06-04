@@ -159,20 +159,32 @@ export async function POST(req: Request) {
           ["Areas of Interest", areasOfInterest.join(", ")],
           ["Country / Region", countryRegion],
         ];
-    const htmlRows = summaryRows
-      .map(
-        ([label, value]) => `
-          <tr>
-            <td style="padding:14px 0;border-bottom:1px solid #e5e7eb;width:220px;font-weight:600;color:#0f243a;">
-              ${escapeHtml(label)}
-            </td>
-            <td style="padding:14px 0;border-bottom:1px solid #e5e7eb;color:#475569;">
-              ${escapeHtml(value || "-")}
-            </td>
-          </tr>
-        `,
-      )
-      .join("");
+   const htmlRows = summaryRows
+  .map(
+    ([label, value]) => `
+      <tr>
+        <td style="
+          padding:16px 20px;
+          width:220px;
+          background:#fafbff;
+          border-bottom:1px solid #e2e8f0;
+          font-weight:600;
+          color:#334155;
+        ">
+          ${escapeHtml(label)}
+        </td>
+
+        <td style="
+          padding:16px 20px;
+          border-bottom:1px solid #e2e8f0;
+          color:#0f172a;
+        ">
+          ${escapeHtml(value || "-")}
+        </td>
+      </tr>
+    `,
+  )
+  .join("");
 
     const messageSection = isRequestDemoForm || isEnquiryRequest
       ? `
@@ -201,49 +213,225 @@ export async function POST(req: Request) {
       : "";
 
     const html = `
-      <div style="margin:0;padding:0;background-color:#f4f7fb;font-family:Arial,sans-serif;">
-        <table width="100%" cellpadding="0" cellspacing="0" style="padding:40px 0;">
+<div style="margin:0;padding:40px 0;background:#f4f6fb;font-family:'Segoe UI',Arial,sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0">
+    <tr>
+      <td align="center">
+
+        <table width="700" cellpadding="0" cellspacing="0"
+          style="
+            background:#ffffff;
+            border-radius:20px;
+            overflow:hidden;
+            box-shadow:0 8px 24px rgba(0,0,0,0.08);
+          ">
+
+          <!-- Header -->
           <tr>
-            <td align="center">
-              <table width="680" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:18px;overflow:hidden;border:1px solid #e5e7eb;">
+            <td
+              style="
+                background:#6466ae;
+                padding:36px 40px;
+                color:#ffffff;
+              "
+            >
+              <table width="100%">
                 <tr>
-                  <td style="background:#0f243a;padding:32px 40px;color:#ffffff;">
-                    <p style="margin:0;font-size:12px;letter-spacing:2px;text-transform:uppercase;opacity:0.75;">
+                  <td>
+                    <div style="
+                      font-size:12px;
+                      text-transform:uppercase;
+                      letter-spacing:2px;
+                      opacity:.9;
+                    ">
                       ClinRT Global
-                    </p>
-                    <h1 style="margin:12px 0 0;font-size:28px;font-weight:700;line-height:1.3;">
-                      ${escapeHtml(formLabel)} Received
+                    </div>
+
+                    <h1 style="
+                      margin:10px 0 0;
+                      font-size:28px;
+                      font-weight:700;
+                    ">
+                      ${escapeHtml(formLabel)}
                     </h1>
-                    <p style="margin:12px 0 0;font-size:15px;line-height:1.7;color:rgba(255,255,255,0.78);">
-                      A new enquiry has been submitted through the ClinRT website contact portal.
+
+                    <p style="
+                      margin:10px 0 0;
+                      font-size:15px;
+                      line-height:1.6;
+                      opacity:.9;
+                    ">
+                      A new submission has been received from the website.
                     </p>
                   </td>
-                </tr>
 
-                <tr>
-                  <td style="padding:36px 40px;">
-                    <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
-                      ${htmlRows}
-                    </table>
-
-                    ${messageSection}
-                    ${htmlAttachmentSection}
-                  </td>
-                </tr>
-
-                <tr>
-                  <td style="padding:24px 40px;background:#f8fafc;border-top:1px solid #e5e7eb;">
-                    <p style="margin:0;font-size:13px;color:#64748b;line-height:1.7;">
-                      This notification was automatically generated from the ClinRT Global website contact form.
-                    </p>
+                  <td align="right" valign="top">
+                    <span style="
+                      display:inline-block;
+                      background:rgba(255,255,255,.18);
+                      padding:8px 14px;
+                      border-radius:999px;
+                      font-size:12px;
+                      font-weight:600;
+                    ">
+                      NEW LEAD
+                    </span>
                   </td>
                 </tr>
               </table>
             </td>
           </tr>
+
+          <!-- Summary -->
+          <tr>
+            <td style="padding:35px 40px 10px;">
+
+              <div style="
+                font-size:18px;
+                font-weight:700;
+                color:#1e293b;
+                margin-bottom:20px;
+              ">
+                Contact Information
+              </div>
+
+              <table width="100%" cellpadding="0" cellspacing="0"
+                style="
+                  border:1px solid #e2e8f0;
+                  border-radius:14px;
+                  overflow:hidden;
+                ">
+                ${htmlRows}
+              </table>
+
+            </td>
+          </tr>
+
+          ${
+            messageSection
+              ? `
+          <tr>
+            <td style="padding:20px 40px 0;">
+              <div style="
+                border-left:4px solid #6466ae;
+                background:#f8f9ff;
+                padding:22px;
+                border-radius:12px;
+              ">
+                <div style="
+                  font-size:16px;
+                  font-weight:700;
+                  color:#1e293b;
+                  margin-bottom:12px;
+                ">
+                  Message
+                </div>
+
+                <div style="
+                  color:#475569;
+                  line-height:1.8;
+                  white-space:pre-wrap;
+                  font-size:15px;
+                ">
+                  ${escapeHtml(message || "-")}
+                </div>
+              </div>
+            </td>
+          </tr>
+          `
+              : ""
+          }
+
+          ${
+            attachment
+              ? `
+          <tr>
+            <td style="padding:20px 40px 0;">
+              <div style="
+                background:#f8fafc;
+                border:1px solid #e2e8f0;
+                border-radius:12px;
+                padding:18px;
+              ">
+                <div style="
+                  font-size:14px;
+                  font-weight:700;
+                  color:#1e293b;
+                  margin-bottom:6px;
+                ">
+                  Attachment
+                </div>
+
+                <div style="
+                  color:#6466ae;
+                  font-weight:600;
+                ">
+                  📎 ${escapeHtml(attachment.filename)}
+                </div>
+              </div>
+            </td>
+          </tr>
+          `
+              : ""
+          }
+
+          <!-- Meta -->
+          <tr>
+            <td style="padding:30px 40px;">
+              <table width="100%">
+                <tr>
+                  <td style="
+                    background:#f8fafc;
+                    border:1px solid #e2e8f0;
+                    border-radius:12px;
+                    padding:16px;
+                  ">
+                    <div style="
+                      color:#64748b;
+                      font-size:13px;
+                    ">
+                      Submitted At
+                    </div>
+
+                    <div style="
+                      margin-top:4px;
+                      font-size:14px;
+                      font-weight:600;
+                      color:#1e293b;
+                    ">
+                      ${new Date().toLocaleString()}
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="
+              background:#f8fafc;
+              border-top:1px solid #e2e8f0;
+              padding:24px 40px;
+            ">
+              <div style="
+                color:#64748b;
+                font-size:13px;
+                line-height:1.7;
+              ">
+                This email was automatically generated from the
+                <strong>ClinRT Global Website Contact Form</strong>.
+              </div>
+            </td>
+          </tr>
+
         </table>
-      </div>
-    `;
+
+      </td>
+    </tr>
+  </table>
+</div>
+`;
 
     const text = [
       `ClinRT | ${formLabel} Received`,

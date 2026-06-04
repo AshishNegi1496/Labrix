@@ -45,7 +45,7 @@ const formMeta = {
     submitLabel: "Submit",
     switchTitle: "Get in Touch",
     switchDescription:
-      "Stay connected with product updates, webinars, case studies, and other company news.",
+      "  Whether you are exploring, evaluating, or ready to begin, we are just a message away. Share your details and our team will reach out shortly.",
     successMessage:
       "Thanks for contacting us, our team will get back to you within 24 to 48 hours.",
   },
@@ -65,8 +65,7 @@ export default function ContactPage() {
   const [activeForm, setActiveForm] = useState<"touch" | "demo">("touch");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
-  const isSuccessMessage =
-    message !== "" && message !== "Something went wrong";
+  const isSuccessMessage = message !== "" && message !== "Something went wrong";
 
   async function handleSubmit(
     e: React.FormEvent<HTMLFormElement>,
@@ -348,21 +347,21 @@ export default function ContactPage() {
                       className="rounded-2xl border p-4 outline-none"
                     />
 
-                      <select
-                        name="sourceOfContact"
-                        defaultValue=""
-                        className="rounded-2xl border p-4 outline-none"
-                      >
-                        <option value="" disabled>
-                          Source of Contact
-                        </option>
+                    <select
+                      name="sourceOfContact"
+                      defaultValue=""
+                      className="rounded-2xl border p-4 outline-none"
+                    >
+                      <option value="" disabled>
+                        Source of Contact
+                      </option>
 
-                        {sourceOfContactOptions.map((option) => (
-                          <option key={option} value={option}>
-                            {option}
-                          </option>
-                        ))}
-                      </select>
+                      {sourceOfContactOptions.map((option) => (
+                        <option key={option} value={option}>
+                          {option}
+                        </option>
+                      ))}
+                    </select>
 
                     <label className="grid gap-2 rounded-2xl border border-slate-200 p-4 text-sm text-slate-700">
                       <span className="font-medium text-slate-900">
@@ -422,13 +421,17 @@ export default function ContactPage() {
                       tabIndex={-1}
                       autoComplete="off"
                     />
+                    <input type="hidden" name="contactFormId" value="demo" />
                     <input
                       type="hidden"
-                      name="contactFormId"
-                      value="demo"
+                      name="formType"
+                      value="Request a Demo"
                     />
-                    <input type="hidden" name="formType" value="Request a Demo" />
-                    <input type="hidden" name="sourcePage" value="Contact Page" />
+                    <input
+                      type="hidden"
+                      name="sourcePage"
+                      value="Contact Page"
+                    />
 
                     <div className="grid gap-4 md:grid-cols-2">
                       <input
