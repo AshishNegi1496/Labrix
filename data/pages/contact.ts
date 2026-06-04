@@ -63,19 +63,54 @@ export const contactDemoInterestOptions = deepFreeze([
   "All",
 ] as const);
 
-export const contactDemoTimelineOptions = deepFreeze([
+export const contactDemoCountryOptions = deepFreeze([
   "India",
-  "North America",
-  "Europe",
-  "Middle East",
-  "Asia Pacific",
+  "United States",
+  "United Kingdom",
+  "Canada",
+  "Australia",
+  "Germany",
+  "France",
+  "United Arab Emirates",
+  "Singapore",
   "Other",
+] as const);
+
+export const contactDemoTimelineOptions = deepFreeze([
+  "Immediately",
+  "Within 1 month",
+  "1 to 3 months",
+  "3 to 6 months",
+  "6 months or more",
+  "Not sure yet",
 ] as const);
 
 export const contactTouchEnquiryTypeOptions = deepFreeze([
   "Enquiry",
   "Support",
   "Careers",
+  "Other",
+] as const);
+
+export const contactSourceOfContactOptions = deepFreeze([
+  "Website",
+  "Google Search",
+  "LinkedIn",
+  "Referral",
+  "Event / Webinar",
+  "Email",
+  "Existing Client",
+  "Other",
+] as const);
+
+export const contactLeadSourceOptions = deepFreeze([
+  "Website",
+  "Google Search",
+  "LinkedIn",
+  "Referral",
+  "Event / Webinar",
+  "Email Campaign",
+  "Advertisement",
   "Other",
 ] as const);
 

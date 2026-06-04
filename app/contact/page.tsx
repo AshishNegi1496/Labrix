@@ -13,13 +13,15 @@ import {
 
 import {
   contactChannels,
-  contactDemoInterestOptions,
+  contactDemoCountryOptions,
   contactDemoTimelineOptions,
   contactHero,
   contactInfoBlock,
   contactMapBlock,
   contactFileConstraints,
   contactTouchEnquiryTypeOptions,
+  contactLeadSourceOptions,
+  contactSourceOfContactOptions,
 } from "@/data";
 
 import PageTransition from "@/components/animations/PageTransition";
@@ -30,19 +32,22 @@ import ScrollReveal from "@/components/animations/ScrollReveal";
 import Button from "@/components/ui/Button";
 
 const enquiryTypeOptions = contactTouchEnquiryTypeOptions;
-const communityInterestOptions = contactDemoInterestOptions;
-const communityRegionOptions = contactDemoTimelineOptions;
+const communityCountryOptions = contactDemoCountryOptions;
+const communityTimelineOptions = contactDemoTimelineOptions;
+const sourceOfContactOptions = contactSourceOfContactOptions;
+const leadSourceOptions = contactLeadSourceOptions;
 
 const formMeta = {
   touch: {
     title: "Get in Touch",
     helper:
-      "Be part of our growing community and stay connected to product updates, events, and industry news.",
-    submitLabel: "Join Now",
+      "Whether you are exploring, evaluating, or ready to begin, we are just a message away. Share your details and our team will reach out shortly.",
+    submitLabel: "Submit",
     switchTitle: "Get in Touch",
     switchDescription:
       "Stay connected with product updates, webinars, case studies, and other company news.",
-    successMessage: "Thank you for joining our community!",
+    successMessage:
+      "Thanks for contacting us, our team will get back to you within 24 to 48 hours.",
   },
   demo: {
     title: "Request a Demo",
@@ -60,7 +65,8 @@ export default function ContactPage() {
   const [activeForm, setActiveForm] = useState<"touch" | "demo">("touch");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
-  const isSuccessMessage = message.startsWith("Thank you");
+  const isSuccessMessage =
+    message !== "" && message !== "Something went wrong";
 
   async function handleSubmit(
     e: React.FormEvent<HTMLFormElement>,
@@ -342,11 +348,21 @@ export default function ContactPage() {
                       className="rounded-2xl border p-4 outline-none"
                     />
 
-                    <input
-                      name="sourceOfContact"
-                      placeholder="Source of Contact"
-                      className="rounded-2xl border p-4 outline-none"
-                    />
+                      <select
+                        name="sourceOfContact"
+                        defaultValue=""
+                        className="rounded-2xl border p-4 outline-none"
+                      >
+                        <option value="" disabled>
+                          Source of Contact
+                        </option>
+
+                        {sourceOfContactOptions.map((option) => (
+                          <option key={option} value={option}>
+                            {option}
+                          </option>
+                        ))}
+                      </select>
 
                     <label className="grid gap-2 rounded-2xl border border-slate-200 p-4 text-sm text-slate-700">
                       <span className="font-medium text-slate-900">
@@ -465,16 +481,16 @@ export default function ContactPage() {
 
                     <div className="grid gap-4 md:grid-cols-2">
                       <select
-                        name="productInterest"
+                        name="countryRegion"
                         required
                         defaultValue=""
                         className="rounded-2xl border p-4 outline-none"
                       >
                         <option value="" disabled>
-                          Select focus area
+                          Country
                         </option>
 
-                        {communityInterestOptions.map((option) => (
+                        {communityCountryOptions.map((option) => (
                           <option key={option} value={option}>
                             {option}
                           </option>
@@ -488,10 +504,10 @@ export default function ContactPage() {
                         className="rounded-2xl border p-4 outline-none"
                       >
                         <option value="" disabled>
-                          Select timeline
+                          Select Timeline
                         </option>
 
-                        {communityRegionOptions.map((option) => (
+                        {communityTimelineOptions.map((option) => (
                           <option key={option} value={option}>
                             {option}
                           </option>
@@ -506,6 +522,22 @@ export default function ContactPage() {
                       required
                       className="min-h-[140px] resize-none rounded-2xl border p-4 outline-none"
                     />
+
+                    <select
+                      name="leadSource"
+                      defaultValue=""
+                      className="rounded-2xl border p-4 outline-none"
+                    >
+                      <option value="" disabled>
+                        Lead Source
+                      </option>
+
+                      {leadSourceOptions.map((option) => (
+                        <option key={option} value={option}>
+                          {option}
+                        </option>
+                      ))}
+                    </select>
 
                     <label className="flex items-start gap-3 rounded-2xl border border-slate-200 p-4 text-sm text-slate-700">
                       <input

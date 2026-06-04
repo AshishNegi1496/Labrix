@@ -113,12 +113,12 @@ export async function POST(req: Request) {
     const company = normalizeValue(body.get("company"));
     const designation = normalizeValue(body.get("designation"));
     const enquiryType = normalizeValue(body.get("enquiryType"));
-    const productInterest = normalizeValue(body.get("productInterest"));
+    const countryRegion = normalizeValue(body.get("countryRegion"));
     const timeline = normalizeValue(body.get("timeline"));
     const message = normalizeValue(body.get("message"));
     const sourceOfContact = normalizeValue(body.get("sourceOfContact"));
+    const leadSource = normalizeValue(body.get("leadSource"));
     const sourcePage = normalizeValue(body.get("sourcePage"));
-    const countryRegion = normalizeValue(body.get("countryRegion"));
     const areasOfInterest = getMultiValue(body, "areasOfInterest");
     const attachmentValue = body.get("attachment");
     const attachment =
@@ -133,8 +133,9 @@ export async function POST(req: Request) {
           ["Phone Number", phone],
           ["Company", company],
           ["Role", designation],
-          ["Primary Interest", productInterest],
+          ["Country / Region", countryRegion],
           ["Expected Timeline", timeline],
+          ["Lead Source", leadSource],
           ["Source Page", sourcePage],
         ]
       : isEnquiryRequest
@@ -277,6 +278,8 @@ export async function POST(req: Request) {
     );
   }
 }
+
+
 
 
 
