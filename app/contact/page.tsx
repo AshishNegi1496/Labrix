@@ -176,10 +176,7 @@ export default function ContactPage() {
               {/* SWITCH */}
 
               <button
-                onClick={() => {
-                  setActiveForm("touch");
-                  setDemoMessage("");
-                }}
+                onClick={() => setActiveForm("touch")}
                 className={`w-full rounded-3xl border p-5 text-left transition ${
                   activeForm === "touch"
                     ? "border-white/30 bg-white/20"
@@ -208,10 +205,7 @@ export default function ContactPage() {
               </button>
 
               <button
-                onClick={() => {
-                  setActiveForm("demo");
-                  setTouchMessage("");
-                }}
+                onClick={() => setActiveForm("demo")}
                 className={`w-full rounded-3xl border p-5 text-left transition ${
                   activeForm === "demo"
                     ? "border-white/30 bg-white/20"
