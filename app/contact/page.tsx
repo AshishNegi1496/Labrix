@@ -176,7 +176,10 @@ export default function ContactPage() {
               {/* SWITCH */}
 
               <button
-                onClick={() => setActiveForm("touch")}
+                onClick={() => {
+                  setActiveForm("touch");
+                  setDemoMessage("");
+                }}
                 className={`w-full rounded-3xl border p-5 text-left transition ${
                   activeForm === "touch"
                     ? "border-white/30 bg-white/20"
@@ -205,7 +208,10 @@ export default function ContactPage() {
               </button>
 
               <button
-                onClick={() => setActiveForm("demo")}
+                onClick={() => {
+                  setActiveForm("demo");
+                  setTouchMessage("");
+                }}
                 className={`w-full rounded-3xl border p-5 text-left transition ${
                   activeForm === "demo"
                     ? "border-white/30 bg-white/20"
@@ -262,7 +268,7 @@ export default function ContactPage() {
                 </div>
 
                 {/* ENQUIRY FORM */}
-                {touchMessage && (
+                {activeForm === "touch" && touchMessage && (
                   <div
                     className={`mt-5 flex items-center gap-3 rounded-2xl px-4 py-3 text-sm ${
                       touchMessage !== "Something went wrong"
@@ -273,7 +279,7 @@ export default function ContactPage() {
                     <span>{touchMessage}</span>
                   </div>
                 )}
-                {demoMessage && (
+                {activeForm === "demo" && demoMessage && (
                   <div
                     className={`mt-5 flex items-center gap-3 rounded-2xl px-4 py-3 text-sm ${
                       demoMessage !== "Something went wrong"
