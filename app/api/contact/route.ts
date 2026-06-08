@@ -103,8 +103,8 @@ const isTouchForm = contactFormId === "touch";
 const isDemoForm = contactFormId === "demo";
 
 const formLabel = isDemoForm
-  ? "Request a Demo"
-  : "Get in Touch";
+  ? "Request for a system demo recieved"
+  : "A new enquiry message is recieved from client";
 
 const routeType: ContactRouteType = isDemoForm
   ? "demo"
@@ -244,45 +244,20 @@ const routeType: ContactRouteType = isDemoForm
               <table width="100%">
                 <tr>
                   <td>
-                    <div style="
-                      font-size:12px;
-                      text-transform:uppercase;
-                      letter-spacing:2px;
-                      opacity:.9;
-                    ">
-                      ClinRT Global
-                    </div>
+                  
 
-                    <h1 style="
+                    <h3 style="
                       margin:10px 0 0;
                       font-size:28px;
                       font-weight:700;
                     ">
                       ${escapeHtml(formLabel)}
-                    </h1>
+                    </h3>
 
-                    <p style="
-                      margin:10px 0 0;
-                      font-size:15px;
-                      line-height:1.6;
-                      opacity:.9;
-                    ">
-                      A new submission has been received from the website.
-                    </p>
+                    
                   </td>
 
-                  <td align="right" valign="top">
-                    <span style="
-                      display:inline-block;
-                      background:rgba(255,255,255,.18);
-                      padding:8px 14px;
-                      border-radius:999px;
-                      font-size:12px;
-                      font-weight:600;
-                    ">
-                      NEW LEAD
-                    </span>
-                  </td>
+             
                 </tr>
               </table>
             </td>
